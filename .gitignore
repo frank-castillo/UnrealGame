@@ -14,8 +14,10 @@
 *.so
 *.dylib
 *.dll
+
 # Don't ignore Wwise .dll and .lib files as these are needed for compiling
 #!Plugins/Wwise/**/*.dll
+Plugins/Wwise/**/*.dll
 
 # Fortran module files
 *.mod
@@ -25,7 +27,9 @@
 *.la
 *.a
 *.lib
+
 #!Plugins/Wwise/**/*.lib
+Plugins/Wwise/**/*.lib
 
 # Executables
 *.exe
@@ -68,6 +72,10 @@ Intermediate/*
 DerivedDataCache/*
 
 # Wwise
+Plugins/Wwise/Intermediate/*
+Plugins/Wwise/**/
+Plugins/Wwise/**/
+
 .backup*
 .cache*
 *.akd
