@@ -71,6 +71,8 @@ Intermediate/*
 # Cache files for the editor to use
 DerivedDataCache/*
 
+Binaries/*
+
 # Wwise
 Plugins/Wwise/Intermediate/*
 Plugins/Wwise/Binaries/Win64/*.dll
