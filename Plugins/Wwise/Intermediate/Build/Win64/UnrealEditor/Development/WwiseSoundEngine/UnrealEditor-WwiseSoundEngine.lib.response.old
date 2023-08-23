@@ -1,0 +1,12 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-WwiseSoundEngine.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"E:\zFrank\UnrealGame\Intermediate\Build\Win64\SurvivalGameEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseSoundEngine\Module.WwiseSoundEngine.cpp.obj"
+"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseSoundEngine\Default.rc2.res"
+/OUT:"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseSoundEngine\UnrealEditor-WwiseSoundEngine.lib"
