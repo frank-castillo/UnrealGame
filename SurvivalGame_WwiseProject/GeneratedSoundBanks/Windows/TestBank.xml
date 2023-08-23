@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="145">
+	<SoundBanks>
+		<SoundBank Id="3291379323" Type="User" GUID="{2D92AE94-0755-4201-A775-E585E898812E}" Language="SFX" Hash="{85315035-A6C7-207D-1494-F8A97733ED9B}">
+			<ObjectPath>\SoundBanks\Default Work Unit\TestBank</ObjectPath>
+			<ShortName>TestBank</ShortName>
+			<Path>TestBank.bnk</Path>
+			<Media>
+				<File Id="972576954" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>3 - Judgement.wav</ShortName>
+					<CachePath>SFX/3 - Judgement_D79FB2B7.wem</CachePath>
+				</File>
+			</Media>
+			<Events>
+				<Event Id="2872770759" Name="Play_TestMusic" ObjectPath="\Events\Default Work Unit\Play_TestMusic" GUID="{9BF1FA78-A9AF-435E-B6F5-15BD9AF08535}" DurationType="Infinite">
+					<MediaRefs>
+						<MediaRef Id="972576954"/>
+					</MediaRefs>
+				</Event>
+			</Events>
+		</SoundBank>
+	</SoundBanks>
+	<FileHash>{9B04FF1F-19A7-A885-430B-E7B162A6C188}</FileHash>
+</SoundBanksInfo>

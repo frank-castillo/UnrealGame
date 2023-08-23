@@ -1,6 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{68716D04-D25B-4811-B7B1-936C8093DDE9}" SchemaVersion="110">
 	<InteractiveMusic>
-		<WorkUnit Name="Default Work Unit" ID="{68716D04-D25B-4811-B7B1-936C8093DDE9}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{68716D04-D25B-4811-B7B1-936C8093DDE9}" PersistMode="Standalone">
+			<ChildrenList>
+				<MusicPlaylistContainer Name="MusicTest" ID="{C9B245D2-63DE-4E8F-AB01-AEC3D59E4081}" ShortID="982002220">
+					<PropertyList>
+						<Property Name="Tempo" Type="Real64" Value="100"/>
+					</PropertyList>
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{1B82D659-3EAE-4E5B-AD13-E48700295C05}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{882C04B8-B0DD-4064-B808-1F373B643D82}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<MusicSegment Name="Judgement" ID="{7745DF8E-4EBD-45BD-96BB-D6A5F45D23DF}" ShortID="810855950">
+							<PropertyList>
+								<Property Name="EndPosition" Type="Real64" Value="134400"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{1B82D659-3EAE-4E5B-AD13-E48700295C05}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{882C04B8-B0DD-4064-B808-1F373B643D82}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<MusicTrack Name="3 - Judgement" ID="{6641BC56-60F1-4DF9-9D3E-E4BF8547A7F1}" ShortID="63251997">
+									<ReferenceList>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{882C04B8-B0DD-4064-B808-1F373B643D82}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="3 - Judgement" ID="{9B174121-737A-4D44-8081-FE1B05F6AE75}">
+											<Language>SFX</Language>
+											<AudioFile>3 - Judgement.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="972576954"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<TransitionList>
+										<MusicTransition Name="Root" ID="{61DE7C99-C672-42AE-8718-06C087887205}">
+											<PropertyList>
+												<Property Name="IsFolder" Type="bool" Value="True"/>
+											</PropertyList>
+											<TransitionInfo/>
+										</MusicTransition>
+									</TransitionList>
+									<ObjectLists>
+										<ObjectList Name="Sequences">
+											<Reference>
+												<Local>
+													<MusicTrackSequence Name="" ID="{BE5CF99F-39EB-4353-9C11-916907A8CE31}">
+														<ObjectLists>
+															<ObjectList Name="Clips">
+																<Reference>
+																	<Local>
+																		<MusicClip Name="3 - Judgement" ID="{15FD9CAA-6753-4740-9DCC-BAB121E59186}">
+																			<PropertyList>
+																				<Property Name="EndTrimOffset" Type="Real64" Value="132000"/>
+																				<Property Name="FadeInMode" Type="int16" Value="0"/>
+																				<Property Name="FadeOutMode" Type="int16" Value="0"/>
+																			</PropertyList>
+																			<AudioSourceRef Name="3 - Judgement" ID="{9B174121-737A-4D44-8081-FE1B05F6AE75}"/>
+																		</MusicClip>
+																	</Local>
+																</Reference>
+															</ObjectList>
+														</ObjectLists>
+													</MusicTrackSequence>
+												</Local>
+											</Reference>
+										</ObjectList>
+									</ObjectLists>
+								</MusicTrack>
+							</ChildrenList>
+							<ObjectLists>
+								<ObjectList Name="Cues">
+									<Reference>
+										<Local>
+											<MusicCue Name="Entry Cue" ID="{9BBA7744-1141-4763-B8D1-8133BE938D37}"/>
+										</Local>
+									</Reference>
+									<Reference>
+										<Local>
+											<MusicCue Name="Exit Cue" ID="{765EE9F0-0144-4597-A480-7E5440FFD512}">
+												<PropertyList>
+													<Property Name="CueType" Type="int16" Value="1"/>
+													<Property Name="TimeMs" Type="Real64" Value="132000"/>
+												</PropertyList>
+											</MusicCue>
+										</Local>
+									</Reference>
+								</ObjectList>
+							</ObjectLists>
+						</MusicSegment>
+					</ChildrenList>
+					<TransitionList>
+						<MusicTransition Name="Root" ID="{28578510-3E66-4DB5-91B4-B480B8358517}">
+							<PropertyList>
+								<Property Name="IsFolder" Type="bool" Value="True"/>
+							</PropertyList>
+							<ChildrenList>
+								<MusicTransition Name="Transition" ID="{B6E20794-BCD6-419A-9393-A3D91B5BAE61}">
+									<TransitionInfo/>
+								</MusicTransition>
+							</ChildrenList>
+							<TransitionInfo/>
+						</MusicTransition>
+					</TransitionList>
+					<Playlist>
+						<MusicPlaylistItem Name="" ID="{1561E8A6-962D-49F0-A427-1FEEDFD3DD5A}" ShortID="1037464486">
+							<PropertyList>
+								<Property Name="LoopCount" Type="int16" Value="0"/>
+								<Property Name="PlayMode" Type="int16" Value="1"/>
+							</PropertyList>
+							<ChildrenList>
+								<MusicPlaylistItem Name="" ID="{A8525428-34CA-4983-92A6-E7241978FD58}" ShortID="18209268">
+									<PropertyList>
+										<Property Name="PlaylistItemType" Type="int16" Value="1"/>
+									</PropertyList>
+									<SegmentRef Name="Judgement" ID="{7745DF8E-4EBD-45BD-96BB-D6A5F45D23DF}"/>
+								</MusicPlaylistItem>
+							</ChildrenList>
+						</MusicPlaylistItem>
+					</Playlist>
+				</MusicPlaylistContainer>
+			</ChildrenList>
+		</WorkUnit>
 	</InteractiveMusic>
 </WwiseDocument>
