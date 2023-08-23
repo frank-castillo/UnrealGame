@@ -73,7 +73,7 @@ DerivedDataCache/*
 
 # Wwise
 Plugins/Wwise/Intermediate/*
-Plugins/Wwise/**/
+Plugins/Wwise/Binaries/Win64/*.dll
 Plugins/Wwise/**/
 
 .backup*
