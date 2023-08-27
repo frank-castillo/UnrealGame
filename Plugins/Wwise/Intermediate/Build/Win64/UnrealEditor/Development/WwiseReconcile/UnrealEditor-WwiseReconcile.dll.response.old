@@ -35,6 +35,8 @@
 /FUNCTIONPADMIN:6
 "E:\zFrank\UnrealGame\Intermediate\Build\Win64\SurvivalGameEditor\Development\UnrealEd\SharedPCH.UnrealEd.ShadowErrors.h.obj"
 "E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseReconcile\Module.WwiseReconcile.cpp.obj"
+"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseReconcile\WwiseReconcile.init.gen.cpp.obj"
+"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseReconcile\WwiseReconcileCommandlet.gen.cpp.obj"
 "E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseReconcile\Default.rc2.res"
 "E:\zFrank\UnrealGame\Plugins\Wwise\ThirdParty\x64_vc160\Profile\lib\AkSoundEngine.lib"
 "E:\zFrank\UnrealGame\Plugins\Wwise\ThirdParty\x64_vc160\Profile\lib\AkMemoryMgr.lib"
