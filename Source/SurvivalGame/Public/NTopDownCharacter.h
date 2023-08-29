@@ -10,7 +10,6 @@ class UCameraComponent;
 class USpringArmComponent;
 class UNPlayerAttributesComponent;
 
-
 UCLASS()
 class SURVIVALGAME_API ANTopDownCharacter : public ACharacter
 {
@@ -33,18 +32,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UNPlayerAttributesComponent* AttributeComp;
 
-    float MoveSpeed;
-
-	void MoveForward(float AxisValue);
-
-	void MoveRight(float AxisValue);
-
 	virtual void PostInitializeComponents() override;
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 };
