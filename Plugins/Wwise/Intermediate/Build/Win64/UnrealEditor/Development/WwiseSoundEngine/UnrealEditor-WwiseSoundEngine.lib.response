@@ -6,9 +6,7 @@
 /NAME:"UnrealEditor-WwiseSoundEngine.dll"
 /IGNORE:4221
 /NODEFAULTLIB
-"E:\zFrank\UnrealGame\Intermediate\Build\Win64\SurvivalGameEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
-"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseSoundEngine\Module.WwiseSoundEngine.cpp.obj"
-"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseSoundEngine\AkUnrealHelper.gen.cpp.obj"
-"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseSoundEngine\WwiseSoundEngine.init.gen.cpp.obj"
-"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseSoundEngine\Default.rc2.res"
-/OUT:"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseSoundEngine\UnrealEditor-WwiseSoundEngine.lib"
+"C:\Users\Gary\Desktop\UnrealGame\Intermediate\Build\Win64\SurvivalGameEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseSoundEngine\Module.WwiseSoundEngine.cpp.obj"
+"C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseSoundEngine\Default.rc2.res"
+/OUT:"C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseSoundEngine\UnrealEditor-WwiseSoundEngine.lib"

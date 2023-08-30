@@ -35,6 +35,8 @@
 /FUNCTIONPADMIN:6
 "E:\zFrank\UnrealGame\Intermediate\Build\Win64\SurvivalGameEditor\Development\UnrealEd\SharedPCH.UnrealEd.ShadowErrors.h.obj"
 "E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseResourceCooker\Module.WwiseResourceCooker.cpp.obj"
+"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseResourceCooker\WwiseResourceCooker.init.gen.cpp.obj"
+"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseResourceCooker\WwiseResourceCookerModule.gen.cpp.obj"
 "E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseResourceCooker\Default.rc2.res"
 "..\Intermediate\Build\Win64\UnrealEditor\Development\Core\UnrealEditor-Core.lib"
 "..\Intermediate\Build\Win64\UnrealEditor\Development\CoreUObject\UnrealEditor-CoreUObject.lib"

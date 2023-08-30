@@ -35,6 +35,12 @@
 /FUNCTIONPADMIN:6
 "E:\zFrank\UnrealGame\Intermediate\Build\Win64\SurvivalGameEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
 "E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseFileHandler\Module.WwiseFileHandler.cpp.obj"
+"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseFileHandler\WwiseExternalSourceCookedData.gen.cpp.obj"
+"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseFileHandler\WwiseExternalSourceStatics.gen.cpp.obj"
+"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseFileHandler\WwiseFileHandler.init.gen.cpp.obj"
+"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseFileHandler\WwiseLanguageCookedData.gen.cpp.obj"
+"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseFileHandler\WwiseMediaCookedData.gen.cpp.obj"
+"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseFileHandler\WwiseSoundBankCookedData.gen.cpp.obj"
 "E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseFileHandler\Default.rc2.res"
 "E:\zFrank\UnrealGame\Plugins\Wwise\ThirdParty\x64_vc160\Profile\lib\AkSoundEngine.lib"
 "E:\zFrank\UnrealGame\Plugins\Wwise\ThirdParty\x64_vc160\Profile\lib\AkMemoryMgr.lib"

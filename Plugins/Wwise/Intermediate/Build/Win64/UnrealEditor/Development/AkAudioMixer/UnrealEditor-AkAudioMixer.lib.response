@@ -6,7 +6,7 @@
 /NAME:"UnrealEditor-AkAudioMixer.dll"
 /IGNORE:4221
 /NODEFAULTLIB
-"E:\zFrank\UnrealGame\Intermediate\Build\Win64\SurvivalGameEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
-"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\AkAudioMixer\Module.AkAudioMixer.cpp.obj"
-"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\AkAudioMixer\Default.rc2.res"
-/OUT:"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\AkAudioMixer\UnrealEditor-AkAudioMixer.lib"
+"C:\Users\Gary\Desktop\UnrealGame\Intermediate\Build\Win64\SurvivalGameEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\AkAudioMixer\Module.AkAudioMixer.cpp.obj"
+"C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\AkAudioMixer\Default.rc2.res"
+/OUT:"C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\AkAudioMixer\UnrealEditor-AkAudioMixer.lib"

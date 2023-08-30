@@ -6,9 +6,7 @@
 /NAME:"UnrealEditor-WwiseResourceCooker.dll"
 /IGNORE:4221
 /NODEFAULTLIB
-"E:\zFrank\UnrealGame\Intermediate\Build\Win64\SurvivalGameEditor\Development\UnrealEd\SharedPCH.UnrealEd.ShadowErrors.h.obj"
-"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseResourceCooker\Module.WwiseResourceCooker.cpp.obj"
-"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseResourceCooker\WwiseResourceCooker.init.gen.cpp.obj"
-"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseResourceCooker\WwiseResourceCookerModule.gen.cpp.obj"
-"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseResourceCooker\Default.rc2.res"
-/OUT:"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseResourceCooker\UnrealEditor-WwiseResourceCooker.lib"
+"C:\Users\Gary\Desktop\UnrealGame\Intermediate\Build\Win64\SurvivalGameEditor\Development\UnrealEd\SharedPCH.UnrealEd.ShadowErrors.h.obj"
+"C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseResourceCooker\Module.WwiseResourceCooker.cpp.obj"
+"C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseResourceCooker\Default.rc2.res"
+/OUT:"C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseResourceCooker\UnrealEditor-WwiseResourceCooker.lib"

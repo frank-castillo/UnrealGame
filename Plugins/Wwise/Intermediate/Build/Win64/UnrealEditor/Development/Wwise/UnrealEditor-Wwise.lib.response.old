@@ -8,5 +8,9 @@
 /NODEFAULTLIB
 "E:\zFrank\UnrealGame\Intermediate\Build\Win64\SurvivalGameEditor\Development\UnrealEd\SharedPCH.UnrealEd.ShadowErrors.h.obj"
 "E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\Wwise\Module.Wwise.cpp.obj"
+"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\Wwise\Wwise.init.gen.cpp.obj"
+"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\Wwise\WwiseAudioLinkComponent.gen.cpp.obj"
+"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\Wwise\WwiseAudioLinkSettings.gen.cpp.obj"
+"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\Wwise\WwiseAudioLinkSettingsFactory.gen.cpp.obj"
 "E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\Wwise\Default.rc2.res"
 /OUT:"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\Wwise\UnrealEditor-Wwise.lib"
