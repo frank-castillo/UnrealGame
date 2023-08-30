@@ -10,7 +10,7 @@
  * This improves compile times by not exporting everything for classes that do not need all of
    their functions accessible in other modules.
  */
-UCLASS(minimalapi)
+UCLASS()
 class SURVIVALGAME_API ANGameMode : public AGameModeBase
 {
 	GENERATED_BODY()

@@ -10,7 +10,7 @@ ANGameMode::ANGameMode()
     PlayerControllerClass = ANPlayerController::StaticClass();
 
     // Set Default pawn class to be our Blueprint character
-    static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/Blueprints/TopDownCharacter_BP.uasset"));
+    static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/Blueprints/TopDownCharacter_BP"));
     if (PlayerPawnBPClass.Class != nullptr)
     {
         DefaultPawnClass = PlayerPawnBPClass.Class;

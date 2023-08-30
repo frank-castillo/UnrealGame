@@ -9,6 +9,7 @@
 class UCameraComponent;
 class USpringArmComponent;
 class UNPlayerAttributesComponent;
+class ANPlayerController;
 
 UCLASS()
 class SURVIVALGAME_API ANTopDownCharacter : public ACharacter
@@ -37,4 +38,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+private:
+    ANPlayerController* PlayerController;
 };

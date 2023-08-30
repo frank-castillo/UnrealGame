@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include <InputActionValue.h>
+// .generated always has to be the last include
 #include "NPlayerController.generated.h"
 
 class UInputMappingContext;
@@ -41,4 +43,9 @@ protected:
     virtual void BeginPlay();
 
     // Input Handlers - Functions that control the logic for input actions
+    void Move(const FInputActionValue& Value);
+
+    void Evade(const FInputActionValue& Value);
+
+    void Shoot(const FInputActionValue& Value);
 };
