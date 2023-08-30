@@ -8,6 +8,7 @@
 #include <Kismet/GameplayStatics.h>
 #include "NPlayerAttributesComponent.h"
 #include "NPlayerController.h"
+#include <Kismet/KismetMathLibrary.h>
 
 // Sets default values
 ANTopDownCharacter::ANTopDownCharacter()
@@ -41,6 +42,7 @@ ANTopDownCharacter::ANTopDownCharacter()
     // Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
     PrimaryActorTick.bStartWithTickEnabled = true;
+    AutoPossessPlayer = EAutoReceiveInput::Player0;
 }
 
 // Called when the game starts or when spawned
@@ -63,16 +65,9 @@ void ANTopDownCharacter::Tick(float DeltaTime)
 
     if (PlayerController)
     {
-        float MouseX, MouseY;
-        PlayerController->GetMousePosition(MouseX, MouseY);
-
-        FVector WorldLocation, WorldDirection;
-        // Convert mouse to world direction
-        if (PlayerController->DeprojectScreenPositionToWorld(MouseX, MouseY, WorldLocation, WorldDirection))
-        {
-            // Calculate rotation to face mouse
-            FRotator NewRotation = WorldDirection.Rotation();
-            SetActorRotation(FRotator(0, NewRotation.Yaw, 0));
-        }
+        FHitResult MouseHit;
+        PlayerController->GetHitResultUnderCursor(ECC_Visibility, false, MouseHit);
+        FVector ImpactPoint = MouseHit.ImpactPoint;
+        SetActorRotation(FRotator(0, UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), ImpactPoint).Yaw, 0));
     }
 }
