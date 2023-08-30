@@ -670,15 +670,15 @@ void EmptyLinkFunctionForGeneratedCodeAkGameObject() {}
 	}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UAkGameObject);
 	UAkGameObject::~UAkGameObject() {}
-	struct Z_CompiledInDeferFile_FID_zFrank_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_zFrank_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_Statics::ClassInfo[] = {
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_Statics::ClassInfo[] = {
 		{ Z_Construct_UClass_UAkGameObject, UAkGameObject::StaticClass, TEXT("UAkGameObject"), &Z_Registration_Info_UClass_UAkGameObject, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkGameObject), 4027444950U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_zFrank_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_710850969(TEXT("/Script/AkAudio"),
-		Z_CompiledInDeferFile_FID_zFrank_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_zFrank_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_710850969(TEXT("/Script/AkAudio"),
+		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

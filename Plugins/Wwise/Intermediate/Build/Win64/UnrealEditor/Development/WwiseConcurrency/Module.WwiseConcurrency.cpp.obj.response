@@ -1,8 +1,8 @@
-E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseConcurrency\Module.WwiseConcurrency.cpp
+C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseConcurrency\Module.WwiseConcurrency.cpp
 /I .
-/I E:\zFrank\UnrealGame\Plugins\Wwise\Source\WwiseConcurrency\Private
-/I E:\zFrank\UnrealGame\Plugins\Wwise\Source
-/I E:\zFrank\UnrealGame\Plugins\Wwise\Source\WwiseConcurrency\Public
+/I C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\Source\WwiseConcurrency\Private
+/I C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\Source
+/I C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\Source\WwiseConcurrency\Public
 /I Runtime
 /I Runtime\TraceLog\Public
 /I Runtime\Core\Public
@@ -272,25 +272,25 @@ E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Develop
 /I Runtime\MovieSceneCapture\Public
 /I ..\Intermediate\Build\Win64\UnrealEditor\Inc\AnimationDataController\UHT
 /I Developer\AnimationDataController\Public
-/I E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Inc\WwiseSoundEngine\UHT
-/I E:\zFrank\UnrealGame\Plugins\Wwise\Source\WwiseSoundEngine_2022_1\Public
-/I E:\zFrank\UnrealGame\Plugins\Wwise\ThirdParty\include
-/I E:\zFrank\UnrealGame\Plugins\Wwise\Source\WwiseSoundEngine_Null\Public
-/I E:\zFrank\UnrealGame\Plugins\Wwise\Source\WwiseSoundEngine\Public
+/I C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Inc\WwiseSoundEngine\UHT
+/I C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\Source\WwiseSoundEngine_2022_1\Public
+/I C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\ThirdParty\include
+/I C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\Source\WwiseSoundEngine_Null\Public
+/I C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\Source\WwiseSoundEngine\Public
 /I ThirdParty\mimalloc\include
 /I ThirdParty\LibTiff\Source\Win64
 /I ThirdParty\LibTiff\Source
 /I "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\INCLUDE"
-/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"
-/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"
-/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"
-/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"
-/FI"E:\zFrank\UnrealGame\Intermediate\Build\Win64\SurvivalGameEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
-/FI"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseConcurrency\Definitions.WwiseConcurrency.h"
-/Yu"E:\zFrank\UnrealGame\Intermediate\Build\Win64\SurvivalGameEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
-/Fp"E:\zFrank\UnrealGame\Intermediate\Build\Win64\SurvivalGameEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.pch"
-/Fo"E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseConcurrency\Module.WwiseConcurrency.cpp.obj"
-/sourceDependencies E:\zFrank\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseConcurrency\Module.WwiseConcurrency.cpp.dep.json
+/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\ucrt"
+/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\shared"
+/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\um"
+/I "C:\Program Files (x86)\Windows Kits\10\include\10.0.19041.0\winrt"
+/FI"C:\Users\Gary\Desktop\UnrealGame\Intermediate\Build\Win64\SurvivalGameEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
+/FI"C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseConcurrency\Definitions.WwiseConcurrency.h"
+/Yu"C:\Users\Gary\Desktop\UnrealGame\Intermediate\Build\Win64\SurvivalGameEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h"
+/Fp"C:\Users\Gary\Desktop\UnrealGame\Intermediate\Build\Win64\SurvivalGameEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.pch"
+/Fo"C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseConcurrency\Module.WwiseConcurrency.cpp.obj"
+/sourceDependencies C:\Users\Gary\Desktop\UnrealGame\Plugins\Wwise\Intermediate\Build\Win64\UnrealEditor\Development\WwiseConcurrency\Module.WwiseConcurrency.cpp.dep.json
 /Zc:inline
 /nologo
 /Oi
