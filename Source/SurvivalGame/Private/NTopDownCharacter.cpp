@@ -7,22 +7,29 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include <Kismet/GameplayStatics.h>
 #include "NPlayerAttributesComponent.h"
+#include "NPlayerController.h"
 
 // Sets default values
 ANTopDownCharacter::ANTopDownCharacter()
 {
-    // Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-    PrimaryActorTick.bCanEverTick = true;
+    // Don't rotate character to camera direction
+    bUseControllerRotationPitch = false;
+    bUseControllerRotationYaw = false;
+    bUseControllerRotationRoll = false;
 
+    //Setting class variables of the Character movement component
+    GetCharacterMovement()->bOrientRotationToMovement = true;
+    GetCharacterMovement()->RotationRate = FRotator(0.f, 640.f, 0.f);
+    //GetCharacterMovement()->bUseControllerDesiredRotation = true;
+    GetCharacterMovement()->bIgnoreBaseRotation = false;
     GetCharacterMovement()->bConstrainToPlane = true;
     GetCharacterMovement()->bSnapToPlaneAtStart = true;
 
     SpringArmComp = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
     SpringArmComp->SetupAttachment(RootComponent);
-    SpringArmComp->TargetArmLength = 1200.0f;
-    SpringArmComp->bUsePawnControlRotation = false;
-    SpringArmComp->bDoCollisionTest = false; // Don't want to pull camera in when it collides with level
     SpringArmComp->SetUsingAbsoluteRotation(true); // Don't want arm to rotate when character does
+    SpringArmComp->TargetArmLength = 1200.0f;
+    SpringArmComp->bDoCollisionTest = false; // Don't want to pull camera in when it collides with level
 
     CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComp"));
     CameraComp->SetupAttachment(SpringArmComp);
@@ -31,18 +38,17 @@ ANTopDownCharacter::ANTopDownCharacter()
 
     AttributeComp = CreateDefaultSubobject<UNPlayerAttributesComponent>(TEXT("AttributeComp"));
 
-    MoveSpeed = 100.0f;
-
-    //Setting class variables of the Character movement component
-    GetCharacterMovement()->bOrientRotationToMovement = true;
-    GetCharacterMovement()->bUseControllerDesiredRotation = true;
-    GetCharacterMovement()->bIgnoreBaseRotation = true;
+    // Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+    PrimaryActorTick.bCanEverTick = true;
+    PrimaryActorTick.bStartWithTickEnabled = true;
 }
 
 // Called when the game starts or when spawned
 void ANTopDownCharacter::BeginPlay()
 {
     Super::BeginPlay();
+
+    PlayerController = CastChecked<ANPlayerController>(GetController());
 }
 
 void ANTopDownCharacter::PostInitializeComponents()
@@ -54,4 +60,19 @@ void ANTopDownCharacter::PostInitializeComponents()
 void ANTopDownCharacter::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
+
+    if (PlayerController)
+    {
+        float MouseX, MouseY;
+        PlayerController->GetMousePosition(MouseX, MouseY);
+
+        FVector WorldLocation, WorldDirection;
+        // Convert mouse to world direction
+        if (PlayerController->DeprojectScreenPositionToWorld(MouseX, MouseY, WorldLocation, WorldDirection))
+        {
+            // Calculate rotation to face mouse
+            FRotator NewRotation = WorldDirection.Rotation();
+            SetActorRotation(FRotator(0, NewRotation.Yaw, 0));
+        }
+    }
 }
