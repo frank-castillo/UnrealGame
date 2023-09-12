@@ -17,4 +17,14 @@ class SURVIVALGAME_API ANGameMode : public AGameModeBase
 
 public:
     ANGameMode();
+
+    void OnActorKilled(AActor* VictimActor, AActor* Killer);
+
+protected:
+
+    UFUNCTION()
+    void RespawnPlayerElapsed(AController* Controller);
+
+    UPROPERTY(EditDefaultsOnly, Category = "Respawn")
+    float RespawnDelay;
 };
