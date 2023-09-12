@@ -33,12 +33,16 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UNPlayerAttributesComponent* AttributeComp;
 
+    ANPlayerController* Controller;
+
 	virtual void PostInitializeComponents() override;
+
+    UFUNCTION(Server, Reliable)
+    void ServerSetActorRotation(FRotator NewRotation);
+
+    void LocalRotation(FRotator NewRotation);
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-private:
-    ANPlayerController* PlayerController;
 };

@@ -9,6 +9,7 @@
 #include "NPlayerAttributesComponent.h"
 #include "NPlayerController.h"
 #include <Kismet/KismetMathLibrary.h>
+#include <GameFramework/Actor.h>
 
 // Sets default values
 ANTopDownCharacter::ANTopDownCharacter()
@@ -42,7 +43,6 @@ ANTopDownCharacter::ANTopDownCharacter()
     // Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
     PrimaryActorTick.bStartWithTickEnabled = true;
-    AutoPossessPlayer = EAutoReceiveInput::Player0;
 }
 
 // Called when the game starts or when spawned
@@ -50,7 +50,7 @@ void ANTopDownCharacter::BeginPlay()
 {
     Super::BeginPlay();
 
-    PlayerController = CastChecked<ANPlayerController>(GetController());
+    Controller = GetController<ANPlayerController>();
 }
 
 void ANTopDownCharacter::PostInitializeComponents()
@@ -58,16 +58,28 @@ void ANTopDownCharacter::PostInitializeComponents()
     Super::PostInitializeComponents();
 }
 
+void ANTopDownCharacter::ServerSetActorRotation_Implementation(FRotator NewRotation)
+{
+    SetActorRotation(NewRotation);
+}
+
+void ANTopDownCharacter::LocalRotation(FRotator NewRotation)
+{
+    ServerSetActorRotation(NewRotation);
+    SetActorRotation(NewRotation);
+}
+
 // Called every frame
 void ANTopDownCharacter::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
-    if (PlayerController)
+    if (Controller)
     {
         FHitResult MouseHit;
-        PlayerController->GetHitResultUnderCursor(ECC_Visibility, false, MouseHit);
+        Controller->GetHitResultUnderCursor(ECC_Visibility, false, MouseHit);
         FVector ImpactPoint = MouseHit.ImpactPoint;
-        SetActorRotation(FRotator(0, UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), ImpactPoint).Yaw, 0));
+        FRotator NewRotation = FRotator(0, UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), ImpactPoint).Yaw, 0);
+        LocalRotation(NewRotation);
     }
 }

@@ -6,11 +6,56 @@
 #include <EnhancedInputComponent.h>
 #include <Engine/LocalPlayer.h>
 #include <GameFramework/PlayerController.h>
+#include <UMG/Public/Components/Widget.h>
+#include "UMG/Public/Blueprint/UserWidget.h"
+#include "NTopDownCharacter.h"
 
 ANPlayerController::ANPlayerController()
 {
     bShowMouseCursor = true;
     DefaultMouseCursor = EMouseCursor::Default;
+}
+
+void ANPlayerController::TogglePauseMenu()
+{
+    if (PauseMenuInstance && PauseMenuInstance->IsInViewport())
+    {
+        PauseMenuInstance->RemoveFromViewport();
+        PauseMenuInstance = nullptr;
+
+        bShowMouseCursor = false;
+        SetInputMode(FInputModeGameOnly());
+        return;
+    }
+
+    PauseMenuInstance = CreateWidget<UUserWidget>(this, PauseMenuClass);
+
+    if (PauseMenuInstance)
+    {
+        PauseMenuInstance->AddToViewport(100);
+
+        bShowMouseCursor = true;
+        SetInputMode(FInputModeUIOnly());
+    }
+}
+
+void ANPlayerController::SetPawn(APawn* InPawn)
+{
+    Super::SetPawn(InPawn);
+
+    OnPawnChanged.Broadcast(InPawn);
+}
+
+void ANPlayerController::BeginPlayingState()
+{
+    BlueprintBeginPlayingState();
+}
+
+void ANPlayerController::OnRep_PlayerState()
+{
+    Super::OnRep_PlayerState();
+    
+    OnPlayerStateReceived.Broadcast(PlayerState);
 }
 
 void ANPlayerController::SetupInputComponent()
@@ -28,6 +73,9 @@ void ANPlayerController::SetupInputComponent()
 
         // Shooting
         EnhancedInputComponent->BindAction(WeaponShootAction, ETriggerEvent::Triggered, this, &ANPlayerController::Shoot);
+
+        // In-Game Menu
+        EnhancedInputComponent->BindAction(OpenInGameMenuAction, ETriggerEvent::Triggered, this, &ANPlayerController::TogglePauseMenu);
     }
 }
 
