@@ -49,12 +49,17 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 		(UObject* (*)())Z_Construct_UClass_UObject,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAssetData_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkAssetData_Statics::Class_MetaDataParams[] = {
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "//These classes are deprecated but we use them during migration to clean up old assets\n" },
+#endif
 		{ "IncludePath", "AkDeprecated.h" },
 		{ "ModuleRelativePath", "Classes/AkDeprecated.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "These classes are deprecated but we use them during migration to clean up old assets" },
+#endif
 	};
 #endif
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UAkAssetData_Statics::StaticCppClassTypeInfo = {
@@ -73,7 +78,7 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 		0,
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkAssetData_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkAssetData_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAssetData_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkAssetData_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UAkAssetData()
 	{
@@ -87,6 +92,7 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 	{
 		return UAkAssetData::StaticClass();
 	}
+	UAkAssetData::UAkAssetData(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UAkAssetData);
 	UAkAssetData::~UAkAssetData() {}
 	IMPLEMENT_FSTRUCTUREDARCHIVE_SERIALIZER(UAkAssetData)
@@ -126,6 +132,7 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 		(UObject* (*)())Z_Construct_UClass_UObject,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAssetPlatformData_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkAssetPlatformData_Statics::Class_MetaDataParams[] = {
 		{ "IncludePath", "AkDeprecated.h" },
@@ -133,22 +140,22 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 	};
 #endif
 #if WITH_EDITORONLY_DATA
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAkAssetPlatformData_Statics::NewProp_AssetDataPerPlatform_ValueProp = { "AssetDataPerPlatform", nullptr, (EPropertyFlags)0x0000000800020001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 1, Z_Construct_UClass_UAkAssetData_NoRegister, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_UAkAssetPlatformData_Statics::NewProp_AssetDataPerPlatform_Key_KeyProp = { "AssetDataPerPlatform_Key", nullptr, (EPropertyFlags)0x0000000800020001, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAkAssetPlatformData_Statics::NewProp_AssetDataPerPlatform_ValueProp = { "AssetDataPerPlatform", nullptr, (EPropertyFlags)0x0000000800020001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 1, Z_Construct_UClass_UAkAssetData_NoRegister, METADATA_PARAMS(0, nullptr) };
+	const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_UAkAssetPlatformData_Statics::NewProp_AssetDataPerPlatform_Key_KeyProp = { "AssetDataPerPlatform_Key", nullptr, (EPropertyFlags)0x0000000800020001, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkAssetPlatformData_Statics::NewProp_AssetDataPerPlatform_MetaData[] = {
 		{ "Category", "UAkAssetData" },
 		{ "ModuleRelativePath", "Classes/AkDeprecated.h" },
 	};
 #endif
-	const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_UAkAssetPlatformData_Statics::NewProp_AssetDataPerPlatform = { "AssetDataPerPlatform", nullptr, (EPropertyFlags)0x0040000800022001, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkAssetPlatformData, AssetDataPerPlatform), EMapPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_UAkAssetPlatformData_Statics::NewProp_AssetDataPerPlatform_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkAssetPlatformData_Statics::NewProp_AssetDataPerPlatform_MetaData)) };
+	const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_UAkAssetPlatformData_Statics::NewProp_AssetDataPerPlatform = { "AssetDataPerPlatform", nullptr, (EPropertyFlags)0x0040000800022001, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkAssetPlatformData, AssetDataPerPlatform), EMapPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAssetPlatformData_Statics::NewProp_AssetDataPerPlatform_MetaData), Z_Construct_UClass_UAkAssetPlatformData_Statics::NewProp_AssetDataPerPlatform_MetaData) };
 #endif // WITH_EDITORONLY_DATA
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkAssetPlatformData_Statics::NewProp_CurrentAssetData_MetaData[] = {
 		{ "ModuleRelativePath", "Classes/AkDeprecated.h" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAkAssetPlatformData_Statics::NewProp_CurrentAssetData = { "CurrentAssetData", nullptr, (EPropertyFlags)0x0040000000002000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkAssetPlatformData, CurrentAssetData), Z_Construct_UClass_UAkAssetData_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UAkAssetPlatformData_Statics::NewProp_CurrentAssetData_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkAssetPlatformData_Statics::NewProp_CurrentAssetData_MetaData)) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAkAssetPlatformData_Statics::NewProp_CurrentAssetData = { "CurrentAssetData", nullptr, (EPropertyFlags)0x0040000000002000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkAssetPlatformData, CurrentAssetData), Z_Construct_UClass_UAkAssetData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAssetPlatformData_Statics::NewProp_CurrentAssetData_MetaData), Z_Construct_UClass_UAkAssetPlatformData_Statics::NewProp_CurrentAssetData_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAkAssetPlatformData_Statics::PropPointers[] = {
 #if WITH_EDITORONLY_DATA
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAkAssetPlatformData_Statics::NewProp_AssetDataPerPlatform_ValueProp,
@@ -173,8 +180,9 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 		UE_ARRAY_COUNT(Z_Construct_UClass_UAkAssetPlatformData_Statics::PropPointers),
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkAssetPlatformData_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkAssetPlatformData_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAssetPlatformData_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkAssetPlatformData_Statics::Class_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAssetPlatformData_Statics::PropPointers) < 2048);
 	UClass* Z_Construct_UClass_UAkAssetPlatformData()
 	{
 		if (!Z_Registration_Info_UClass_UAkAssetPlatformData.OuterSingleton)
@@ -187,6 +195,7 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 	{
 		return UAkAssetPlatformData::StaticClass();
 	}
+	UAkAssetPlatformData::UAkAssetPlatformData(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UAkAssetPlatformData);
 	UAkAssetPlatformData::~UAkAssetPlatformData() {}
 	IMPLEMENT_FSTRUCTUREDARCHIVE_SERIALIZER(UAkAssetPlatformData)
@@ -211,6 +220,7 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 		(UObject* (*)())Z_Construct_UClass_UObject,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkMediaAssetData_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkMediaAssetData_Statics::Class_MetaDataParams[] = {
 		{ "IncludePath", "AkDeprecated.h" },
@@ -233,7 +243,7 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 		0,
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkMediaAssetData_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkMediaAssetData_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkMediaAssetData_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkMediaAssetData_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UAkMediaAssetData()
 	{
@@ -247,6 +257,7 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 	{
 		return UAkMediaAssetData::StaticClass();
 	}
+	UAkMediaAssetData::UAkMediaAssetData(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UAkMediaAssetData);
 	UAkMediaAssetData::~UAkMediaAssetData() {}
 	IMPLEMENT_FSTRUCTUREDARCHIVE_SERIALIZER(UAkMediaAssetData)
@@ -278,21 +289,22 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 		(UObject* (*)())Z_Construct_UClass_UObject,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkMediaAsset_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkMediaAsset_Statics::Class_MetaDataParams[] = {
 		{ "IncludePath", "AkDeprecated.h" },
 		{ "ModuleRelativePath", "Classes/AkDeprecated.h" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAkMediaAsset_Statics::NewProp_MediaAssetDataPerPlatform_ValueProp = { "MediaAssetDataPerPlatform", nullptr, (EPropertyFlags)0x0000000000020001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 1, Z_Construct_UClass_UAkMediaAssetData_NoRegister, METADATA_PARAMS(nullptr, 0) };
-	const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_UAkMediaAsset_Statics::NewProp_MediaAssetDataPerPlatform_Key_KeyProp = { "MediaAssetDataPerPlatform_Key", nullptr, (EPropertyFlags)0x0000000000020001, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAkMediaAsset_Statics::NewProp_MediaAssetDataPerPlatform_ValueProp = { "MediaAssetDataPerPlatform", nullptr, (EPropertyFlags)0x0000000000020001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 1, Z_Construct_UClass_UAkMediaAssetData_NoRegister, METADATA_PARAMS(0, nullptr) };
+	const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_UAkMediaAsset_Statics::NewProp_MediaAssetDataPerPlatform_Key_KeyProp = { "MediaAssetDataPerPlatform_Key", nullptr, (EPropertyFlags)0x0000000000020001, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkMediaAsset_Statics::NewProp_MediaAssetDataPerPlatform_MetaData[] = {
 		{ "Category", "AkMediaAsset" },
 		{ "ModuleRelativePath", "Classes/AkDeprecated.h" },
 	};
 #endif
-	const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_UAkMediaAsset_Statics::NewProp_MediaAssetDataPerPlatform = { "MediaAssetDataPerPlatform", nullptr, (EPropertyFlags)0x0040000000022001, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkMediaAsset, MediaAssetDataPerPlatform), EMapPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_UAkMediaAsset_Statics::NewProp_MediaAssetDataPerPlatform_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkMediaAsset_Statics::NewProp_MediaAssetDataPerPlatform_MetaData)) };
+	const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_UAkMediaAsset_Statics::NewProp_MediaAssetDataPerPlatform = { "MediaAssetDataPerPlatform", nullptr, (EPropertyFlags)0x0040000000022001, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkMediaAsset, MediaAssetDataPerPlatform), EMapPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkMediaAsset_Statics::NewProp_MediaAssetDataPerPlatform_MetaData), Z_Construct_UClass_UAkMediaAsset_Statics::NewProp_MediaAssetDataPerPlatform_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAkMediaAsset_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAkMediaAsset_Statics::NewProp_MediaAssetDataPerPlatform_ValueProp,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAkMediaAsset_Statics::NewProp_MediaAssetDataPerPlatform_Key_KeyProp,
@@ -314,8 +326,9 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 		UE_ARRAY_COUNT(Z_Construct_UClass_UAkMediaAsset_Statics::PropPointers),
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkMediaAsset_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkMediaAsset_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkMediaAsset_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkMediaAsset_Statics::Class_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkMediaAsset_Statics::PropPointers) < 2048);
 	UClass* Z_Construct_UClass_UAkMediaAsset()
 	{
 		if (!Z_Registration_Info_UClass_UAkMediaAsset.OuterSingleton)
@@ -328,6 +341,7 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 	{
 		return UAkMediaAsset::StaticClass();
 	}
+	UAkMediaAsset::UAkMediaAsset(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UAkMediaAsset);
 	UAkMediaAsset::~UAkMediaAsset() {}
 	IMPLEMENT_FSTRUCTUREDARCHIVE_SERIALIZER(UAkMediaAsset)
@@ -352,6 +366,7 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 		(UObject* (*)())Z_Construct_UClass_UAkMediaAsset,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkLocalizedMediaAsset_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkLocalizedMediaAsset_Statics::Class_MetaDataParams[] = {
 		{ "IncludePath", "AkDeprecated.h" },
@@ -374,7 +389,7 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 		0,
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkLocalizedMediaAsset_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkLocalizedMediaAsset_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkLocalizedMediaAsset_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkLocalizedMediaAsset_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UAkLocalizedMediaAsset()
 	{
@@ -388,6 +403,7 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 	{
 		return UAkLocalizedMediaAsset::StaticClass();
 	}
+	UAkLocalizedMediaAsset::UAkLocalizedMediaAsset(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UAkLocalizedMediaAsset);
 	UAkLocalizedMediaAsset::~UAkLocalizedMediaAsset() {}
 	void UAkExternalMediaAsset::StaticRegisterNativesUAkExternalMediaAsset()
@@ -411,6 +427,7 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 		(UObject* (*)())Z_Construct_UClass_UAkMediaAsset,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkExternalMediaAsset_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkExternalMediaAsset_Statics::Class_MetaDataParams[] = {
 		{ "IncludePath", "AkDeprecated.h" },
@@ -433,7 +450,7 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 		0,
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkExternalMediaAsset_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkExternalMediaAsset_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkExternalMediaAsset_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkExternalMediaAsset_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UAkExternalMediaAsset()
 	{
@@ -447,6 +464,7 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 	{
 		return UAkExternalMediaAsset::StaticClass();
 	}
+	UAkExternalMediaAsset::UAkExternalMediaAsset(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UAkExternalMediaAsset);
 	UAkExternalMediaAsset::~UAkExternalMediaAsset() {}
 	void UAkFolder::StaticRegisterNativesUAkFolder()
@@ -470,6 +488,7 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 		(UObject* (*)())Z_Construct_UClass_UAkAudioType,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkFolder_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkFolder_Statics::Class_MetaDataParams[] = {
 		{ "IncludePath", "AkDeprecated.h" },
@@ -492,7 +511,7 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 		0,
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkFolder_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkFolder_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkFolder_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkFolder_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UAkFolder()
 	{
@@ -506,23 +525,24 @@ void EmptyLinkFunctionForGeneratedCodeAkDeprecated() {}
 	{
 		return UAkFolder::StaticClass();
 	}
+	UAkFolder::UAkFolder(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UAkFolder);
 	UAkFolder::~UAkFolder() {}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkDeprecated_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkDeprecated_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkDeprecated_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UAkAssetData, UAkAssetData::StaticClass, TEXT("UAkAssetData"), &Z_Registration_Info_UClass_UAkAssetData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkAssetData), 2607748468U) },
-		{ Z_Construct_UClass_UAkAssetPlatformData, UAkAssetPlatformData::StaticClass, TEXT("UAkAssetPlatformData"), &Z_Registration_Info_UClass_UAkAssetPlatformData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkAssetPlatformData), 3370005740U) },
-		{ Z_Construct_UClass_UAkMediaAssetData, UAkMediaAssetData::StaticClass, TEXT("UAkMediaAssetData"), &Z_Registration_Info_UClass_UAkMediaAssetData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkMediaAssetData), 3412830166U) },
-		{ Z_Construct_UClass_UAkMediaAsset, UAkMediaAsset::StaticClass, TEXT("UAkMediaAsset"), &Z_Registration_Info_UClass_UAkMediaAsset, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkMediaAsset), 212543645U) },
-		{ Z_Construct_UClass_UAkLocalizedMediaAsset, UAkLocalizedMediaAsset::StaticClass, TEXT("UAkLocalizedMediaAsset"), &Z_Registration_Info_UClass_UAkLocalizedMediaAsset, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkLocalizedMediaAsset), 1939495610U) },
-		{ Z_Construct_UClass_UAkExternalMediaAsset, UAkExternalMediaAsset::StaticClass, TEXT("UAkExternalMediaAsset"), &Z_Registration_Info_UClass_UAkExternalMediaAsset, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkExternalMediaAsset), 688869455U) },
-		{ Z_Construct_UClass_UAkFolder, UAkFolder::StaticClass, TEXT("UAkFolder"), &Z_Registration_Info_UClass_UAkFolder, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkFolder), 1522652825U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkDeprecated_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UAkAssetData, UAkAssetData::StaticClass, TEXT("UAkAssetData"), &Z_Registration_Info_UClass_UAkAssetData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkAssetData), 1609112793U) },
+		{ Z_Construct_UClass_UAkAssetPlatformData, UAkAssetPlatformData::StaticClass, TEXT("UAkAssetPlatformData"), &Z_Registration_Info_UClass_UAkAssetPlatformData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkAssetPlatformData), 823552303U) },
+		{ Z_Construct_UClass_UAkMediaAssetData, UAkMediaAssetData::StaticClass, TEXT("UAkMediaAssetData"), &Z_Registration_Info_UClass_UAkMediaAssetData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkMediaAssetData), 1221060155U) },
+		{ Z_Construct_UClass_UAkMediaAsset, UAkMediaAsset::StaticClass, TEXT("UAkMediaAsset"), &Z_Registration_Info_UClass_UAkMediaAsset, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkMediaAsset), 3519962349U) },
+		{ Z_Construct_UClass_UAkLocalizedMediaAsset, UAkLocalizedMediaAsset::StaticClass, TEXT("UAkLocalizedMediaAsset"), &Z_Registration_Info_UClass_UAkLocalizedMediaAsset, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkLocalizedMediaAsset), 1599876742U) },
+		{ Z_Construct_UClass_UAkExternalMediaAsset, UAkExternalMediaAsset::StaticClass, TEXT("UAkExternalMediaAsset"), &Z_Registration_Info_UClass_UAkExternalMediaAsset, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkExternalMediaAsset), 1050039778U) },
+		{ Z_Construct_UClass_UAkFolder, UAkFolder::StaticClass, TEXT("UAkFolder"), &Z_Registration_Info_UClass_UAkFolder, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkFolder), 3563651395U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkDeprecated_h_993919776(TEXT("/Script/AkAudio"),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkDeprecated_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkDeprecated_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkDeprecated_h_2241725793(TEXT("/Script/AkAudio"),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkDeprecated_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkDeprecated_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

@@ -21,7 +21,7 @@ class UScriptStruct* FWwiseLocalizedShareSetCookedData::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_WwiseLocalizedShareSetCookedData.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_WwiseLocalizedShareSetCookedData.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData, Z_Construct_UPackage__Script_WwiseResourceLoader(), TEXT("WwiseLocalizedShareSetCookedData"));
+		Z_Registration_Info_UScriptStruct_WwiseLocalizedShareSetCookedData.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData, (UObject*)Z_Construct_UPackage__Script_WwiseResourceLoader(), TEXT("WwiseLocalizedShareSetCookedData"));
 	}
 	return Z_Registration_Info_UScriptStruct_WwiseLocalizedShareSetCookedData.OuterSingleton;
 }
@@ -62,33 +62,41 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseLocalizedSh
 	{
 		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FWwiseLocalizedShareSetCookedData>();
 	}
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_ShareSetLanguageMap_ValueProp = { "ShareSetLanguageMap", nullptr, (EPropertyFlags)0x0000000000020001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 1, Z_Construct_UScriptStruct_FWwiseShareSetCookedData, METADATA_PARAMS(nullptr, 0) }; // 3986119750
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_ShareSetLanguageMap_Key_KeyProp = { "ShareSetLanguageMap_Key", nullptr, (EPropertyFlags)0x0000000000020001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, Z_Construct_UScriptStruct_FWwiseLanguageCookedData, METADATA_PARAMS(nullptr, 0) }; // 3154816641
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_ShareSetLanguageMap_ValueProp = { "ShareSetLanguageMap", nullptr, (EPropertyFlags)0x0000000000020001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 1, Z_Construct_UScriptStruct_FWwiseShareSetCookedData, METADATA_PARAMS(0, nullptr) }; // 287718731
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_ShareSetLanguageMap_Key_KeyProp = { "ShareSetLanguageMap_Key", nullptr, (EPropertyFlags)0x0000000000020001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FWwiseLanguageCookedData, METADATA_PARAMS(0, nullptr) }; // 1447532684
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_ShareSetLanguageMap_MetaData[] = {
 		{ "Category", "Wwise" },
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseLocalizedShareSetCookedData.h" },
 	};
 #endif
-	const UECodeGen_Private::FMapPropertyParams Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_ShareSetLanguageMap = { "ShareSetLanguageMap", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseLocalizedShareSetCookedData, ShareSetLanguageMap), EMapPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_ShareSetLanguageMap_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_ShareSetLanguageMap_MetaData)) }; // 3154816641 3986119750
+	const UECodeGen_Private::FMapPropertyParams Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_ShareSetLanguageMap = { "ShareSetLanguageMap", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseLocalizedShareSetCookedData, ShareSetLanguageMap), EMapPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_ShareSetLanguageMap_MetaData), Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_ShareSetLanguageMap_MetaData) }; // 1447532684 287718731
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_DebugName_MetaData[] = {
 		{ "Category", "Wwise" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09 * @brief Optional debug name. Can be empty in release, contain the name, or the full path of the asset.\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseLocalizedShareSetCookedData.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief Optional debug name. Can be empty in release, contain the name, or the full path of the asset." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_DebugName = { "DebugName", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseLocalizedShareSetCookedData, DebugName), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_DebugName_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_DebugName_MetaData)) };
+	const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_DebugName = { "DebugName", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseLocalizedShareSetCookedData, DebugName), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_DebugName_MetaData), Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_DebugName_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_ShareSetId_MetaData[] = {
 		{ "Category", "Wwise" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09* @brief Short ID for the Shareset.\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseLocalizedShareSetCookedData.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief Short ID for the Shareset." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_ShareSetId = { "ShareSetId", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseLocalizedShareSetCookedData, ShareSetId), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_ShareSetId_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_ShareSetId_MetaData)) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_ShareSetId = { "ShareSetId", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseLocalizedShareSetCookedData, ShareSetId), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_ShareSetId_MetaData), Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_ShareSetId_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_ShareSetLanguageMap_ValueProp,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewProp_ShareSetLanguageMap_Key_KeyProp,
@@ -101,14 +109,15 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseLocalizedSh
 		nullptr,
 		&NewStructOps,
 		"WwiseLocalizedShareSetCookedData",
-		sizeof(FWwiseLocalizedShareSetCookedData),
-		alignof(FWwiseLocalizedShareSetCookedData),
 		Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::PropPointers,
 		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::PropPointers),
+		sizeof(FWwiseLocalizedShareSetCookedData),
+		alignof(FWwiseLocalizedShareSetCookedData),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::Struct_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::PropPointers) < 2048);
 	UScriptStruct* Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData()
 	{
 		if (!Z_Registration_Info_UScriptStruct_WwiseLocalizedShareSetCookedData.InnerSingleton)
@@ -117,15 +126,15 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseLocalizedSh
 		}
 		return Z_Registration_Info_UScriptStruct_WwiseLocalizedShareSetCookedData.InnerSingleton;
 	}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseLocalizedShareSetCookedData_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseLocalizedShareSetCookedData_h_Statics
 	{
 		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
 	};
-	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseLocalizedShareSetCookedData_h_Statics::ScriptStructInfo[] = {
-		{ FWwiseLocalizedShareSetCookedData::StaticStruct, Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewStructOps, TEXT("WwiseLocalizedShareSetCookedData"), &Z_Registration_Info_UScriptStruct_WwiseLocalizedShareSetCookedData, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseLocalizedShareSetCookedData), 2434779349U) },
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseLocalizedShareSetCookedData_h_Statics::ScriptStructInfo[] = {
+		{ FWwiseLocalizedShareSetCookedData::StaticStruct, Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData_Statics::NewStructOps, TEXT("WwiseLocalizedShareSetCookedData"), &Z_Registration_Info_UScriptStruct_WwiseLocalizedShareSetCookedData, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseLocalizedShareSetCookedData), 27775780U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseLocalizedShareSetCookedData_h_3278770005(TEXT("/Script/WwiseResourceLoader"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseLocalizedShareSetCookedData_h_3002916198(TEXT("/Script/WwiseResourceLoader"),
 		nullptr, 0,
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseLocalizedShareSetCookedData_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseLocalizedShareSetCookedData_h_Statics::ScriptStructInfo),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseLocalizedShareSetCookedData_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseLocalizedShareSetCookedData_h_Statics::ScriptStructInfo),
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

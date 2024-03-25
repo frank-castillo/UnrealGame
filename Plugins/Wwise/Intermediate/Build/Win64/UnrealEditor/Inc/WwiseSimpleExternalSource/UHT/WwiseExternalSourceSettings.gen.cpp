@@ -50,6 +50,7 @@ void EmptyLinkFunctionForGeneratedCodeWwiseExternalSourceSettings() {}
 		(UObject* (*)())Z_Construct_UClass_UObject,
 		(UObject* (*)())Z_Construct_UPackage__Script_WwiseSimpleExternalSource,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::Class_MetaDataParams[] = {
 		{ "IncludePath", "Wwise/SimpleExtSrc/WwiseExternalSourceSettings.h" },
@@ -60,32 +61,44 @@ void EmptyLinkFunctionForGeneratedCodeWwiseExternalSourceSettings() {}
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_MediaInfoTable_MetaData[] = {
 		{ "AllowedClasses", "/Script/Engine.DataTable" },
 		{ "Category", "ExternalSources" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "//Table of all information required to properly load all external source media in the project\n//All files in this table are packaged in the built project\n" },
+#endif
 		{ "ModuleRelativePath", "Public/Wwise/SimpleExtSrc/WwiseExternalSourceSettings.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Table of all information required to properly load all external source media in the project\nAll files in this table are packaged in the built project" },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_MediaInfoTable = { "MediaInfoTable", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UWwiseExternalSourceSettings, MediaInfoTable), Z_Construct_UScriptStruct_FSoftObjectPath, METADATA_PARAMS(Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_MediaInfoTable_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_MediaInfoTable_MetaData)) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_MediaInfoTable = { "MediaInfoTable", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UWwiseExternalSourceSettings, MediaInfoTable), Z_Construct_UScriptStruct_FSoftObjectPath, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_MediaInfoTable_MetaData), Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_MediaInfoTable_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_ExternalSourceDefaultMedia_MetaData[] = {
 		{ "AllowedClasses", "/Script/Engine.DataTable" },
 		{ "Category", "ExternalSources" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "//Optional table that defines a default media entry in the MediaInfoTable to load when an External Source is loaded\n" },
+#endif
 		{ "ModuleRelativePath", "Public/Wwise/SimpleExtSrc/WwiseExternalSourceSettings.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Optional table that defines a default media entry in the MediaInfoTable to load when an External Source is loaded" },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_ExternalSourceDefaultMedia = { "ExternalSourceDefaultMedia", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UWwiseExternalSourceSettings, ExternalSourceDefaultMedia), Z_Construct_UScriptStruct_FSoftObjectPath, METADATA_PARAMS(Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_ExternalSourceDefaultMedia_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_ExternalSourceDefaultMedia_MetaData)) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_ExternalSourceDefaultMedia = { "ExternalSourceDefaultMedia", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UWwiseExternalSourceSettings, ExternalSourceDefaultMedia), Z_Construct_UScriptStruct_FSoftObjectPath, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_ExternalSourceDefaultMedia_MetaData), Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_ExternalSourceDefaultMedia_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_ExternalSourceStagingDirectory_MetaData[] = {
 		{ "Category", "ExternalSources" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "//Staging location for External Source Media when cooking the project\n//This is the location from which to load external source media in the built project\n" },
+#endif
 		{ "ModuleRelativePath", "Public/Wwise/SimpleExtSrc/WwiseExternalSourceSettings.h" },
 		{ "RelativeToGameContentDir", "" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Staging location for External Source Media when cooking the project\nThis is the location from which to load external source media in the built project" },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_ExternalSourceStagingDirectory = { "ExternalSourceStagingDirectory", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UWwiseExternalSourceSettings, ExternalSourceStagingDirectory), Z_Construct_UScriptStruct_FDirectoryPath, METADATA_PARAMS(Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_ExternalSourceStagingDirectory_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_ExternalSourceStagingDirectory_MetaData)) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_ExternalSourceStagingDirectory = { "ExternalSourceStagingDirectory", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UWwiseExternalSourceSettings, ExternalSourceStagingDirectory), Z_Construct_UScriptStruct_FDirectoryPath, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_ExternalSourceStagingDirectory_MetaData), Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_ExternalSourceStagingDirectory_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_MediaInfoTable,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::NewProp_ExternalSourceDefaultMedia,
@@ -107,8 +120,9 @@ void EmptyLinkFunctionForGeneratedCodeWwiseExternalSourceSettings() {}
 		UE_ARRAY_COUNT(Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::PropPointers),
 		0,
 		0x001000A4u,
-		METADATA_PARAMS(Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::Class_MetaDataParams), Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::Class_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UWwiseExternalSourceSettings_Statics::PropPointers) < 2048);
 	UClass* Z_Construct_UClass_UWwiseExternalSourceSettings()
 	{
 		if (!Z_Registration_Info_UClass_UWwiseExternalSourceSettings.OuterSingleton)
@@ -121,17 +135,18 @@ void EmptyLinkFunctionForGeneratedCodeWwiseExternalSourceSettings() {}
 	{
 		return UWwiseExternalSourceSettings::StaticClass();
 	}
+	UWwiseExternalSourceSettings::UWwiseExternalSourceSettings(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UWwiseExternalSourceSettings);
 	UWwiseExternalSourceSettings::~UWwiseExternalSourceSettings() {}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseSimpleExternalSource_Public_Wwise_SimpleExtSrc_WwiseExternalSourceSettings_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseSimpleExternalSource_Public_Wwise_SimpleExtSrc_WwiseExternalSourceSettings_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseSimpleExternalSource_Public_Wwise_SimpleExtSrc_WwiseExternalSourceSettings_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UWwiseExternalSourceSettings, UWwiseExternalSourceSettings::StaticClass, TEXT("UWwiseExternalSourceSettings"), &Z_Registration_Info_UClass_UWwiseExternalSourceSettings, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UWwiseExternalSourceSettings), 1630294383U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseSimpleExternalSource_Public_Wwise_SimpleExtSrc_WwiseExternalSourceSettings_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UWwiseExternalSourceSettings, UWwiseExternalSourceSettings::StaticClass, TEXT("UWwiseExternalSourceSettings"), &Z_Registration_Info_UClass_UWwiseExternalSourceSettings, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UWwiseExternalSourceSettings), 1487348517U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseSimpleExternalSource_Public_Wwise_SimpleExtSrc_WwiseExternalSourceSettings_h_441405603(TEXT("/Script/WwiseSimpleExternalSource"),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseSimpleExternalSource_Public_Wwise_SimpleExtSrc_WwiseExternalSourceSettings_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseSimpleExternalSource_Public_Wwise_SimpleExtSrc_WwiseExternalSourceSettings_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseSimpleExternalSource_Public_Wwise_SimpleExtSrc_WwiseExternalSourceSettings_h_3862303925(TEXT("/Script/WwiseSimpleExternalSource"),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseSimpleExternalSource_Public_Wwise_SimpleExtSrc_WwiseExternalSourceSettings_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseSimpleExternalSource_Public_Wwise_SimpleExtSrc_WwiseExternalSourceSettings_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

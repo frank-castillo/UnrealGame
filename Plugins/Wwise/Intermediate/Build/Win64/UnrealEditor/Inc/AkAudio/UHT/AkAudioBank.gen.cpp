@@ -41,6 +41,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioBank() {}
 		(UObject* (*)())Z_Construct_UClass_UAkAudioType,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioBank_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkAudioBank_Statics::Class_MetaDataParams[] = {
 		{ "IncludePath", "AkAudioBank.h" },
@@ -57,7 +58,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioBank() {}
 	{
 		((UAkAudioBank*)Obj)->AutoLoad_DEPRECATED = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UAkAudioBank_Statics::NewProp_AutoLoad = { "AutoLoad", nullptr, (EPropertyFlags)0x0010000020000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(UAkAudioBank), &Z_Construct_UClass_UAkAudioBank_Statics::NewProp_AutoLoad_SetBit, METADATA_PARAMS(Z_Construct_UClass_UAkAudioBank_Statics::NewProp_AutoLoad_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioBank_Statics::NewProp_AutoLoad_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UAkAudioBank_Statics::NewProp_AutoLoad = { "AutoLoad", nullptr, (EPropertyFlags)0x0010000020000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UAkAudioBank), &Z_Construct_UClass_UAkAudioBank_Statics::NewProp_AutoLoad_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioBank_Statics::NewProp_AutoLoad_MetaData), Z_Construct_UClass_UAkAudioBank_Statics::NewProp_AutoLoad_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAkAudioBank_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAkAudioBank_Statics::NewProp_AutoLoad,
 	};
@@ -77,8 +78,9 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioBank() {}
 		UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioBank_Statics::PropPointers),
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkAudioBank_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioBank_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioBank_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkAudioBank_Statics::Class_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioBank_Statics::PropPointers) < 2048);
 	UClass* Z_Construct_UClass_UAkAudioBank()
 	{
 		if (!Z_Registration_Info_UClass_UAkAudioBank.OuterSingleton)
@@ -91,17 +93,18 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioBank() {}
 	{
 		return UAkAudioBank::StaticClass();
 	}
+	UAkAudioBank::UAkAudioBank(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UAkAudioBank);
 	UAkAudioBank::~UAkAudioBank() {}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAudioBank_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAudioBank_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAudioBank_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UAkAudioBank, UAkAudioBank::StaticClass, TEXT("UAkAudioBank"), &Z_Registration_Info_UClass_UAkAudioBank, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkAudioBank), 905573531U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAudioBank_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UAkAudioBank, UAkAudioBank::StaticClass, TEXT("UAkAudioBank"), &Z_Registration_Info_UClass_UAkAudioBank, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkAudioBank), 285414766U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAudioBank_h_1473302182(TEXT("/Script/AkAudio"),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAudioBank_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAudioBank_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAudioBank_h_2391839899(TEXT("/Script/AkAudio"),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAudioBank_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAudioBank_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

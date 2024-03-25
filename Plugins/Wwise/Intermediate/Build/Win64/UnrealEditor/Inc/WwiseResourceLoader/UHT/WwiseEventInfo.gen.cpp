@@ -20,7 +20,7 @@ void EmptyLinkFunctionForGeneratedCodeWwiseEventInfo() {}
 	{
 		if (!Z_Registration_Info_UEnum_EWwiseEventSwitchContainerLoading.OuterSingleton)
 		{
-			Z_Registration_Info_UEnum_EWwiseEventSwitchContainerLoading.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventSwitchContainerLoading, Z_Construct_UPackage__Script_WwiseResourceLoader(), TEXT("EWwiseEventSwitchContainerLoading"));
+			Z_Registration_Info_UEnum_EWwiseEventSwitchContainerLoading.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventSwitchContainerLoading, (UObject*)Z_Construct_UPackage__Script_WwiseResourceLoader(), TEXT("EWwiseEventSwitchContainerLoading"));
 		}
 		return Z_Registration_Info_UEnum_EWwiseEventSwitchContainerLoading.OuterSingleton;
 	}
@@ -56,11 +56,11 @@ void EmptyLinkFunctionForGeneratedCodeWwiseEventInfo() {}
 		"EWwiseEventSwitchContainerLoading",
 		"EWwiseEventSwitchContainerLoading",
 		Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventSwitchContainerLoading_Statics::Enumerators,
-		UE_ARRAY_COUNT(Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventSwitchContainerLoading_Statics::Enumerators),
 		RF_Public|RF_Transient|RF_MarkAsNative,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventSwitchContainerLoading_Statics::Enumerators),
 		EEnumFlags::None,
 		(uint8)UEnum::ECppForm::EnumClass,
-		METADATA_PARAMS(Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventSwitchContainerLoading_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventSwitchContainerLoading_Statics::Enum_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventSwitchContainerLoading_Statics::Enum_MetaDataParams), Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventSwitchContainerLoading_Statics::Enum_MetaDataParams)
 	};
 	UEnum* Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventSwitchContainerLoading()
 	{
@@ -78,7 +78,7 @@ class UScriptStruct* FWwiseEventInfo::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_WwiseEventInfo.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_WwiseEventInfo.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseEventInfo, Z_Construct_UPackage__Script_WwiseResourceLoader(), TEXT("WwiseEventInfo"));
+		Z_Registration_Info_UScriptStruct_WwiseEventInfo.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseEventInfo, (UObject*)Z_Construct_UPackage__Script_WwiseResourceLoader(), TEXT("WwiseEventInfo"));
 	}
 	return Z_Registration_Info_UScriptStruct_WwiseEventInfo.OuterSingleton;
 }
@@ -119,22 +119,22 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseEventInfo>(
 	{
 		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FWwiseEventInfo>();
 	}
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewProp_SwitchContainerLoading_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewProp_SwitchContainerLoading_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewProp_SwitchContainerLoading_MetaData[] = {
 		{ "Category", "Info" },
 		{ "ModuleRelativePath", "Public/Wwise/Info/WwiseEventInfo.h" },
 	};
 #endif
-	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewProp_SwitchContainerLoading = { "SwitchContainerLoading", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseEventInfo, SwitchContainerLoading), Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventSwitchContainerLoading, METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewProp_SwitchContainerLoading_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewProp_SwitchContainerLoading_MetaData)) }; // 333562613
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewProp_DestroyOptions_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewProp_SwitchContainerLoading = { "SwitchContainerLoading", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseEventInfo, SwitchContainerLoading), Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventSwitchContainerLoading, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewProp_SwitchContainerLoading_MetaData), Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewProp_SwitchContainerLoading_MetaData) }; // 2237445751
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewProp_DestroyOptions_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewProp_DestroyOptions_MetaData[] = {
 		{ "Category", "Info" },
 		{ "ModuleRelativePath", "Public/Wwise/Info/WwiseEventInfo.h" },
 	};
 #endif
-	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewProp_DestroyOptions = { "DestroyOptions", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseEventInfo, DestroyOptions), Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventDestroyOptions, METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewProp_DestroyOptions_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewProp_DestroyOptions_MetaData)) }; // 3126334647
+	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewProp_DestroyOptions = { "DestroyOptions", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseEventInfo, DestroyOptions), Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventDestroyOptions, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewProp_DestroyOptions_MetaData), Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewProp_DestroyOptions_MetaData) }; // 747368286
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewProp_SwitchContainerLoading_Underlying,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewProp_SwitchContainerLoading,
@@ -146,14 +146,15 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseEventInfo>(
 		Z_Construct_UScriptStruct_FWwiseObjectInfo,
 		&NewStructOps,
 		"WwiseEventInfo",
-		sizeof(FWwiseEventInfo),
-		alignof(FWwiseEventInfo),
 		Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::PropPointers,
 		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::PropPointers),
+		sizeof(FWwiseEventInfo),
+		alignof(FWwiseEventInfo),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::Struct_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::PropPointers) < 2048);
 	UScriptStruct* Z_Construct_UScriptStruct_FWwiseEventInfo()
 	{
 		if (!Z_Registration_Info_UScriptStruct_WwiseEventInfo.InnerSingleton)
@@ -162,19 +163,19 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseEventInfo>(
 		}
 		return Z_Registration_Info_UScriptStruct_WwiseEventInfo.InnerSingleton;
 	}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseEventInfo_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseEventInfo_h_Statics
 	{
 		static const FEnumRegisterCompiledInInfo EnumInfo[];
 		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
 	};
-	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseEventInfo_h_Statics::EnumInfo[] = {
-		{ EWwiseEventSwitchContainerLoading_StaticEnum, TEXT("EWwiseEventSwitchContainerLoading"), &Z_Registration_Info_UEnum_EWwiseEventSwitchContainerLoading, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 333562613U) },
+	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseEventInfo_h_Statics::EnumInfo[] = {
+		{ EWwiseEventSwitchContainerLoading_StaticEnum, TEXT("EWwiseEventSwitchContainerLoading"), &Z_Registration_Info_UEnum_EWwiseEventSwitchContainerLoading, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2237445751U) },
 	};
-	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseEventInfo_h_Statics::ScriptStructInfo[] = {
-		{ FWwiseEventInfo::StaticStruct, Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewStructOps, TEXT("WwiseEventInfo"), &Z_Registration_Info_UScriptStruct_WwiseEventInfo, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseEventInfo), 1230852984U) },
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseEventInfo_h_Statics::ScriptStructInfo[] = {
+		{ FWwiseEventInfo::StaticStruct, Z_Construct_UScriptStruct_FWwiseEventInfo_Statics::NewStructOps, TEXT("WwiseEventInfo"), &Z_Registration_Info_UScriptStruct_WwiseEventInfo, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseEventInfo), 3016911151U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseEventInfo_h_255309959(TEXT("/Script/WwiseResourceLoader"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseEventInfo_h_3611906096(TEXT("/Script/WwiseResourceLoader"),
 		nullptr, 0,
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseEventInfo_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseEventInfo_h_Statics::ScriptStructInfo),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseEventInfo_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseEventInfo_h_Statics::EnumInfo));
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseEventInfo_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseEventInfo_h_Statics::ScriptStructInfo),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseEventInfo_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseEventInfo_h_Statics::EnumInfo));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

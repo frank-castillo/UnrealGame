@@ -37,6 +37,7 @@ void EmptyLinkFunctionForGeneratedCodeMovieSceneAkAudioEventTrack() {}
 		(UObject* (*)())Z_Construct_UClass_UMovieSceneAkTrack,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UMovieSceneAkAudioEventTrack_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UMovieSceneAkAudioEventTrack_Statics::Class_MetaDataParams[] = {
 		{ "IncludePath", "MovieSceneAkAudioEventTrack.h" },
@@ -44,8 +45,9 @@ void EmptyLinkFunctionForGeneratedCodeMovieSceneAkAudioEventTrack() {}
 	};
 #endif
 		const UECodeGen_Private::FImplementedInterfaceParams Z_Construct_UClass_UMovieSceneAkAudioEventTrack_Statics::InterfaceParams[] = {
-			{ Z_Construct_UClass_UMovieSceneTrackTemplateProducer_NoRegister, (int32)VTABLE_OFFSET(UMovieSceneAkAudioEventTrack, IMovieSceneTrackTemplateProducer), false },  // 2931163055
+			{ Z_Construct_UClass_UMovieSceneTrackTemplateProducer_NoRegister, (int32)VTABLE_OFFSET(UMovieSceneAkAudioEventTrack, IMovieSceneTrackTemplateProducer), false },  // 3839488910
 		};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UMovieSceneAkAudioEventTrack_Statics::InterfaceParams) < 64);
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UMovieSceneAkAudioEventTrack_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UMovieSceneAkAudioEventTrack>::IsAbstract,
 	};
@@ -62,7 +64,7 @@ void EmptyLinkFunctionForGeneratedCodeMovieSceneAkAudioEventTrack() {}
 		0,
 		UE_ARRAY_COUNT(InterfaceParams),
 		0x00A800A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UMovieSceneAkAudioEventTrack_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UMovieSceneAkAudioEventTrack_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UMovieSceneAkAudioEventTrack_Statics::Class_MetaDataParams), Z_Construct_UClass_UMovieSceneAkAudioEventTrack_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UMovieSceneAkAudioEventTrack()
 	{
@@ -78,15 +80,15 @@ void EmptyLinkFunctionForGeneratedCodeMovieSceneAkAudioEventTrack() {}
 	}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UMovieSceneAkAudioEventTrack);
 	UMovieSceneAkAudioEventTrack::~UMovieSceneAkAudioEventTrack() {}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_MovieSceneAkAudioEventTrack_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_MovieSceneAkAudioEventTrack_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_MovieSceneAkAudioEventTrack_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UMovieSceneAkAudioEventTrack, UMovieSceneAkAudioEventTrack::StaticClass, TEXT("UMovieSceneAkAudioEventTrack"), &Z_Registration_Info_UClass_UMovieSceneAkAudioEventTrack, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UMovieSceneAkAudioEventTrack), 3660002582U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_MovieSceneAkAudioEventTrack_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UMovieSceneAkAudioEventTrack, UMovieSceneAkAudioEventTrack::StaticClass, TEXT("UMovieSceneAkAudioEventTrack"), &Z_Registration_Info_UClass_UMovieSceneAkAudioEventTrack, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UMovieSceneAkAudioEventTrack), 1449044154U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_MovieSceneAkAudioEventTrack_h_3841894315(TEXT("/Script/AkAudio"),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_MovieSceneAkAudioEventTrack_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_MovieSceneAkAudioEventTrack_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_MovieSceneAkAudioEventTrack_h_2038884540(TEXT("/Script/AkAudio"),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_MovieSceneAkAudioEventTrack_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_MovieSceneAkAudioEventTrack_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

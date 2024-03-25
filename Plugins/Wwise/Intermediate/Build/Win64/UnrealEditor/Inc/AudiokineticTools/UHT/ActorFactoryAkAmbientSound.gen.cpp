@@ -35,14 +35,19 @@ void EmptyLinkFunctionForGeneratedCodeActorFactoryAkAmbientSound() {}
 		(UObject* (*)())Z_Construct_UClass_UActorFactory,
 		(UObject* (*)())Z_Construct_UPackage__Script_AudiokineticTools,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UActorFactoryAkAmbientSound_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UActorFactoryAkAmbientSound_Statics::Class_MetaDataParams[] = {
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/*------------------------------------------------------------------------------------\n\x09UActorFactoryAkAmbientSound\n------------------------------------------------------------------------------------*/" },
+#endif
 		{ "HideCategories", "Object Object" },
 		{ "IncludePath", "Factories/ActorFactoryAkAmbientSound.h" },
 		{ "ModuleRelativePath", "Classes/Factories/ActorFactoryAkAmbientSound.h" },
 		{ "ObjectInitializerConstructorDeclared", "" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "UActorFactoryAkAmbientSound" },
+#endif
 	};
 #endif
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UActorFactoryAkAmbientSound_Statics::StaticCppClassTypeInfo = {
@@ -61,7 +66,7 @@ void EmptyLinkFunctionForGeneratedCodeActorFactoryAkAmbientSound() {}
 		0,
 		0,
 		0x000830ACu,
-		METADATA_PARAMS(Z_Construct_UClass_UActorFactoryAkAmbientSound_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UActorFactoryAkAmbientSound_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UActorFactoryAkAmbientSound_Statics::Class_MetaDataParams), Z_Construct_UClass_UActorFactoryAkAmbientSound_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UActorFactoryAkAmbientSound()
 	{
@@ -77,15 +82,15 @@ void EmptyLinkFunctionForGeneratedCodeActorFactoryAkAmbientSound() {}
 	}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UActorFactoryAkAmbientSound);
 	UActorFactoryAkAmbientSound::~UActorFactoryAkAmbientSound() {}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Classes_Factories_ActorFactoryAkAmbientSound_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Classes_Factories_ActorFactoryAkAmbientSound_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Classes_Factories_ActorFactoryAkAmbientSound_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UActorFactoryAkAmbientSound, UActorFactoryAkAmbientSound::StaticClass, TEXT("UActorFactoryAkAmbientSound"), &Z_Registration_Info_UClass_UActorFactoryAkAmbientSound, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UActorFactoryAkAmbientSound), 4266723476U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Classes_Factories_ActorFactoryAkAmbientSound_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UActorFactoryAkAmbientSound, UActorFactoryAkAmbientSound::StaticClass, TEXT("UActorFactoryAkAmbientSound"), &Z_Registration_Info_UClass_UActorFactoryAkAmbientSound, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UActorFactoryAkAmbientSound), 3096360590U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Classes_Factories_ActorFactoryAkAmbientSound_h_1585479309(TEXT("/Script/AudiokineticTools"),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Classes_Factories_ActorFactoryAkAmbientSound_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Classes_Factories_ActorFactoryAkAmbientSound_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Classes_Factories_ActorFactoryAkAmbientSound_h_2706105079(TEXT("/Script/AudiokineticTools"),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Classes_Factories_ActorFactoryAkAmbientSound_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Classes_Factories_ActorFactoryAkAmbientSound_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

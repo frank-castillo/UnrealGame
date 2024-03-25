@@ -87,6 +87,7 @@ void EmptyLinkFunctionForGeneratedCodeAkSettingsPerUser() {}
 		(UObject* (*)())Z_Construct_UClass_UObject,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkSettingsPerUser_Statics::Class_MetaDataParams[] = {
 		{ "IncludePath", "AkSettingsPerUser.h" },
@@ -97,85 +98,117 @@ void EmptyLinkFunctionForGeneratedCodeAkSettingsPerUser() {}
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WwiseWindowsInstallationPath_MetaData[] = {
 		{ "Category", "Installation" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "// Wwise Installation Path (Root folder containing the Authoring, SDK, etc folders)\n" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkSettingsPerUser.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Wwise Installation Path (Root folder containing the Authoring, SDK, etc folders)" },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WwiseWindowsInstallationPath = { "WwiseWindowsInstallationPath", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkSettingsPerUser, WwiseWindowsInstallationPath), Z_Construct_UScriptStruct_FDirectoryPath, METADATA_PARAMS(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WwiseWindowsInstallationPath_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WwiseWindowsInstallationPath_MetaData)) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WwiseWindowsInstallationPath = { "WwiseWindowsInstallationPath", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkSettingsPerUser, WwiseWindowsInstallationPath), Z_Construct_UScriptStruct_FDirectoryPath, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WwiseWindowsInstallationPath_MetaData), Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WwiseWindowsInstallationPath_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WwiseMacInstallationPath_MetaData[] = {
 		{ "AbsolutePath", "" },
 		{ "Category", "Installation" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "// Wwise Installation Path (Root folder containing the Authoring, SDK, etc folders)\n" },
+#endif
 		{ "FilePathFilter", "app" },
 		{ "ModuleRelativePath", "Classes/AkSettingsPerUser.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Wwise Installation Path (Root folder containing the Authoring, SDK, etc folders)" },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WwiseMacInstallationPath = { "WwiseMacInstallationPath", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkSettingsPerUser, WwiseMacInstallationPath), Z_Construct_UScriptStruct_FFilePath, METADATA_PARAMS(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WwiseMacInstallationPath_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WwiseMacInstallationPath_MetaData)) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WwiseMacInstallationPath = { "WwiseMacInstallationPath", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkSettingsPerUser, WwiseMacInstallationPath), Z_Construct_UScriptStruct_FFilePath, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WwiseMacInstallationPath_MetaData), Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WwiseMacInstallationPath_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_GeneratedSoundBanksFolderUserOverride_MetaData[] = {
 		{ "Category", "Installation" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "//Override the Generated Soundbanks Path in the project settings\n" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkSettingsPerUser.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Override the Generated Soundbanks Path in the project settings" },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_GeneratedSoundBanksFolderUserOverride = { "GeneratedSoundBanksFolderUserOverride", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkSettingsPerUser, GeneratedSoundBanksFolderUserOverride), Z_Construct_UScriptStruct_FDirectoryPath, METADATA_PARAMS(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_GeneratedSoundBanksFolderUserOverride_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_GeneratedSoundBanksFolderUserOverride_MetaData)) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_GeneratedSoundBanksFolderUserOverride = { "GeneratedSoundBanksFolderUserOverride", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkSettingsPerUser, GeneratedSoundBanksFolderUserOverride), Z_Construct_UScriptStruct_FDirectoryPath, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_GeneratedSoundBanksFolderUserOverride_MetaData), Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_GeneratedSoundBanksFolderUserOverride_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiIPAddress_MetaData[] = {
 		{ "Category", "WAAPI" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "// IP Address used to connect to WAAPI. Changing this requires Editor restart\n" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkSettingsPerUser.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "IP Address used to connect to WAAPI. Changing this requires Editor restart" },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiIPAddress = { "WaapiIPAddress", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkSettingsPerUser, WaapiIPAddress), METADATA_PARAMS(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiIPAddress_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiIPAddress_MetaData)) };
+	const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiIPAddress = { "WaapiIPAddress", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkSettingsPerUser, WaapiIPAddress), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiIPAddress_MetaData), Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiIPAddress_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiPort_MetaData[] = {
 		{ "Category", "WAAPI" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "// Network Port used to connect to WAAPI. Changing this requires Editor restart\n" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkSettingsPerUser.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Network Port used to connect to WAAPI. Changing this requires Editor restart" },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiPort = { "WaapiPort", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkSettingsPerUser, WaapiPort), METADATA_PARAMS(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiPort_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiPort_MetaData)) };
+	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiPort = { "WaapiPort", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkSettingsPerUser, WaapiPort), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiPort_MetaData), Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiPort_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_bAutoConnectToWAAPI_MetaData[] = {
 		{ "Category", "WAAPI" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "// Whether to connect to WAAPI or not\n" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkSettingsPerUser.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Whether to connect to WAAPI or not" },
+#endif
 	};
 #endif
 	void Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_bAutoConnectToWAAPI_SetBit(void* Obj)
 	{
 		((UAkSettingsPerUser*)Obj)->bAutoConnectToWAAPI = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_bAutoConnectToWAAPI = { "bAutoConnectToWAAPI", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(UAkSettingsPerUser), &Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_bAutoConnectToWAAPI_SetBit, METADATA_PARAMS(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_bAutoConnectToWAAPI_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_bAutoConnectToWAAPI_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_bAutoConnectToWAAPI = { "bAutoConnectToWAAPI", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UAkSettingsPerUser), &Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_bAutoConnectToWAAPI_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_bAutoConnectToWAAPI_MetaData), Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_bAutoConnectToWAAPI_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_AutoSyncSelection_MetaData[] = {
 		{ "Category", "WAAPI" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "// Whether to synchronize the selection between the WAAPI picker and the Wwise Project Explorer\n" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkSettingsPerUser.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Whether to synchronize the selection between the WAAPI picker and the Wwise Project Explorer" },
+#endif
 	};
 #endif
 	void Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_AutoSyncSelection_SetBit(void* Obj)
 	{
 		((UAkSettingsPerUser*)Obj)->AutoSyncSelection = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_AutoSyncSelection = { "AutoSyncSelection", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(UAkSettingsPerUser), &Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_AutoSyncSelection_SetBit, METADATA_PARAMS(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_AutoSyncSelection_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_AutoSyncSelection_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_AutoSyncSelection = { "AutoSyncSelection", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UAkSettingsPerUser), &Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_AutoSyncSelection_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_AutoSyncSelection_MetaData), Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_AutoSyncSelection_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiTranslatorTimeout_MetaData[] = {
 		{ "Category", "Error Message Translator" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "// Time out value for the waapi error message translator to translate an error message (in ms). If set to 0, disable the translator entirely\n" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkSettingsPerUser.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Time out value for the waapi error message translator to translate an error message (in ms). If set to 0, disable the translator entirely" },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiTranslatorTimeout = { "WaapiTranslatorTimeout", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkSettingsPerUser, WaapiTranslatorTimeout), METADATA_PARAMS(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiTranslatorTimeout_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiTranslatorTimeout_MetaData)) };
+	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiTranslatorTimeout = { "WaapiTranslatorTimeout", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkSettingsPerUser, WaapiTranslatorTimeout), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiTranslatorTimeout_MetaData), Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WaapiTranslatorTimeout_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_SuppressGeneratedSoundBanksPathWarnings_MetaData[] = {
 		{ "ModuleRelativePath", "Classes/AkSettingsPerUser.h" },
@@ -185,7 +218,7 @@ void EmptyLinkFunctionForGeneratedCodeAkSettingsPerUser() {}
 	{
 		((UAkSettingsPerUser*)Obj)->SuppressGeneratedSoundBanksPathWarnings = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_SuppressGeneratedSoundBanksPathWarnings = { "SuppressGeneratedSoundBanksPathWarnings", nullptr, (EPropertyFlags)0x0010000000004000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(UAkSettingsPerUser), &Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_SuppressGeneratedSoundBanksPathWarnings_SetBit, METADATA_PARAMS(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_SuppressGeneratedSoundBanksPathWarnings_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_SuppressGeneratedSoundBanksPathWarnings_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_SuppressGeneratedSoundBanksPathWarnings = { "SuppressGeneratedSoundBanksPathWarnings", nullptr, (EPropertyFlags)0x0010000000004000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UAkSettingsPerUser), &Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_SuppressGeneratedSoundBanksPathWarnings_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_SuppressGeneratedSoundBanksPathWarnings_MetaData), Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_SuppressGeneratedSoundBanksPathWarnings_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_SoundDataGenerationSkipLanguage_MetaData[] = {
 		{ "ModuleRelativePath", "Classes/AkSettingsPerUser.h" },
@@ -195,20 +228,24 @@ void EmptyLinkFunctionForGeneratedCodeAkSettingsPerUser() {}
 	{
 		((UAkSettingsPerUser*)Obj)->SoundDataGenerationSkipLanguage = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_SoundDataGenerationSkipLanguage = { "SoundDataGenerationSkipLanguage", nullptr, (EPropertyFlags)0x0010000000004000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(UAkSettingsPerUser), &Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_SoundDataGenerationSkipLanguage_SetBit, METADATA_PARAMS(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_SoundDataGenerationSkipLanguage_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_SoundDataGenerationSkipLanguage_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_SoundDataGenerationSkipLanguage = { "SoundDataGenerationSkipLanguage", nullptr, (EPropertyFlags)0x0010000000004000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UAkSettingsPerUser), &Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_SoundDataGenerationSkipLanguage_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_SoundDataGenerationSkipLanguage_MetaData), Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_SoundDataGenerationSkipLanguage_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_AskForWwiseAssetReload_MetaData[] = {
 		{ "Category", "Asset Reload" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "//Opens a notification that the user must accept before reloading Wwise Asset Data\n" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkSettingsPerUser.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Opens a notification that the user must accept before reloading Wwise Asset Data" },
+#endif
 	};
 #endif
 	void Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_AskForWwiseAssetReload_SetBit(void* Obj)
 	{
 		((UAkSettingsPerUser*)Obj)->AskForWwiseAssetReload = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_AskForWwiseAssetReload = { "AskForWwiseAssetReload", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(UAkSettingsPerUser), &Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_AskForWwiseAssetReload_SetBit, METADATA_PARAMS(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_AskForWwiseAssetReload_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_AskForWwiseAssetReload_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_AskForWwiseAssetReload = { "AskForWwiseAssetReload", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UAkSettingsPerUser), &Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_AskForWwiseAssetReload_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_AskForWwiseAssetReload_MetaData), Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_AskForWwiseAssetReload_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAkSettingsPerUser_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WwiseWindowsInstallationPath,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAkSettingsPerUser_Statics::NewProp_WwiseMacInstallationPath,
@@ -238,8 +275,9 @@ void EmptyLinkFunctionForGeneratedCodeAkSettingsPerUser() {}
 		UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::PropPointers),
 		0,
 		0x001000A4u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkSettingsPerUser_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkSettingsPerUser_Statics::Class_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkSettingsPerUser_Statics::PropPointers) < 2048);
 	UClass* Z_Construct_UClass_UAkSettingsPerUser()
 	{
 		if (!Z_Registration_Info_UClass_UAkSettingsPerUser.OuterSingleton)
@@ -254,15 +292,15 @@ void EmptyLinkFunctionForGeneratedCodeAkSettingsPerUser() {}
 	}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UAkSettingsPerUser);
 	UAkSettingsPerUser::~UAkSettingsPerUser() {}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSettingsPerUser_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSettingsPerUser_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSettingsPerUser_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UAkSettingsPerUser, UAkSettingsPerUser::StaticClass, TEXT("UAkSettingsPerUser"), &Z_Registration_Info_UClass_UAkSettingsPerUser, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkSettingsPerUser), 194820164U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSettingsPerUser_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UAkSettingsPerUser, UAkSettingsPerUser::StaticClass, TEXT("UAkSettingsPerUser"), &Z_Registration_Info_UClass_UAkSettingsPerUser, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkSettingsPerUser), 4114772134U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSettingsPerUser_h_1348117564(TEXT("/Script/AkAudio"),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSettingsPerUser_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSettingsPerUser_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSettingsPerUser_h_2610831887(TEXT("/Script/AkAudio"),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSettingsPerUser_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSettingsPerUser_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

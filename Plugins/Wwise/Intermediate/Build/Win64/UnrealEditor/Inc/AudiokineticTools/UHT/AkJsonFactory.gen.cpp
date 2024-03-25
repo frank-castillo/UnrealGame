@@ -35,14 +35,19 @@ void EmptyLinkFunctionForGeneratedCodeAkJsonFactory() {}
 		(UObject* (*)())Z_Construct_UClass_UFactory,
 		(UObject* (*)())Z_Construct_UPackage__Script_AudiokineticTools,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkJsonFactory_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkJsonFactory_Statics::Class_MetaDataParams[] = {
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/*------------------------------------------------------------------------------------\n\x09UAkJsonFactory\n------------------------------------------------------------------------------------*/" },
+#endif
 		{ "HideCategories", "Object" },
 		{ "IncludePath", "Factories/AkJsonFactory.h" },
 		{ "ModuleRelativePath", "Classes/Factories/AkJsonFactory.h" },
 		{ "ObjectInitializerConstructorDeclared", "" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "UAkJsonFactory" },
+#endif
 	};
 #endif
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UAkJsonFactory_Statics::StaticCppClassTypeInfo = {
@@ -61,7 +66,7 @@ void EmptyLinkFunctionForGeneratedCodeAkJsonFactory() {}
 		0,
 		0,
 		0x000000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkJsonFactory_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkJsonFactory_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkJsonFactory_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkJsonFactory_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UAkJsonFactory()
 	{
@@ -77,15 +82,15 @@ void EmptyLinkFunctionForGeneratedCodeAkJsonFactory() {}
 	}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UAkJsonFactory);
 	UAkJsonFactory::~UAkJsonFactory() {}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Classes_Factories_AkJsonFactory_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Classes_Factories_AkJsonFactory_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Classes_Factories_AkJsonFactory_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UAkJsonFactory, UAkJsonFactory::StaticClass, TEXT("UAkJsonFactory"), &Z_Registration_Info_UClass_UAkJsonFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkJsonFactory), 4242480624U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Classes_Factories_AkJsonFactory_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UAkJsonFactory, UAkJsonFactory::StaticClass, TEXT("UAkJsonFactory"), &Z_Registration_Info_UClass_UAkJsonFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkJsonFactory), 1944448456U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Classes_Factories_AkJsonFactory_h_388785554(TEXT("/Script/AudiokineticTools"),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Classes_Factories_AkJsonFactory_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Classes_Factories_AkJsonFactory_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Classes_Factories_AkJsonFactory_h_2149362415(TEXT("/Script/AudiokineticTools"),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Classes_Factories_AkJsonFactory_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Classes_Factories_AkJsonFactory_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

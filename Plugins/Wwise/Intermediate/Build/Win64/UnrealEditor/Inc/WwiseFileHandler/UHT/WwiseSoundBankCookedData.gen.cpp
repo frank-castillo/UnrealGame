@@ -18,7 +18,7 @@ void EmptyLinkFunctionForGeneratedCodeWwiseSoundBankCookedData() {}
 	{
 		if (!Z_Registration_Info_UEnum_EWwiseSoundBankType.OuterSingleton)
 		{
-			Z_Registration_Info_UEnum_EWwiseSoundBankType.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_WwiseFileHandler_EWwiseSoundBankType, Z_Construct_UPackage__Script_WwiseFileHandler(), TEXT("EWwiseSoundBankType"));
+			Z_Registration_Info_UEnum_EWwiseSoundBankType.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_WwiseFileHandler_EWwiseSoundBankType, (UObject*)Z_Construct_UPackage__Script_WwiseFileHandler(), TEXT("EWwiseSoundBankType"));
 		}
 		return Z_Registration_Info_UEnum_EWwiseSoundBankType.OuterSingleton;
 	}
@@ -56,11 +56,11 @@ void EmptyLinkFunctionForGeneratedCodeWwiseSoundBankCookedData() {}
 		"EWwiseSoundBankType",
 		"EWwiseSoundBankType",
 		Z_Construct_UEnum_WwiseFileHandler_EWwiseSoundBankType_Statics::Enumerators,
-		UE_ARRAY_COUNT(Z_Construct_UEnum_WwiseFileHandler_EWwiseSoundBankType_Statics::Enumerators),
 		RF_Public|RF_Transient|RF_MarkAsNative,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_WwiseFileHandler_EWwiseSoundBankType_Statics::Enumerators),
 		EEnumFlags::None,
 		(uint8)UEnum::ECppForm::EnumClass,
-		METADATA_PARAMS(Z_Construct_UEnum_WwiseFileHandler_EWwiseSoundBankType_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_WwiseFileHandler_EWwiseSoundBankType_Statics::Enum_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UEnum_WwiseFileHandler_EWwiseSoundBankType_Statics::Enum_MetaDataParams), Z_Construct_UEnum_WwiseFileHandler_EWwiseSoundBankType_Statics::Enum_MetaDataParams)
 	};
 	UEnum* Z_Construct_UEnum_WwiseFileHandler_EWwiseSoundBankType()
 	{
@@ -75,7 +75,7 @@ class UScriptStruct* FWwiseSoundBankCookedData::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_WwiseSoundBankCookedData.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_WwiseSoundBankCookedData.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData, Z_Construct_UPackage__Script_WwiseFileHandler(), TEXT("WwiseSoundBankCookedData"));
+		Z_Registration_Info_UScriptStruct_WwiseSoundBankCookedData.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData, (UObject*)Z_Construct_UPackage__Script_WwiseFileHandler(), TEXT("WwiseSoundBankCookedData"));
 	}
 	return Z_Registration_Info_UScriptStruct_WwiseSoundBankCookedData.OuterSingleton;
 }
@@ -126,9 +126,13 @@ template<> WWISEFILEHANDLER_API UScriptStruct* StaticStruct<FWwiseSoundBankCooke
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::Struct_MetaDataParams[] = {
 		{ "BlueprintType", "true" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n * @brief Required data to load a SoundBank\n*/" },
+#endif
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseSoundBankCookedData.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief Required data to load a SoundBank" },
+#endif
 	};
 #endif
 	void* Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewStructOps()
@@ -138,75 +142,103 @@ template<> WWISEFILEHANDLER_API UScriptStruct* StaticStruct<FWwiseSoundBankCooke
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankId_MetaData[] = {
 		{ "Category", "Wwise" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09 * @brief Short ID for the SoundBank.\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseSoundBankCookedData.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief Short ID for the SoundBank." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankId = { "SoundBankId", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseSoundBankCookedData, SoundBankId), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankId_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankId_MetaData)) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankId = { "SoundBankId", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseSoundBankCookedData, SoundBankId), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankId_MetaData), Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankId_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankPathName_MetaData[] = {
 		{ "Category", "Wwise" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09 * @brief Path name relative to the platform's root.\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseSoundBankCookedData.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief Path name relative to the platform's root." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankPathName = { "SoundBankPathName", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseSoundBankCookedData, SoundBankPathName), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankPathName_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankPathName_MetaData)) };
+	const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankPathName = { "SoundBankPathName", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseSoundBankCookedData, SoundBankPathName), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankPathName_MetaData), Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankPathName_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_MemoryAlignment_MetaData[] = {
 		{ "Category", "Wwise" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09 * @brief Alignment required to load the SoundBank on device. Can be 0 if no particular requirements.\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseSoundBankCookedData.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief Alignment required to load the SoundBank on device. Can be 0 if no particular requirements." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_MemoryAlignment = { "MemoryAlignment", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseSoundBankCookedData, MemoryAlignment), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_MemoryAlignment_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_MemoryAlignment_MetaData)) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_MemoryAlignment = { "MemoryAlignment", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseSoundBankCookedData, MemoryAlignment), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_MemoryAlignment_MetaData), Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_MemoryAlignment_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_bDeviceMemory_MetaData[] = {
 		{ "Category", "Wwise" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09 * @brief True if the SoundBank needs to be loaded in a special memory zone on the device.\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseSoundBankCookedData.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief True if the SoundBank needs to be loaded in a special memory zone on the device." },
+#endif
 	};
 #endif
 	void Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_bDeviceMemory_SetBit(void* Obj)
 	{
 		((FWwiseSoundBankCookedData*)Obj)->bDeviceMemory = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_bDeviceMemory = { "bDeviceMemory", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(FWwiseSoundBankCookedData), &Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_bDeviceMemory_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_bDeviceMemory_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_bDeviceMemory_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_bDeviceMemory = { "bDeviceMemory", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(FWwiseSoundBankCookedData), &Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_bDeviceMemory_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_bDeviceMemory_MetaData), Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_bDeviceMemory_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_bContainsMedia_MetaData[] = {
 		{ "Category", "Wwise" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09 * @brief True if the SoundBank contains media or media parts. False means a data-only SoundBank.\n\x09 *\n\x09 * Useful to load the SoundBank as a copy instead of keeping it Memory-mapped, as the SoundEngine will decode\n\x09 * data from the SoundBank, and has no use for the file itself.\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseSoundBankCookedData.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief True if the SoundBank contains media or media parts. False means a data-only SoundBank.\n\nUseful to load the SoundBank as a copy instead of keeping it Memory-mapped, as the SoundEngine will decode\ndata from the SoundBank, and has no use for the file itself." },
+#endif
 	};
 #endif
 	void Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_bContainsMedia_SetBit(void* Obj)
 	{
 		((FWwiseSoundBankCookedData*)Obj)->bContainsMedia = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_bContainsMedia = { "bContainsMedia", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(FWwiseSoundBankCookedData), &Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_bContainsMedia_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_bContainsMedia_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_bContainsMedia_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_bContainsMedia = { "bContainsMedia", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(FWwiseSoundBankCookedData), &Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_bContainsMedia_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_bContainsMedia_MetaData), Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_bContainsMedia_MetaData) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankType_MetaData[] = {
 		{ "Category", "Wwise" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09 * @brief User-created SoundBank, Event Auto-defined SoundBank, or Bus Auto-defined SoundBank.\n\x09 *\n\x09 * Useful for loading by file name.\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseSoundBankCookedData.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief User-created SoundBank, Event Auto-defined SoundBank, or Bus Auto-defined SoundBank.\n\nUseful for loading by file name." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankType = { "SoundBankType", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseSoundBankCookedData, SoundBankType), Z_Construct_UEnum_WwiseFileHandler_EWwiseSoundBankType, METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankType_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankType_MetaData)) }; // 2218929904
+	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankType = { "SoundBankType", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseSoundBankCookedData, SoundBankType), Z_Construct_UEnum_WwiseFileHandler_EWwiseSoundBankType, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankType_MetaData), Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankType_MetaData) }; // 3898174496
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_DebugName_MetaData[] = {
 		{ "Category", "Wwise" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09 * @brief Optional debug name. Can be empty in release, contain the name, or the full path of the asset.\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseSoundBankCookedData.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief Optional debug name. Can be empty in release, contain the name, or the full path of the asset." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_DebugName = { "DebugName", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseSoundBankCookedData, DebugName), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_DebugName_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_DebugName_MetaData)) };
+	const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_DebugName = { "DebugName", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseSoundBankCookedData, DebugName), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_DebugName_MetaData), Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_DebugName_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankId,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewProp_SoundBankPathName,
@@ -222,14 +254,15 @@ template<> WWISEFILEHANDLER_API UScriptStruct* StaticStruct<FWwiseSoundBankCooke
 		nullptr,
 		&NewStructOps,
 		"WwiseSoundBankCookedData",
-		sizeof(FWwiseSoundBankCookedData),
-		alignof(FWwiseSoundBankCookedData),
 		Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::PropPointers,
 		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::PropPointers),
+		sizeof(FWwiseSoundBankCookedData),
+		alignof(FWwiseSoundBankCookedData),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::Struct_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::PropPointers) < 2048);
 	UScriptStruct* Z_Construct_UScriptStruct_FWwiseSoundBankCookedData()
 	{
 		if (!Z_Registration_Info_UScriptStruct_WwiseSoundBankCookedData.InnerSingleton)
@@ -238,19 +271,19 @@ template<> WWISEFILEHANDLER_API UScriptStruct* StaticStruct<FWwiseSoundBankCooke
 		}
 		return Z_Registration_Info_UScriptStruct_WwiseSoundBankCookedData.InnerSingleton;
 	}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseSoundBankCookedData_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseSoundBankCookedData_h_Statics
 	{
 		static const FEnumRegisterCompiledInInfo EnumInfo[];
 		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
 	};
-	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseSoundBankCookedData_h_Statics::EnumInfo[] = {
-		{ EWwiseSoundBankType_StaticEnum, TEXT("EWwiseSoundBankType"), &Z_Registration_Info_UEnum_EWwiseSoundBankType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2218929904U) },
+	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseSoundBankCookedData_h_Statics::EnumInfo[] = {
+		{ EWwiseSoundBankType_StaticEnum, TEXT("EWwiseSoundBankType"), &Z_Registration_Info_UEnum_EWwiseSoundBankType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3898174496U) },
 	};
-	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseSoundBankCookedData_h_Statics::ScriptStructInfo[] = {
-		{ FWwiseSoundBankCookedData::StaticStruct, Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewStructOps, TEXT("WwiseSoundBankCookedData"), &Z_Registration_Info_UScriptStruct_WwiseSoundBankCookedData, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseSoundBankCookedData), 3822265621U) },
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseSoundBankCookedData_h_Statics::ScriptStructInfo[] = {
+		{ FWwiseSoundBankCookedData::StaticStruct, Z_Construct_UScriptStruct_FWwiseSoundBankCookedData_Statics::NewStructOps, TEXT("WwiseSoundBankCookedData"), &Z_Registration_Info_UScriptStruct_WwiseSoundBankCookedData, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseSoundBankCookedData), 3561908703U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseSoundBankCookedData_h_1990073377(TEXT("/Script/WwiseFileHandler"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseSoundBankCookedData_h_322722124(TEXT("/Script/WwiseFileHandler"),
 		nullptr, 0,
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseSoundBankCookedData_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseSoundBankCookedData_h_Statics::ScriptStructInfo),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseSoundBankCookedData_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseSoundBankCookedData_h_Statics::EnumInfo));
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseSoundBankCookedData_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseSoundBankCookedData_h_Statics::ScriptStructInfo),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseSoundBankCookedData_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseSoundBankCookedData_h_Statics::EnumInfo));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

@@ -17,7 +17,7 @@ void EmptyLinkFunctionForGeneratedCodeWwiseRefType() {}
 	{
 		if (!Z_Registration_Info_UEnum_EWwiseRefType.OuterSingleton)
 		{
-			Z_Registration_Info_UEnum_EWwiseRefType.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_WwiseProjectDatabase_EWwiseRefType, Z_Construct_UPackage__Script_WwiseProjectDatabase(), TEXT("EWwiseRefType"));
+			Z_Registration_Info_UEnum_EWwiseRefType.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_WwiseProjectDatabase_EWwiseRefType, (UObject*)Z_Construct_UPackage__Script_WwiseProjectDatabase(), TEXT("EWwiseRefType"));
 		}
 		return Z_Registration_Info_UEnum_EWwiseRefType.OuterSingleton;
 	}
@@ -102,11 +102,11 @@ void EmptyLinkFunctionForGeneratedCodeWwiseRefType() {}
 		"EWwiseRefType",
 		"EWwiseRefType",
 		Z_Construct_UEnum_WwiseProjectDatabase_EWwiseRefType_Statics::Enumerators,
-		UE_ARRAY_COUNT(Z_Construct_UEnum_WwiseProjectDatabase_EWwiseRefType_Statics::Enumerators),
 		RF_Public|RF_Transient|RF_MarkAsNative,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_WwiseProjectDatabase_EWwiseRefType_Statics::Enumerators),
 		EEnumFlags::None,
 		(uint8)UEnum::ECppForm::EnumClass,
-		METADATA_PARAMS(Z_Construct_UEnum_WwiseProjectDatabase_EWwiseRefType_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_WwiseProjectDatabase_EWwiseRefType_Statics::Enum_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UEnum_WwiseProjectDatabase_EWwiseRefType_Statics::Enum_MetaDataParams), Z_Construct_UEnum_WwiseProjectDatabase_EWwiseRefType_Statics::Enum_MetaDataParams)
 	};
 	UEnum* Z_Construct_UEnum_WwiseProjectDatabase_EWwiseRefType()
 	{
@@ -116,15 +116,15 @@ void EmptyLinkFunctionForGeneratedCodeWwiseRefType() {}
 		}
 		return Z_Registration_Info_UEnum_EWwiseRefType.InnerSingleton;
 	}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseProjectDatabase_Public_Wwise_Ref_WwiseRefType_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseProjectDatabase_Public_Wwise_Ref_WwiseRefType_h_Statics
 	{
 		static const FEnumRegisterCompiledInInfo EnumInfo[];
 	};
-	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseProjectDatabase_Public_Wwise_Ref_WwiseRefType_h_Statics::EnumInfo[] = {
-		{ EWwiseRefType_StaticEnum, TEXT("EWwiseRefType"), &Z_Registration_Info_UEnum_EWwiseRefType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 1609857462U) },
+	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseProjectDatabase_Public_Wwise_Ref_WwiseRefType_h_Statics::EnumInfo[] = {
+		{ EWwiseRefType_StaticEnum, TEXT("EWwiseRefType"), &Z_Registration_Info_UEnum_EWwiseRefType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 1882697498U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseProjectDatabase_Public_Wwise_Ref_WwiseRefType_h_1395476121(TEXT("/Script/WwiseProjectDatabase"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseProjectDatabase_Public_Wwise_Ref_WwiseRefType_h_164361989(TEXT("/Script/WwiseProjectDatabase"),
 		nullptr, 0,
 		nullptr, 0,
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseProjectDatabase_Public_Wwise_Ref_WwiseRefType_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseProjectDatabase_Public_Wwise_Ref_WwiseRefType_h_Statics::EnumInfo));
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseProjectDatabase_Public_Wwise_Ref_WwiseRefType_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseProjectDatabase_Public_Wwise_Ref_WwiseRefType_h_Statics::EnumInfo));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

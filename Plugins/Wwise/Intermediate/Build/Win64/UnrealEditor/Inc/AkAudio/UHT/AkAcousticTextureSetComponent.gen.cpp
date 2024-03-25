@@ -35,6 +35,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAcousticTextureSetComponent() {}
 		(UObject* (*)())Z_Construct_UClass_USceneComponent,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAcousticTextureSetComponent_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkAcousticTextureSetComponent_Statics::Class_MetaDataParams[] = {
 		{ "ClassGroupNames", "Audiokinetic" },
@@ -60,7 +61,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAcousticTextureSetComponent() {}
 		0,
 		0,
 		0x00B000A5u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkAcousticTextureSetComponent_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkAcousticTextureSetComponent_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAcousticTextureSetComponent_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkAcousticTextureSetComponent_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UAkAcousticTextureSetComponent()
 	{
@@ -76,15 +77,15 @@ void EmptyLinkFunctionForGeneratedCodeAkAcousticTextureSetComponent() {}
 	}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UAkAcousticTextureSetComponent);
 	UAkAcousticTextureSetComponent::~UAkAcousticTextureSetComponent() {}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAcousticTextureSetComponent_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAcousticTextureSetComponent_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAcousticTextureSetComponent_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UAkAcousticTextureSetComponent, UAkAcousticTextureSetComponent::StaticClass, TEXT("UAkAcousticTextureSetComponent"), &Z_Registration_Info_UClass_UAkAcousticTextureSetComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkAcousticTextureSetComponent), 155584246U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAcousticTextureSetComponent_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UAkAcousticTextureSetComponent, UAkAcousticTextureSetComponent::StaticClass, TEXT("UAkAcousticTextureSetComponent"), &Z_Registration_Info_UClass_UAkAcousticTextureSetComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkAcousticTextureSetComponent), 4243804241U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAcousticTextureSetComponent_h_340253586(TEXT("/Script/AkAudio"),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAcousticTextureSetComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAcousticTextureSetComponent_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAcousticTextureSetComponent_h_3765227599(TEXT("/Script/AkAudio"),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAcousticTextureSetComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAcousticTextureSetComponent_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

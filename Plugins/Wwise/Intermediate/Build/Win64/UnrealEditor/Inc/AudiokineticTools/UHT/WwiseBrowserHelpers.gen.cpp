@@ -35,6 +35,7 @@ void EmptyLinkFunctionForGeneratedCodeWwiseBrowserHelpers() {}
 		(UObject* (*)())Z_Construct_UClass_UObject,
 		(UObject* (*)())Z_Construct_UPackage__Script_AudiokineticTools,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkDragDropBlocker_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkDragDropBlocker_Statics::Class_MetaDataParams[] = {
 		{ "IncludePath", "WwiseBrowser/WwiseBrowserHelpers.h" },
@@ -57,7 +58,7 @@ void EmptyLinkFunctionForGeneratedCodeWwiseBrowserHelpers() {}
 		0,
 		0,
 		0x000000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkDragDropBlocker_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkDragDropBlocker_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkDragDropBlocker_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkDragDropBlocker_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UAkDragDropBlocker()
 	{
@@ -71,17 +72,18 @@ void EmptyLinkFunctionForGeneratedCodeWwiseBrowserHelpers() {}
 	{
 		return UAkDragDropBlocker::StaticClass();
 	}
+	UAkDragDropBlocker::UAkDragDropBlocker(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UAkDragDropBlocker);
 	UAkDragDropBlocker::~UAkDragDropBlocker() {}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Private_WwiseBrowser_WwiseBrowserHelpers_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Private_WwiseBrowser_WwiseBrowserHelpers_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Private_WwiseBrowser_WwiseBrowserHelpers_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UAkDragDropBlocker, UAkDragDropBlocker::StaticClass, TEXT("UAkDragDropBlocker"), &Z_Registration_Info_UClass_UAkDragDropBlocker, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkDragDropBlocker), 553811529U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Private_WwiseBrowser_WwiseBrowserHelpers_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UAkDragDropBlocker, UAkDragDropBlocker::StaticClass, TEXT("UAkDragDropBlocker"), &Z_Registration_Info_UClass_UAkDragDropBlocker, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkDragDropBlocker), 1074224579U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Private_WwiseBrowser_WwiseBrowserHelpers_h_1480086309(TEXT("/Script/AudiokineticTools"),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Private_WwiseBrowser_WwiseBrowserHelpers_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Private_WwiseBrowser_WwiseBrowserHelpers_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Private_WwiseBrowser_WwiseBrowserHelpers_h_692522522(TEXT("/Script/AudiokineticTools"),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Private_WwiseBrowser_WwiseBrowserHelpers_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Private_WwiseBrowser_WwiseBrowserHelpers_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

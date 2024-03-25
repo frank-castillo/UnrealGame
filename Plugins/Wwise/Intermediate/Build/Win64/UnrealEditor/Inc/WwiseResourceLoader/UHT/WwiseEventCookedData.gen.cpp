@@ -28,7 +28,7 @@ void EmptyLinkFunctionForGeneratedCodeWwiseEventCookedData() {}
 	{
 		if (!Z_Registration_Info_UEnum_EWwiseEventDestroyOptions.OuterSingleton)
 		{
-			Z_Registration_Info_UEnum_EWwiseEventDestroyOptions.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventDestroyOptions, Z_Construct_UPackage__Script_WwiseResourceLoader(), TEXT("EWwiseEventDestroyOptions"));
+			Z_Registration_Info_UEnum_EWwiseEventDestroyOptions.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventDestroyOptions, (UObject*)Z_Construct_UPackage__Script_WwiseResourceLoader(), TEXT("EWwiseEventDestroyOptions"));
 		}
 		return Z_Registration_Info_UEnum_EWwiseEventDestroyOptions.OuterSingleton;
 	}
@@ -62,11 +62,11 @@ void EmptyLinkFunctionForGeneratedCodeWwiseEventCookedData() {}
 		"EWwiseEventDestroyOptions",
 		"EWwiseEventDestroyOptions",
 		Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventDestroyOptions_Statics::Enumerators,
-		UE_ARRAY_COUNT(Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventDestroyOptions_Statics::Enumerators),
 		RF_Public|RF_Transient|RF_MarkAsNative,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventDestroyOptions_Statics::Enumerators),
 		EEnumFlags::None,
 		(uint8)UEnum::ECppForm::EnumClass,
-		METADATA_PARAMS(Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventDestroyOptions_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventDestroyOptions_Statics::Enum_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventDestroyOptions_Statics::Enum_MetaDataParams), Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventDestroyOptions_Statics::Enum_MetaDataParams)
 	};
 	UEnum* Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventDestroyOptions()
 	{
@@ -81,7 +81,7 @@ class UScriptStruct* FWwiseEventCookedData::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_WwiseEventCookedData.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_WwiseEventCookedData.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseEventCookedData, Z_Construct_UPackage__Script_WwiseResourceLoader(), TEXT("WwiseEventCookedData"));
+		Z_Registration_Info_UScriptStruct_WwiseEventCookedData.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseEventCookedData, (UObject*)Z_Construct_UPackage__Script_WwiseResourceLoader(), TEXT("WwiseEventCookedData"));
 	}
 	return Z_Registration_Info_UScriptStruct_WwiseEventCookedData.OuterSingleton;
 }
@@ -152,65 +152,69 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseEventCooked
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseEventCookedData.h" },
 	};
 #endif
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_EventId = { "EventId", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseEventCookedData, EventId), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_EventId_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_EventId_MetaData)) };
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_SoundBanks_Inner = { "SoundBanks", nullptr, (EPropertyFlags)0x0000000000020000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, Z_Construct_UScriptStruct_FWwiseSoundBankCookedData, METADATA_PARAMS(nullptr, 0) }; // 3822265621
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_EventId = { "EventId", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseEventCookedData, EventId), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_EventId_MetaData), Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_EventId_MetaData) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_SoundBanks_Inner = { "SoundBanks", nullptr, (EPropertyFlags)0x0000000000020000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FWwiseSoundBankCookedData, METADATA_PARAMS(0, nullptr) }; // 3561908703
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_SoundBanks_MetaData[] = {
 		{ "Category", "Wwise" },
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseEventCookedData.h" },
 	};
 #endif
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_SoundBanks = { "SoundBanks", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseEventCookedData, SoundBanks), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_SoundBanks_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_SoundBanks_MetaData)) }; // 3822265621
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_Media_Inner = { "Media", nullptr, (EPropertyFlags)0x0000000000020000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, Z_Construct_UScriptStruct_FWwiseMediaCookedData, METADATA_PARAMS(nullptr, 0) }; // 2741982261
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_SoundBanks = { "SoundBanks", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseEventCookedData, SoundBanks), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_SoundBanks_MetaData), Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_SoundBanks_MetaData) }; // 3561908703
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_Media_Inner = { "Media", nullptr, (EPropertyFlags)0x0000000000020000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FWwiseMediaCookedData, METADATA_PARAMS(0, nullptr) }; // 3915386998
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_Media_MetaData[] = {
 		{ "Category", "Wwise" },
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseEventCookedData.h" },
 	};
 #endif
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_Media = { "Media", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseEventCookedData, Media), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_Media_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_Media_MetaData)) }; // 2741982261
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_ExternalSources_Inner = { "ExternalSources", nullptr, (EPropertyFlags)0x0000000000020000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData, METADATA_PARAMS(nullptr, 0) }; // 507204337
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_Media = { "Media", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseEventCookedData, Media), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_Media_MetaData), Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_Media_MetaData) }; // 3915386998
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_ExternalSources_Inner = { "ExternalSources", nullptr, (EPropertyFlags)0x0000000000020000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData, METADATA_PARAMS(0, nullptr) }; // 1993666383
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_ExternalSources_MetaData[] = {
 		{ "Category", "Wwise" },
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseEventCookedData.h" },
 	};
 #endif
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_ExternalSources = { "ExternalSources", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseEventCookedData, ExternalSources), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_ExternalSources_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_ExternalSources_MetaData)) }; // 507204337
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_SwitchContainerLeaves_Inner = { "SwitchContainerLeaves", nullptr, (EPropertyFlags)0x0000000000020000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, Z_Construct_UScriptStruct_FWwiseSwitchContainerLeafCookedData, METADATA_PARAMS(nullptr, 0) }; // 3878102567
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_ExternalSources = { "ExternalSources", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseEventCookedData, ExternalSources), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_ExternalSources_MetaData), Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_ExternalSources_MetaData) }; // 1993666383
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_SwitchContainerLeaves_Inner = { "SwitchContainerLeaves", nullptr, (EPropertyFlags)0x0000000000020000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FWwiseSwitchContainerLeafCookedData, METADATA_PARAMS(0, nullptr) }; // 1916183323
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_SwitchContainerLeaves_MetaData[] = {
 		{ "Category", "Wwise" },
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseEventCookedData.h" },
 	};
 #endif
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_SwitchContainerLeaves = { "SwitchContainerLeaves", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseEventCookedData, SwitchContainerLeaves), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_SwitchContainerLeaves_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_SwitchContainerLeaves_MetaData)) }; // 3878102567
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_RequiredGroupValueSet_ElementProp = { "RequiredGroupValueSet", nullptr, (EPropertyFlags)0x0000000000020001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, Z_Construct_UScriptStruct_FWwiseGroupValueCookedData, METADATA_PARAMS(nullptr, 0) }; // 2679213710
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_SwitchContainerLeaves = { "SwitchContainerLeaves", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseEventCookedData, SwitchContainerLeaves), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_SwitchContainerLeaves_MetaData), Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_SwitchContainerLeaves_MetaData) }; // 1916183323
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_RequiredGroupValueSet_ElementProp = { "RequiredGroupValueSet", nullptr, (EPropertyFlags)0x0000000000020001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FWwiseGroupValueCookedData, METADATA_PARAMS(0, nullptr) }; // 2060780995
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_RequiredGroupValueSet_MetaData[] = {
 		{ "Category", "Wwise" },
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseEventCookedData.h" },
 	};
 #endif
-	static_assert(TModels<CGetTypeHashable, FWwiseGroupValueCookedData>::Value, "The structure 'FWwiseGroupValueCookedData' is used in a TSet but does not have a GetValueTypeHash defined");
-	const UECodeGen_Private::FSetPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_RequiredGroupValueSet = { "RequiredGroupValueSet", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Set, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseEventCookedData, RequiredGroupValueSet), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_RequiredGroupValueSet_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_RequiredGroupValueSet_MetaData)) }; // 2679213710
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_DestroyOptions_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+	static_assert(TModels_V<CGetTypeHashable, FWwiseGroupValueCookedData>, "The structure 'FWwiseGroupValueCookedData' is used in a TSet but does not have a GetValueTypeHash defined");
+	const UECodeGen_Private::FSetPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_RequiredGroupValueSet = { "RequiredGroupValueSet", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Set, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseEventCookedData, RequiredGroupValueSet), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_RequiredGroupValueSet_MetaData), Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_RequiredGroupValueSet_MetaData) }; // 2060780995
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_DestroyOptions_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_DestroyOptions_MetaData[] = {
 		{ "Category", "Wwise" },
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseEventCookedData.h" },
 	};
 #endif
-	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_DestroyOptions = { "DestroyOptions", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseEventCookedData, DestroyOptions), Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventDestroyOptions, METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_DestroyOptions_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_DestroyOptions_MetaData)) }; // 3126334647
+	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_DestroyOptions = { "DestroyOptions", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseEventCookedData, DestroyOptions), Z_Construct_UEnum_WwiseResourceLoader_EWwiseEventDestroyOptions, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_DestroyOptions_MetaData), Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_DestroyOptions_MetaData) }; // 747368286
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_DebugName_MetaData[] = {
 		{ "Category", "Wwise" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09 * @brief Optional debug name. Can be empty in release, contain the name, or the full path of the asset.\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseEventCookedData.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief Optional debug name. Can be empty in release, contain the name, or the full path of the asset." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_DebugName = { "DebugName", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseEventCookedData, DebugName), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_DebugName_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_DebugName_MetaData)) };
+	const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_DebugName = { "DebugName", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseEventCookedData, DebugName), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_DebugName_MetaData), Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_DebugName_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_EventId,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewProp_SoundBanks_Inner,
@@ -232,14 +236,15 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseEventCooked
 		nullptr,
 		&NewStructOps,
 		"WwiseEventCookedData",
-		sizeof(FWwiseEventCookedData),
-		alignof(FWwiseEventCookedData),
 		Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::PropPointers,
 		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::PropPointers),
+		sizeof(FWwiseEventCookedData),
+		alignof(FWwiseEventCookedData),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::Struct_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::PropPointers) < 2048);
 	UScriptStruct* Z_Construct_UScriptStruct_FWwiseEventCookedData()
 	{
 		if (!Z_Registration_Info_UScriptStruct_WwiseEventCookedData.InnerSingleton)
@@ -248,19 +253,19 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseEventCooked
 		}
 		return Z_Registration_Info_UScriptStruct_WwiseEventCookedData.InnerSingleton;
 	}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseEventCookedData_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseEventCookedData_h_Statics
 	{
 		static const FEnumRegisterCompiledInInfo EnumInfo[];
 		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
 	};
-	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseEventCookedData_h_Statics::EnumInfo[] = {
-		{ EWwiseEventDestroyOptions_StaticEnum, TEXT("EWwiseEventDestroyOptions"), &Z_Registration_Info_UEnum_EWwiseEventDestroyOptions, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3126334647U) },
+	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseEventCookedData_h_Statics::EnumInfo[] = {
+		{ EWwiseEventDestroyOptions_StaticEnum, TEXT("EWwiseEventDestroyOptions"), &Z_Registration_Info_UEnum_EWwiseEventDestroyOptions, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 747368286U) },
 	};
-	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseEventCookedData_h_Statics::ScriptStructInfo[] = {
-		{ FWwiseEventCookedData::StaticStruct, Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewStructOps, TEXT("WwiseEventCookedData"), &Z_Registration_Info_UScriptStruct_WwiseEventCookedData, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseEventCookedData), 3913921166U) },
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseEventCookedData_h_Statics::ScriptStructInfo[] = {
+		{ FWwiseEventCookedData::StaticStruct, Z_Construct_UScriptStruct_FWwiseEventCookedData_Statics::NewStructOps, TEXT("WwiseEventCookedData"), &Z_Registration_Info_UScriptStruct_WwiseEventCookedData, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseEventCookedData), 625292725U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseEventCookedData_h_1642795833(TEXT("/Script/WwiseResourceLoader"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseEventCookedData_h_1031337720(TEXT("/Script/WwiseResourceLoader"),
 		nullptr, 0,
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseEventCookedData_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseEventCookedData_h_Statics::ScriptStructInfo),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseEventCookedData_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseEventCookedData_h_Statics::EnumInfo));
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseEventCookedData_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseEventCookedData_h_Statics::ScriptStructInfo),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseEventCookedData_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseEventCookedData_h_Statics::EnumInfo));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

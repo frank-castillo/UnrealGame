@@ -39,6 +39,7 @@ void EmptyLinkFunctionForGeneratedCodeAkWindowsPlatformInfo() {}
 		(UObject* (*)())Z_Construct_UClass_UAkPlatformInfo,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkWin32PlatformInfo_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkWin32PlatformInfo_Statics::Class_MetaDataParams[] = {
 		{ "IncludePath", "Platforms/AkPlatform_Windows/AkWindowsPlatformInfo.h" },
@@ -61,7 +62,7 @@ void EmptyLinkFunctionForGeneratedCodeAkWindowsPlatformInfo() {}
 		0,
 		0,
 		0x000000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkWin32PlatformInfo_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkWin32PlatformInfo_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkWin32PlatformInfo_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkWin32PlatformInfo_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UAkWin32PlatformInfo()
 	{
@@ -98,6 +99,7 @@ void EmptyLinkFunctionForGeneratedCodeAkWindowsPlatformInfo() {}
 		(UObject* (*)())Z_Construct_UClass_UAkPlatformInfo,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkWin64PlatformInfo_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkWin64PlatformInfo_Statics::Class_MetaDataParams[] = {
 		{ "IncludePath", "Platforms/AkPlatform_Windows/AkWindowsPlatformInfo.h" },
@@ -120,7 +122,7 @@ void EmptyLinkFunctionForGeneratedCodeAkWindowsPlatformInfo() {}
 		0,
 		0,
 		0x000000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkWin64PlatformInfo_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkWin64PlatformInfo_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkWin64PlatformInfo_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkWin64PlatformInfo_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UAkWin64PlatformInfo()
 	{
@@ -157,6 +159,7 @@ void EmptyLinkFunctionForGeneratedCodeAkWindowsPlatformInfo() {}
 		(UObject* (*)())Z_Construct_UClass_UAkWin64PlatformInfo,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkWindowsPlatformInfo_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkWindowsPlatformInfo_Statics::Class_MetaDataParams[] = {
 		{ "IncludePath", "Platforms/AkPlatform_Windows/AkWindowsPlatformInfo.h" },
@@ -179,7 +182,7 @@ void EmptyLinkFunctionForGeneratedCodeAkWindowsPlatformInfo() {}
 		0,
 		0,
 		0x000000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkWindowsPlatformInfo_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkWindowsPlatformInfo_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkWindowsPlatformInfo_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkWindowsPlatformInfo_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UAkWindowsPlatformInfo()
 	{
@@ -195,17 +198,17 @@ void EmptyLinkFunctionForGeneratedCodeAkWindowsPlatformInfo() {}
 	}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UAkWindowsPlatformInfo);
 	UAkWindowsPlatformInfo::~UAkWindowsPlatformInfo() {}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Windows_AkWindowsPlatformInfo_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Windows_AkWindowsPlatformInfo_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Windows_AkWindowsPlatformInfo_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UAkWin32PlatformInfo, UAkWin32PlatformInfo::StaticClass, TEXT("UAkWin32PlatformInfo"), &Z_Registration_Info_UClass_UAkWin32PlatformInfo, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkWin32PlatformInfo), 1621482276U) },
-		{ Z_Construct_UClass_UAkWin64PlatformInfo, UAkWin64PlatformInfo::StaticClass, TEXT("UAkWin64PlatformInfo"), &Z_Registration_Info_UClass_UAkWin64PlatformInfo, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkWin64PlatformInfo), 3204073219U) },
-		{ Z_Construct_UClass_UAkWindowsPlatformInfo, UAkWindowsPlatformInfo::StaticClass, TEXT("UAkWindowsPlatformInfo"), &Z_Registration_Info_UClass_UAkWindowsPlatformInfo, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkWindowsPlatformInfo), 2351216234U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Windows_AkWindowsPlatformInfo_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UAkWin32PlatformInfo, UAkWin32PlatformInfo::StaticClass, TEXT("UAkWin32PlatformInfo"), &Z_Registration_Info_UClass_UAkWin32PlatformInfo, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkWin32PlatformInfo), 476304082U) },
+		{ Z_Construct_UClass_UAkWin64PlatformInfo, UAkWin64PlatformInfo::StaticClass, TEXT("UAkWin64PlatformInfo"), &Z_Registration_Info_UClass_UAkWin64PlatformInfo, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkWin64PlatformInfo), 688180468U) },
+		{ Z_Construct_UClass_UAkWindowsPlatformInfo, UAkWindowsPlatformInfo::StaticClass, TEXT("UAkWindowsPlatformInfo"), &Z_Registration_Info_UClass_UAkWindowsPlatformInfo, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkWindowsPlatformInfo), 3014509451U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Windows_AkWindowsPlatformInfo_h_3156684805(TEXT("/Script/AkAudio"),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Windows_AkWindowsPlatformInfo_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Windows_AkWindowsPlatformInfo_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Windows_AkWindowsPlatformInfo_h_2303939113(TEXT("/Script/AkAudio"),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Windows_AkWindowsPlatformInfo_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Windows_AkWindowsPlatformInfo_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

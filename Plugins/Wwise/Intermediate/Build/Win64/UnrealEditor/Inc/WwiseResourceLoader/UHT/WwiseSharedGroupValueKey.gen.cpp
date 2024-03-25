@@ -17,7 +17,7 @@ class UScriptStruct* FWwiseSharedGroupValueKey::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_WwiseSharedGroupValueKey.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_WwiseSharedGroupValueKey.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseSharedGroupValueKey, Z_Construct_UPackage__Script_WwiseResourceLoader(), TEXT("WwiseSharedGroupValueKey"));
+		Z_Registration_Info_UScriptStruct_WwiseSharedGroupValueKey.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseSharedGroupValueKey, (UObject*)Z_Construct_UPackage__Script_WwiseResourceLoader(), TEXT("WwiseSharedGroupValueKey"));
 	}
 	return Z_Registration_Info_UScriptStruct_WwiseSharedGroupValueKey.OuterSingleton;
 }
@@ -48,13 +48,13 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseSharedGroup
 		nullptr,
 		&NewStructOps,
 		"WwiseSharedGroupValueKey",
-		sizeof(FWwiseSharedGroupValueKey),
-		alignof(FWwiseSharedGroupValueKey),
 		nullptr,
 		0,
+		sizeof(FWwiseSharedGroupValueKey),
+		alignof(FWwiseSharedGroupValueKey),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseSharedGroupValueKey_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSharedGroupValueKey_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSharedGroupValueKey_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FWwiseSharedGroupValueKey_Statics::Struct_MetaDataParams)
 	};
 	UScriptStruct* Z_Construct_UScriptStruct_FWwiseSharedGroupValueKey()
 	{
@@ -64,15 +64,15 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseSharedGroup
 		}
 		return Z_Registration_Info_UScriptStruct_WwiseSharedGroupValueKey.InnerSingleton;
 	}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseSharedGroupValueKey_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseSharedGroupValueKey_h_Statics
 	{
 		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
 	};
-	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseSharedGroupValueKey_h_Statics::ScriptStructInfo[] = {
-		{ FWwiseSharedGroupValueKey::StaticStruct, Z_Construct_UScriptStruct_FWwiseSharedGroupValueKey_Statics::NewStructOps, TEXT("WwiseSharedGroupValueKey"), &Z_Registration_Info_UScriptStruct_WwiseSharedGroupValueKey, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseSharedGroupValueKey), 4124003405U) },
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseSharedGroupValueKey_h_Statics::ScriptStructInfo[] = {
+		{ FWwiseSharedGroupValueKey::StaticStruct, Z_Construct_UScriptStruct_FWwiseSharedGroupValueKey_Statics::NewStructOps, TEXT("WwiseSharedGroupValueKey"), &Z_Registration_Info_UScriptStruct_WwiseSharedGroupValueKey, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseSharedGroupValueKey), 2666182359U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseSharedGroupValueKey_h_3677080539(TEXT("/Script/WwiseResourceLoader"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseSharedGroupValueKey_h_1196012529(TEXT("/Script/WwiseResourceLoader"),
 		nullptr, 0,
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseSharedGroupValueKey_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseSharedGroupValueKey_h_Statics::ScriptStructInfo),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseSharedGroupValueKey_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseSharedGroupValueKey_h_Statics::ScriptStructInfo),
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

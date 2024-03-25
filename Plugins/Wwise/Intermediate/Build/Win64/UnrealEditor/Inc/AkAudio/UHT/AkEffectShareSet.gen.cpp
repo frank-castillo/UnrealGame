@@ -53,6 +53,7 @@ void EmptyLinkFunctionForGeneratedCodeAkEffectShareSet() {}
 		(UObject* (*)())Z_Construct_UClass_UAkAudioType,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkEffectShareSet_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkEffectShareSet_Statics::Class_MetaDataParams[] = {
 		{ "BlueprintType", "true" },
@@ -66,7 +67,7 @@ void EmptyLinkFunctionForGeneratedCodeAkEffectShareSet() {}
 		{ "ModuleRelativePath", "Classes/AkEffectShareSet.h" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkEffectShareSet_Statics::NewProp_ShareSetCookedData = { "ShareSetCookedData", nullptr, (EPropertyFlags)0x0010000000022001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkEffectShareSet, ShareSetCookedData), Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData, METADATA_PARAMS(Z_Construct_UClass_UAkEffectShareSet_Statics::NewProp_ShareSetCookedData_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkEffectShareSet_Statics::NewProp_ShareSetCookedData_MetaData)) }; // 2434779349
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkEffectShareSet_Statics::NewProp_ShareSetCookedData = { "ShareSetCookedData", nullptr, (EPropertyFlags)0x0010000000022001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkEffectShareSet, ShareSetCookedData), Z_Construct_UScriptStruct_FWwiseLocalizedShareSetCookedData, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkEffectShareSet_Statics::NewProp_ShareSetCookedData_MetaData), Z_Construct_UClass_UAkEffectShareSet_Statics::NewProp_ShareSetCookedData_MetaData) }; // 27775780
 #if WITH_EDITORONLY_DATA
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkEffectShareSet_Statics::NewProp_ShareSetInfo_MetaData[] = {
@@ -74,7 +75,7 @@ void EmptyLinkFunctionForGeneratedCodeAkEffectShareSet() {}
 		{ "ModuleRelativePath", "Classes/AkEffectShareSet.h" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkEffectShareSet_Statics::NewProp_ShareSetInfo = { "ShareSetInfo", nullptr, (EPropertyFlags)0x0010000800000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkEffectShareSet, ShareSetInfo), Z_Construct_UScriptStruct_FWwiseObjectInfo, METADATA_PARAMS(Z_Construct_UClass_UAkEffectShareSet_Statics::NewProp_ShareSetInfo_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkEffectShareSet_Statics::NewProp_ShareSetInfo_MetaData)) }; // 3645774004
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkEffectShareSet_Statics::NewProp_ShareSetInfo = { "ShareSetInfo", nullptr, (EPropertyFlags)0x0010000800000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkEffectShareSet, ShareSetInfo), Z_Construct_UScriptStruct_FWwiseObjectInfo, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkEffectShareSet_Statics::NewProp_ShareSetInfo_MetaData), Z_Construct_UClass_UAkEffectShareSet_Statics::NewProp_ShareSetInfo_MetaData) }; // 2788776191
 #endif // WITH_EDITORONLY_DATA
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAkEffectShareSet_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAkEffectShareSet_Statics::NewProp_ShareSetCookedData,
@@ -98,8 +99,9 @@ void EmptyLinkFunctionForGeneratedCodeAkEffectShareSet() {}
 		UE_ARRAY_COUNT(Z_Construct_UClass_UAkEffectShareSet_Statics::PropPointers),
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkEffectShareSet_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkEffectShareSet_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkEffectShareSet_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkEffectShareSet_Statics::Class_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkEffectShareSet_Statics::PropPointers) < 2048);
 	UClass* Z_Construct_UClass_UAkEffectShareSet()
 	{
 		if (!Z_Registration_Info_UClass_UAkEffectShareSet.OuterSingleton)
@@ -112,18 +114,19 @@ void EmptyLinkFunctionForGeneratedCodeAkEffectShareSet() {}
 	{
 		return UAkEffectShareSet::StaticClass();
 	}
+	UAkEffectShareSet::UAkEffectShareSet(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UAkEffectShareSet);
 	UAkEffectShareSet::~UAkEffectShareSet() {}
 	IMPLEMENT_FSTRUCTUREDARCHIVE_SERIALIZER(UAkEffectShareSet)
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkEffectShareSet_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkEffectShareSet_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkEffectShareSet_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UAkEffectShareSet, UAkEffectShareSet::StaticClass, TEXT("UAkEffectShareSet"), &Z_Registration_Info_UClass_UAkEffectShareSet, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkEffectShareSet), 3076787545U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkEffectShareSet_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UAkEffectShareSet, UAkEffectShareSet::StaticClass, TEXT("UAkEffectShareSet"), &Z_Registration_Info_UClass_UAkEffectShareSet, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkEffectShareSet), 3982713270U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkEffectShareSet_h_2852582595(TEXT("/Script/AkAudio"),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkEffectShareSet_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkEffectShareSet_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkEffectShareSet_h_2456388244(TEXT("/Script/AkAudio"),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkEffectShareSet_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkEffectShareSet_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

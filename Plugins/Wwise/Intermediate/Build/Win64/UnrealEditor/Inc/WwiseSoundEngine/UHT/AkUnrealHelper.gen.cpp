@@ -5,7 +5,7 @@
 ===========================================================================*/
 
 #include "UObject/GeneratedCppIncludes.h"
-#include "WwiseSoundEngine/Public/AkUnrealHelper.h"
+#include "../../WwiseSoundEngine/Public/AkUnrealHelper.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeAkUnrealHelper() {}
 // Cross Module References
@@ -20,7 +20,7 @@ class UScriptStruct* FAkUInt64Wrapper::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_AkUInt64Wrapper.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_AkUInt64Wrapper.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FAkUInt64Wrapper, Z_Construct_UPackage__Script_WwiseSoundEngine(), TEXT("AkUInt64Wrapper"));
+		Z_Registration_Info_UScriptStruct_AkUInt64Wrapper.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FAkUInt64Wrapper, (UObject*)Z_Construct_UPackage__Script_WwiseSoundEngine(), TEXT("AkUInt64Wrapper"));
 	}
 	return Z_Registration_Info_UScriptStruct_AkUInt64Wrapper.OuterSingleton;
 }
@@ -37,7 +37,7 @@ template<> WWISESOUNDENGINE_API UScriptStruct* StaticStruct<FAkUInt64Wrapper>()
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_UInt64Value_MetaData[];
 #endif
-		static const UECodeGen_Private::FFInt64PropertyParams NewProp_UInt64Value;
+		static const UECodeGen_Private::FUInt64PropertyParams NewProp_UInt64Value;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const UECodeGen_Private::FStructParams ReturnStructParams;
 	};
@@ -60,7 +60,7 @@ template<> WWISESOUNDENGINE_API UScriptStruct* StaticStruct<FAkUInt64Wrapper>()
 		{ "ModuleRelativePath", "Public/AkUnrealHelper.h" },
 	};
 #endif
-	const UECodeGen_Private::FFInt64PropertyParams Z_Construct_UScriptStruct_FAkUInt64Wrapper_Statics::NewProp_UInt64Value = { "UInt64Value", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::UInt64, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FAkUInt64Wrapper, UInt64Value), METADATA_PARAMS(Z_Construct_UScriptStruct_FAkUInt64Wrapper_Statics::NewProp_UInt64Value_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkUInt64Wrapper_Statics::NewProp_UInt64Value_MetaData)) };
+	const UECodeGen_Private::FUInt64PropertyParams Z_Construct_UScriptStruct_FAkUInt64Wrapper_Statics::NewProp_UInt64Value = { "UInt64Value", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::UInt64, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FAkUInt64Wrapper, UInt64Value), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkUInt64Wrapper_Statics::NewProp_UInt64Value_MetaData), Z_Construct_UScriptStruct_FAkUInt64Wrapper_Statics::NewProp_UInt64Value_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FAkUInt64Wrapper_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FAkUInt64Wrapper_Statics::NewProp_UInt64Value,
 	};
@@ -69,14 +69,15 @@ template<> WWISESOUNDENGINE_API UScriptStruct* StaticStruct<FAkUInt64Wrapper>()
 		nullptr,
 		&NewStructOps,
 		"AkUInt64Wrapper",
-		sizeof(FAkUInt64Wrapper),
-		alignof(FAkUInt64Wrapper),
 		Z_Construct_UScriptStruct_FAkUInt64Wrapper_Statics::PropPointers,
 		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkUInt64Wrapper_Statics::PropPointers),
+		sizeof(FAkUInt64Wrapper),
+		alignof(FAkUInt64Wrapper),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000001),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FAkUInt64Wrapper_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkUInt64Wrapper_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkUInt64Wrapper_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FAkUInt64Wrapper_Statics::Struct_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkUInt64Wrapper_Statics::PropPointers) < 2048);
 	UScriptStruct* Z_Construct_UScriptStruct_FAkUInt64Wrapper()
 	{
 		if (!Z_Registration_Info_UScriptStruct_AkUInt64Wrapper.InnerSingleton)
@@ -90,7 +91,7 @@ class UScriptStruct* FAkUInt32Wrapper::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_AkUInt32Wrapper.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_AkUInt32Wrapper.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FAkUInt32Wrapper, Z_Construct_UPackage__Script_WwiseSoundEngine(), TEXT("AkUInt32Wrapper"));
+		Z_Registration_Info_UScriptStruct_AkUInt32Wrapper.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FAkUInt32Wrapper, (UObject*)Z_Construct_UPackage__Script_WwiseSoundEngine(), TEXT("AkUInt32Wrapper"));
 	}
 	return Z_Registration_Info_UScriptStruct_AkUInt32Wrapper.OuterSingleton;
 }
@@ -130,7 +131,7 @@ template<> WWISESOUNDENGINE_API UScriptStruct* StaticStruct<FAkUInt32Wrapper>()
 		{ "ModuleRelativePath", "Public/AkUnrealHelper.h" },
 	};
 #endif
-	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FAkUInt32Wrapper_Statics::NewProp_UInt32Value = { "UInt32Value", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FAkUInt32Wrapper, UInt32Value), METADATA_PARAMS(Z_Construct_UScriptStruct_FAkUInt32Wrapper_Statics::NewProp_UInt32Value_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkUInt32Wrapper_Statics::NewProp_UInt32Value_MetaData)) };
+	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FAkUInt32Wrapper_Statics::NewProp_UInt32Value = { "UInt32Value", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FAkUInt32Wrapper, UInt32Value), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkUInt32Wrapper_Statics::NewProp_UInt32Value_MetaData), Z_Construct_UScriptStruct_FAkUInt32Wrapper_Statics::NewProp_UInt32Value_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FAkUInt32Wrapper_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FAkUInt32Wrapper_Statics::NewProp_UInt32Value,
 	};
@@ -139,14 +140,15 @@ template<> WWISESOUNDENGINE_API UScriptStruct* StaticStruct<FAkUInt32Wrapper>()
 		nullptr,
 		&NewStructOps,
 		"AkUInt32Wrapper",
-		sizeof(FAkUInt32Wrapper),
-		alignof(FAkUInt32Wrapper),
 		Z_Construct_UScriptStruct_FAkUInt32Wrapper_Statics::PropPointers,
 		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkUInt32Wrapper_Statics::PropPointers),
+		sizeof(FAkUInt32Wrapper),
+		alignof(FAkUInt32Wrapper),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000001),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FAkUInt32Wrapper_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkUInt32Wrapper_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkUInt32Wrapper_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FAkUInt32Wrapper_Statics::Struct_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkUInt32Wrapper_Statics::PropPointers) < 2048);
 	UScriptStruct* Z_Construct_UScriptStruct_FAkUInt32Wrapper()
 	{
 		if (!Z_Registration_Info_UScriptStruct_AkUInt32Wrapper.InnerSingleton)
@@ -163,7 +165,7 @@ class UScriptStruct* FAkOutputDeviceID::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_AkOutputDeviceID.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_AkOutputDeviceID.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FAkOutputDeviceID, Z_Construct_UPackage__Script_WwiseSoundEngine(), TEXT("AkOutputDeviceID"));
+		Z_Registration_Info_UScriptStruct_AkOutputDeviceID.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FAkOutputDeviceID, (UObject*)Z_Construct_UPackage__Script_WwiseSoundEngine(), TEXT("AkOutputDeviceID"));
 	}
 	return Z_Registration_Info_UScriptStruct_AkOutputDeviceID.OuterSingleton;
 }
@@ -196,13 +198,13 @@ template<> WWISESOUNDENGINE_API UScriptStruct* StaticStruct<FAkOutputDeviceID>()
 		Z_Construct_UScriptStruct_FAkUInt64Wrapper,
 		&NewStructOps,
 		"AkOutputDeviceID",
-		sizeof(FAkOutputDeviceID),
-		alignof(FAkOutputDeviceID),
 		nullptr,
 		0,
+		sizeof(FAkOutputDeviceID),
+		alignof(FAkOutputDeviceID),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000001),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FAkOutputDeviceID_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkOutputDeviceID_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkOutputDeviceID_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FAkOutputDeviceID_Statics::Struct_MetaDataParams)
 	};
 	UScriptStruct* Z_Construct_UScriptStruct_FAkOutputDeviceID()
 	{
@@ -220,7 +222,7 @@ class UScriptStruct* FAkUniqueID::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_AkUniqueID.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_AkUniqueID.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FAkUniqueID, Z_Construct_UPackage__Script_WwiseSoundEngine(), TEXT("AkUniqueID"));
+		Z_Registration_Info_UScriptStruct_AkUniqueID.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FAkUniqueID, (UObject*)Z_Construct_UPackage__Script_WwiseSoundEngine(), TEXT("AkUniqueID"));
 	}
 	return Z_Registration_Info_UScriptStruct_AkUniqueID.OuterSingleton;
 }
@@ -253,13 +255,13 @@ template<> WWISESOUNDENGINE_API UScriptStruct* StaticStruct<FAkUniqueID>()
 		Z_Construct_UScriptStruct_FAkUInt32Wrapper,
 		&NewStructOps,
 		"AkUniqueID",
-		sizeof(FAkUniqueID),
-		alignof(FAkUniqueID),
 		nullptr,
 		0,
+		sizeof(FAkUniqueID),
+		alignof(FAkUniqueID),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000001),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FAkUniqueID_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkUniqueID_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkUniqueID_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FAkUniqueID_Statics::Struct_MetaDataParams)
 	};
 	UScriptStruct* Z_Construct_UScriptStruct_FAkUniqueID()
 	{
@@ -269,18 +271,18 @@ template<> WWISESOUNDENGINE_API UScriptStruct* StaticStruct<FAkUniqueID>()
 		}
 		return Z_Registration_Info_UScriptStruct_AkUniqueID.InnerSingleton;
 	}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseSoundEngine_Public_AkUnrealHelper_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseSoundEngine_Public_AkUnrealHelper_h_Statics
 	{
 		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
 	};
-	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseSoundEngine_Public_AkUnrealHelper_h_Statics::ScriptStructInfo[] = {
-		{ FAkUInt64Wrapper::StaticStruct, Z_Construct_UScriptStruct_FAkUInt64Wrapper_Statics::NewStructOps, TEXT("AkUInt64Wrapper"), &Z_Registration_Info_UScriptStruct_AkUInt64Wrapper, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FAkUInt64Wrapper), 3965303931U) },
-		{ FAkUInt32Wrapper::StaticStruct, Z_Construct_UScriptStruct_FAkUInt32Wrapper_Statics::NewStructOps, TEXT("AkUInt32Wrapper"), &Z_Registration_Info_UScriptStruct_AkUInt32Wrapper, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FAkUInt32Wrapper), 2984314346U) },
-		{ FAkOutputDeviceID::StaticStruct, Z_Construct_UScriptStruct_FAkOutputDeviceID_Statics::NewStructOps, TEXT("AkOutputDeviceID"), &Z_Registration_Info_UScriptStruct_AkOutputDeviceID, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FAkOutputDeviceID), 2295798285U) },
-		{ FAkUniqueID::StaticStruct, Z_Construct_UScriptStruct_FAkUniqueID_Statics::NewStructOps, TEXT("AkUniqueID"), &Z_Registration_Info_UScriptStruct_AkUniqueID, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FAkUniqueID), 2187982974U) },
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseSoundEngine_Public_AkUnrealHelper_h_Statics::ScriptStructInfo[] = {
+		{ FAkUInt64Wrapper::StaticStruct, Z_Construct_UScriptStruct_FAkUInt64Wrapper_Statics::NewStructOps, TEXT("AkUInt64Wrapper"), &Z_Registration_Info_UScriptStruct_AkUInt64Wrapper, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FAkUInt64Wrapper), 1201931744U) },
+		{ FAkUInt32Wrapper::StaticStruct, Z_Construct_UScriptStruct_FAkUInt32Wrapper_Statics::NewStructOps, TEXT("AkUInt32Wrapper"), &Z_Registration_Info_UScriptStruct_AkUInt32Wrapper, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FAkUInt32Wrapper), 2099544826U) },
+		{ FAkOutputDeviceID::StaticStruct, Z_Construct_UScriptStruct_FAkOutputDeviceID_Statics::NewStructOps, TEXT("AkOutputDeviceID"), &Z_Registration_Info_UScriptStruct_AkOutputDeviceID, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FAkOutputDeviceID), 1337503438U) },
+		{ FAkUniqueID::StaticStruct, Z_Construct_UScriptStruct_FAkUniqueID_Statics::NewStructOps, TEXT("AkUniqueID"), &Z_Registration_Info_UScriptStruct_AkUniqueID, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FAkUniqueID), 3904096612U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseSoundEngine_Public_AkUnrealHelper_h_2853257341(TEXT("/Script/WwiseSoundEngine"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseSoundEngine_Public_AkUnrealHelper_h_630823539(TEXT("/Script/WwiseSoundEngine"),
 		nullptr, 0,
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseSoundEngine_Public_AkUnrealHelper_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseSoundEngine_Public_AkUnrealHelper_h_Statics::ScriptStructInfo),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseSoundEngine_Public_AkUnrealHelper_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseSoundEngine_Public_AkUnrealHelper_h_Statics::ScriptStructInfo),
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

@@ -20,7 +20,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioSession() {}
 	{
 		if (!Z_Registration_Info_UEnum_EAkAudioSessionCategory.OuterSingleton)
 		{
-			Z_Registration_Info_UEnum_EAkAudioSessionCategory.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_AkAudio_EAkAudioSessionCategory, Z_Construct_UPackage__Script_AkAudio(), TEXT("EAkAudioSessionCategory"));
+			Z_Registration_Info_UEnum_EAkAudioSessionCategory.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_AkAudio_EAkAudioSessionCategory, (UObject*)Z_Construct_UPackage__Script_AkAudio(), TEXT("EAkAudioSessionCategory"));
 		}
 		return Z_Registration_Info_UEnum_EAkAudioSessionCategory.OuterSingleton;
 	}
@@ -55,11 +55,11 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioSession() {}
 		"EAkAudioSessionCategory",
 		"EAkAudioSessionCategory",
 		Z_Construct_UEnum_AkAudio_EAkAudioSessionCategory_Statics::Enumerators,
-		UE_ARRAY_COUNT(Z_Construct_UEnum_AkAudio_EAkAudioSessionCategory_Statics::Enumerators),
 		RF_Public|RF_Transient|RF_MarkAsNative,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_AkAudio_EAkAudioSessionCategory_Statics::Enumerators),
 		EEnumFlags::None,
 		(uint8)UEnum::ECppForm::EnumClass,
-		METADATA_PARAMS(Z_Construct_UEnum_AkAudio_EAkAudioSessionCategory_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_AkAudio_EAkAudioSessionCategory_Statics::Enum_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UEnum_AkAudio_EAkAudioSessionCategory_Statics::Enum_MetaDataParams), Z_Construct_UEnum_AkAudio_EAkAudioSessionCategory_Statics::Enum_MetaDataParams)
 	};
 	UEnum* Z_Construct_UEnum_AkAudio_EAkAudioSessionCategory()
 	{
@@ -74,7 +74,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioSession() {}
 	{
 		if (!Z_Registration_Info_UEnum_EAkAudioSessionCategoryOptions.OuterSingleton)
 		{
-			Z_Registration_Info_UEnum_EAkAudioSessionCategoryOptions.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_AkAudio_EAkAudioSessionCategoryOptions, Z_Construct_UPackage__Script_AkAudio(), TEXT("EAkAudioSessionCategoryOptions"));
+			Z_Registration_Info_UEnum_EAkAudioSessionCategoryOptions.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_AkAudio_EAkAudioSessionCategoryOptions, (UObject*)Z_Construct_UPackage__Script_AkAudio(), TEXT("EAkAudioSessionCategoryOptions"));
 		}
 		return Z_Registration_Info_UEnum_EAkAudioSessionCategoryOptions.OuterSingleton;
 	}
@@ -112,11 +112,11 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioSession() {}
 		"EAkAudioSessionCategoryOptions",
 		"EAkAudioSessionCategoryOptions",
 		Z_Construct_UEnum_AkAudio_EAkAudioSessionCategoryOptions_Statics::Enumerators,
-		UE_ARRAY_COUNT(Z_Construct_UEnum_AkAudio_EAkAudioSessionCategoryOptions_Statics::Enumerators),
 		RF_Public|RF_Transient|RF_MarkAsNative,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_AkAudio_EAkAudioSessionCategoryOptions_Statics::Enumerators),
 		EEnumFlags::None,
 		(uint8)UEnum::ECppForm::EnumClass,
-		METADATA_PARAMS(Z_Construct_UEnum_AkAudio_EAkAudioSessionCategoryOptions_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_AkAudio_EAkAudioSessionCategoryOptions_Statics::Enum_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UEnum_AkAudio_EAkAudioSessionCategoryOptions_Statics::Enum_MetaDataParams), Z_Construct_UEnum_AkAudio_EAkAudioSessionCategoryOptions_Statics::Enum_MetaDataParams)
 	};
 	UEnum* Z_Construct_UEnum_AkAudio_EAkAudioSessionCategoryOptions()
 	{
@@ -131,7 +131,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioSession() {}
 	{
 		if (!Z_Registration_Info_UEnum_EAkAudioSessionMode.OuterSingleton)
 		{
-			Z_Registration_Info_UEnum_EAkAudioSessionMode.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_AkAudio_EAkAudioSessionMode, Z_Construct_UPackage__Script_AkAudio(), TEXT("EAkAudioSessionMode"));
+			Z_Registration_Info_UEnum_EAkAudioSessionMode.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_AkAudio_EAkAudioSessionMode, (UObject*)Z_Construct_UPackage__Script_AkAudio(), TEXT("EAkAudioSessionMode"));
 		}
 		return Z_Registration_Info_UEnum_EAkAudioSessionMode.OuterSingleton;
 	}
@@ -174,11 +174,11 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioSession() {}
 		"EAkAudioSessionMode",
 		"EAkAudioSessionMode",
 		Z_Construct_UEnum_AkAudio_EAkAudioSessionMode_Statics::Enumerators,
-		UE_ARRAY_COUNT(Z_Construct_UEnum_AkAudio_EAkAudioSessionMode_Statics::Enumerators),
 		RF_Public|RF_Transient|RF_MarkAsNative,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_AkAudio_EAkAudioSessionMode_Statics::Enumerators),
 		EEnumFlags::None,
 		(uint8)UEnum::ECppForm::EnumClass,
-		METADATA_PARAMS(Z_Construct_UEnum_AkAudio_EAkAudioSessionMode_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_AkAudio_EAkAudioSessionMode_Statics::Enum_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UEnum_AkAudio_EAkAudioSessionMode_Statics::Enum_MetaDataParams), Z_Construct_UEnum_AkAudio_EAkAudioSessionMode_Statics::Enum_MetaDataParams)
 	};
 	UEnum* Z_Construct_UEnum_AkAudio_EAkAudioSessionMode()
 	{
@@ -193,7 +193,7 @@ class UScriptStruct* FAkAudioSession::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_AkAudioSession.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_AkAudioSession.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FAkAudioSession, Z_Construct_UPackage__Script_AkAudio(), TEXT("AkAudioSession"));
+		Z_Registration_Info_UScriptStruct_AkAudioSession.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FAkAudioSession, (UObject*)Z_Construct_UPackage__Script_AkAudio(), TEXT("AkAudioSession"));
 	}
 	return Z_Registration_Info_UScriptStruct_AkAudioSession.OuterSingleton;
 }
@@ -207,7 +207,7 @@ template<> AKAUDIO_API UScriptStruct* StaticStruct<FAkAudioSession>()
 		static const UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[];
 #endif
 		static void* NewStructOps();
-		static const UECodeGen_Private::FUnsizedIntPropertyParams NewProp_AudioSessionCategory_Underlying;
+		static const UECodeGen_Private::FIntPropertyParams NewProp_AudioSessionCategory_Underlying;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_AudioSessionCategory_MetaData[];
 #endif
@@ -216,7 +216,7 @@ template<> AKAUDIO_API UScriptStruct* StaticStruct<FAkAudioSession>()
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_AudioSessionCategoryOptions_MetaData[];
 #endif
 		static const UECodeGen_Private::FUInt32PropertyParams NewProp_AudioSessionCategoryOptions;
-		static const UECodeGen_Private::FUnsizedIntPropertyParams NewProp_AudioSessionMode_Underlying;
+		static const UECodeGen_Private::FIntPropertyParams NewProp_AudioSessionMode_Underlying;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_AudioSessionMode_MetaData[];
 #endif
@@ -233,34 +233,40 @@ template<> AKAUDIO_API UScriptStruct* StaticStruct<FAkAudioSession>()
 	{
 		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FAkAudioSession>();
 	}
-	const UECodeGen_Private::FUnsizedIntPropertyParams Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionCategory_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionCategory_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionCategory_MetaData[] = {
 		{ "Category", "Ak Initialization Settings|Audio Session" },
 		{ "ModuleRelativePath", "Classes/InitializationSettings/AkAudioSession.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "The IDs of the iOS audio session categories, useful for defining app-level audio behaviours such as inter-app audio mixing policies and audio routing behaviours.These IDs are functionally equivalent to the corresponding constants defined by the iOS audio session service back-end (AVAudioSession). Refer to Xcode documentation for details on the audio session categories." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionCategory = { "AudioSessionCategory", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FAkAudioSession, AudioSessionCategory), Z_Construct_UEnum_AkAudio_EAkAudioSessionCategory, METADATA_PARAMS(Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionCategory_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionCategory_MetaData)) }; // 2785587367
+	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionCategory = { "AudioSessionCategory", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FAkAudioSession, AudioSessionCategory), Z_Construct_UEnum_AkAudio_EAkAudioSessionCategory, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionCategory_MetaData), Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionCategory_MetaData) }; // 1116060332
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionCategoryOptions_MetaData[] = {
 		{ "Bitmask", "" },
 		{ "BitmaskEnum", "/Script/AkAudio.EAkAudioSessionCategoryOptions" },
 		{ "Category", "Ak Initialization Settings|Audio Session" },
 		{ "ModuleRelativePath", "Classes/InitializationSettings/AkAudioSession.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "The IDs of the iOS audio session category options, used for customizing the audio session category features. These IDs are functionally equivalent to the corresponding constants defined by the iOS audio session service back-end (AVAudioSession). Refer to Xcode documentation for details on the audio session category options." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionCategoryOptions = { "AudioSessionCategoryOptions", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FAkAudioSession, AudioSessionCategoryOptions), METADATA_PARAMS(Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionCategoryOptions_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionCategoryOptions_MetaData)) };
-	const UECodeGen_Private::FUnsizedIntPropertyParams Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionMode_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionCategoryOptions = { "AudioSessionCategoryOptions", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FAkAudioSession, AudioSessionCategoryOptions), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionCategoryOptions_MetaData), Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionCategoryOptions_MetaData) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionMode_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionMode_MetaData[] = {
 		{ "Category", "Ak Initialization Settings|Audio Session" },
 		{ "ModuleRelativePath", "Classes/InitializationSettings/AkAudioSession.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "The IDs of the iOS audio session modes, used for customizing the audio session for typical app types. These IDs are functionally equivalent to the corresponding constants defined by the iOS audio session service back-end (AVAudioSession). Refer to Xcode documentation for details on the audio session category options." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionMode = { "AudioSessionMode", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FAkAudioSession, AudioSessionMode), Z_Construct_UEnum_AkAudio_EAkAudioSessionMode, METADATA_PARAMS(Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionMode_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionMode_MetaData)) }; // 4282906222
+	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionMode = { "AudioSessionMode", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FAkAudioSession, AudioSessionMode), Z_Construct_UEnum_AkAudio_EAkAudioSessionMode, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionMode_MetaData), Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionMode_MetaData) }; // 3901462409
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FAkAudioSession_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionCategory_Underlying,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewProp_AudioSessionCategory,
@@ -273,14 +279,15 @@ template<> AKAUDIO_API UScriptStruct* StaticStruct<FAkAudioSession>()
 		nullptr,
 		&NewStructOps,
 		"AkAudioSession",
-		sizeof(FAkAudioSession),
-		alignof(FAkAudioSession),
 		Z_Construct_UScriptStruct_FAkAudioSession_Statics::PropPointers,
 		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkAudioSession_Statics::PropPointers),
+		sizeof(FAkAudioSession),
+		alignof(FAkAudioSession),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000001),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FAkAudioSession_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkAudioSession_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkAudioSession_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FAkAudioSession_Statics::Struct_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkAudioSession_Statics::PropPointers) < 2048);
 	UScriptStruct* Z_Construct_UScriptStruct_FAkAudioSession()
 	{
 		if (!Z_Registration_Info_UScriptStruct_AkAudioSession.InnerSingleton)
@@ -289,21 +296,21 @@ template<> AKAUDIO_API UScriptStruct* StaticStruct<FAkAudioSession>()
 		}
 		return Z_Registration_Info_UScriptStruct_AkAudioSession.InnerSingleton;
 	}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_InitializationSettings_AkAudioSession_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_InitializationSettings_AkAudioSession_h_Statics
 	{
 		static const FEnumRegisterCompiledInInfo EnumInfo[];
 		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
 	};
-	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_InitializationSettings_AkAudioSession_h_Statics::EnumInfo[] = {
-		{ EAkAudioSessionCategory_StaticEnum, TEXT("EAkAudioSessionCategory"), &Z_Registration_Info_UEnum_EAkAudioSessionCategory, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2785587367U) },
-		{ EAkAudioSessionCategoryOptions_StaticEnum, TEXT("EAkAudioSessionCategoryOptions"), &Z_Registration_Info_UEnum_EAkAudioSessionCategoryOptions, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2523366028U) },
-		{ EAkAudioSessionMode_StaticEnum, TEXT("EAkAudioSessionMode"), &Z_Registration_Info_UEnum_EAkAudioSessionMode, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 4282906222U) },
+	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_InitializationSettings_AkAudioSession_h_Statics::EnumInfo[] = {
+		{ EAkAudioSessionCategory_StaticEnum, TEXT("EAkAudioSessionCategory"), &Z_Registration_Info_UEnum_EAkAudioSessionCategory, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 1116060332U) },
+		{ EAkAudioSessionCategoryOptions_StaticEnum, TEXT("EAkAudioSessionCategoryOptions"), &Z_Registration_Info_UEnum_EAkAudioSessionCategoryOptions, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3642422085U) },
+		{ EAkAudioSessionMode_StaticEnum, TEXT("EAkAudioSessionMode"), &Z_Registration_Info_UEnum_EAkAudioSessionMode, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3901462409U) },
 	};
-	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_InitializationSettings_AkAudioSession_h_Statics::ScriptStructInfo[] = {
-		{ FAkAudioSession::StaticStruct, Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewStructOps, TEXT("AkAudioSession"), &Z_Registration_Info_UScriptStruct_AkAudioSession, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FAkAudioSession), 810293321U) },
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_InitializationSettings_AkAudioSession_h_Statics::ScriptStructInfo[] = {
+		{ FAkAudioSession::StaticStruct, Z_Construct_UScriptStruct_FAkAudioSession_Statics::NewStructOps, TEXT("AkAudioSession"), &Z_Registration_Info_UScriptStruct_AkAudioSession, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FAkAudioSession), 2339453691U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_InitializationSettings_AkAudioSession_h_33472939(TEXT("/Script/AkAudio"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_InitializationSettings_AkAudioSession_h_1456300873(TEXT("/Script/AkAudio"),
 		nullptr, 0,
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_InitializationSettings_AkAudioSession_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_InitializationSettings_AkAudioSession_h_Statics::ScriptStructInfo),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_InitializationSettings_AkAudioSession_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_InitializationSettings_AkAudioSession_h_Statics::EnumInfo));
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_InitializationSettings_AkAudioSession_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_InitializationSettings_AkAudioSession_h_Statics::ScriptStructInfo),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_InitializationSettings_AkAudioSession_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_InitializationSettings_AkAudioSession_h_Statics::EnumInfo));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

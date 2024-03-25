@@ -6,7 +6,7 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "AkAudio/Classes/AkAudioEvent.h"
-#include "Engine/Classes/Engine/LatentActionManager.h"
+#include "../../Source/Runtime/Engine/Classes/Engine/LatentActionManager.h"
 #include "Serialization/ArchiveUObjectFromStructuredArchive.h"
 #include "WwiseResourceLoader/Public/Wwise/CookedData/WwiseLocalizedEventCookedData.h"
 #include "WwiseResourceLoader/Public/Wwise/Info/WwiseEventInfo.h"
@@ -171,39 +171,39 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_ActionType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_ActionType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_ActionType_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_ActionType = { "ActionType", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventExecuteAction_Parms, ActionType), Z_Construct_UEnum_AkAudio_AkActionOnEventType, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_ActionType_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_ActionType_MetaData)) }; // 3167120798
+	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_ActionType = { "ActionType", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventExecuteAction_Parms, ActionType), Z_Construct_UEnum_AkAudio_AkActionOnEventType, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_ActionType_MetaData), Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_ActionType_MetaData) }; // 3910043552
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_Actor_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_Actor = { "Actor", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventExecuteAction_Parms, Actor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_Actor_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_Actor_MetaData)) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_Actor = { "Actor", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventExecuteAction_Parms, Actor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_Actor_MetaData), Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_Actor_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_PlayingID_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_PlayingID = { "PlayingID", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventExecuteAction_Parms, PlayingID), METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_PlayingID_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_PlayingID_MetaData)) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_PlayingID = { "PlayingID", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventExecuteAction_Parms, PlayingID), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_PlayingID_MetaData), Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_PlayingID_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_TransitionDuration_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_TransitionDuration = { "TransitionDuration", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventExecuteAction_Parms, TransitionDuration), METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_TransitionDuration_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_TransitionDuration_MetaData)) };
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_FadeCurve_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, nullptr, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_TransitionDuration = { "TransitionDuration", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventExecuteAction_Parms, TransitionDuration), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_TransitionDuration_MetaData), Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_TransitionDuration_MetaData) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_FadeCurve_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_FadeCurve_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_FadeCurve = { "FadeCurve", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventExecuteAction_Parms, FadeCurve), Z_Construct_UEnum_AkAudio_EAkCurveInterpolation, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_FadeCurve_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_FadeCurve_MetaData)) }; // 2810145355
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventExecuteAction_Parms, ReturnValue), METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_FadeCurve = { "FadeCurve", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventExecuteAction_Parms, FadeCurve), Z_Construct_UEnum_AkAudio_EAkCurveInterpolation, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_FadeCurve_MetaData), Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_FadeCurve_MetaData) }; // 3063211216
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventExecuteAction_Parms, ReturnValue), METADATA_PARAMS(0, nullptr) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_ActionType_Underlying,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::NewProp_ActionType,
@@ -218,15 +218,21 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::Function_MetaDataParams[] = {
 		{ "AdvancedDisplay", "2" },
 		{ "Category", "Audiokinetic|Actor" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09 * @brief Executes action on the different playing IDs from this event that were previously posted on the\n\x09 * Actor's root component.\n\x09 *\n\x09 * @param ActionType What action to do.\n\x09 * @param Actor The actor that initially got some event posted.\n\x09 * @param PlayingID Use the return value of a Post Event to act only on this specific instance of an event.\n\x09 *\x09\x09\x09Use 0 for all the posted operations from this event.\n\x09 * @param TransitionDuration Transition duration in milliseconds.\n\x09 * @param FadeCurve The interpolation curve of the transition.\n\x09 * @return AKRESULT for the operation. AK_Success (0) if successful.\n\x09 */" },
+#endif
 		{ "CPP_Default_FadeCurve", "Linear" },
 		{ "CPP_Default_PlayingID", "0" },
 		{ "CPP_Default_TransitionDuration", "0" },
 		{ "ModuleRelativePath", "Classes/AkAudioEvent.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief Executes action on the different playing IDs from this event that were previously posted on the\nActor's root component.\n\n@param ActionType What action to do.\n@param Actor The actor that initially got some event posted.\n@param PlayingID Use the return value of a Post Event to act only on this specific instance of an event.\n                     Use 0 for all the posted operations from this event.\n@param TransitionDuration Transition duration in milliseconds.\n@param FadeCurve The interpolation curve of the transition.\n@return AKRESULT for the operation. AK_Success (0) if successful." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UAkAudioEvent, nullptr, "ExecuteAction", nullptr, nullptr, sizeof(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::AkAudioEvent_eventExecuteAction_Parms), Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020409, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UAkAudioEvent, nullptr, "ExecuteAction", nullptr, nullptr, Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::PropPointers), sizeof(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::AkAudioEvent_eventExecuteAction_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020409, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::Function_MetaDataParams), Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_UAkAudioEvent_ExecuteAction_Statics::AkAudioEvent_eventExecuteAction_Parms) < MAX_uint16);
 	UFunction* Z_Construct_UFunction_UAkAudioEvent_ExecuteAction()
 	{
 		static UFunction* ReturnFunction = nullptr;
@@ -279,19 +285,19 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Location = { "Location", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostAtLocation_Parms, Location), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Location_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Location_MetaData)) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Location = { "Location", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostAtLocation_Parms, Location), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Location_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Location_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Orientation_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Orientation = { "Orientation", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostAtLocation_Parms, Orientation), Z_Construct_UScriptStruct_FRotator, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Orientation_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Orientation_MetaData)) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Orientation = { "Orientation", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostAtLocation_Parms, Orientation), Z_Construct_UScriptStruct_FRotator, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Orientation_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Orientation_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Callback_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FDelegatePropertyParams Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Callback = { "Callback", nullptr, (EPropertyFlags)0x0010040008000182, UECodeGen_Private::EPropertyGenFlags::Delegate, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostAtLocation_Parms, Callback), Z_Construct_UDelegateFunction_AkAudio_OnAkPostEventCallback__DelegateSignature, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Callback_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Callback_MetaData)) }; // 1024578678
+	const UECodeGen_Private::FDelegatePropertyParams Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Callback = { "Callback", nullptr, (EPropertyFlags)0x0010040008000182, UECodeGen_Private::EPropertyGenFlags::Delegate, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostAtLocation_Parms, Callback), Z_Construct_UDelegateFunction_AkAudio_OnAkPostEventCallback__DelegateSignature, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Callback_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Callback_MetaData) }; // 733054327
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_CallbackMask_MetaData[] = {
 		{ "Bitmask", "" },
@@ -299,14 +305,14 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_CallbackMask = { "CallbackMask", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostAtLocation_Parms, CallbackMask), METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_CallbackMask_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_CallbackMask_MetaData)) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_CallbackMask = { "CallbackMask", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostAtLocation_Parms, CallbackMask), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_CallbackMask_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_CallbackMask_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_WorldContextObject_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_WorldContextObject = { "WorldContextObject", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostAtLocation_Parms, WorldContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_WorldContextObject_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_WorldContextObject_MetaData)) };
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostAtLocation_Parms, ReturnValue), METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_WorldContextObject = { "WorldContextObject", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostAtLocation_Parms, WorldContextObject), Z_Construct_UClass_UObject_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_WorldContextObject_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_WorldContextObject_MetaData) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostAtLocation_Parms, ReturnValue), METADATA_PARAMS(0, nullptr) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Location,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::NewProp_Orientation,
@@ -319,13 +325,19 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::Function_MetaDataParams[] = {
 		{ "AdvancedDisplay", "2" },
 		{ "Category", "Audiokinetic" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09 * @brief Posts a Wwise Event at the specified location.\n\x09 *\n\x09 * This is a fire and forget sound, created on a temporary Wwise Game Object. Replication is also not handled at this point.\n\x09 *\n\x09 * @param Location Location from which to post the Wwise Event.\n\x09 * @param Orientation Orientation of the event.\n\x09 * @param Callback Function that gets called every time the operation defined by CallbackMask is processed.\n\x09 * @param CallbackMask Bitmask defining all the operations that will call the Callback. See \\ref AkCallbackType.\n\x09 * @param WorldContextObject An object having the world we target as context.\n\x09 * @return The Playing ID returned by the SoundEngine's PostEvent, or AK_INVALID_PLAYING_ID (0) if invalid.\n\x09 */" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkAudioEvent.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief Posts a Wwise Event at the specified location.\n\nThis is a fire and forget sound, created on a temporary Wwise Game Object. Replication is also not handled at this point.\n\n@param Location Location from which to post the Wwise Event.\n@param Orientation Orientation of the event.\n@param Callback Function that gets called every time the operation defined by CallbackMask is processed.\n@param CallbackMask Bitmask defining all the operations that will call the Callback. See \\ref AkCallbackType.\n@param WorldContextObject An object having the world we target as context.\n@return The Playing ID returned by the SoundEngine's PostEvent, or AK_INVALID_PLAYING_ID (0) if invalid." },
+#endif
 		{ "WorldContext", "WorldContextObject" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UAkAudioEvent, nullptr, "PostAtLocation", nullptr, nullptr, sizeof(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::AkAudioEvent_eventPostAtLocation_Parms), Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C20409, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UAkAudioEvent, nullptr, "PostAtLocation", nullptr, nullptr, Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::PropPointers), sizeof(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::AkAudioEvent_eventPostAtLocation_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C20409, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::Function_MetaDataParams), Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_UAkAudioEvent_PostAtLocation_Statics::AkAudioEvent_eventPostAtLocation_Parms) < MAX_uint16);
 	UFunction* Z_Construct_UFunction_UAkAudioEvent_PostAtLocation()
 	{
 		static UFunction* ReturnFunction = nullptr;
@@ -374,13 +386,13 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_Actor = { "Actor", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnActor_Parms, Actor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_Actor_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_Actor_MetaData)) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_Actor = { "Actor", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnActor_Parms, Actor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_Actor_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_Actor_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_Delegate_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FDelegatePropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_Delegate = { "Delegate", nullptr, (EPropertyFlags)0x0010040008000182, UECodeGen_Private::EPropertyGenFlags::Delegate, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnActor_Parms, Delegate), Z_Construct_UDelegateFunction_AkAudio_OnAkPostEventCallback__DelegateSignature, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_Delegate_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_Delegate_MetaData)) }; // 1024578678
+	const UECodeGen_Private::FDelegatePropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_Delegate = { "Delegate", nullptr, (EPropertyFlags)0x0010040008000182, UECodeGen_Private::EPropertyGenFlags::Delegate, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnActor_Parms, Delegate), Z_Construct_UDelegateFunction_AkAudio_OnAkPostEventCallback__DelegateSignature, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_Delegate_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_Delegate_MetaData) }; // 733054327
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_CallbackMask_MetaData[] = {
 		{ "Bitmask", "" },
@@ -388,7 +400,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_CallbackMask = { "CallbackMask", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnActor_Parms, CallbackMask), METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_CallbackMask_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_CallbackMask_MetaData)) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_CallbackMask = { "CallbackMask", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnActor_Parms, CallbackMask), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_CallbackMask_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_CallbackMask_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_bStopWhenAttachedObjectDestroyed_MetaData[] = {
 		{ "NativeConst", "" },
@@ -398,8 +410,8 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 	{
 		((AkAudioEvent_eventPostOnActor_Parms*)Obj)->bStopWhenAttachedObjectDestroyed = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_bStopWhenAttachedObjectDestroyed = { "bStopWhenAttachedObjectDestroyed", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(AkAudioEvent_eventPostOnActor_Parms), &Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_bStopWhenAttachedObjectDestroyed_SetBit, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_bStopWhenAttachedObjectDestroyed_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_bStopWhenAttachedObjectDestroyed_MetaData)) };
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnActor_Parms, ReturnValue), METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_bStopWhenAttachedObjectDestroyed = { "bStopWhenAttachedObjectDestroyed", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AkAudioEvent_eventPostOnActor_Parms), &Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_bStopWhenAttachedObjectDestroyed_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_bStopWhenAttachedObjectDestroyed_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_bStopWhenAttachedObjectDestroyed_MetaData) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnActor_Parms, ReturnValue), METADATA_PARAMS(0, nullptr) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_Actor,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::NewProp_Delegate,
@@ -412,12 +424,18 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "AdvancedDisplay", "1" },
 		{ "AutoCreateRefTerm", "Delegate" },
 		{ "Category", "Audiokinetic|Actor" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09 * @brief Posts the Wwise Event on the root component of the specified actor.\n\x09 *\n\x09 * @param Actor Actor on which to play the event. This actor gets followed automatically by the Event. If the Actor is left empty,\n\x09 *\x09\x09\x09the Event will be played as an Ambient sound.\n\x09 * @param Delegate Function that gets called every time the operation defined by CallbackMask is processed.\n\x09 * @param CallbackMask Bitmask defining all the operations that will call the Callback. See \\ref AkCallbackType.\n\x09 * @param bStopWhenAttachedObjectDestroyed Specifies whether the sound should stop playing when the owner of the attach to component\n\x09 *\x09\x09\x09 is destroyed. This parameter modifies the AkComponent itself, you can only have one behavior per actor's root component.\n\x09 * @return The Playing ID returned by the SoundEngine's PostEvent, or AK_INVALID_PLAYING_ID (0) if invalid.\n\x09 */" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkAudioEvent.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief Posts the Wwise Event on the root component of the specified actor.\n\n@param Actor Actor on which to play the event. This actor gets followed automatically by the Event. If the Actor is left empty,\n                     the Event will be played as an Ambient sound.\n@param Delegate Function that gets called every time the operation defined by CallbackMask is processed.\n@param CallbackMask Bitmask defining all the operations that will call the Callback. See \\ref AkCallbackType.\n@param bStopWhenAttachedObjectDestroyed Specifies whether the sound should stop playing when the owner of the attach to component\n                      is destroyed. This parameter modifies the AkComponent itself, you can only have one behavior per actor's root component.\n@return The Playing ID returned by the SoundEngine's PostEvent, or AK_INVALID_PLAYING_ID (0) if invalid." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UAkAudioEvent, nullptr, "PostOnActor", nullptr, nullptr, sizeof(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::AkAudioEvent_eventPostOnActor_Parms), Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04420409, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UAkAudioEvent, nullptr, "PostOnActor", nullptr, nullptr, Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::PropPointers), sizeof(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::AkAudioEvent_eventPostOnActor_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04420409, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::Function_MetaDataParams), Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_UAkAudioEvent_PostOnActor_Statics::AkAudioEvent_eventPostOnActor_Parms) < MAX_uint16);
 	UFunction* Z_Construct_UFunction_UAkAudioEvent_PostOnActor()
 	{
 		static UFunction* ReturnFunction = nullptr;
@@ -461,7 +479,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_Actor = { "Actor", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnActorAndWait_Parms, Actor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_Actor_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_Actor_MetaData)) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_Actor = { "Actor", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnActorAndWait_Parms, Actor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_Actor_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_Actor_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_bStopWhenAttachedObjectDestroyed_MetaData[] = {
 		{ "NativeConst", "" },
@@ -471,14 +489,14 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 	{
 		((AkAudioEvent_eventPostOnActorAndWait_Parms*)Obj)->bStopWhenAttachedObjectDestroyed = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_bStopWhenAttachedObjectDestroyed = { "bStopWhenAttachedObjectDestroyed", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(AkAudioEvent_eventPostOnActorAndWait_Parms), &Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_bStopWhenAttachedObjectDestroyed_SetBit, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_bStopWhenAttachedObjectDestroyed_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_bStopWhenAttachedObjectDestroyed_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_bStopWhenAttachedObjectDestroyed = { "bStopWhenAttachedObjectDestroyed", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AkAudioEvent_eventPostOnActorAndWait_Parms), &Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_bStopWhenAttachedObjectDestroyed_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_bStopWhenAttachedObjectDestroyed_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_bStopWhenAttachedObjectDestroyed_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_LatentActionInfo_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_LatentActionInfo = { "LatentActionInfo", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnActorAndWait_Parms, LatentActionInfo), Z_Construct_UScriptStruct_FLatentActionInfo, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_LatentActionInfo_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_LatentActionInfo_MetaData)) }; // 2194022737
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnActorAndWait_Parms, ReturnValue), METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_LatentActionInfo = { "LatentActionInfo", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnActorAndWait_Parms, LatentActionInfo), Z_Construct_UScriptStruct_FLatentActionInfo, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_LatentActionInfo_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_LatentActionInfo_MetaData) }; // 2674470931
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnActorAndWait_Parms, ReturnValue), METADATA_PARAMS(0, nullptr) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_Actor,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::NewProp_bStopWhenAttachedObjectDestroyed,
@@ -490,14 +508,20 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "AdvancedDisplay", "1" },
 		{ "bStopWhenAttachedObjectDestroyed", "false" },
 		{ "Category", "Audiokinetic|Actor" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09 * @brief Posts the Wwise Event on the root component of the specified actor, and waits for the end of the event to continue execution.\n\x09 *\n\x09 * Additional calls made while an event is active on a particular actor's root component are ignored.\n\x09 *\n\x09 * @param Actor Actor on which to play the event. This actor gets followed automatically by the Event.\n\x09 * @param bStopWhenAttachedObjectDestroyed Specifies whether the sound should stop playing when the owner of the attach to component is destroyed.\n\x09 *        This parameter modifies the AkComponent itself, you can only have one behavior per actor's root component.\n\x09 * @return The Playing ID returned by the SoundEngine's PostEvent, or AK_INVALID_PLAYING_ID (0) if invalid.\n\x09 */" },
+#endif
 		{ "Latent", "" },
 		{ "LatentInfo", "LatentActionInfo" },
 		{ "ModuleRelativePath", "Classes/AkAudioEvent.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief Posts the Wwise Event on the root component of the specified actor, and waits for the end of the event to continue execution.\n\nAdditional calls made while an event is active on a particular actor's root component are ignored.\n\n@param Actor Actor on which to play the event. This actor gets followed automatically by the Event.\n@param bStopWhenAttachedObjectDestroyed Specifies whether the sound should stop playing when the owner of the attach to component is destroyed.\n       This parameter modifies the AkComponent itself, you can only have one behavior per actor's root component.\n@return The Playing ID returned by the SoundEngine's PostEvent, or AK_INVALID_PLAYING_ID (0) if invalid." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UAkAudioEvent, nullptr, "PostOnActorAndWait", nullptr, nullptr, sizeof(Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::AkAudioEvent_eventPostOnActorAndWait_Parms), Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UAkAudioEvent, nullptr, "PostOnActorAndWait", nullptr, nullptr, Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::PropPointers), sizeof(Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::AkAudioEvent_eventPostOnActorAndWait_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::Function_MetaDataParams), Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait_Statics::AkAudioEvent_eventPostOnActorAndWait_Parms) < MAX_uint16);
 	UFunction* Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait()
 	{
 		static UFunction* ReturnFunction = nullptr;
@@ -546,13 +570,13 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "EditInline", "true" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_Component = { "Component", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnComponent_Parms, Component), Z_Construct_UClass_UAkComponent_NoRegister, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_Component_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_Component_MetaData)) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_Component = { "Component", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnComponent_Parms, Component), Z_Construct_UClass_UAkComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_Component_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_Component_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_Delegate_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FDelegatePropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_Delegate = { "Delegate", nullptr, (EPropertyFlags)0x0010040008000182, UECodeGen_Private::EPropertyGenFlags::Delegate, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnComponent_Parms, Delegate), Z_Construct_UDelegateFunction_AkAudio_OnAkPostEventCallback__DelegateSignature, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_Delegate_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_Delegate_MetaData)) }; // 1024578678
+	const UECodeGen_Private::FDelegatePropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_Delegate = { "Delegate", nullptr, (EPropertyFlags)0x0010040008000182, UECodeGen_Private::EPropertyGenFlags::Delegate, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnComponent_Parms, Delegate), Z_Construct_UDelegateFunction_AkAudio_OnAkPostEventCallback__DelegateSignature, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_Delegate_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_Delegate_MetaData) }; // 733054327
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_CallbackMask_MetaData[] = {
 		{ "Bitmask", "" },
@@ -560,7 +584,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_CallbackMask = { "CallbackMask", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnComponent_Parms, CallbackMask), METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_CallbackMask_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_CallbackMask_MetaData)) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_CallbackMask = { "CallbackMask", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnComponent_Parms, CallbackMask), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_CallbackMask_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_CallbackMask_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_bStopWhenAttachedObjectDestroyed_MetaData[] = {
 		{ "NativeConst", "" },
@@ -570,8 +594,8 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 	{
 		((AkAudioEvent_eventPostOnComponent_Parms*)Obj)->bStopWhenAttachedObjectDestroyed = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_bStopWhenAttachedObjectDestroyed = { "bStopWhenAttachedObjectDestroyed", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(AkAudioEvent_eventPostOnComponent_Parms), &Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_bStopWhenAttachedObjectDestroyed_SetBit, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_bStopWhenAttachedObjectDestroyed_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_bStopWhenAttachedObjectDestroyed_MetaData)) };
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnComponent_Parms, ReturnValue), METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_bStopWhenAttachedObjectDestroyed = { "bStopWhenAttachedObjectDestroyed", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AkAudioEvent_eventPostOnComponent_Parms), &Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_bStopWhenAttachedObjectDestroyed_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_bStopWhenAttachedObjectDestroyed_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_bStopWhenAttachedObjectDestroyed_MetaData) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnComponent_Parms, ReturnValue), METADATA_PARAMS(0, nullptr) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_Component,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::NewProp_Delegate,
@@ -584,12 +608,18 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "AdvancedDisplay", "1" },
 		{ "AutoCreateRefTerm", "Delegate" },
 		{ "Category", "Audiokinetic|AkComponent" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09 * @brief Posts the Wwise Event on the specified component.\n\x09 *\n\x09 * @param Component Component on which to play the event.\n\x09 * @param Delegate Function that gets called every time the operation defined by CallbackMask is processed.\n\x09 * @param CallbackMask Bitmask defining all the operations that will call the Callback. See \\ref AkCallbackType.\n\x09 * @param bStopWhenAttachedObjectDestroyed Specifies whether the sound should stop playing when the owner of the attach to component\n\x09 *\x09\x09\x09 is destroyed. This parameter modifies the AkComponent itself, you can only have one behavior per actor's root component.\n\x09 * @return The Playing ID returned by the SoundEngine's PostEvent, or AK_INVALID_PLAYING_ID (0) if invalid.\n\x09 */" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkAudioEvent.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief Posts the Wwise Event on the specified component.\n\n@param Component Component on which to play the event.\n@param Delegate Function that gets called every time the operation defined by CallbackMask is processed.\n@param CallbackMask Bitmask defining all the operations that will call the Callback. See \\ref AkCallbackType.\n@param bStopWhenAttachedObjectDestroyed Specifies whether the sound should stop playing when the owner of the attach to component\n                      is destroyed. This parameter modifies the AkComponent itself, you can only have one behavior per actor's root component.\n@return The Playing ID returned by the SoundEngine's PostEvent, or AK_INVALID_PLAYING_ID (0) if invalid." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UAkAudioEvent, nullptr, "PostOnComponent", nullptr, nullptr, sizeof(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::AkAudioEvent_eventPostOnComponent_Parms), Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04420409, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UAkAudioEvent, nullptr, "PostOnComponent", nullptr, nullptr, Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::PropPointers), sizeof(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::AkAudioEvent_eventPostOnComponent_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04420409, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::Function_MetaDataParams), Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_UAkAudioEvent_PostOnComponent_Statics::AkAudioEvent_eventPostOnComponent_Parms) < MAX_uint16);
 	UFunction* Z_Construct_UFunction_UAkAudioEvent_PostOnComponent()
 	{
 		static UFunction* ReturnFunction = nullptr;
@@ -633,7 +663,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "EditInline", "true" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_Component = { "Component", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnComponentAndWait_Parms, Component), Z_Construct_UClass_UAkComponent_NoRegister, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_Component_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_Component_MetaData)) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_Component = { "Component", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnComponentAndWait_Parms, Component), Z_Construct_UClass_UAkComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_Component_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_Component_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_bStopWhenAttachedObjectDestroyed_MetaData[] = {
 		{ "NativeConst", "" },
@@ -643,14 +673,14 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 	{
 		((AkAudioEvent_eventPostOnComponentAndWait_Parms*)Obj)->bStopWhenAttachedObjectDestroyed = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_bStopWhenAttachedObjectDestroyed = { "bStopWhenAttachedObjectDestroyed", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(AkAudioEvent_eventPostOnComponentAndWait_Parms), &Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_bStopWhenAttachedObjectDestroyed_SetBit, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_bStopWhenAttachedObjectDestroyed_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_bStopWhenAttachedObjectDestroyed_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_bStopWhenAttachedObjectDestroyed = { "bStopWhenAttachedObjectDestroyed", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AkAudioEvent_eventPostOnComponentAndWait_Parms), &Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_bStopWhenAttachedObjectDestroyed_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_bStopWhenAttachedObjectDestroyed_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_bStopWhenAttachedObjectDestroyed_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_LatentActionInfo_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_LatentActionInfo = { "LatentActionInfo", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnComponentAndWait_Parms, LatentActionInfo), Z_Construct_UScriptStruct_FLatentActionInfo, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_LatentActionInfo_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_LatentActionInfo_MetaData)) }; // 2194022737
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnComponentAndWait_Parms, ReturnValue), METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_LatentActionInfo = { "LatentActionInfo", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnComponentAndWait_Parms, LatentActionInfo), Z_Construct_UScriptStruct_FLatentActionInfo, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_LatentActionInfo_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_LatentActionInfo_MetaData) }; // 2674470931
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnComponentAndWait_Parms, ReturnValue), METADATA_PARAMS(0, nullptr) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_Component,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::NewProp_bStopWhenAttachedObjectDestroyed,
@@ -662,14 +692,20 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "AdvancedDisplay", "1" },
 		{ "bStopWhenAttachedObjectDestroyed", "false" },
 		{ "Category", "Audiokinetic|AkComponent" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09 * @brief Posts the Wwise Event on the specified component, and waits for the end of the event to continue execution.\n\x09 *\n\x09 * Additional calls made while an event is active on a particular component are ignored.\n\x09 *\n\x09 * @param Component component on which to play the event. This component gets followed automatically by the Event.\n\x09 * @param bStopWhenAttachedObjectDestroyed Specifies whether the sound should stop playing when the owner of the attach to component is destroyed.\n\x09 *        This parameter modifies the AkComponent itself, you can only have one behavior per actor's root component.\n\x09 * @return The Playing ID returned by the SoundEngine's PostEvent, or AK_INVALID_PLAYING_ID (0) if invalid.\n\x09 */" },
+#endif
 		{ "Latent", "" },
 		{ "LatentInfo", "LatentActionInfo" },
 		{ "ModuleRelativePath", "Classes/AkAudioEvent.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief Posts the Wwise Event on the specified component, and waits for the end of the event to continue execution.\n\nAdditional calls made while an event is active on a particular component are ignored.\n\n@param Component component on which to play the event. This component gets followed automatically by the Event.\n@param bStopWhenAttachedObjectDestroyed Specifies whether the sound should stop playing when the owner of the attach to component is destroyed.\n       This parameter modifies the AkComponent itself, you can only have one behavior per actor's root component.\n@return The Playing ID returned by the SoundEngine's PostEvent, or AK_INVALID_PLAYING_ID (0) if invalid." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UAkAudioEvent, nullptr, "PostOnComponentAndWait", nullptr, nullptr, sizeof(Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::AkAudioEvent_eventPostOnComponentAndWait_Parms), Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UAkAudioEvent, nullptr, "PostOnComponentAndWait", nullptr, nullptr, Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::PropPointers), sizeof(Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::AkAudioEvent_eventPostOnComponentAndWait_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::Function_MetaDataParams), Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait_Statics::AkAudioEvent_eventPostOnComponentAndWait_Parms) < MAX_uint16);
 	UFunction* Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait()
 	{
 		static UFunction* ReturnFunction = nullptr;
@@ -712,13 +748,13 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "EditInline", "true" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_GameObject = { "GameObject", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnGameObject_Parms, GameObject), Z_Construct_UClass_UAkGameObject_NoRegister, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_GameObject_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_GameObject_MetaData)) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_GameObject = { "GameObject", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnGameObject_Parms, GameObject), Z_Construct_UClass_UAkGameObject_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_GameObject_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_GameObject_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_Delegate_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FDelegatePropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_Delegate = { "Delegate", nullptr, (EPropertyFlags)0x0010040008000182, UECodeGen_Private::EPropertyGenFlags::Delegate, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnGameObject_Parms, Delegate), Z_Construct_UDelegateFunction_AkAudio_OnAkPostEventCallback__DelegateSignature, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_Delegate_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_Delegate_MetaData)) }; // 1024578678
+	const UECodeGen_Private::FDelegatePropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_Delegate = { "Delegate", nullptr, (EPropertyFlags)0x0010040008000182, UECodeGen_Private::EPropertyGenFlags::Delegate, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnGameObject_Parms, Delegate), Z_Construct_UDelegateFunction_AkAudio_OnAkPostEventCallback__DelegateSignature, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_Delegate_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_Delegate_MetaData) }; // 733054327
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_CallbackMask_MetaData[] = {
 		{ "Bitmask", "" },
@@ -726,8 +762,8 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_CallbackMask = { "CallbackMask", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnGameObject_Parms, CallbackMask), METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_CallbackMask_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_CallbackMask_MetaData)) };
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnGameObject_Parms, ReturnValue), METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_CallbackMask = { "CallbackMask", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnGameObject_Parms, CallbackMask), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_CallbackMask_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_CallbackMask_MetaData) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnGameObject_Parms, ReturnValue), METADATA_PARAMS(0, nullptr) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_GameObject,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::NewProp_Delegate,
@@ -739,12 +775,18 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "AdvancedDisplay", "1" },
 		{ "AutoCreateRefTerm", "Delegate" },
 		{ "Category", "Audiokinetic|AkGameObject" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09 * @brief Posts the Wwise Event on the specified game object.\n\x09 *\n\x09 * @param GameObject Game object on which to play the event.\n\x09 * @param Delegate Function that gets called every time the operation defined by CallbackMask is processed.\n\x09 * @param CallbackMask Bitmask defining all the operations that will call the Callback. See \\ref AkCallbackType.\n\x09 * @return The Playing ID returned by the SoundEngine's PostEvent, or AK_INVALID_PLAYING_ID (0) if invalid.\n\x09 */" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkAudioEvent.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief Posts the Wwise Event on the specified game object.\n\n@param GameObject Game object on which to play the event.\n@param Delegate Function that gets called every time the operation defined by CallbackMask is processed.\n@param CallbackMask Bitmask defining all the operations that will call the Callback. See \\ref AkCallbackType.\n@return The Playing ID returned by the SoundEngine's PostEvent, or AK_INVALID_PLAYING_ID (0) if invalid." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UAkAudioEvent, nullptr, "PostOnGameObject", nullptr, nullptr, sizeof(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::AkAudioEvent_eventPostOnGameObject_Parms), Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04420409, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UAkAudioEvent, nullptr, "PostOnGameObject", nullptr, nullptr, Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::PropPointers), sizeof(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::AkAudioEvent_eventPostOnGameObject_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04420409, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::Function_MetaDataParams), Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject_Statics::AkAudioEvent_eventPostOnGameObject_Parms) < MAX_uint16);
 	UFunction* Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject()
 	{
 		static UFunction* ReturnFunction = nullptr;
@@ -782,14 +824,14 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "EditInline", "true" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::NewProp_GameObject = { "GameObject", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnGameObjectAndWait_Parms, GameObject), Z_Construct_UClass_UAkGameObject_NoRegister, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::NewProp_GameObject_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::NewProp_GameObject_MetaData)) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::NewProp_GameObject = { "GameObject", nullptr, (EPropertyFlags)0x0010000000080080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnGameObjectAndWait_Parms, GameObject), Z_Construct_UClass_UAkGameObject_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::NewProp_GameObject_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::NewProp_GameObject_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::NewProp_LatentActionInfo_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::NewProp_LatentActionInfo = { "LatentActionInfo", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnGameObjectAndWait_Parms, LatentActionInfo), Z_Construct_UScriptStruct_FLatentActionInfo, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::NewProp_LatentActionInfo_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::NewProp_LatentActionInfo_MetaData)) }; // 2194022737
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkAudioEvent_eventPostOnGameObjectAndWait_Parms, ReturnValue), METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::NewProp_LatentActionInfo = { "LatentActionInfo", nullptr, (EPropertyFlags)0x0010040000000082, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnGameObjectAndWait_Parms, LatentActionInfo), Z_Construct_UScriptStruct_FLatentActionInfo, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::NewProp_LatentActionInfo_MetaData), Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::NewProp_LatentActionInfo_MetaData) }; // 2674470931
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkAudioEvent_eventPostOnGameObjectAndWait_Parms, ReturnValue), METADATA_PARAMS(0, nullptr) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::NewProp_GameObject,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::NewProp_LatentActionInfo,
@@ -800,14 +842,20 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "AdvancedDisplay", "1" },
 		{ "bStopWhenAttachedObjectDestroyed", "false" },
 		{ "Category", "Audiokinetic|AkGameObject" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09 * @brief Posts the Wwise Event on the specified game object, and waits for the end of the event to continue execution.\n\x09 *\n\x09 * Additional calls made while an event is active on a particular game object are ignored.\n\x09 *\n\x09 * @param GameObject Game object on which to play the event. This game object gets followed automatically by the Event.\n\x09 * @return The Playing ID returned by the SoundEngine's PostEvent, or AK_INVALID_PLAYING_ID (0) if invalid.\n\x09 */" },
+#endif
 		{ "Latent", "" },
 		{ "LatentInfo", "LatentActionInfo" },
 		{ "ModuleRelativePath", "Classes/AkAudioEvent.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief Posts the Wwise Event on the specified game object, and waits for the end of the event to continue execution.\n\nAdditional calls made while an event is active on a particular game object are ignored.\n\n@param GameObject Game object on which to play the event. This game object gets followed automatically by the Event.\n@return The Playing ID returned by the SoundEngine's PostEvent, or AK_INVALID_PLAYING_ID (0) if invalid." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UAkAudioEvent, nullptr, "PostOnGameObjectAndWait", nullptr, nullptr, sizeof(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::AkAudioEvent_eventPostOnGameObjectAndWait_Parms), Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UAkAudioEvent, nullptr, "PostOnGameObjectAndWait", nullptr, nullptr, Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::PropPointers), sizeof(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::AkAudioEvent_eventPostOnGameObjectAndWait_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::Function_MetaDataParams), Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait_Statics::AkAudioEvent_eventPostOnGameObjectAndWait_Parms) < MAX_uint16);
 	UFunction* Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait()
 	{
 		static UFunction* ReturnFunction = nullptr;
@@ -870,16 +918,18 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		(UObject* (*)())Z_Construct_UClass_UAkAudioType,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEvent_Statics::DependentSingletons) < 16);
 	const FClassFunctionLinkInfo Z_Construct_UClass_UAkAudioEvent_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_UAkAudioEvent_ExecuteAction, "ExecuteAction" }, // 2660237375
-		{ &Z_Construct_UFunction_UAkAudioEvent_PostAtLocation, "PostAtLocation" }, // 3465547479
-		{ &Z_Construct_UFunction_UAkAudioEvent_PostOnActor, "PostOnActor" }, // 44575669
-		{ &Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait, "PostOnActorAndWait" }, // 3753060228
-		{ &Z_Construct_UFunction_UAkAudioEvent_PostOnComponent, "PostOnComponent" }, // 4215197034
-		{ &Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait, "PostOnComponentAndWait" }, // 2605637207
-		{ &Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject, "PostOnGameObject" }, // 491085519
-		{ &Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait, "PostOnGameObjectAndWait" }, // 2255175219
+		{ &Z_Construct_UFunction_UAkAudioEvent_ExecuteAction, "ExecuteAction" }, // 2825738542
+		{ &Z_Construct_UFunction_UAkAudioEvent_PostAtLocation, "PostAtLocation" }, // 3444244310
+		{ &Z_Construct_UFunction_UAkAudioEvent_PostOnActor, "PostOnActor" }, // 610490209
+		{ &Z_Construct_UFunction_UAkAudioEvent_PostOnActorAndWait, "PostOnActorAndWait" }, // 3342924168
+		{ &Z_Construct_UFunction_UAkAudioEvent_PostOnComponent, "PostOnComponent" }, // 384204543
+		{ &Z_Construct_UFunction_UAkAudioEvent_PostOnComponentAndWait, "PostOnComponentAndWait" }, // 3164963091
+		{ &Z_Construct_UFunction_UAkAudioEvent_PostOnGameObject, "PostOnGameObject" }, // 1664151950
+		{ &Z_Construct_UFunction_UAkAudioEvent_PostOnGameObjectAndWait, "PostOnGameObjectAndWait" }, // 2377831755
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEvent_Statics::FuncInfo) < 2048);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkAudioEvent_Statics::Class_MetaDataParams[] = {
 		{ "BlueprintType", "true" },
@@ -893,38 +943,50 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "ModuleRelativePath", "Classes/AkAudioEvent.h" },
 	};
 #endif
-	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MaxAttenuationRadius = { "MaxAttenuationRadius", nullptr, (EPropertyFlags)0x0010000000022015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkAudioEvent, MaxAttenuationRadius), METADATA_PARAMS(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MaxAttenuationRadius_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MaxAttenuationRadius_MetaData)) };
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MaxAttenuationRadius = { "MaxAttenuationRadius", nullptr, (EPropertyFlags)0x0010000000022015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkAudioEvent, MaxAttenuationRadius), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MaxAttenuationRadius_MetaData), Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MaxAttenuationRadius_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_IsInfinite_MetaData[] = {
 		{ "Category", "AkAudioEvent" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/** Whether this event is infinite (looping) or finite (duration parameters are valid) */" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkAudioEvent.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Whether this event is infinite (looping) or finite (duration parameters are valid)" },
+#endif
 	};
 #endif
 	void Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_IsInfinite_SetBit(void* Obj)
 	{
 		((UAkAudioEvent*)Obj)->IsInfinite = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_IsInfinite = { "IsInfinite", nullptr, (EPropertyFlags)0x0010000000022015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(UAkAudioEvent), &Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_IsInfinite_SetBit, METADATA_PARAMS(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_IsInfinite_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_IsInfinite_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_IsInfinite = { "IsInfinite", nullptr, (EPropertyFlags)0x0010000000022015, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UAkAudioEvent), &Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_IsInfinite_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_IsInfinite_MetaData), Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_IsInfinite_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MinimumDuration_MetaData[] = {
 		{ "Category", "AkAudioEvent" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/** Minimum duration */" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkAudioEvent.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Minimum duration" },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MinimumDuration = { "MinimumDuration", nullptr, (EPropertyFlags)0x0010000000022015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkAudioEvent, MinimumDuration), METADATA_PARAMS(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MinimumDuration_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MinimumDuration_MetaData)) };
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MinimumDuration = { "MinimumDuration", nullptr, (EPropertyFlags)0x0010000000022015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkAudioEvent, MinimumDuration), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MinimumDuration_MetaData), Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MinimumDuration_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MaximumDuration_MetaData[] = {
 		{ "Category", "AkAudioEvent" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/** Maximum duration */" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkAudioEvent.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Maximum duration" },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MaximumDuration = { "MaximumDuration", nullptr, (EPropertyFlags)0x0010000000022015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkAudioEvent, MaximumDuration), METADATA_PARAMS(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MaximumDuration_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MaximumDuration_MetaData)) };
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MaximumDuration = { "MaximumDuration", nullptr, (EPropertyFlags)0x0010000000022015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkAudioEvent, MaximumDuration), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MaximumDuration_MetaData), Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MaximumDuration_MetaData) };
 #if WITH_EDITORONLY_DATA
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_EventInfo_MetaData[] = {
@@ -932,7 +994,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "ModuleRelativePath", "Classes/AkAudioEvent.h" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_EventInfo = { "EventInfo", nullptr, (EPropertyFlags)0x0010000800000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkAudioEvent, EventInfo), Z_Construct_UScriptStruct_FWwiseEventInfo, METADATA_PARAMS(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_EventInfo_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_EventInfo_MetaData)) }; // 1230852984
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_EventInfo = { "EventInfo", nullptr, (EPropertyFlags)0x0010000800000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkAudioEvent, EventInfo), Z_Construct_UScriptStruct_FWwiseEventInfo, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_EventInfo_MetaData), Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_EventInfo_MetaData) }; // 3016911151
 #endif // WITH_EDITORONLY_DATA
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_EventCookedData_MetaData[] = {
@@ -940,7 +1002,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "ModuleRelativePath", "Classes/AkAudioEvent.h" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_EventCookedData = { "EventCookedData", nullptr, (EPropertyFlags)0x0010000000022001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkAudioEvent, EventCookedData), Z_Construct_UScriptStruct_FWwiseLocalizedEventCookedData, METADATA_PARAMS(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_EventCookedData_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_EventCookedData_MetaData)) }; // 2331343295
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_EventCookedData = { "EventCookedData", nullptr, (EPropertyFlags)0x0010000000022001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkAudioEvent, EventCookedData), Z_Construct_UScriptStruct_FWwiseLocalizedEventCookedData, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_EventCookedData_MetaData), Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_EventCookedData_MetaData) }; // 2235421891
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_RequiredBank_MetaData[] = {
 		{ "DeprecatedProperty", "" },
@@ -948,7 +1010,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		{ "ModuleRelativePath", "Classes/AkAudioEvent.h" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_RequiredBank = { "RequiredBank", nullptr, (EPropertyFlags)0x0010000020000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkAudioEvent, RequiredBank_DEPRECATED), Z_Construct_UClass_UAkAudioBank_NoRegister, METADATA_PARAMS(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_RequiredBank_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_RequiredBank_MetaData)) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_RequiredBank = { "RequiredBank", nullptr, (EPropertyFlags)0x0010000020000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkAudioEvent, RequiredBank_DEPRECATED), Z_Construct_UClass_UAkAudioBank_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_RequiredBank_MetaData), Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_RequiredBank_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAkAudioEvent_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_MaxAttenuationRadius,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAkAudioEvent_Statics::NewProp_IsInfinite,
@@ -976,8 +1038,9 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 		UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEvent_Statics::PropPointers),
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkAudioEvent_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEvent_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEvent_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkAudioEvent_Statics::Class_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEvent_Statics::PropPointers) < 2048);
 	UClass* Z_Construct_UClass_UAkAudioEvent()
 	{
 		if (!Z_Registration_Info_UClass_UAkAudioEvent.OuterSingleton)
@@ -990,18 +1053,19 @@ void EmptyLinkFunctionForGeneratedCodeAkAudioEvent() {}
 	{
 		return UAkAudioEvent::StaticClass();
 	}
+	UAkAudioEvent::UAkAudioEvent(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UAkAudioEvent);
 	UAkAudioEvent::~UAkAudioEvent() {}
 	IMPLEMENT_FSTRUCTUREDARCHIVE_SERIALIZER(UAkAudioEvent)
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAudioEvent_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAudioEvent_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAudioEvent_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UAkAudioEvent, UAkAudioEvent::StaticClass, TEXT("UAkAudioEvent"), &Z_Registration_Info_UClass_UAkAudioEvent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkAudioEvent), 3792987373U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAudioEvent_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UAkAudioEvent, UAkAudioEvent::StaticClass, TEXT("UAkAudioEvent"), &Z_Registration_Info_UClass_UAkAudioEvent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkAudioEvent), 2860265272U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAudioEvent_h_217306684(TEXT("/Script/AkAudio"),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAudioEvent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAudioEvent_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAudioEvent_h_3938690137(TEXT("/Script/AkAudio"),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAudioEvent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkAudioEvent_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

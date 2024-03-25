@@ -35,14 +35,19 @@ void EmptyLinkFunctionForGeneratedCodeAkDrawRoomComponent() {}
 		(UObject* (*)())Z_Construct_UClass_UPrimitiveComponent,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UDrawRoomComponent_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UDrawRoomComponent_Statics::Class_MetaDataParams[] = {
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n *\x09Utility component for drawing a Room in a scene.\n */" },
+#endif
 		{ "HideCategories", "Object Mobility VirtualTexture Trigger" },
 		{ "IncludePath", "AkDrawRoomComponent.h" },
 		{ "ModuleRelativePath", "Classes/AkDrawRoomComponent.h" },
 		{ "ObjectInitializerConstructorDeclared", "" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Utility component for drawing a Room in a scene." },
+#endif
 	};
 #endif
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UDrawRoomComponent_Statics::StaticCppClassTypeInfo = {
@@ -61,7 +66,7 @@ void EmptyLinkFunctionForGeneratedCodeAkDrawRoomComponent() {}
 		0,
 		0,
 		0x00A830A4u,
-		METADATA_PARAMS(Z_Construct_UClass_UDrawRoomComponent_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UDrawRoomComponent_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UDrawRoomComponent_Statics::Class_MetaDataParams), Z_Construct_UClass_UDrawRoomComponent_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UDrawRoomComponent()
 	{
@@ -77,15 +82,15 @@ void EmptyLinkFunctionForGeneratedCodeAkDrawRoomComponent() {}
 	}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UDrawRoomComponent);
 	UDrawRoomComponent::~UDrawRoomComponent() {}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkDrawRoomComponent_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkDrawRoomComponent_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkDrawRoomComponent_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UDrawRoomComponent, UDrawRoomComponent::StaticClass, TEXT("UDrawRoomComponent"), &Z_Registration_Info_UClass_UDrawRoomComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UDrawRoomComponent), 1574166352U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkDrawRoomComponent_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UDrawRoomComponent, UDrawRoomComponent::StaticClass, TEXT("UDrawRoomComponent"), &Z_Registration_Info_UClass_UDrawRoomComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UDrawRoomComponent), 754511479U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkDrawRoomComponent_h_1650043374(TEXT("/Script/AkAudio"),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkDrawRoomComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkDrawRoomComponent_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkDrawRoomComponent_h_1448831681(TEXT("/Script/AkAudio"),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkDrawRoomComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkDrawRoomComponent_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

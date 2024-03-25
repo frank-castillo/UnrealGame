@@ -23,7 +23,7 @@ class UScriptStruct* FWwiseDatabaseMediaIdKey::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_WwiseDatabaseMediaIdKey.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_WwiseDatabaseMediaIdKey.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey, Z_Construct_UPackage__Script_WwiseProjectDatabase(), TEXT("WwiseDatabaseMediaIdKey"));
+		Z_Registration_Info_UScriptStruct_WwiseDatabaseMediaIdKey.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey, (UObject*)Z_Construct_UPackage__Script_WwiseProjectDatabase(), TEXT("WwiseDatabaseMediaIdKey"));
 	}
 	return Z_Registration_Info_UScriptStruct_WwiseDatabaseMediaIdKey.OuterSingleton;
 }
@@ -62,13 +62,13 @@ template<> WWISEPROJECTDATABASE_API UScriptStruct* StaticStruct<FWwiseDatabaseMe
 		{ "ModuleRelativePath", "Public/Wwise/WwiseDatabaseIdentifiers.h" },
 	};
 #endif
-	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::NewProp_MediaId = { "MediaId", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseDatabaseMediaIdKey, MediaId), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::NewProp_MediaId_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::NewProp_MediaId_MetaData)) };
+	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::NewProp_MediaId = { "MediaId", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseDatabaseMediaIdKey, MediaId), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::NewProp_MediaId_MetaData), Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::NewProp_MediaId_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::NewProp_SoundBankId_MetaData[] = {
 		{ "ModuleRelativePath", "Public/Wwise/WwiseDatabaseIdentifiers.h" },
 	};
 #endif
-	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::NewProp_SoundBankId = { "SoundBankId", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseDatabaseMediaIdKey, SoundBankId), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::NewProp_SoundBankId_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::NewProp_SoundBankId_MetaData)) };
+	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::NewProp_SoundBankId = { "SoundBankId", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseDatabaseMediaIdKey, SoundBankId), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::NewProp_SoundBankId_MetaData), Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::NewProp_SoundBankId_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::NewProp_MediaId,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::NewProp_SoundBankId,
@@ -78,14 +78,15 @@ template<> WWISEPROJECTDATABASE_API UScriptStruct* StaticStruct<FWwiseDatabaseMe
 		nullptr,
 		&NewStructOps,
 		"WwiseDatabaseMediaIdKey",
-		sizeof(FWwiseDatabaseMediaIdKey),
-		alignof(FWwiseDatabaseMediaIdKey),
 		Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::PropPointers,
 		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::PropPointers),
+		sizeof(FWwiseDatabaseMediaIdKey),
+		alignof(FWwiseDatabaseMediaIdKey),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::Struct_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::PropPointers) < 2048);
 	UScriptStruct* Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey()
 	{
 		if (!Z_Registration_Info_UScriptStruct_WwiseDatabaseMediaIdKey.InnerSingleton)
@@ -99,7 +100,7 @@ class UScriptStruct* FWwiseDatabaseLocalizableIdKey::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableIdKey.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableIdKey.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey, Z_Construct_UPackage__Script_WwiseProjectDatabase(), TEXT("WwiseDatabaseLocalizableIdKey"));
+		Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableIdKey.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey, (UObject*)Z_Construct_UPackage__Script_WwiseProjectDatabase(), TEXT("WwiseDatabaseLocalizableIdKey"));
 	}
 	return Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableIdKey.OuterSingleton;
 }
@@ -142,19 +143,19 @@ template<> WWISEPROJECTDATABASE_API UScriptStruct* StaticStruct<FWwiseDatabaseLo
 		{ "ModuleRelativePath", "Public/Wwise/WwiseDatabaseIdentifiers.h" },
 	};
 #endif
-	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_Id = { "Id", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseDatabaseLocalizableIdKey, Id), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_Id_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_Id_MetaData)) };
+	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_Id = { "Id", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseDatabaseLocalizableIdKey, Id), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_Id_MetaData), Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_Id_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_LanguageId_MetaData[] = {
 		{ "ModuleRelativePath", "Public/Wwise/WwiseDatabaseIdentifiers.h" },
 	};
 #endif
-	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_LanguageId = { "LanguageId", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseDatabaseLocalizableIdKey, LanguageId), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_LanguageId_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_LanguageId_MetaData)) };
+	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_LanguageId = { "LanguageId", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseDatabaseLocalizableIdKey, LanguageId), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_LanguageId_MetaData), Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_LanguageId_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_SoundBankId_MetaData[] = {
 		{ "ModuleRelativePath", "Public/Wwise/WwiseDatabaseIdentifiers.h" },
 	};
 #endif
-	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_SoundBankId = { "SoundBankId", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseDatabaseLocalizableIdKey, SoundBankId), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_SoundBankId_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_SoundBankId_MetaData)) };
+	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_SoundBankId = { "SoundBankId", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseDatabaseLocalizableIdKey, SoundBankId), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_SoundBankId_MetaData), Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_SoundBankId_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_Id,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewProp_LanguageId,
@@ -165,14 +166,15 @@ template<> WWISEPROJECTDATABASE_API UScriptStruct* StaticStruct<FWwiseDatabaseLo
 		nullptr,
 		&NewStructOps,
 		"WwiseDatabaseLocalizableIdKey",
-		sizeof(FWwiseDatabaseLocalizableIdKey),
-		alignof(FWwiseDatabaseLocalizableIdKey),
 		Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::PropPointers,
 		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::PropPointers),
+		sizeof(FWwiseDatabaseLocalizableIdKey),
+		alignof(FWwiseDatabaseLocalizableIdKey),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::Struct_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::PropPointers) < 2048);
 	UScriptStruct* Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey()
 	{
 		if (!Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableIdKey.InnerSingleton)
@@ -186,7 +188,7 @@ class UScriptStruct* FWwiseDatabaseGroupValueKey::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_WwiseDatabaseGroupValueKey.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_WwiseDatabaseGroupValueKey.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey, Z_Construct_UPackage__Script_WwiseProjectDatabase(), TEXT("WwiseDatabaseGroupValueKey"));
+		Z_Registration_Info_UScriptStruct_WwiseDatabaseGroupValueKey.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey, (UObject*)Z_Construct_UPackage__Script_WwiseProjectDatabase(), TEXT("WwiseDatabaseGroupValueKey"));
 	}
 	return Z_Registration_Info_UScriptStruct_WwiseDatabaseGroupValueKey.OuterSingleton;
 }
@@ -225,13 +227,13 @@ template<> WWISEPROJECTDATABASE_API UScriptStruct* StaticStruct<FWwiseDatabaseGr
 		{ "ModuleRelativePath", "Public/Wwise/WwiseDatabaseIdentifiers.h" },
 	};
 #endif
-	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::NewProp_GroupId = { "GroupId", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseDatabaseGroupValueKey, GroupId), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::NewProp_GroupId_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::NewProp_GroupId_MetaData)) };
+	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::NewProp_GroupId = { "GroupId", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseDatabaseGroupValueKey, GroupId), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::NewProp_GroupId_MetaData), Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::NewProp_GroupId_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::NewProp_Id_MetaData[] = {
 		{ "ModuleRelativePath", "Public/Wwise/WwiseDatabaseIdentifiers.h" },
 	};
 #endif
-	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::NewProp_Id = { "Id", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseDatabaseGroupValueKey, Id), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::NewProp_Id_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::NewProp_Id_MetaData)) };
+	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::NewProp_Id = { "Id", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseDatabaseGroupValueKey, Id), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::NewProp_Id_MetaData), Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::NewProp_Id_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::NewProp_GroupId,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::NewProp_Id,
@@ -241,14 +243,15 @@ template<> WWISEPROJECTDATABASE_API UScriptStruct* StaticStruct<FWwiseDatabaseGr
 		nullptr,
 		&NewStructOps,
 		"WwiseDatabaseGroupValueKey",
-		sizeof(FWwiseDatabaseGroupValueKey),
-		alignof(FWwiseDatabaseGroupValueKey),
 		Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::PropPointers,
 		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::PropPointers),
+		sizeof(FWwiseDatabaseGroupValueKey),
+		alignof(FWwiseDatabaseGroupValueKey),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::Struct_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::PropPointers) < 2048);
 	UScriptStruct* Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey()
 	{
 		if (!Z_Registration_Info_UScriptStruct_WwiseDatabaseGroupValueKey.InnerSingleton)
@@ -262,7 +265,7 @@ class UScriptStruct* FWwiseDatabaseLocalizableGroupValueKey::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableGroupValueKey.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableGroupValueKey.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey, Z_Construct_UPackage__Script_WwiseProjectDatabase(), TEXT("WwiseDatabaseLocalizableGroupValueKey"));
+		Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableGroupValueKey.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey, (UObject*)Z_Construct_UPackage__Script_WwiseProjectDatabase(), TEXT("WwiseDatabaseLocalizableGroupValueKey"));
 	}
 	return Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableGroupValueKey.OuterSingleton;
 }
@@ -301,13 +304,13 @@ template<> WWISEPROJECTDATABASE_API UScriptStruct* StaticStruct<FWwiseDatabaseLo
 		{ "ModuleRelativePath", "Public/Wwise/WwiseDatabaseIdentifiers.h" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::NewProp_GroupValue = { "GroupValue", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseDatabaseLocalizableGroupValueKey, GroupValue), Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey, METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::NewProp_GroupValue_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::NewProp_GroupValue_MetaData)) }; // 3751402430
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::NewProp_GroupValue = { "GroupValue", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseDatabaseLocalizableGroupValueKey, GroupValue), Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::NewProp_GroupValue_MetaData), Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::NewProp_GroupValue_MetaData) }; // 3972001051
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::NewProp_LanguageId_MetaData[] = {
 		{ "ModuleRelativePath", "Public/Wwise/WwiseDatabaseIdentifiers.h" },
 	};
 #endif
-	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::NewProp_LanguageId = { "LanguageId", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseDatabaseLocalizableGroupValueKey, LanguageId), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::NewProp_LanguageId_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::NewProp_LanguageId_MetaData)) };
+	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::NewProp_LanguageId = { "LanguageId", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseDatabaseLocalizableGroupValueKey, LanguageId), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::NewProp_LanguageId_MetaData), Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::NewProp_LanguageId_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::NewProp_GroupValue,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::NewProp_LanguageId,
@@ -317,14 +320,15 @@ template<> WWISEPROJECTDATABASE_API UScriptStruct* StaticStruct<FWwiseDatabaseLo
 		nullptr,
 		&NewStructOps,
 		"WwiseDatabaseLocalizableGroupValueKey",
-		sizeof(FWwiseDatabaseLocalizableGroupValueKey),
-		alignof(FWwiseDatabaseLocalizableGroupValueKey),
 		Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::PropPointers,
 		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::PropPointers),
+		sizeof(FWwiseDatabaseLocalizableGroupValueKey),
+		alignof(FWwiseDatabaseLocalizableGroupValueKey),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::Struct_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::PropPointers) < 2048);
 	UScriptStruct* Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey()
 	{
 		if (!Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableGroupValueKey.InnerSingleton)
@@ -338,7 +342,7 @@ class UScriptStruct* FWwiseDatabaseLocalizableGuidKey::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableGuidKey.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableGuidKey.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey, Z_Construct_UPackage__Script_WwiseProjectDatabase(), TEXT("WwiseDatabaseLocalizableGuidKey"));
+		Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableGuidKey.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey, (UObject*)Z_Construct_UPackage__Script_WwiseProjectDatabase(), TEXT("WwiseDatabaseLocalizableGuidKey"));
 	}
 	return Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableGuidKey.OuterSingleton;
 }
@@ -377,13 +381,13 @@ template<> WWISEPROJECTDATABASE_API UScriptStruct* StaticStruct<FWwiseDatabaseLo
 		{ "ModuleRelativePath", "Public/Wwise/WwiseDatabaseIdentifiers.h" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::NewProp_Guid = { "Guid", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseDatabaseLocalizableGuidKey, Guid), Z_Construct_UScriptStruct_FGuid, METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::NewProp_Guid_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::NewProp_Guid_MetaData)) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::NewProp_Guid = { "Guid", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseDatabaseLocalizableGuidKey, Guid), Z_Construct_UScriptStruct_FGuid, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::NewProp_Guid_MetaData), Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::NewProp_Guid_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::NewProp_LanguageId_MetaData[] = {
 		{ "ModuleRelativePath", "Public/Wwise/WwiseDatabaseIdentifiers.h" },
 	};
 #endif
-	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::NewProp_LanguageId = { "LanguageId", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseDatabaseLocalizableGuidKey, LanguageId), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::NewProp_LanguageId_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::NewProp_LanguageId_MetaData)) };
+	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::NewProp_LanguageId = { "LanguageId", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseDatabaseLocalizableGuidKey, LanguageId), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::NewProp_LanguageId_MetaData), Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::NewProp_LanguageId_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::NewProp_Guid,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::NewProp_LanguageId,
@@ -393,14 +397,15 @@ template<> WWISEPROJECTDATABASE_API UScriptStruct* StaticStruct<FWwiseDatabaseLo
 		nullptr,
 		&NewStructOps,
 		"WwiseDatabaseLocalizableGuidKey",
-		sizeof(FWwiseDatabaseLocalizableGuidKey),
-		alignof(FWwiseDatabaseLocalizableGuidKey),
 		Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::PropPointers,
 		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::PropPointers),
+		sizeof(FWwiseDatabaseLocalizableGuidKey),
+		alignof(FWwiseDatabaseLocalizableGuidKey),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::Struct_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::PropPointers) < 2048);
 	UScriptStruct* Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey()
 	{
 		if (!Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableGuidKey.InnerSingleton)
@@ -414,7 +419,7 @@ class UScriptStruct* FWwiseDatabaseLocalizableNameKey::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableNameKey.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableNameKey.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey, Z_Construct_UPackage__Script_WwiseProjectDatabase(), TEXT("WwiseDatabaseLocalizableNameKey"));
+		Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableNameKey.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey, (UObject*)Z_Construct_UPackage__Script_WwiseProjectDatabase(), TEXT("WwiseDatabaseLocalizableNameKey"));
 	}
 	return Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableNameKey.OuterSingleton;
 }
@@ -453,13 +458,13 @@ template<> WWISEPROJECTDATABASE_API UScriptStruct* StaticStruct<FWwiseDatabaseLo
 		{ "ModuleRelativePath", "Public/Wwise/WwiseDatabaseIdentifiers.h" },
 	};
 #endif
-	const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::NewProp_Name = { "Name", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseDatabaseLocalizableNameKey, Name), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::NewProp_Name_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::NewProp_Name_MetaData)) };
+	const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::NewProp_Name = { "Name", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseDatabaseLocalizableNameKey, Name), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::NewProp_Name_MetaData), Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::NewProp_Name_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::NewProp_LanguageId_MetaData[] = {
 		{ "ModuleRelativePath", "Public/Wwise/WwiseDatabaseIdentifiers.h" },
 	};
 #endif
-	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::NewProp_LanguageId = { "LanguageId", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseDatabaseLocalizableNameKey, LanguageId), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::NewProp_LanguageId_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::NewProp_LanguageId_MetaData)) };
+	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::NewProp_LanguageId = { "LanguageId", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseDatabaseLocalizableNameKey, LanguageId), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::NewProp_LanguageId_MetaData), Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::NewProp_LanguageId_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::NewProp_Name,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::NewProp_LanguageId,
@@ -469,14 +474,15 @@ template<> WWISEPROJECTDATABASE_API UScriptStruct* StaticStruct<FWwiseDatabaseLo
 		nullptr,
 		&NewStructOps,
 		"WwiseDatabaseLocalizableNameKey",
-		sizeof(FWwiseDatabaseLocalizableNameKey),
-		alignof(FWwiseDatabaseLocalizableNameKey),
 		Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::PropPointers,
 		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::PropPointers),
+		sizeof(FWwiseDatabaseLocalizableNameKey),
+		alignof(FWwiseDatabaseLocalizableNameKey),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::Struct_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::PropPointers) < 2048);
 	UScriptStruct* Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey()
 	{
 		if (!Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableNameKey.InnerSingleton)
@@ -485,20 +491,20 @@ template<> WWISEPROJECTDATABASE_API UScriptStruct* StaticStruct<FWwiseDatabaseLo
 		}
 		return Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableNameKey.InnerSingleton;
 	}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseProjectDatabase_Public_Wwise_WwiseDatabaseIdentifiers_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseProjectDatabase_Public_Wwise_WwiseDatabaseIdentifiers_h_Statics
 	{
 		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
 	};
-	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseProjectDatabase_Public_Wwise_WwiseDatabaseIdentifiers_h_Statics::ScriptStructInfo[] = {
-		{ FWwiseDatabaseMediaIdKey::StaticStruct, Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::NewStructOps, TEXT("WwiseDatabaseMediaIdKey"), &Z_Registration_Info_UScriptStruct_WwiseDatabaseMediaIdKey, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseDatabaseMediaIdKey), 3401766132U) },
-		{ FWwiseDatabaseLocalizableIdKey::StaticStruct, Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewStructOps, TEXT("WwiseDatabaseLocalizableIdKey"), &Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableIdKey, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseDatabaseLocalizableIdKey), 3247112796U) },
-		{ FWwiseDatabaseGroupValueKey::StaticStruct, Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::NewStructOps, TEXT("WwiseDatabaseGroupValueKey"), &Z_Registration_Info_UScriptStruct_WwiseDatabaseGroupValueKey, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseDatabaseGroupValueKey), 3751402430U) },
-		{ FWwiseDatabaseLocalizableGroupValueKey::StaticStruct, Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::NewStructOps, TEXT("WwiseDatabaseLocalizableGroupValueKey"), &Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableGroupValueKey, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseDatabaseLocalizableGroupValueKey), 3927985000U) },
-		{ FWwiseDatabaseLocalizableGuidKey::StaticStruct, Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::NewStructOps, TEXT("WwiseDatabaseLocalizableGuidKey"), &Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableGuidKey, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseDatabaseLocalizableGuidKey), 628647312U) },
-		{ FWwiseDatabaseLocalizableNameKey::StaticStruct, Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::NewStructOps, TEXT("WwiseDatabaseLocalizableNameKey"), &Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableNameKey, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseDatabaseLocalizableNameKey), 2500346438U) },
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseProjectDatabase_Public_Wwise_WwiseDatabaseIdentifiers_h_Statics::ScriptStructInfo[] = {
+		{ FWwiseDatabaseMediaIdKey::StaticStruct, Z_Construct_UScriptStruct_FWwiseDatabaseMediaIdKey_Statics::NewStructOps, TEXT("WwiseDatabaseMediaIdKey"), &Z_Registration_Info_UScriptStruct_WwiseDatabaseMediaIdKey, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseDatabaseMediaIdKey), 3553277644U) },
+		{ FWwiseDatabaseLocalizableIdKey::StaticStruct, Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableIdKey_Statics::NewStructOps, TEXT("WwiseDatabaseLocalizableIdKey"), &Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableIdKey, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseDatabaseLocalizableIdKey), 1505408380U) },
+		{ FWwiseDatabaseGroupValueKey::StaticStruct, Z_Construct_UScriptStruct_FWwiseDatabaseGroupValueKey_Statics::NewStructOps, TEXT("WwiseDatabaseGroupValueKey"), &Z_Registration_Info_UScriptStruct_WwiseDatabaseGroupValueKey, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseDatabaseGroupValueKey), 3972001051U) },
+		{ FWwiseDatabaseLocalizableGroupValueKey::StaticStruct, Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGroupValueKey_Statics::NewStructOps, TEXT("WwiseDatabaseLocalizableGroupValueKey"), &Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableGroupValueKey, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseDatabaseLocalizableGroupValueKey), 284567353U) },
+		{ FWwiseDatabaseLocalizableGuidKey::StaticStruct, Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableGuidKey_Statics::NewStructOps, TEXT("WwiseDatabaseLocalizableGuidKey"), &Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableGuidKey, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseDatabaseLocalizableGuidKey), 854102312U) },
+		{ FWwiseDatabaseLocalizableNameKey::StaticStruct, Z_Construct_UScriptStruct_FWwiseDatabaseLocalizableNameKey_Statics::NewStructOps, TEXT("WwiseDatabaseLocalizableNameKey"), &Z_Registration_Info_UScriptStruct_WwiseDatabaseLocalizableNameKey, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseDatabaseLocalizableNameKey), 5970566U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseProjectDatabase_Public_Wwise_WwiseDatabaseIdentifiers_h_1922491058(TEXT("/Script/WwiseProjectDatabase"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseProjectDatabase_Public_Wwise_WwiseDatabaseIdentifiers_h_1108027461(TEXT("/Script/WwiseProjectDatabase"),
 		nullptr, 0,
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseProjectDatabase_Public_Wwise_WwiseDatabaseIdentifiers_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseProjectDatabase_Public_Wwise_WwiseDatabaseIdentifiers_h_Statics::ScriptStructInfo),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseProjectDatabase_Public_Wwise_WwiseDatabaseIdentifiers_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseProjectDatabase_Public_Wwise_WwiseDatabaseIdentifiers_h_Statics::ScriptStructInfo),
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

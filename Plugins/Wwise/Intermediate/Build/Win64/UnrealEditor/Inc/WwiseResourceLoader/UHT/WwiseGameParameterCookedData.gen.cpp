@@ -17,7 +17,7 @@ class UScriptStruct* FWwiseGameParameterCookedData::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_WwiseGameParameterCookedData.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_WwiseGameParameterCookedData.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseGameParameterCookedData, Z_Construct_UPackage__Script_WwiseResourceLoader(), TEXT("WwiseGameParameterCookedData"));
+		Z_Registration_Info_UScriptStruct_WwiseGameParameterCookedData.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseGameParameterCookedData, (UObject*)Z_Construct_UPackage__Script_WwiseResourceLoader(), TEXT("WwiseGameParameterCookedData"));
 	}
 	return Z_Registration_Info_UScriptStruct_WwiseGameParameterCookedData.OuterSingleton;
 }
@@ -58,16 +58,20 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseGameParamet
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseGameParameterCookedData.h" },
 	};
 #endif
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::NewProp_ShortId = { "ShortId", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseGameParameterCookedData, ShortId), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::NewProp_ShortId_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::NewProp_ShortId_MetaData)) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::NewProp_ShortId = { "ShortId", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseGameParameterCookedData, ShortId), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::NewProp_ShortId_MetaData), Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::NewProp_ShortId_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::NewProp_DebugName_MetaData[] = {
 		{ "Category", "Wwise" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09 * @brief Optional debug name. Can be empty in release, contain the name, or the full path of the asset.\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseGameParameterCookedData.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief Optional debug name. Can be empty in release, contain the name, or the full path of the asset." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::NewProp_DebugName = { "DebugName", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseGameParameterCookedData, DebugName), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::NewProp_DebugName_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::NewProp_DebugName_MetaData)) };
+	const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::NewProp_DebugName = { "DebugName", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseGameParameterCookedData, DebugName), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::NewProp_DebugName_MetaData), Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::NewProp_DebugName_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::NewProp_ShortId,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::NewProp_DebugName,
@@ -77,14 +81,15 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseGameParamet
 		nullptr,
 		&NewStructOps,
 		"WwiseGameParameterCookedData",
-		sizeof(FWwiseGameParameterCookedData),
-		alignof(FWwiseGameParameterCookedData),
 		Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::PropPointers,
 		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::PropPointers),
+		sizeof(FWwiseGameParameterCookedData),
+		alignof(FWwiseGameParameterCookedData),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::Struct_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::PropPointers) < 2048);
 	UScriptStruct* Z_Construct_UScriptStruct_FWwiseGameParameterCookedData()
 	{
 		if (!Z_Registration_Info_UScriptStruct_WwiseGameParameterCookedData.InnerSingleton)
@@ -93,15 +98,15 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseGameParamet
 		}
 		return Z_Registration_Info_UScriptStruct_WwiseGameParameterCookedData.InnerSingleton;
 	}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseGameParameterCookedData_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseGameParameterCookedData_h_Statics
 	{
 		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
 	};
-	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseGameParameterCookedData_h_Statics::ScriptStructInfo[] = {
-		{ FWwiseGameParameterCookedData::StaticStruct, Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::NewStructOps, TEXT("WwiseGameParameterCookedData"), &Z_Registration_Info_UScriptStruct_WwiseGameParameterCookedData, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseGameParameterCookedData), 3912741995U) },
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseGameParameterCookedData_h_Statics::ScriptStructInfo[] = {
+		{ FWwiseGameParameterCookedData::StaticStruct, Z_Construct_UScriptStruct_FWwiseGameParameterCookedData_Statics::NewStructOps, TEXT("WwiseGameParameterCookedData"), &Z_Registration_Info_UScriptStruct_WwiseGameParameterCookedData, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseGameParameterCookedData), 2976438607U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseGameParameterCookedData_h_3997356024(TEXT("/Script/WwiseResourceLoader"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseGameParameterCookedData_h_3585803995(TEXT("/Script/WwiseResourceLoader"),
 		nullptr, 0,
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseGameParameterCookedData_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseGameParameterCookedData_h_Statics::ScriptStructInfo),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseGameParameterCookedData_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_CookedData_WwiseGameParameterCookedData_h_Statics::ScriptStructInfo),
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

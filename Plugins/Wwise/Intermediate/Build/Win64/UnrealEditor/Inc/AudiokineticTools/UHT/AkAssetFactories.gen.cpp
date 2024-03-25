@@ -51,6 +51,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAssetFactories() {}
 		(UObject* (*)())Z_Construct_UClass_UFactory,
 		(UObject* (*)())Z_Construct_UPackage__Script_AudiokineticTools,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAssetFactory_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkAssetFactory_Statics::Class_MetaDataParams[] = {
 		{ "HideCategories", "Object" },
@@ -74,7 +75,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAssetFactories() {}
 		0,
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkAssetFactory_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkAssetFactory_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAssetFactory_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkAssetFactory_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UAkAssetFactory()
 	{
@@ -88,6 +89,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAssetFactories() {}
 	{
 		return UAkAssetFactory::StaticClass();
 	}
+	UAkAssetFactory::UAkAssetFactory(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UAkAssetFactory);
 	UAkAssetFactory::~UAkAssetFactory() {}
 	void UAkAcousticTextureFactory::StaticRegisterNativesUAkAcousticTextureFactory()
@@ -111,6 +113,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAssetFactories() {}
 		(UObject* (*)())Z_Construct_UClass_UAkAssetFactory,
 		(UObject* (*)())Z_Construct_UPackage__Script_AudiokineticTools,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAcousticTextureFactory_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkAcousticTextureFactory_Statics::Class_MetaDataParams[] = {
 		{ "HideCategories", "Object Object" },
@@ -135,7 +138,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAssetFactories() {}
 		0,
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkAcousticTextureFactory_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkAcousticTextureFactory_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAcousticTextureFactory_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkAcousticTextureFactory_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UAkAcousticTextureFactory()
 	{
@@ -172,6 +175,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAssetFactories() {}
 		(UObject* (*)())Z_Construct_UClass_UAkAssetFactory,
 		(UObject* (*)())Z_Construct_UPackage__Script_AudiokineticTools,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEventFactory_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkAudioEventFactory_Statics::Class_MetaDataParams[] = {
 		{ "HideCategories", "Object Object" },
@@ -196,7 +200,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAssetFactories() {}
 		0,
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkAudioEventFactory_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEventFactory_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAudioEventFactory_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkAudioEventFactory_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UAkAudioEventFactory()
 	{
@@ -233,6 +237,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAssetFactories() {}
 		(UObject* (*)())Z_Construct_UClass_UAkAssetFactory,
 		(UObject* (*)())Z_Construct_UPackage__Script_AudiokineticTools,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAuxBusFactory_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkAuxBusFactory_Statics::Class_MetaDataParams[] = {
 		{ "HideCategories", "Object Object" },
@@ -257,7 +262,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAssetFactories() {}
 		0,
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkAuxBusFactory_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkAuxBusFactory_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkAuxBusFactory_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkAuxBusFactory_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UAkAuxBusFactory()
 	{
@@ -294,6 +299,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAssetFactories() {}
 		(UObject* (*)())Z_Construct_UClass_UAkAssetFactory,
 		(UObject* (*)())Z_Construct_UPackage__Script_AudiokineticTools,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkRtpcFactory_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkRtpcFactory_Statics::Class_MetaDataParams[] = {
 		{ "HideCategories", "Object Object" },
@@ -318,7 +324,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAssetFactories() {}
 		0,
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkRtpcFactory_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkRtpcFactory_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkRtpcFactory_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkRtpcFactory_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UAkRtpcFactory()
 	{
@@ -355,6 +361,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAssetFactories() {}
 		(UObject* (*)())Z_Construct_UClass_UAkAssetFactory,
 		(UObject* (*)())Z_Construct_UPackage__Script_AudiokineticTools,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkTriggerFactory_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkTriggerFactory_Statics::Class_MetaDataParams[] = {
 		{ "HideCategories", "Object Object" },
@@ -379,7 +386,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAssetFactories() {}
 		0,
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkTriggerFactory_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkTriggerFactory_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkTriggerFactory_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkTriggerFactory_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UAkTriggerFactory()
 	{
@@ -416,14 +423,19 @@ void EmptyLinkFunctionForGeneratedCodeAkAssetFactories() {}
 		(UObject* (*)())Z_Construct_UClass_UAkAssetFactory,
 		(UObject* (*)())Z_Construct_UPackage__Script_AudiokineticTools,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkStateValueFactory_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkStateValueFactory_Statics::Class_MetaDataParams[] = {
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "// mlarouche - For now Switch and State factory are only used in drag & drop\n" },
+#endif
 		{ "HideCategories", "Object Object" },
 		{ "IncludePath", "AkAssetFactories.h" },
 		{ "ModuleRelativePath", "Public/AkAssetFactories.h" },
 		{ "ObjectInitializerConstructorDeclared", "" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "mlarouche - For now Switch and State factory are only used in drag & drop" },
+#endif
 	};
 #endif
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UAkStateValueFactory_Statics::StaticCppClassTypeInfo = {
@@ -442,7 +454,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAssetFactories() {}
 		0,
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkStateValueFactory_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkStateValueFactory_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkStateValueFactory_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkStateValueFactory_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UAkStateValueFactory()
 	{
@@ -479,6 +491,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAssetFactories() {}
 		(UObject* (*)())Z_Construct_UClass_UAkAssetFactory,
 		(UObject* (*)())Z_Construct_UPackage__Script_AudiokineticTools,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkSwitchValueFactory_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkSwitchValueFactory_Statics::Class_MetaDataParams[] = {
 		{ "HideCategories", "Object Object" },
@@ -503,7 +516,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAssetFactories() {}
 		0,
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkSwitchValueFactory_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkSwitchValueFactory_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkSwitchValueFactory_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkSwitchValueFactory_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UAkSwitchValueFactory()
 	{
@@ -540,6 +553,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAssetFactories() {}
 		(UObject* (*)())Z_Construct_UClass_UAkAssetFactory,
 		(UObject* (*)())Z_Construct_UPackage__Script_AudiokineticTools,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkEffectShareSetFactory_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkEffectShareSetFactory_Statics::Class_MetaDataParams[] = {
 		{ "HideCategories", "Object Object" },
@@ -564,7 +578,7 @@ void EmptyLinkFunctionForGeneratedCodeAkAssetFactories() {}
 		0,
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkEffectShareSetFactory_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkEffectShareSetFactory_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkEffectShareSetFactory_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkEffectShareSetFactory_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UAkEffectShareSetFactory()
 	{
@@ -580,23 +594,23 @@ void EmptyLinkFunctionForGeneratedCodeAkAssetFactories() {}
 	}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UAkEffectShareSetFactory);
 	UAkEffectShareSetFactory::~UAkEffectShareSetFactory() {}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Public_AkAssetFactories_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Public_AkAssetFactories_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Public_AkAssetFactories_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UAkAssetFactory, UAkAssetFactory::StaticClass, TEXT("UAkAssetFactory"), &Z_Registration_Info_UClass_UAkAssetFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkAssetFactory), 722839164U) },
-		{ Z_Construct_UClass_UAkAcousticTextureFactory, UAkAcousticTextureFactory::StaticClass, TEXT("UAkAcousticTextureFactory"), &Z_Registration_Info_UClass_UAkAcousticTextureFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkAcousticTextureFactory), 855844361U) },
-		{ Z_Construct_UClass_UAkAudioEventFactory, UAkAudioEventFactory::StaticClass, TEXT("UAkAudioEventFactory"), &Z_Registration_Info_UClass_UAkAudioEventFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkAudioEventFactory), 1277204270U) },
-		{ Z_Construct_UClass_UAkAuxBusFactory, UAkAuxBusFactory::StaticClass, TEXT("UAkAuxBusFactory"), &Z_Registration_Info_UClass_UAkAuxBusFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkAuxBusFactory), 3585590254U) },
-		{ Z_Construct_UClass_UAkRtpcFactory, UAkRtpcFactory::StaticClass, TEXT("UAkRtpcFactory"), &Z_Registration_Info_UClass_UAkRtpcFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkRtpcFactory), 2703990679U) },
-		{ Z_Construct_UClass_UAkTriggerFactory, UAkTriggerFactory::StaticClass, TEXT("UAkTriggerFactory"), &Z_Registration_Info_UClass_UAkTriggerFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkTriggerFactory), 3919028596U) },
-		{ Z_Construct_UClass_UAkStateValueFactory, UAkStateValueFactory::StaticClass, TEXT("UAkStateValueFactory"), &Z_Registration_Info_UClass_UAkStateValueFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkStateValueFactory), 442663647U) },
-		{ Z_Construct_UClass_UAkSwitchValueFactory, UAkSwitchValueFactory::StaticClass, TEXT("UAkSwitchValueFactory"), &Z_Registration_Info_UClass_UAkSwitchValueFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkSwitchValueFactory), 4143785643U) },
-		{ Z_Construct_UClass_UAkEffectShareSetFactory, UAkEffectShareSetFactory::StaticClass, TEXT("UAkEffectShareSetFactory"), &Z_Registration_Info_UClass_UAkEffectShareSetFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkEffectShareSetFactory), 2153938778U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Public_AkAssetFactories_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UAkAssetFactory, UAkAssetFactory::StaticClass, TEXT("UAkAssetFactory"), &Z_Registration_Info_UClass_UAkAssetFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkAssetFactory), 200501025U) },
+		{ Z_Construct_UClass_UAkAcousticTextureFactory, UAkAcousticTextureFactory::StaticClass, TEXT("UAkAcousticTextureFactory"), &Z_Registration_Info_UClass_UAkAcousticTextureFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkAcousticTextureFactory), 2885588604U) },
+		{ Z_Construct_UClass_UAkAudioEventFactory, UAkAudioEventFactory::StaticClass, TEXT("UAkAudioEventFactory"), &Z_Registration_Info_UClass_UAkAudioEventFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkAudioEventFactory), 4250774447U) },
+		{ Z_Construct_UClass_UAkAuxBusFactory, UAkAuxBusFactory::StaticClass, TEXT("UAkAuxBusFactory"), &Z_Registration_Info_UClass_UAkAuxBusFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkAuxBusFactory), 1856975968U) },
+		{ Z_Construct_UClass_UAkRtpcFactory, UAkRtpcFactory::StaticClass, TEXT("UAkRtpcFactory"), &Z_Registration_Info_UClass_UAkRtpcFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkRtpcFactory), 4245149411U) },
+		{ Z_Construct_UClass_UAkTriggerFactory, UAkTriggerFactory::StaticClass, TEXT("UAkTriggerFactory"), &Z_Registration_Info_UClass_UAkTriggerFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkTriggerFactory), 3249974989U) },
+		{ Z_Construct_UClass_UAkStateValueFactory, UAkStateValueFactory::StaticClass, TEXT("UAkStateValueFactory"), &Z_Registration_Info_UClass_UAkStateValueFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkStateValueFactory), 1811342412U) },
+		{ Z_Construct_UClass_UAkSwitchValueFactory, UAkSwitchValueFactory::StaticClass, TEXT("UAkSwitchValueFactory"), &Z_Registration_Info_UClass_UAkSwitchValueFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkSwitchValueFactory), 3877659416U) },
+		{ Z_Construct_UClass_UAkEffectShareSetFactory, UAkEffectShareSetFactory::StaticClass, TEXT("UAkEffectShareSetFactory"), &Z_Registration_Info_UClass_UAkEffectShareSetFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkEffectShareSetFactory), 1162561647U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Public_AkAssetFactories_h_1836206150(TEXT("/Script/AudiokineticTools"),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Public_AkAssetFactories_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Public_AkAssetFactories_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Public_AkAssetFactories_h_3378421002(TEXT("/Script/AudiokineticTools"),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Public_AkAssetFactories_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Public_AkAssetFactories_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

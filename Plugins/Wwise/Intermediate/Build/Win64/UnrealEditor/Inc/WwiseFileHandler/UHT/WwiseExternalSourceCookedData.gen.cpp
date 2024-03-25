@@ -17,7 +17,7 @@ class UScriptStruct* FWwiseExternalSourceCookedData::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_WwiseExternalSourceCookedData.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_WwiseExternalSourceCookedData.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData, Z_Construct_UPackage__Script_WwiseFileHandler(), TEXT("WwiseExternalSourceCookedData"));
+		Z_Registration_Info_UScriptStruct_WwiseExternalSourceCookedData.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData, (UObject*)Z_Construct_UPackage__Script_WwiseFileHandler(), TEXT("WwiseExternalSourceCookedData"));
 	}
 	return Z_Registration_Info_UScriptStruct_WwiseExternalSourceCookedData.OuterSingleton;
 }
@@ -55,21 +55,29 @@ template<> WWISEFILEHANDLER_API UScriptStruct* StaticStruct<FWwiseExternalSource
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::NewProp_Cookie_MetaData[] = {
 		{ "Category", "Wwise" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09 * @brief User-defined Cookie for the External Source\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseExternalSourceCookedData.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief User-defined Cookie for the External Source" },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::NewProp_Cookie = { "Cookie", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseExternalSourceCookedData, Cookie), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::NewProp_Cookie_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::NewProp_Cookie_MetaData)) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::NewProp_Cookie = { "Cookie", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseExternalSourceCookedData, Cookie), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::NewProp_Cookie_MetaData), Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::NewProp_Cookie_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::NewProp_DebugName_MetaData[] = {
 		{ "Category", "Wwise" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09 * @brief Optional debug name. Can be empty in release, contain the name, or the full path of the asset.\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Public/Wwise/CookedData/WwiseExternalSourceCookedData.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "@brief Optional debug name. Can be empty in release, contain the name, or the full path of the asset." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::NewProp_DebugName = { "DebugName", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseExternalSourceCookedData, DebugName), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::NewProp_DebugName_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::NewProp_DebugName_MetaData)) };
+	const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::NewProp_DebugName = { "DebugName", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseExternalSourceCookedData, DebugName), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::NewProp_DebugName_MetaData), Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::NewProp_DebugName_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::NewProp_Cookie,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::NewProp_DebugName,
@@ -79,14 +87,15 @@ template<> WWISEFILEHANDLER_API UScriptStruct* StaticStruct<FWwiseExternalSource
 		nullptr,
 		&NewStructOps,
 		"WwiseExternalSourceCookedData",
-		sizeof(FWwiseExternalSourceCookedData),
-		alignof(FWwiseExternalSourceCookedData),
 		Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::PropPointers,
 		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::PropPointers),
+		sizeof(FWwiseExternalSourceCookedData),
+		alignof(FWwiseExternalSourceCookedData),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::Struct_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::PropPointers) < 2048);
 	UScriptStruct* Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData()
 	{
 		if (!Z_Registration_Info_UScriptStruct_WwiseExternalSourceCookedData.InnerSingleton)
@@ -95,15 +104,15 @@ template<> WWISEFILEHANDLER_API UScriptStruct* StaticStruct<FWwiseExternalSource
 		}
 		return Z_Registration_Info_UScriptStruct_WwiseExternalSourceCookedData.InnerSingleton;
 	}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseExternalSourceCookedData_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseExternalSourceCookedData_h_Statics
 	{
 		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
 	};
-	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseExternalSourceCookedData_h_Statics::ScriptStructInfo[] = {
-		{ FWwiseExternalSourceCookedData::StaticStruct, Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::NewStructOps, TEXT("WwiseExternalSourceCookedData"), &Z_Registration_Info_UScriptStruct_WwiseExternalSourceCookedData, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseExternalSourceCookedData), 507204337U) },
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseExternalSourceCookedData_h_Statics::ScriptStructInfo[] = {
+		{ FWwiseExternalSourceCookedData::StaticStruct, Z_Construct_UScriptStruct_FWwiseExternalSourceCookedData_Statics::NewStructOps, TEXT("WwiseExternalSourceCookedData"), &Z_Registration_Info_UScriptStruct_WwiseExternalSourceCookedData, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseExternalSourceCookedData), 1993666383U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseExternalSourceCookedData_h_1074589314(TEXT("/Script/WwiseFileHandler"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseExternalSourceCookedData_h_2498035124(TEXT("/Script/WwiseFileHandler"),
 		nullptr, 0,
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseExternalSourceCookedData_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseExternalSourceCookedData_h_Statics::ScriptStructInfo),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseExternalSourceCookedData_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_CookedData_WwiseExternalSourceCookedData_h_Statics::ScriptStructInfo),
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

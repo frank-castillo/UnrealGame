@@ -17,7 +17,7 @@ class UScriptStruct* FWwiseLanguageId::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_WwiseLanguageId.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_WwiseLanguageId.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseLanguageId, Z_Construct_UPackage__Script_WwiseResourceLoader(), TEXT("WwiseLanguageId"));
+		Z_Registration_Info_UScriptStruct_WwiseLanguageId.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseLanguageId, (UObject*)Z_Construct_UPackage__Script_WwiseResourceLoader(), TEXT("WwiseLanguageId"));
 	}
 	return Z_Registration_Info_UScriptStruct_WwiseLanguageId.OuterSingleton;
 }
@@ -58,14 +58,14 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseLanguageId>
 		{ "ModuleRelativePath", "Public/Wwise/WwiseLanguageId.h" },
 	};
 #endif
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::NewProp_LanguageId = { "LanguageId", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseLanguageId, LanguageId), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::NewProp_LanguageId_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::NewProp_LanguageId_MetaData)) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::NewProp_LanguageId = { "LanguageId", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseLanguageId, LanguageId), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::NewProp_LanguageId_MetaData), Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::NewProp_LanguageId_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::NewProp_LanguageName_MetaData[] = {
 		{ "Category", "Wwise" },
 		{ "ModuleRelativePath", "Public/Wwise/WwiseLanguageId.h" },
 	};
 #endif
-	const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::NewProp_LanguageName = { "LanguageName", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseLanguageId, LanguageName), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::NewProp_LanguageName_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::NewProp_LanguageName_MetaData)) };
+	const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::NewProp_LanguageName = { "LanguageName", nullptr, (EPropertyFlags)0x0010000000020815, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseLanguageId, LanguageName), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::NewProp_LanguageName_MetaData), Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::NewProp_LanguageName_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::NewProp_LanguageId,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::NewProp_LanguageName,
@@ -75,14 +75,15 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseLanguageId>
 		nullptr,
 		&NewStructOps,
 		"WwiseLanguageId",
-		sizeof(FWwiseLanguageId),
-		alignof(FWwiseLanguageId),
 		Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::PropPointers,
 		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::PropPointers),
+		sizeof(FWwiseLanguageId),
+		alignof(FWwiseLanguageId),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::Struct_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::PropPointers) < 2048);
 	UScriptStruct* Z_Construct_UScriptStruct_FWwiseLanguageId()
 	{
 		if (!Z_Registration_Info_UScriptStruct_WwiseLanguageId.InnerSingleton)
@@ -91,15 +92,15 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseLanguageId>
 		}
 		return Z_Registration_Info_UScriptStruct_WwiseLanguageId.InnerSingleton;
 	}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseLanguageId_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseLanguageId_h_Statics
 	{
 		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
 	};
-	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseLanguageId_h_Statics::ScriptStructInfo[] = {
-		{ FWwiseLanguageId::StaticStruct, Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::NewStructOps, TEXT("WwiseLanguageId"), &Z_Registration_Info_UScriptStruct_WwiseLanguageId, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseLanguageId), 348822122U) },
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseLanguageId_h_Statics::ScriptStructInfo[] = {
+		{ FWwiseLanguageId::StaticStruct, Z_Construct_UScriptStruct_FWwiseLanguageId_Statics::NewStructOps, TEXT("WwiseLanguageId"), &Z_Registration_Info_UScriptStruct_WwiseLanguageId, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseLanguageId), 3184549909U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseLanguageId_h_344310660(TEXT("/Script/WwiseResourceLoader"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseLanguageId_h_216533180(TEXT("/Script/WwiseResourceLoader"),
 		nullptr, 0,
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseLanguageId_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseLanguageId_h_Statics::ScriptStructInfo),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseLanguageId_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseLanguageId_h_Statics::ScriptStructInfo),
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

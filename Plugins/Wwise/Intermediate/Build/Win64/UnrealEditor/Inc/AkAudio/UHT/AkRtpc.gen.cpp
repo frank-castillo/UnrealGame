@@ -53,6 +53,7 @@ void EmptyLinkFunctionForGeneratedCodeAkRtpc() {}
 		(UObject* (*)())Z_Construct_UClass_UAkAudioType,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkRtpc_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkRtpc_Statics::Class_MetaDataParams[] = {
 		{ "BlueprintType", "true" },
@@ -66,7 +67,7 @@ void EmptyLinkFunctionForGeneratedCodeAkRtpc() {}
 		{ "ModuleRelativePath", "Classes/AkRtpc.h" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkRtpc_Statics::NewProp_GameParameterCookedData = { "GameParameterCookedData", nullptr, (EPropertyFlags)0x0010000000022001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkRtpc, GameParameterCookedData), Z_Construct_UScriptStruct_FWwiseGameParameterCookedData, METADATA_PARAMS(Z_Construct_UClass_UAkRtpc_Statics::NewProp_GameParameterCookedData_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkRtpc_Statics::NewProp_GameParameterCookedData_MetaData)) }; // 3912741995
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkRtpc_Statics::NewProp_GameParameterCookedData = { "GameParameterCookedData", nullptr, (EPropertyFlags)0x0010000000022001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkRtpc, GameParameterCookedData), Z_Construct_UScriptStruct_FWwiseGameParameterCookedData, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkRtpc_Statics::NewProp_GameParameterCookedData_MetaData), Z_Construct_UClass_UAkRtpc_Statics::NewProp_GameParameterCookedData_MetaData) }; // 2976438607
 #if WITH_EDITORONLY_DATA
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkRtpc_Statics::NewProp_RtpcInfo_MetaData[] = {
@@ -74,7 +75,7 @@ void EmptyLinkFunctionForGeneratedCodeAkRtpc() {}
 		{ "ModuleRelativePath", "Classes/AkRtpc.h" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkRtpc_Statics::NewProp_RtpcInfo = { "RtpcInfo", nullptr, (EPropertyFlags)0x0010000800000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkRtpc, RtpcInfo), Z_Construct_UScriptStruct_FWwiseObjectInfo, METADATA_PARAMS(Z_Construct_UClass_UAkRtpc_Statics::NewProp_RtpcInfo_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkRtpc_Statics::NewProp_RtpcInfo_MetaData)) }; // 3645774004
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkRtpc_Statics::NewProp_RtpcInfo = { "RtpcInfo", nullptr, (EPropertyFlags)0x0010000800000001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkRtpc, RtpcInfo), Z_Construct_UScriptStruct_FWwiseObjectInfo, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkRtpc_Statics::NewProp_RtpcInfo_MetaData), Z_Construct_UClass_UAkRtpc_Statics::NewProp_RtpcInfo_MetaData) }; // 2788776191
 #endif // WITH_EDITORONLY_DATA
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAkRtpc_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAkRtpc_Statics::NewProp_GameParameterCookedData,
@@ -98,8 +99,9 @@ void EmptyLinkFunctionForGeneratedCodeAkRtpc() {}
 		UE_ARRAY_COUNT(Z_Construct_UClass_UAkRtpc_Statics::PropPointers),
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkRtpc_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkRtpc_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkRtpc_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkRtpc_Statics::Class_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkRtpc_Statics::PropPointers) < 2048);
 	UClass* Z_Construct_UClass_UAkRtpc()
 	{
 		if (!Z_Registration_Info_UClass_UAkRtpc.OuterSingleton)
@@ -112,18 +114,19 @@ void EmptyLinkFunctionForGeneratedCodeAkRtpc() {}
 	{
 		return UAkRtpc::StaticClass();
 	}
+	UAkRtpc::UAkRtpc(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UAkRtpc);
 	UAkRtpc::~UAkRtpc() {}
 	IMPLEMENT_FSTRUCTUREDARCHIVE_SERIALIZER(UAkRtpc)
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkRtpc_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkRtpc_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkRtpc_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UAkRtpc, UAkRtpc::StaticClass, TEXT("UAkRtpc"), &Z_Registration_Info_UClass_UAkRtpc, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkRtpc), 945414337U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkRtpc_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UAkRtpc, UAkRtpc::StaticClass, TEXT("UAkRtpc"), &Z_Registration_Info_UClass_UAkRtpc, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkRtpc), 4183710518U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkRtpc_h_115731762(TEXT("/Script/AkAudio"),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkRtpc_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkRtpc_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkRtpc_h_3273700855(TEXT("/Script/AkAudio"),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkRtpc_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkRtpc_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

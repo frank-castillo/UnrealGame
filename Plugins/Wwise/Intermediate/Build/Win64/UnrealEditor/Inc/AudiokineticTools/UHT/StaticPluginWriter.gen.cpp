@@ -17,7 +17,7 @@ class UScriptStruct* FAkPluginInfo::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_AkPluginInfo.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_AkPluginInfo.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FAkPluginInfo, Z_Construct_UPackage__Script_AudiokineticTools(), TEXT("AkPluginInfo"));
+		Z_Registration_Info_UScriptStruct_AkPluginInfo.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FAkPluginInfo, (UObject*)Z_Construct_UPackage__Script_AudiokineticTools(), TEXT("AkPluginInfo"));
 	}
 	return Z_Registration_Info_UScriptStruct_AkPluginInfo.OuterSingleton;
 }
@@ -61,21 +61,21 @@ template<> AUDIOKINETICTOOLS_API UScriptStruct* StaticStruct<FAkPluginInfo>()
 		{ "ModuleRelativePath", "Private/AssetManagement/StaticPluginWriter.h" },
 	};
 #endif
-	const UECodeGen_Private::FStrPropertyParams Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_Name = { "Name", nullptr, (EPropertyFlags)0x0010000000020001, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FAkPluginInfo, Name), METADATA_PARAMS(Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_Name_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_Name_MetaData)) };
+	const UECodeGen_Private::FStrPropertyParams Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_Name = { "Name", nullptr, (EPropertyFlags)0x0010000000020001, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FAkPluginInfo, Name), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_Name_MetaData), Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_Name_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_PluginID_MetaData[] = {
 		{ "Category", "FAkPluginInfo" },
 		{ "ModuleRelativePath", "Private/AssetManagement/StaticPluginWriter.h" },
 	};
 #endif
-	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_PluginID = { "PluginID", nullptr, (EPropertyFlags)0x0010000000020001, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FAkPluginInfo, PluginID), METADATA_PARAMS(Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_PluginID_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_PluginID_MetaData)) };
+	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_PluginID = { "PluginID", nullptr, (EPropertyFlags)0x0010000000020001, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FAkPluginInfo, PluginID), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_PluginID_MetaData), Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_PluginID_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_DLL_MetaData[] = {
 		{ "Category", "FAkPluginInfo" },
 		{ "ModuleRelativePath", "Private/AssetManagement/StaticPluginWriter.h" },
 	};
 #endif
-	const UECodeGen_Private::FStrPropertyParams Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_DLL = { "DLL", nullptr, (EPropertyFlags)0x0010000000020001, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FAkPluginInfo, DLL), METADATA_PARAMS(Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_DLL_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_DLL_MetaData)) };
+	const UECodeGen_Private::FStrPropertyParams Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_DLL = { "DLL", nullptr, (EPropertyFlags)0x0010000000020001, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FAkPluginInfo, DLL), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_DLL_MetaData), Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_DLL_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FAkPluginInfo_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_Name,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewProp_PluginID,
@@ -86,14 +86,15 @@ template<> AUDIOKINETICTOOLS_API UScriptStruct* StaticStruct<FAkPluginInfo>()
 		nullptr,
 		&NewStructOps,
 		"AkPluginInfo",
-		sizeof(FAkPluginInfo),
-		alignof(FAkPluginInfo),
 		Z_Construct_UScriptStruct_FAkPluginInfo_Statics::PropPointers,
 		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkPluginInfo_Statics::PropPointers),
+		sizeof(FAkPluginInfo),
+		alignof(FAkPluginInfo),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000001),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FAkPluginInfo_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkPluginInfo_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkPluginInfo_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FAkPluginInfo_Statics::Struct_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkPluginInfo_Statics::PropPointers) < 2048);
 	UScriptStruct* Z_Construct_UScriptStruct_FAkPluginInfo()
 	{
 		if (!Z_Registration_Info_UScriptStruct_AkPluginInfo.InnerSingleton)
@@ -102,15 +103,15 @@ template<> AUDIOKINETICTOOLS_API UScriptStruct* StaticStruct<FAkPluginInfo>()
 		}
 		return Z_Registration_Info_UScriptStruct_AkPluginInfo.InnerSingleton;
 	}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Private_AssetManagement_StaticPluginWriter_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Private_AssetManagement_StaticPluginWriter_h_Statics
 	{
 		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
 	};
-	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Private_AssetManagement_StaticPluginWriter_h_Statics::ScriptStructInfo[] = {
-		{ FAkPluginInfo::StaticStruct, Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewStructOps, TEXT("AkPluginInfo"), &Z_Registration_Info_UScriptStruct_AkPluginInfo, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FAkPluginInfo), 844300022U) },
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Private_AssetManagement_StaticPluginWriter_h_Statics::ScriptStructInfo[] = {
+		{ FAkPluginInfo::StaticStruct, Z_Construct_UScriptStruct_FAkPluginInfo_Statics::NewStructOps, TEXT("AkPluginInfo"), &Z_Registration_Info_UScriptStruct_AkPluginInfo, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FAkPluginInfo), 1443339758U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Private_AssetManagement_StaticPluginWriter_h_147693710(TEXT("/Script/AudiokineticTools"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Private_AssetManagement_StaticPluginWriter_h_1149624838(TEXT("/Script/AudiokineticTools"),
 		nullptr, 0,
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Private_AssetManagement_StaticPluginWriter_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Private_AssetManagement_StaticPluginWriter_h_Statics::ScriptStructInfo),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Private_AssetManagement_StaticPluginWriter_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AudiokineticTools_Private_AssetManagement_StaticPluginWriter_h_Statics::ScriptStructInfo),
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

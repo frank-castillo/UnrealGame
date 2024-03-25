@@ -6,7 +6,7 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "WwiseFileHandler/Public/Wwise/WwiseExternalSourceStatics.h"
-#include "WwiseSoundEngine/Public/AkUnrealHelper.h"
+#include "../../WwiseSoundEngine/Public/AkUnrealHelper.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeWwiseExternalSourceStatics() {}
 // Cross Module References
@@ -79,13 +79,13 @@ void EmptyLinkFunctionForGeneratedCodeWwiseExternalSourceStatics() {}
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::NewProp_ExternalSourceName = { "ExternalSourceName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(WwiseExternalSourceStatics_eventSetExternalSourceMediaById_Parms, ExternalSourceName), METADATA_PARAMS(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::NewProp_ExternalSourceName_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::NewProp_ExternalSourceName_MetaData)) };
+	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::NewProp_ExternalSourceName = { "ExternalSourceName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WwiseExternalSourceStatics_eventSetExternalSourceMediaById_Parms, ExternalSourceName), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::NewProp_ExternalSourceName_MetaData), Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::NewProp_ExternalSourceName_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::NewProp_MediaId_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::NewProp_MediaId = { "MediaId", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(WwiseExternalSourceStatics_eventSetExternalSourceMediaById_Parms, MediaId), METADATA_PARAMS(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::NewProp_MediaId_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::NewProp_MediaId_MetaData)) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::NewProp_MediaId = { "MediaId", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WwiseExternalSourceStatics_eventSetExternalSourceMediaById_Parms, MediaId), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::NewProp_MediaId_MetaData), Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::NewProp_MediaId_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::NewProp_ExternalSourceName,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::NewProp_MediaId,
@@ -96,7 +96,9 @@ void EmptyLinkFunctionForGeneratedCodeWwiseExternalSourceStatics() {}
 		{ "ModuleRelativePath", "Public/Wwise/WwiseExternalSourceStatics.h" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UWwiseExternalSourceStatics, nullptr, "SetExternalSourceMediaById", nullptr, nullptr, sizeof(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::WwiseExternalSourceStatics_eventSetExternalSourceMediaById_Parms), Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UWwiseExternalSourceStatics, nullptr, "SetExternalSourceMediaById", nullptr, nullptr, Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::WwiseExternalSourceStatics_eventSetExternalSourceMediaById_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById_Statics::WwiseExternalSourceStatics_eventSetExternalSourceMediaById_Parms) < MAX_uint16);
 	UFunction* Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById()
 	{
 		static UFunction* ReturnFunction = nullptr;
@@ -132,13 +134,13 @@ void EmptyLinkFunctionForGeneratedCodeWwiseExternalSourceStatics() {}
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::NewProp_ExternalSourceName = { "ExternalSourceName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(WwiseExternalSourceStatics_eventSetExternalSourceMediaByName_Parms, ExternalSourceName), METADATA_PARAMS(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::NewProp_ExternalSourceName_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::NewProp_ExternalSourceName_MetaData)) };
+	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::NewProp_ExternalSourceName = { "ExternalSourceName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WwiseExternalSourceStatics_eventSetExternalSourceMediaByName_Parms, ExternalSourceName), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::NewProp_ExternalSourceName_MetaData), Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::NewProp_ExternalSourceName_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::NewProp_MediaName_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::NewProp_MediaName = { "MediaName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(WwiseExternalSourceStatics_eventSetExternalSourceMediaByName_Parms, MediaName), METADATA_PARAMS(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::NewProp_MediaName_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::NewProp_MediaName_MetaData)) };
+	const UECodeGen_Private::FStrPropertyParams Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::NewProp_MediaName = { "MediaName", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WwiseExternalSourceStatics_eventSetExternalSourceMediaByName_Parms, MediaName), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::NewProp_MediaName_MetaData), Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::NewProp_MediaName_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::NewProp_ExternalSourceName,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::NewProp_MediaName,
@@ -149,7 +151,9 @@ void EmptyLinkFunctionForGeneratedCodeWwiseExternalSourceStatics() {}
 		{ "ModuleRelativePath", "Public/Wwise/WwiseExternalSourceStatics.h" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UWwiseExternalSourceStatics, nullptr, "SetExternalSourceMediaByName", nullptr, nullptr, sizeof(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::WwiseExternalSourceStatics_eventSetExternalSourceMediaByName_Parms), Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UWwiseExternalSourceStatics, nullptr, "SetExternalSourceMediaByName", nullptr, nullptr, Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::WwiseExternalSourceStatics_eventSetExternalSourceMediaByName_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName_Statics::WwiseExternalSourceStatics_eventSetExternalSourceMediaByName_Parms) < MAX_uint16);
 	UFunction* Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName()
 	{
 		static UFunction* ReturnFunction = nullptr;
@@ -185,13 +189,13 @@ void EmptyLinkFunctionForGeneratedCodeWwiseExternalSourceStatics() {}
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::NewProp_ExternalSourceCookie = { "ExternalSourceCookie", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(WwiseExternalSourceStatics_eventSetExternalSourceMediaWithIds_Parms, ExternalSourceCookie), Z_Construct_UScriptStruct_FAkUniqueID, METADATA_PARAMS(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::NewProp_ExternalSourceCookie_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::NewProp_ExternalSourceCookie_MetaData)) }; // 2187982974
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::NewProp_ExternalSourceCookie = { "ExternalSourceCookie", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WwiseExternalSourceStatics_eventSetExternalSourceMediaWithIds_Parms, ExternalSourceCookie), Z_Construct_UScriptStruct_FAkUniqueID, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::NewProp_ExternalSourceCookie_MetaData), Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::NewProp_ExternalSourceCookie_MetaData) }; // 3904096612
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::NewProp_MediaId_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::NewProp_MediaId = { "MediaId", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(WwiseExternalSourceStatics_eventSetExternalSourceMediaWithIds_Parms, MediaId), METADATA_PARAMS(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::NewProp_MediaId_MetaData, UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::NewProp_MediaId_MetaData)) };
+	const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::NewProp_MediaId = { "MediaId", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(WwiseExternalSourceStatics_eventSetExternalSourceMediaWithIds_Parms, MediaId), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::NewProp_MediaId_MetaData), Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::NewProp_MediaId_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::NewProp_ExternalSourceCookie,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::NewProp_MediaId,
@@ -202,7 +206,9 @@ void EmptyLinkFunctionForGeneratedCodeWwiseExternalSourceStatics() {}
 		{ "ModuleRelativePath", "Public/Wwise/WwiseExternalSourceStatics.h" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UWwiseExternalSourceStatics, nullptr, "SetExternalSourceMediaWithIds", nullptr, nullptr, sizeof(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::WwiseExternalSourceStatics_eventSetExternalSourceMediaWithIds_Parms), Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UWwiseExternalSourceStatics, nullptr, "SetExternalSourceMediaWithIds", nullptr, nullptr, Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::PropPointers), sizeof(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::WwiseExternalSourceStatics_eventSetExternalSourceMediaWithIds_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04022401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::Function_MetaDataParams), Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds_Statics::WwiseExternalSourceStatics_eventSetExternalSourceMediaWithIds_Parms) < MAX_uint16);
 	UFunction* Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds()
 	{
 		static UFunction* ReturnFunction = nullptr;
@@ -231,11 +237,13 @@ void EmptyLinkFunctionForGeneratedCodeWwiseExternalSourceStatics() {}
 		(UObject* (*)())Z_Construct_UClass_UBlueprintFunctionLibrary,
 		(UObject* (*)())Z_Construct_UPackage__Script_WwiseFileHandler,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UWwiseExternalSourceStatics_Statics::DependentSingletons) < 16);
 	const FClassFunctionLinkInfo Z_Construct_UClass_UWwiseExternalSourceStatics_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById, "SetExternalSourceMediaById" }, // 1951451370
-		{ &Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName, "SetExternalSourceMediaByName" }, // 3439283993
-		{ &Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds, "SetExternalSourceMediaWithIds" }, // 3976259859
+		{ &Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaById, "SetExternalSourceMediaById" }, // 251067551
+		{ &Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaByName, "SetExternalSourceMediaByName" }, // 2495340645
+		{ &Z_Construct_UFunction_UWwiseExternalSourceStatics_SetExternalSourceMediaWithIds, "SetExternalSourceMediaWithIds" }, // 732568358
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UWwiseExternalSourceStatics_Statics::FuncInfo) < 2048);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UWwiseExternalSourceStatics_Statics::Class_MetaDataParams[] = {
 		{ "IncludePath", "Wwise/WwiseExternalSourceStatics.h" },
@@ -258,7 +266,7 @@ void EmptyLinkFunctionForGeneratedCodeWwiseExternalSourceStatics() {}
 		0,
 		0,
 		0x001000A0u,
-		METADATA_PARAMS(Z_Construct_UClass_UWwiseExternalSourceStatics_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UWwiseExternalSourceStatics_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UWwiseExternalSourceStatics_Statics::Class_MetaDataParams), Z_Construct_UClass_UWwiseExternalSourceStatics_Statics::Class_MetaDataParams)
 	};
 	UClass* Z_Construct_UClass_UWwiseExternalSourceStatics()
 	{
@@ -272,17 +280,18 @@ void EmptyLinkFunctionForGeneratedCodeWwiseExternalSourceStatics() {}
 	{
 		return UWwiseExternalSourceStatics::StaticClass();
 	}
+	UWwiseExternalSourceStatics::UWwiseExternalSourceStatics(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UWwiseExternalSourceStatics);
 	UWwiseExternalSourceStatics::~UWwiseExternalSourceStatics() {}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_WwiseExternalSourceStatics_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_WwiseExternalSourceStatics_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_WwiseExternalSourceStatics_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UWwiseExternalSourceStatics, UWwiseExternalSourceStatics::StaticClass, TEXT("UWwiseExternalSourceStatics"), &Z_Registration_Info_UClass_UWwiseExternalSourceStatics, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UWwiseExternalSourceStatics), 1220689112U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_WwiseExternalSourceStatics_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UWwiseExternalSourceStatics, UWwiseExternalSourceStatics::StaticClass, TEXT("UWwiseExternalSourceStatics"), &Z_Registration_Info_UClass_UWwiseExternalSourceStatics, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UWwiseExternalSourceStatics), 3738137417U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_WwiseExternalSourceStatics_h_3287000924(TEXT("/Script/WwiseFileHandler"),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_WwiseExternalSourceStatics_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_WwiseExternalSourceStatics_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_WwiseExternalSourceStatics_h_2488534401(TEXT("/Script/WwiseFileHandler"),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_WwiseExternalSourceStatics_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseFileHandler_Public_Wwise_WwiseExternalSourceStatics_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

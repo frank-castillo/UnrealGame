@@ -17,7 +17,7 @@ class UScriptStruct* FWwiseSharedPlatformId::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_WwiseSharedPlatformId.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_WwiseSharedPlatformId.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseSharedPlatformId, Z_Construct_UPackage__Script_WwiseResourceLoader(), TEXT("WwiseSharedPlatformId"));
+		Z_Registration_Info_UScriptStruct_WwiseSharedPlatformId.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseSharedPlatformId, (UObject*)Z_Construct_UPackage__Script_WwiseResourceLoader(), TEXT("WwiseSharedPlatformId"));
 	}
 	return Z_Registration_Info_UScriptStruct_WwiseSharedPlatformId.OuterSingleton;
 }
@@ -48,13 +48,13 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseSharedPlatf
 		nullptr,
 		&NewStructOps,
 		"WwiseSharedPlatformId",
-		sizeof(FWwiseSharedPlatformId),
-		alignof(FWwiseSharedPlatformId),
 		nullptr,
 		0,
+		sizeof(FWwiseSharedPlatformId),
+		alignof(FWwiseSharedPlatformId),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseSharedPlatformId_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSharedPlatformId_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseSharedPlatformId_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FWwiseSharedPlatformId_Statics::Struct_MetaDataParams)
 	};
 	UScriptStruct* Z_Construct_UScriptStruct_FWwiseSharedPlatformId()
 	{
@@ -64,15 +64,15 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseSharedPlatf
 		}
 		return Z_Registration_Info_UScriptStruct_WwiseSharedPlatformId.InnerSingleton;
 	}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseSharedPlatformId_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseSharedPlatformId_h_Statics
 	{
 		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
 	};
-	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseSharedPlatformId_h_Statics::ScriptStructInfo[] = {
-		{ FWwiseSharedPlatformId::StaticStruct, Z_Construct_UScriptStruct_FWwiseSharedPlatformId_Statics::NewStructOps, TEXT("WwiseSharedPlatformId"), &Z_Registration_Info_UScriptStruct_WwiseSharedPlatformId, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseSharedPlatformId), 591600784U) },
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseSharedPlatformId_h_Statics::ScriptStructInfo[] = {
+		{ FWwiseSharedPlatformId::StaticStruct, Z_Construct_UScriptStruct_FWwiseSharedPlatformId_Statics::NewStructOps, TEXT("WwiseSharedPlatformId"), &Z_Registration_Info_UScriptStruct_WwiseSharedPlatformId, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseSharedPlatformId), 1069346837U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseSharedPlatformId_h_3457317440(TEXT("/Script/WwiseResourceLoader"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseSharedPlatformId_h_1108736081(TEXT("/Script/WwiseResourceLoader"),
 		nullptr, 0,
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseSharedPlatformId_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseSharedPlatformId_h_Statics::ScriptStructInfo),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseSharedPlatformId_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_WwiseSharedPlatformId_h_Statics::ScriptStructInfo),
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

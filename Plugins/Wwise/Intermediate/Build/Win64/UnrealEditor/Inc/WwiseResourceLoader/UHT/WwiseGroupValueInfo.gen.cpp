@@ -21,7 +21,7 @@ class UScriptStruct* FWwiseGroupValueInfo::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_WwiseGroupValueInfo.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_WwiseGroupValueInfo.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseGroupValueInfo, Z_Construct_UPackage__Script_WwiseResourceLoader(), TEXT("WwiseGroupValueInfo"));
+		Z_Registration_Info_UScriptStruct_WwiseGroupValueInfo.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FWwiseGroupValueInfo, (UObject*)Z_Construct_UPackage__Script_WwiseResourceLoader(), TEXT("WwiseGroupValueInfo"));
 	}
 	return Z_Registration_Info_UScriptStruct_WwiseGroupValueInfo.OuterSingleton;
 }
@@ -62,7 +62,7 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseGroupValueI
 		{ "ModuleRelativePath", "Public/Wwise/Info/WwiseGroupValueInfo.h" },
 	};
 #endif
-	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseGroupValueInfo_Statics::NewProp_GroupShortId = { "GroupShortId", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FWwiseGroupValueInfo, GroupShortId), METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseGroupValueInfo_Statics::NewProp_GroupShortId_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseGroupValueInfo_Statics::NewProp_GroupShortId_MetaData)) };
+	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UScriptStruct_FWwiseGroupValueInfo_Statics::NewProp_GroupShortId = { "GroupShortId", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWwiseGroupValueInfo, GroupShortId), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseGroupValueInfo_Statics::NewProp_GroupShortId_MetaData), Z_Construct_UScriptStruct_FWwiseGroupValueInfo_Statics::NewProp_GroupShortId_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FWwiseGroupValueInfo_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWwiseGroupValueInfo_Statics::NewProp_GroupShortId,
 	};
@@ -71,14 +71,15 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseGroupValueI
 		Z_Construct_UScriptStruct_FWwiseObjectInfo,
 		&NewStructOps,
 		"WwiseGroupValueInfo",
-		sizeof(FWwiseGroupValueInfo),
-		alignof(FWwiseGroupValueInfo),
 		Z_Construct_UScriptStruct_FWwiseGroupValueInfo_Statics::PropPointers,
 		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseGroupValueInfo_Statics::PropPointers),
+		sizeof(FWwiseGroupValueInfo),
+		alignof(FWwiseGroupValueInfo),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000201),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FWwiseGroupValueInfo_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseGroupValueInfo_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseGroupValueInfo_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FWwiseGroupValueInfo_Statics::Struct_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWwiseGroupValueInfo_Statics::PropPointers) < 2048);
 	UScriptStruct* Z_Construct_UScriptStruct_FWwiseGroupValueInfo()
 	{
 		if (!Z_Registration_Info_UScriptStruct_WwiseGroupValueInfo.InnerSingleton)
@@ -87,15 +88,15 @@ template<> WWISERESOURCELOADER_API UScriptStruct* StaticStruct<FWwiseGroupValueI
 		}
 		return Z_Registration_Info_UScriptStruct_WwiseGroupValueInfo.InnerSingleton;
 	}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseGroupValueInfo_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseGroupValueInfo_h_Statics
 	{
 		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
 	};
-	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseGroupValueInfo_h_Statics::ScriptStructInfo[] = {
-		{ FWwiseGroupValueInfo::StaticStruct, Z_Construct_UScriptStruct_FWwiseGroupValueInfo_Statics::NewStructOps, TEXT("WwiseGroupValueInfo"), &Z_Registration_Info_UScriptStruct_WwiseGroupValueInfo, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseGroupValueInfo), 1546907427U) },
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseGroupValueInfo_h_Statics::ScriptStructInfo[] = {
+		{ FWwiseGroupValueInfo::StaticStruct, Z_Construct_UScriptStruct_FWwiseGroupValueInfo_Statics::NewStructOps, TEXT("WwiseGroupValueInfo"), &Z_Registration_Info_UScriptStruct_WwiseGroupValueInfo, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWwiseGroupValueInfo), 775773728U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseGroupValueInfo_h_63634874(TEXT("/Script/WwiseResourceLoader"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseGroupValueInfo_h_3920735599(TEXT("/Script/WwiseResourceLoader"),
 		nullptr, 0,
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseGroupValueInfo_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseGroupValueInfo_h_Statics::ScriptStructInfo),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseGroupValueInfo_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceLoader_Public_Wwise_Info_WwiseGroupValueInfo_h_Statics::ScriptStructInfo),
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

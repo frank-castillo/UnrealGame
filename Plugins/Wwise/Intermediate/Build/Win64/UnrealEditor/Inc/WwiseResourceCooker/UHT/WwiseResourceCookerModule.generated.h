@@ -5,8 +5,9 @@
 ===========================================================================*/
 
 // IWYU pragma: private, include "Wwise/WwiseResourceCookerModule.h"
+#include "Templates/IsUEnumClass.h"
 #include "UObject/ObjectMacros.h"
-#include "UObject/ScriptMacros.h"
+#include "UObject/ReflectedTypeAccessors.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #ifdef WWISERESOURCECOOKER_WwiseResourceCookerModule_generated_h
@@ -15,7 +16,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #define WWISERESOURCECOOKER_WwiseResourceCookerModule_generated_h
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_WwiseResourceCooker_Public_Wwise_WwiseResourceCookerModule_h
+#define CURRENT_FILE_ID FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_WwiseResourceCooker_Public_Wwise_WwiseResourceCookerModule_h
 
 
 #define FOREACH_ENUM_EWWISEEXPORTDEBUGNAMERULE(op) \

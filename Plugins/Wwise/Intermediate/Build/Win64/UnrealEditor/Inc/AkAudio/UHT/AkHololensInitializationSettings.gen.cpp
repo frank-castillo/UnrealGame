@@ -28,7 +28,7 @@ class UScriptStruct* FAkHololensAdvancedInitializationSettings::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_AkHololensAdvancedInitializationSettings.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_AkHololensAdvancedInitializationSettings.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings, Z_Construct_UPackage__Script_AkAudio(), TEXT("AkHololensAdvancedInitializationSettings"));
+		Z_Registration_Info_UScriptStruct_AkHololensAdvancedInitializationSettings.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings, (UObject*)Z_Construct_UPackage__Script_AkAudio(), TEXT("AkHololensAdvancedInitializationSettings"));
 	}
 	return Z_Registration_Info_UScriptStruct_AkHololensAdvancedInitializationSettings.OuterSingleton;
 }
@@ -69,7 +69,7 @@ template<> AKAUDIO_API UScriptStruct* StaticStruct<FAkHololensAdvancedInitializa
 	{
 		((FAkHololensAdvancedInitializationSettings*)Obj)->UseHeadMountedDisplayAudioDevice = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings_Statics::NewProp_UseHeadMountedDisplayAudioDevice = { "UseHeadMountedDisplayAudioDevice", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(FAkHololensAdvancedInitializationSettings), &Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings_Statics::NewProp_UseHeadMountedDisplayAudioDevice_SetBit, METADATA_PARAMS(Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings_Statics::NewProp_UseHeadMountedDisplayAudioDevice_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings_Statics::NewProp_UseHeadMountedDisplayAudioDevice_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings_Statics::NewProp_UseHeadMountedDisplayAudioDevice = { "UseHeadMountedDisplayAudioDevice", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(FAkHololensAdvancedInitializationSettings), &Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings_Statics::NewProp_UseHeadMountedDisplayAudioDevice_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings_Statics::NewProp_UseHeadMountedDisplayAudioDevice_MetaData), Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings_Statics::NewProp_UseHeadMountedDisplayAudioDevice_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings_Statics::NewProp_UseHeadMountedDisplayAudioDevice,
 	};
@@ -78,14 +78,15 @@ template<> AKAUDIO_API UScriptStruct* StaticStruct<FAkHololensAdvancedInitializa
 		Z_Construct_UScriptStruct_FAkAdvancedInitializationSettingsWithMultiCoreRendering,
 		&NewStructOps,
 		"AkHololensAdvancedInitializationSettings",
-		sizeof(FAkHololensAdvancedInitializationSettings),
-		alignof(FAkHololensAdvancedInitializationSettings),
 		Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings_Statics::PropPointers,
 		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings_Statics::PropPointers),
+		sizeof(FAkHololensAdvancedInitializationSettings),
+		alignof(FAkHololensAdvancedInitializationSettings),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000001),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings_Statics::Struct_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings_Statics::PropPointers) < 2048);
 	UScriptStruct* Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings()
 	{
 		if (!Z_Registration_Info_UScriptStruct_AkHololensAdvancedInitializationSettings.InnerSingleton)
@@ -128,7 +129,7 @@ template<> AKAUDIO_API UScriptStruct* StaticStruct<FAkHololensAdvancedInitializa
 	{
 		((AkHololensInitializationSettings_eventMigrateMultiCoreRendering_Parms*)Obj)->NewValue = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering_Statics::NewProp_NewValue = { "NewValue", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(AkHololensInitializationSettings_eventMigrateMultiCoreRendering_Parms), &Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering_Statics::NewProp_NewValue_SetBit, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering_Statics::NewProp_NewValue = { "NewValue", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AkHololensInitializationSettings_eventMigrateMultiCoreRendering_Parms), &Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering_Statics::NewProp_NewValue_SetBit, METADATA_PARAMS(0, nullptr) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering_Statics::NewProp_NewValue,
 	};
@@ -137,7 +138,9 @@ template<> AKAUDIO_API UScriptStruct* StaticStruct<FAkHololensAdvancedInitializa
 		{ "ModuleRelativePath", "Classes/Platforms/AkPlatform_Hololens/AkHololensInitializationSettings.h" },
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UAkHololensInitializationSettings, nullptr, "MigrateMultiCoreRendering", nullptr, nullptr, sizeof(Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering_Statics::AkHololensInitializationSettings_eventMigrateMultiCoreRendering_Parms), Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UAkHololensInitializationSettings, nullptr, "MigrateMultiCoreRendering", nullptr, nullptr, Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering_Statics::PropPointers), sizeof(Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering_Statics::AkHololensInitializationSettings_eventMigrateMultiCoreRendering_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering_Statics::Function_MetaDataParams), Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering_Statics::AkHololensInitializationSettings_eventMigrateMultiCoreRendering_Parms) < MAX_uint16);
 	UFunction* Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering()
 	{
 		static UFunction* ReturnFunction = nullptr;
@@ -180,9 +183,11 @@ template<> AKAUDIO_API UScriptStruct* StaticStruct<FAkHololensAdvancedInitializa
 		(UObject* (*)())Z_Construct_UClass_UObject,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkHololensInitializationSettings_Statics::DependentSingletons) < 16);
 	const FClassFunctionLinkInfo Z_Construct_UClass_UAkHololensInitializationSettings_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering, "MigrateMultiCoreRendering" }, // 1444937222
+		{ &Z_Construct_UFunction_UAkHololensInitializationSettings_MigrateMultiCoreRendering, "MigrateMultiCoreRendering" }, // 3347193719
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkHololensInitializationSettings_Statics::FuncInfo) < 2048);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkHololensInitializationSettings_Statics::Class_MetaDataParams[] = {
 		{ "IncludePath", "Platforms/AkPlatform_Hololens/AkHololensInitializationSettings.h" },
@@ -196,29 +201,30 @@ template<> AKAUDIO_API UScriptStruct* StaticStruct<FAkHololensAdvancedInitializa
 		{ "ModuleRelativePath", "Classes/Platforms/AkPlatform_Hololens/AkHololensInitializationSettings.h" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_CommonSettings = { "CommonSettings", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkHololensInitializationSettings, CommonSettings), Z_Construct_UScriptStruct_FAkCommonInitializationSettingsWithSampleRate, METADATA_PARAMS(Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_CommonSettings_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_CommonSettings_MetaData)) }; // 1364846279
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_CommonSettings = { "CommonSettings", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkHololensInitializationSettings, CommonSettings), Z_Construct_UScriptStruct_FAkCommonInitializationSettingsWithSampleRate, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_CommonSettings_MetaData), Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_CommonSettings_MetaData) }; // 1718117610
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_CommunicationSettings_MetaData[] = {
 		{ "Category", "Initialization" },
 		{ "ModuleRelativePath", "Classes/Platforms/AkPlatform_Hololens/AkHololensInitializationSettings.h" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_CommunicationSettings = { "CommunicationSettings", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkHololensInitializationSettings, CommunicationSettings), Z_Construct_UScriptStruct_FAkCommunicationSettingsWithSystemInitialization, METADATA_PARAMS(Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_CommunicationSettings_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_CommunicationSettings_MetaData)) }; // 321444022
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_CommunicationSettings = { "CommunicationSettings", nullptr, (EPropertyFlags)0x0010000000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkHololensInitializationSettings, CommunicationSettings), Z_Construct_UScriptStruct_FAkCommunicationSettingsWithSystemInitialization, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_CommunicationSettings_MetaData), Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_CommunicationSettings_MetaData) }; // 1178487601
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_AdvancedSettings_MetaData[] = {
 		{ "Category", "Initialization" },
 		{ "ModuleRelativePath", "Classes/Platforms/AkPlatform_Hololens/AkHololensInitializationSettings.h" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_AdvancedSettings = { "AdvancedSettings", nullptr, (EPropertyFlags)0x0010040000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(UAkHololensInitializationSettings, AdvancedSettings), Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings, METADATA_PARAMS(Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_AdvancedSettings_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_AdvancedSettings_MetaData)) }; // 476999005
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_AdvancedSettings = { "AdvancedSettings", nullptr, (EPropertyFlags)0x0010040000004001, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAkHololensInitializationSettings, AdvancedSettings), Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_AdvancedSettings_MetaData), Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_AdvancedSettings_MetaData) }; // 3692346969
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAkHololensInitializationSettings_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_CommonSettings,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_CommunicationSettings,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAkHololensInitializationSettings_Statics::NewProp_AdvancedSettings,
 	};
 		const UECodeGen_Private::FImplementedInterfaceParams Z_Construct_UClass_UAkHololensInitializationSettings_Statics::InterfaceParams[] = {
-			{ Z_Construct_UClass_UAkPlatformInitialisationSettingsBase_NoRegister, (int32)VTABLE_OFFSET(UAkHololensInitializationSettings, IAkPlatformInitialisationSettingsBase), false },  // 3478154059
+			{ Z_Construct_UClass_UAkPlatformInitialisationSettingsBase_NoRegister, (int32)VTABLE_OFFSET(UAkHololensInitializationSettings, IAkPlatformInitialisationSettingsBase), false },  // 2070778024
 		};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkHololensInitializationSettings_Statics::InterfaceParams) < 64);
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UAkHololensInitializationSettings_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UAkHololensInitializationSettings>::IsAbstract,
 	};
@@ -235,8 +241,9 @@ template<> AKAUDIO_API UScriptStruct* StaticStruct<FAkHololensAdvancedInitializa
 		UE_ARRAY_COUNT(Z_Construct_UClass_UAkHololensInitializationSettings_Statics::PropPointers),
 		UE_ARRAY_COUNT(InterfaceParams),
 		0x001000A6u,
-		METADATA_PARAMS(Z_Construct_UClass_UAkHololensInitializationSettings_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_UAkHololensInitializationSettings_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAkHololensInitializationSettings_Statics::Class_MetaDataParams), Z_Construct_UClass_UAkHololensInitializationSettings_Statics::Class_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAkHololensInitializationSettings_Statics::PropPointers) < 2048);
 	UClass* Z_Construct_UClass_UAkHololensInitializationSettings()
 	{
 		if (!Z_Registration_Info_UClass_UAkHololensInitializationSettings.OuterSingleton)
@@ -251,19 +258,19 @@ template<> AKAUDIO_API UScriptStruct* StaticStruct<FAkHololensAdvancedInitializa
 	}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UAkHololensInitializationSettings);
 	UAkHololensInitializationSettings::~UAkHololensInitializationSettings() {}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Hololens_AkHololensInitializationSettings_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Hololens_AkHololensInitializationSettings_h_Statics
 	{
 		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Hololens_AkHololensInitializationSettings_h_Statics::ScriptStructInfo[] = {
-		{ FAkHololensAdvancedInitializationSettings::StaticStruct, Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings_Statics::NewStructOps, TEXT("AkHololensAdvancedInitializationSettings"), &Z_Registration_Info_UScriptStruct_AkHololensAdvancedInitializationSettings, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FAkHololensAdvancedInitializationSettings), 476999005U) },
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Hololens_AkHololensInitializationSettings_h_Statics::ScriptStructInfo[] = {
+		{ FAkHololensAdvancedInitializationSettings::StaticStruct, Z_Construct_UScriptStruct_FAkHololensAdvancedInitializationSettings_Statics::NewStructOps, TEXT("AkHololensAdvancedInitializationSettings"), &Z_Registration_Info_UScriptStruct_AkHololensAdvancedInitializationSettings, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FAkHololensAdvancedInitializationSettings), 3692346969U) },
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Hololens_AkHololensInitializationSettings_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UAkHololensInitializationSettings, UAkHololensInitializationSettings::StaticClass, TEXT("UAkHololensInitializationSettings"), &Z_Registration_Info_UClass_UAkHololensInitializationSettings, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkHololensInitializationSettings), 1711689792U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Hololens_AkHololensInitializationSettings_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UAkHololensInitializationSettings, UAkHololensInitializationSettings::StaticClass, TEXT("UAkHololensInitializationSettings"), &Z_Registration_Info_UClass_UAkHololensInitializationSettings, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAkHololensInitializationSettings), 917518696U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Hololens_AkHololensInitializationSettings_h_2771288185(TEXT("/Script/AkAudio"),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Hololens_AkHololensInitializationSettings_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Hololens_AkHololensInitializationSettings_h_Statics::ClassInfo),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Hololens_AkHololensInitializationSettings_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Hololens_AkHololensInitializationSettings_h_Statics::ScriptStructInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Hololens_AkHololensInitializationSettings_h_3864630331(TEXT("/Script/AkAudio"),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Hololens_AkHololensInitializationSettings_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Hololens_AkHololensInitializationSettings_h_Statics::ClassInfo),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Hololens_AkHololensInitializationSettings_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_Platforms_AkPlatform_Hololens_AkHololensInitializationSettings_h_Statics::ScriptStructInfo),
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

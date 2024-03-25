@@ -22,7 +22,7 @@ class UScriptStruct* FMovieSceneAkAudioRTPCTemplate::StaticStruct()
 {
 	if (!Z_Registration_Info_UScriptStruct_MovieSceneAkAudioRTPCTemplate.OuterSingleton)
 	{
-		Z_Registration_Info_UScriptStruct_MovieSceneAkAudioRTPCTemplate.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FMovieSceneAkAudioRTPCTemplate, Z_Construct_UPackage__Script_AkAudio(), TEXT("MovieSceneAkAudioRTPCTemplate"));
+		Z_Registration_Info_UScriptStruct_MovieSceneAkAudioRTPCTemplate.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FMovieSceneAkAudioRTPCTemplate, (UObject*)Z_Construct_UPackage__Script_AkAudio(), TEXT("MovieSceneAkAudioRTPCTemplate"));
 	}
 	return Z_Registration_Info_UScriptStruct_MovieSceneAkAudioRTPCTemplate.OuterSingleton;
 }
@@ -59,7 +59,7 @@ template<> AKAUDIO_API UScriptStruct* StaticStruct<FMovieSceneAkAudioRTPCTemplat
 		{ "NativeConst", "" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UScriptStruct_FMovieSceneAkAudioRTPCTemplate_Statics::NewProp_Section = { "Section", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(FMovieSceneAkAudioRTPCTemplate, Section), Z_Construct_UClass_UMovieSceneAkAudioRTPCSection_NoRegister, METADATA_PARAMS(Z_Construct_UScriptStruct_FMovieSceneAkAudioRTPCTemplate_Statics::NewProp_Section_MetaData, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FMovieSceneAkAudioRTPCTemplate_Statics::NewProp_Section_MetaData)) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UScriptStruct_FMovieSceneAkAudioRTPCTemplate_Statics::NewProp_Section = { "Section", nullptr, (EPropertyFlags)0x0010000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FMovieSceneAkAudioRTPCTemplate, Section), Z_Construct_UClass_UMovieSceneAkAudioRTPCSection_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FMovieSceneAkAudioRTPCTemplate_Statics::NewProp_Section_MetaData), Z_Construct_UScriptStruct_FMovieSceneAkAudioRTPCTemplate_Statics::NewProp_Section_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FMovieSceneAkAudioRTPCTemplate_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FMovieSceneAkAudioRTPCTemplate_Statics::NewProp_Section,
 	};
@@ -68,14 +68,15 @@ template<> AKAUDIO_API UScriptStruct* StaticStruct<FMovieSceneAkAudioRTPCTemplat
 		Z_Construct_UScriptStruct_FMovieSceneEvalTemplate,
 		&NewStructOps,
 		"MovieSceneAkAudioRTPCTemplate",
-		sizeof(FMovieSceneAkAudioRTPCTemplate),
-		alignof(FMovieSceneAkAudioRTPCTemplate),
 		Z_Construct_UScriptStruct_FMovieSceneAkAudioRTPCTemplate_Statics::PropPointers,
 		UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FMovieSceneAkAudioRTPCTemplate_Statics::PropPointers),
+		sizeof(FMovieSceneAkAudioRTPCTemplate),
+		alignof(FMovieSceneAkAudioRTPCTemplate),
 		RF_Public|RF_Transient|RF_MarkAsNative,
 		EStructFlags(0x00000205),
-		METADATA_PARAMS(Z_Construct_UScriptStruct_FMovieSceneAkAudioRTPCTemplate_Statics::Struct_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FMovieSceneAkAudioRTPCTemplate_Statics::Struct_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FMovieSceneAkAudioRTPCTemplate_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FMovieSceneAkAudioRTPCTemplate_Statics::Struct_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FMovieSceneAkAudioRTPCTemplate_Statics::PropPointers) < 2048);
 	UScriptStruct* Z_Construct_UScriptStruct_FMovieSceneAkAudioRTPCTemplate()
 	{
 		if (!Z_Registration_Info_UScriptStruct_MovieSceneAkAudioRTPCTemplate.InnerSingleton)
@@ -84,15 +85,15 @@ template<> AKAUDIO_API UScriptStruct* StaticStruct<FMovieSceneAkAudioRTPCTemplat
 		}
 		return Z_Registration_Info_UScriptStruct_MovieSceneAkAudioRTPCTemplate.InnerSingleton;
 	}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Private_MovieSceneAkAudioRTPCTemplate_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Private_MovieSceneAkAudioRTPCTemplate_h_Statics
 	{
 		static const FStructRegisterCompiledInInfo ScriptStructInfo[];
 	};
-	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Private_MovieSceneAkAudioRTPCTemplate_h_Statics::ScriptStructInfo[] = {
-		{ FMovieSceneAkAudioRTPCTemplate::StaticStruct, Z_Construct_UScriptStruct_FMovieSceneAkAudioRTPCTemplate_Statics::NewStructOps, TEXT("MovieSceneAkAudioRTPCTemplate"), &Z_Registration_Info_UScriptStruct_MovieSceneAkAudioRTPCTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FMovieSceneAkAudioRTPCTemplate), 2026389774U) },
+	const FStructRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Private_MovieSceneAkAudioRTPCTemplate_h_Statics::ScriptStructInfo[] = {
+		{ FMovieSceneAkAudioRTPCTemplate::StaticStruct, Z_Construct_UScriptStruct_FMovieSceneAkAudioRTPCTemplate_Statics::NewStructOps, TEXT("MovieSceneAkAudioRTPCTemplate"), &Z_Registration_Info_UScriptStruct_MovieSceneAkAudioRTPCTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FMovieSceneAkAudioRTPCTemplate), 3251547190U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Private_MovieSceneAkAudioRTPCTemplate_h_3571021724(TEXT("/Script/AkAudio"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Private_MovieSceneAkAudioRTPCTemplate_h_1440627751(TEXT("/Script/AkAudio"),
 		nullptr, 0,
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Private_MovieSceneAkAudioRTPCTemplate_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Private_MovieSceneAkAudioRTPCTemplate_h_Statics::ScriptStructInfo),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Private_MovieSceneAkAudioRTPCTemplate_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Private_MovieSceneAkAudioRTPCTemplate_h_Statics::ScriptStructInfo),
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

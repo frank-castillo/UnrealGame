@@ -19,8 +19,10 @@ struct FLatentActionInfo;
 #endif
 #define AKAUDIO_AkGameObject_generated_h
 
-#define FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_SPARSE_DATA
-#define FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_RPC_WRAPPERS \
+#define FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_SPARSE_DATA
+#define FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_SPARSE_DATA_PROPERTY_ACCESSORS
+#define FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS
+#define FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_RPC_WRAPPERS_NO_PURE_DECLS \
  \
 	DECLARE_FUNCTION(execGetRTPCValue); \
 	DECLARE_FUNCTION(execSetRTPCValue); \
@@ -31,19 +33,8 @@ struct FLatentActionInfo;
 	DECLARE_FUNCTION(execPostAssociatedAkEvent);
 
 
-#define FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_RPC_WRAPPERS_NO_PURE_DECLS \
- \
-	DECLARE_FUNCTION(execGetRTPCValue); \
-	DECLARE_FUNCTION(execSetRTPCValue); \
-	DECLARE_FUNCTION(execStop); \
-	DECLARE_FUNCTION(execPostAkEventAsync); \
-	DECLARE_FUNCTION(execPostAkEvent); \
-	DECLARE_FUNCTION(execPostAssociatedAkEventAsync); \
-	DECLARE_FUNCTION(execPostAssociatedAkEvent);
-
-
-#define FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_ACCESSORS
-#define FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_INCLASS_NO_PURE_DECLS \
+#define FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_ACCESSORS
+#define FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUAkGameObject(); \
 	friend struct Z_Construct_UClass_UAkGameObject_Statics; \
@@ -52,30 +43,7 @@ public: \
 	DECLARE_SERIALIZER(UAkGameObject)
 
 
-#define FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_INCLASS \
-private: \
-	static void StaticRegisterNativesUAkGameObject(); \
-	friend struct Z_Construct_UClass_UAkGameObject_Statics; \
-public: \
-	DECLARE_CLASS(UAkGameObject, USceneComponent, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/AkAudio"), NO_API) \
-	DECLARE_SERIALIZER(UAkGameObject)
-
-
-#define FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_STANDARD_CONSTRUCTORS \
-	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API UAkGameObject(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
-	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UAkGameObject) \
-	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UAkGameObject); \
-	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UAkGameObject); \
-private: \
-	/** Private move- and copy-constructors, should never be used */ \
-	NO_API UAkGameObject(UAkGameObject&&); \
-	NO_API UAkGameObject(const UAkGameObject&); \
-public: \
-	NO_API virtual ~UAkGameObject();
-
-
-#define FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_ENHANCED_CONSTRUCTORS \
+#define FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	NO_API UAkGameObject(UAkGameObject&&); \
@@ -87,27 +55,17 @@ public: \
 	NO_API virtual ~UAkGameObject();
 
 
-#define FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_30_PROLOG
-#define FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_GENERATED_BODY_LEGACY \
+#define FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_30_PROLOG
+#define FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_SPARSE_DATA \
-	FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_RPC_WRAPPERS \
-	FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_ACCESSORS \
-	FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_INCLASS \
-	FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_STANDARD_CONSTRUCTORS \
-public: \
-PRAGMA_ENABLE_DEPRECATION_WARNINGS
-
-
-#define FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_GENERATED_BODY \
-PRAGMA_DISABLE_DEPRECATION_WARNINGS \
-public: \
-	FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_SPARSE_DATA \
-	FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_ACCESSORS \
-	FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_INCLASS_NO_PURE_DECLS \
-	FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_ENHANCED_CONSTRUCTORS \
+	FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_SPARSE_DATA \
+	FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_SPARSE_DATA_PROPERTY_ACCESSORS \
+	FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS \
+	FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_ACCESSORS \
+	FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_INCLASS_NO_PURE_DECLS \
+	FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h_33_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -115,7 +73,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> AKAUDIO_API UClass* StaticClass<class UAkGameObject>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h
+#define CURRENT_FILE_ID FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkGameObject_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

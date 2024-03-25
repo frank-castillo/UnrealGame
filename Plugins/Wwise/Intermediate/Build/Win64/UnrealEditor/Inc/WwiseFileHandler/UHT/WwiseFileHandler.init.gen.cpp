@@ -17,13 +17,13 @@ void EmptyLinkFunctionForGeneratedCodeWwiseFileHandler_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0x768254E5,
+				0x6B47704F,
 				0x074E7780,
-				METADATA_PARAMS(nullptr, 0)
+				METADATA_PARAMS(0, nullptr)
 			};
 			UECodeGen_Private::ConstructUPackage(Z_Registration_Info_UPackage__Script_WwiseFileHandler.OuterSingleton, PackageParams);
 		}
 		return Z_Registration_Info_UPackage__Script_WwiseFileHandler.OuterSingleton;
 	}
-	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_WwiseFileHandler(Z_Construct_UPackage__Script_WwiseFileHandler, TEXT("/Script/WwiseFileHandler"), Z_Registration_Info_UPackage__Script_WwiseFileHandler, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x768254E5, 0x074E7780));
+	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_WwiseFileHandler(Z_Construct_UPackage__Script_WwiseFileHandler, TEXT("/Script/WwiseFileHandler"), Z_Registration_Info_UPackage__Script_WwiseFileHandler, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x6B47704F, 0x074E7780));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

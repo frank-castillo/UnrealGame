@@ -28,7 +28,7 @@ void EmptyLinkFunctionForGeneratedCodeAkSpatialAudioVolume() {}
 	{
 		if (!Z_Registration_Info_UEnum_EAkFitToGeometryMode.OuterSingleton)
 		{
-			Z_Registration_Info_UEnum_EAkFitToGeometryMode.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_AkAudio_EAkFitToGeometryMode, Z_Construct_UPackage__Script_AkAudio(), TEXT("EAkFitToGeometryMode"));
+			Z_Registration_Info_UEnum_EAkFitToGeometryMode.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_AkAudio_EAkFitToGeometryMode, (UObject*)Z_Construct_UPackage__Script_AkAudio(), TEXT("EAkFitToGeometryMode"));
 		}
 		return Z_Registration_Info_UEnum_EAkFitToGeometryMode.OuterSingleton;
 	}
@@ -69,11 +69,11 @@ void EmptyLinkFunctionForGeneratedCodeAkSpatialAudioVolume() {}
 		"EAkFitToGeometryMode",
 		"EAkFitToGeometryMode",
 		Z_Construct_UEnum_AkAudio_EAkFitToGeometryMode_Statics::Enumerators,
-		UE_ARRAY_COUNT(Z_Construct_UEnum_AkAudio_EAkFitToGeometryMode_Statics::Enumerators),
 		RF_Public|RF_Transient|RF_MarkAsNative,
+		UE_ARRAY_COUNT(Z_Construct_UEnum_AkAudio_EAkFitToGeometryMode_Statics::Enumerators),
 		EEnumFlags::None,
 		(uint8)UEnum::ECppForm::EnumClass,
-		METADATA_PARAMS(Z_Construct_UEnum_AkAudio_EAkFitToGeometryMode_Statics::Enum_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UEnum_AkAudio_EAkFitToGeometryMode_Statics::Enum_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UEnum_AkAudio_EAkFitToGeometryMode_Statics::Enum_MetaDataParams), Z_Construct_UEnum_AkAudio_EAkFitToGeometryMode_Statics::Enum_MetaDataParams)
 	};
 	UEnum* Z_Construct_UEnum_AkAudio_EAkFitToGeometryMode()
 	{
@@ -109,30 +109,32 @@ void EmptyLinkFunctionForGeneratedCodeAkSpatialAudioVolume() {}
 		{
 			TEnumAsByte<ECollisionChannel> ReturnValue;
 		};
-#if WITH_EDITORONLY_DATA
 		static const UECodeGen_Private::FBytePropertyParams NewProp_ReturnValue;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-#endif // WITH_EDITORONLY_DATA
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
 #endif
 		static const UECodeGen_Private::FFunctionParams FuncParams;
 	};
-#if WITH_EDITORONLY_DATA
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000800000580, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AkSpatialAudioVolume_eventGetCollisionChannel_Parms, ReturnValue), Z_Construct_UEnum_Engine_ECollisionChannel, METADATA_PARAMS(nullptr, 0) }; // 727872708
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AkSpatialAudioVolume_eventGetCollisionChannel_Parms, ReturnValue), Z_Construct_UEnum_Engine_ECollisionChannel, METADATA_PARAMS(0, nullptr) }; // 1822723181
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel_Statics::NewProp_ReturnValue,
 	};
-#endif // WITH_EDITORONLY_DATA
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel_Statics::Function_MetaDataParams[] = {
 		{ "Category", "Fit to Geometry" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09""Converts between EAkCollisionChannel and ECollisionChannel. Returns Wwise Integration Settings default if CollisionChannel == UseIntegrationSettingsDefault. Otherwise, casts CollisionChannel to ECollisionChannel.\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkSpatialAudioVolume.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Converts between EAkCollisionChannel and ECollisionChannel. Returns Wwise Integration Settings default if CollisionChannel == UseIntegrationSettingsDefault. Otherwise, casts CollisionChannel to ECollisionChannel." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AAkSpatialAudioVolume, nullptr, "GetCollisionChannel", nullptr, nullptr, sizeof(Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel_Statics::AkSpatialAudioVolume_eventGetCollisionChannel_Parms), IF_WITH_EDITORONLY_DATA(Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel_Statics::PropPointers, nullptr), IF_WITH_EDITORONLY_DATA(UE_ARRAY_COUNT(Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel_Statics::PropPointers), 0), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x24020401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel_Statics::Function_MetaDataParams)) };
+	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AAkSpatialAudioVolume, nullptr, "GetCollisionChannel", nullptr, nullptr, Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel_Statics::PropPointers), sizeof(Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel_Statics::AkSpatialAudioVolume_eventGetCollisionChannel_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x24020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel_Statics::Function_MetaDataParams), Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel_Statics::Function_MetaDataParams) };
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel_Statics::PropPointers) < 2048);
+	static_assert(sizeof(Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel_Statics::AkSpatialAudioVolume_eventGetCollisionChannel_Parms) < MAX_uint16);
 	UFunction* Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel()
 	{
 		static UFunction* ReturnFunction = nullptr;
@@ -223,24 +225,30 @@ void EmptyLinkFunctionForGeneratedCodeAkSpatialAudioVolume() {}
 		(UObject* (*)())Z_Construct_UClass_AVolume,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::DependentSingletons) < 16);
 #if WITH_EDITOR
 	const FClassFunctionLinkInfo Z_Construct_UClass_AAkSpatialAudioVolume_Statics::FuncInfo[] = {
 #if WITH_EDITOR
-		{ &Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel, "GetCollisionChannel" }, // 799904676
+		{ &Z_Construct_UFunction_AAkSpatialAudioVolume_GetCollisionChannel, "GetCollisionChannel" }, // 4203079184
 #endif //WITH_EDITOR
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::FuncInfo) < 2048);
 #endif //WITH_EDITOR
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpatialAudioVolume_Statics::Class_MetaDataParams[] = {
 		{ "BlueprintType", "true" },
 		{ "ClassGroupNames", "Audiokinetic" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/*------------------------------------------------------------------------------------\n\x09""AAkSpatialAudioVolume\n------------------------------------------------------------------------------------*/" },
+#endif
 		{ "HideCategories", "Advanced Attachment Volume Brush Physics Object Blueprint Display Rendering Physics Input" },
 		{ "IncludePath", "AkSpatialAudioVolume.h" },
 		{ "ModuleRelativePath", "Classes/AkSpatialAudioVolume.h" },
 		{ "ObjectInitializerConstructorDeclared", "" },
 		{ "ShowCategories", "Input|MouseInput Input|TouchInput" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "AAkSpatialAudioVolume" },
+#endif
 	};
 #endif
 #if WITH_METADATA
@@ -251,7 +259,7 @@ void EmptyLinkFunctionForGeneratedCodeAkSpatialAudioVolume() {}
 		{ "ShowOnlyInnerProperties", "" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_SurfaceReflectorSet = { "SurfaceReflectorSet", nullptr, (EPropertyFlags)0x00100000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AAkSpatialAudioVolume, SurfaceReflectorSet), Z_Construct_UClass_UAkSurfaceReflectorSetComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_SurfaceReflectorSet_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_SurfaceReflectorSet_MetaData)) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_SurfaceReflectorSet = { "SurfaceReflectorSet", nullptr, (EPropertyFlags)0x00100000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAkSpatialAudioVolume, SurfaceReflectorSet), Z_Construct_UClass_UAkSurfaceReflectorSetComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_SurfaceReflectorSet_MetaData), Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_SurfaceReflectorSet_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_LateReverb_MetaData[] = {
 		{ "Category", "LateReverb" },
@@ -260,7 +268,7 @@ void EmptyLinkFunctionForGeneratedCodeAkSpatialAudioVolume() {}
 		{ "ShowOnlyInnerProperties", "" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_LateReverb = { "LateReverb", nullptr, (EPropertyFlags)0x00100000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AAkSpatialAudioVolume, LateReverb), Z_Construct_UClass_UAkLateReverbComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_LateReverb_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_LateReverb_MetaData)) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_LateReverb = { "LateReverb", nullptr, (EPropertyFlags)0x00100000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAkSpatialAudioVolume, LateReverb), Z_Construct_UClass_UAkLateReverbComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_LateReverb_MetaData), Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_LateReverb_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_Room_MetaData[] = {
 		{ "Category", "Room" },
@@ -269,78 +277,94 @@ void EmptyLinkFunctionForGeneratedCodeAkSpatialAudioVolume() {}
 		{ "ShowOnlyInnerProperties", "" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_Room = { "Room", nullptr, (EPropertyFlags)0x00100000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AAkSpatialAudioVolume, Room), Z_Construct_UClass_UAkRoomComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_Room_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_Room_MetaData)) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_Room = { "Room", nullptr, (EPropertyFlags)0x00100000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAkSpatialAudioVolume, Room), Z_Construct_UClass_UAkRoomComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_Room_MetaData), Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_Room_MetaData) };
 #if WITH_EDITORONLY_DATA
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitToGeometry_MetaData[] = {
 		{ "Category", "Fit to Geometry" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09""Automatically fit the Ak Spatial Audio Volume to the surrounding geometry. The fitting operation is performed after enabling this property, or after moving the actor to a new location.\n\x09The fitting operation is performed by casting rays emanating spherically outwards from the origin of the actor. \n\x09The points where the rays hit the surrounding geometry (drawn in the editor as green dots) are fit to a shape (box or convex polyhedron), and the actor is then resized appropriately.\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkSpatialAudioVolume.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Automatically fit the Ak Spatial Audio Volume to the surrounding geometry. The fitting operation is performed after enabling this property, or after moving the actor to a new location.\nThe fitting operation is performed by casting rays emanating spherically outwards from the origin of the actor.\nThe points where the rays hit the surrounding geometry (drawn in the editor as green dots) are fit to a shape (box or convex polyhedron), and the actor is then resized appropriately." },
+#endif
 	};
 #endif
 	void Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitToGeometry_SetBit(void* Obj)
 	{
 		((AAkSpatialAudioVolume*)Obj)->FitToGeometry = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitToGeometry = { "FitToGeometry", nullptr, (EPropertyFlags)0x0010000800000001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(AAkSpatialAudioVolume), &Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitToGeometry_SetBit, METADATA_PARAMS(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitToGeometry_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitToGeometry_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitToGeometry = { "FitToGeometry", nullptr, (EPropertyFlags)0x0010000800000001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AAkSpatialAudioVolume), &Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitToGeometry_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitToGeometry_MetaData), Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitToGeometry_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_CollisionChannel_MetaData[] = {
 		{ "Category", "Fit to Geometry" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09Sets the collision channel for the ray traces performed to fit the spatial audio volume to the surrounding geometry. When set to 'Use Integration Settings Default', the value will be taken from the DefaultFitToGeometryCollisionChannel in the Wwise Integration Settings.\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkSpatialAudioVolume.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Sets the collision channel for the ray traces performed to fit the spatial audio volume to the surrounding geometry. When set to 'Use Integration Settings Default', the value will be taken from the DefaultFitToGeometryCollisionChannel in the Wwise Integration Settings." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_CollisionChannel = { "CollisionChannel", nullptr, (EPropertyFlags)0x0010000800000001, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AAkSpatialAudioVolume, CollisionChannel), Z_Construct_UEnum_AkAudio_EAkCollisionChannel, METADATA_PARAMS(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_CollisionChannel_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_CollisionChannel_MetaData)) }; // 1224743956
-	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_Shape_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_CollisionChannel = { "CollisionChannel", nullptr, (EPropertyFlags)0x0010000800000001, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAkSpatialAudioVolume, CollisionChannel), Z_Construct_UEnum_AkAudio_EAkCollisionChannel, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_CollisionChannel_MetaData), Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_CollisionChannel_MetaData) }; // 3316290182
+	const UECodeGen_Private::FUInt32PropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_Shape_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::UInt32, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_Shape_MetaData[] = {
 		{ "Category", "Fit to Geometry" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/** \n\x09""Choose the shape with which to fit to the surrounding geometry. \n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkSpatialAudioVolume.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Choose the shape with which to fit to the surrounding geometry." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_Shape = { "Shape", nullptr, (EPropertyFlags)0x0010000800000001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AAkSpatialAudioVolume, Shape), Z_Construct_UEnum_AkAudio_EAkFitToGeometryMode, METADATA_PARAMS(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_Shape_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_Shape_MetaData)) }; // 3395734071
+	const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_Shape = { "Shape", nullptr, (EPropertyFlags)0x0010000800000001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAkSpatialAudioVolume, Shape), Z_Construct_UEnum_AkAudio_EAkFitToGeometryMode, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_Shape_MetaData), Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_Shape_MetaData) }; // 783958314
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FilterHitPoints_MetaData[] = {
 		{ "Category", "Fit to Geometry" },
 		{ "ClampMax", "1.000000" },
 		{ "ClampMin", "0.187500" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09Set to a value less then 1.0 to filter out a percentage of the ray cast hits for use in fitting to surrounding geometry. \n\x09Points that have been rejected by the filter are drawn in red, and points accepted drawn in green. \n\x09Particularly useful when rays happen to escape through windows or other openings, resulting in undesirable points.\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkSpatialAudioVolume.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Set to a value less then 1.0 to filter out a percentage of the ray cast hits for use in fitting to surrounding geometry.\nPoints that have been rejected by the filter are drawn in red, and points accepted drawn in green.\nParticularly useful when rays happen to escape through windows or other openings, resulting in undesirable points." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FilterHitPoints = { "FilterHitPoints", nullptr, (EPropertyFlags)0x0010000800000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AAkSpatialAudioVolume, FilterHitPoints), METADATA_PARAMS(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FilterHitPoints_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FilterHitPoints_MetaData)) };
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitPoints_Inner = { "FitPoints", nullptr, (EPropertyFlags)0x0000000800000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FilterHitPoints = { "FilterHitPoints", nullptr, (EPropertyFlags)0x0010000800000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAkSpatialAudioVolume, FilterHitPoints), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FilterHitPoints_MetaData), Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FilterHitPoints_MetaData) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitPoints_Inner = { "FitPoints", nullptr, (EPropertyFlags)0x0000000800000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(0, nullptr) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitPoints_MetaData[] = {
 		{ "ModuleRelativePath", "Classes/AkSpatialAudioVolume.h" },
 	};
 #endif
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitPoints = { "FitPoints", nullptr, (EPropertyFlags)0x0010000800000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AAkSpatialAudioVolume, FitPoints), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitPoints_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitPoints_MetaData)) };
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitNormals_Inner = { "FitNormals", nullptr, (EPropertyFlags)0x0000000800000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitPoints = { "FitPoints", nullptr, (EPropertyFlags)0x0010000800000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAkSpatialAudioVolume, FitPoints), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitPoints_MetaData), Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitPoints_MetaData) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitNormals_Inner = { "FitNormals", nullptr, (EPropertyFlags)0x0000000800000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(0, nullptr) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitNormals_MetaData[] = {
 		{ "ModuleRelativePath", "Classes/AkSpatialAudioVolume.h" },
 	};
 #endif
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitNormals = { "FitNormals", nullptr, (EPropertyFlags)0x0010000800000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AAkSpatialAudioVolume, FitNormals), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitNormals_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitNormals_MetaData)) };
-	const UECodeGen_Private::FWeakObjectPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitMaterials_Inner = { "FitMaterials", nullptr, (EPropertyFlags)0x0004000800000000, UECodeGen_Private::EPropertyGenFlags::WeakObject, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, 0, Z_Construct_UClass_UPhysicalMaterial_NoRegister, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitNormals = { "FitNormals", nullptr, (EPropertyFlags)0x0010000800000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAkSpatialAudioVolume, FitNormals), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitNormals_MetaData), Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitNormals_MetaData) };
+	const UECodeGen_Private::FWeakObjectPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitMaterials_Inner = { "FitMaterials", nullptr, (EPropertyFlags)0x0004000800000000, UECodeGen_Private::EPropertyGenFlags::WeakObject, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UPhysicalMaterial_NoRegister, METADATA_PARAMS(0, nullptr) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitMaterials_MetaData[] = {
 		{ "ModuleRelativePath", "Classes/AkSpatialAudioVolume.h" },
 	};
 #endif
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitMaterials = { "FitMaterials", nullptr, (EPropertyFlags)0x0014000800000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AAkSpatialAudioVolume, FitMaterials), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitMaterials_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitMaterials_MetaData)) };
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitMaterials = { "FitMaterials", nullptr, (EPropertyFlags)0x0014000800000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAkSpatialAudioVolume, FitMaterials), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitMaterials_MetaData), Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitMaterials_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_SavedRotation_MetaData[] = {
 		{ "ModuleRelativePath", "Classes/AkSpatialAudioVolume.h" },
 	};
 #endif
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_SavedRotation = { "SavedRotation", nullptr, (EPropertyFlags)0x0010000800000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AAkSpatialAudioVolume, SavedRotation), Z_Construct_UScriptStruct_FRotator, METADATA_PARAMS(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_SavedRotation_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_SavedRotation_MetaData)) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_SavedRotation = { "SavedRotation", nullptr, (EPropertyFlags)0x0010000800000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAkSpatialAudioVolume, SavedRotation), Z_Construct_UScriptStruct_FRotator, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_SavedRotation_MetaData), Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_SavedRotation_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitFailed_MetaData[] = {
 		{ "ModuleRelativePath", "Classes/AkSpatialAudioVolume.h" },
@@ -350,7 +374,7 @@ void EmptyLinkFunctionForGeneratedCodeAkSpatialAudioVolume() {}
 	{
 		((AAkSpatialAudioVolume*)Obj)->FitFailed = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitFailed = { "FitFailed", nullptr, (EPropertyFlags)0x0010000800000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(AAkSpatialAudioVolume), &Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitFailed_SetBit, METADATA_PARAMS(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitFailed_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitFailed_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitFailed = { "FitFailed", nullptr, (EPropertyFlags)0x0010000800000000, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AAkSpatialAudioVolume), &Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitFailed_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitFailed_MetaData), Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_FitFailed_MetaData) };
 #endif // WITH_EDITORONLY_DATA
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AAkSpatialAudioVolume_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AAkSpatialAudioVolume_Statics::NewProp_SurfaceReflectorSet,
@@ -388,8 +412,9 @@ void EmptyLinkFunctionForGeneratedCodeAkSpatialAudioVolume() {}
 		UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::PropPointers),
 		0,
 		0x009000A4u,
-		METADATA_PARAMS(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::Class_MetaDataParams), Z_Construct_UClass_AAkSpatialAudioVolume_Statics::Class_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpatialAudioVolume_Statics::PropPointers) < 2048);
 	UClass* Z_Construct_UClass_AAkSpatialAudioVolume()
 	{
 		if (!Z_Registration_Info_UClass_AAkSpatialAudioVolume.OuterSingleton)
@@ -404,19 +429,19 @@ void EmptyLinkFunctionForGeneratedCodeAkSpatialAudioVolume() {}
 	}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(AAkSpatialAudioVolume);
 	AAkSpatialAudioVolume::~AAkSpatialAudioVolume() {}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpatialAudioVolume_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpatialAudioVolume_h_Statics
 	{
 		static const FEnumRegisterCompiledInInfo EnumInfo[];
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpatialAudioVolume_h_Statics::EnumInfo[] = {
-		{ EAkFitToGeometryMode_StaticEnum, TEXT("EAkFitToGeometryMode"), &Z_Registration_Info_UEnum_EAkFitToGeometryMode, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3395734071U) },
+	const FEnumRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpatialAudioVolume_h_Statics::EnumInfo[] = {
+		{ EAkFitToGeometryMode_StaticEnum, TEXT("EAkFitToGeometryMode"), &Z_Registration_Info_UEnum_EAkFitToGeometryMode, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 783958314U) },
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpatialAudioVolume_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_AAkSpatialAudioVolume, AAkSpatialAudioVolume::StaticClass, TEXT("AAkSpatialAudioVolume"), &Z_Registration_Info_UClass_AAkSpatialAudioVolume, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAkSpatialAudioVolume), 745362047U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpatialAudioVolume_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_AAkSpatialAudioVolume, AAkSpatialAudioVolume::StaticClass, TEXT("AAkSpatialAudioVolume"), &Z_Registration_Info_UClass_AAkSpatialAudioVolume, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAkSpatialAudioVolume), 1534093119U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpatialAudioVolume_h_3557206136(TEXT("/Script/AkAudio"),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpatialAudioVolume_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpatialAudioVolume_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpatialAudioVolume_h_3863282030(TEXT("/Script/AkAudio"),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpatialAudioVolume_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpatialAudioVolume_h_Statics::ClassInfo),
 		nullptr, 0,
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpatialAudioVolume_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpatialAudioVolume_h_Statics::EnumInfo));
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpatialAudioVolume_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpatialAudioVolume_h_Statics::EnumInfo));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

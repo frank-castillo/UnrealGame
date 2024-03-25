@@ -73,6 +73,7 @@ void EmptyLinkFunctionForGeneratedCodeAkSpotReflector() {}
 		(UObject* (*)())Z_Construct_UClass_AActor,
 		(UObject* (*)())Z_Construct_UPackage__Script_AkAudio,
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpotReflector_Statics::Class_MetaDataParams[] = {
 		{ "IncludePath", "AkSpotReflector.h" },
@@ -83,88 +84,120 @@ void EmptyLinkFunctionForGeneratedCodeAkSpotReflector() {}
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EarlyReflectionAuxBus_MetaData[] = {
 		{ "Category", "AkSpotReflector" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09*\x09Send to an Auxiliary Bus containing the Wwise Reflect plugin for early reflections rendering.\n\x09*\x09Leave unassigned to use the Early Reflections Auxiliary Bus that is assigned in the Wwise Authoring Tool.\n\x09*\x09Setting a value here will apply only to sounds playing on AK Components with EnableSpotReflectors to true.\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkSpotReflector.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Send to an Auxiliary Bus containing the Wwise Reflect plugin for early reflections rendering.\nLeave unassigned to use the Early Reflections Auxiliary Bus that is assigned in the Wwise Authoring Tool.\nSetting a value here will apply only to sounds playing on AK Components with EnableSpotReflectors to true." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EarlyReflectionAuxBus = { "EarlyReflectionAuxBus", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AAkSpotReflector, EarlyReflectionAuxBus), Z_Construct_UClass_UAkAuxBus_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EarlyReflectionAuxBus_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EarlyReflectionAuxBus_MetaData)) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EarlyReflectionAuxBus = { "EarlyReflectionAuxBus", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAkSpotReflector, EarlyReflectionAuxBus), Z_Construct_UClass_UAkAuxBus_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EarlyReflectionAuxBus_MetaData), Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EarlyReflectionAuxBus_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EarlyReflectionAuxBusName_MetaData[] = {
 		{ "Category", "AkSpotReflector" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09*\x09Send to an Auxiliary Bus containing the Wwise Reflect plugin for early reflections rendering.\n\x09*\x09Leave unassigned to use the Early Reflections Auxiliary Bus that is assigned in the Wwise Authoring Tool.\n\x09*\x09Setting a value here will apply only to sounds playing on AK Components with EnableSpotReflectors to true.\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkSpotReflector.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Send to an Auxiliary Bus containing the Wwise Reflect plugin for early reflections rendering.\nLeave unassigned to use the Early Reflections Auxiliary Bus that is assigned in the Wwise Authoring Tool.\nSetting a value here will apply only to sounds playing on AK Components with EnableSpotReflectors to true." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EarlyReflectionAuxBusName = { "EarlyReflectionAuxBusName", nullptr, (EPropertyFlags)0x0010040000000005, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AAkSpotReflector, EarlyReflectionAuxBusName), METADATA_PARAMS(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EarlyReflectionAuxBusName_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EarlyReflectionAuxBusName_MetaData)) };
+	const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EarlyReflectionAuxBusName = { "EarlyReflectionAuxBusName", nullptr, (EPropertyFlags)0x0010040000000005, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAkSpotReflector, EarlyReflectionAuxBusName), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EarlyReflectionAuxBusName_MetaData), Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EarlyReflectionAuxBusName_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_AcousticTexture_MetaData[] = {
 		{ "Category", "AkSpotReflector" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09*\x09The Acoustic Texture represents sound absorption. It is done by filtering the sound bouncing off the spot reflector.\n\x09*\x09If left to None, no filtering will be applied to the sound.\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkSpotReflector.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "The Acoustic Texture represents sound absorption. It is done by filtering the sound bouncing off the spot reflector.\nIf left to None, no filtering will be applied to the sound." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_AcousticTexture = { "AcousticTexture", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AAkSpotReflector, AcousticTexture), Z_Construct_UClass_UAkAcousticTexture_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_AcousticTexture_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_AcousticTexture_MetaData)) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_AcousticTexture = { "AcousticTexture", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAkSpotReflector, AcousticTexture), Z_Construct_UClass_UAkAcousticTexture_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_AcousticTexture_MetaData), Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_AcousticTexture_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_DistanceScalingFactor_MetaData[] = {
 		{ "Category", "AkSpotReflector" },
 		{ "ClampMin", "0.0" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/**\n\x09*\x09This number scales the distance between the listener and the actual image source, preserving orientation.\n\x09*\x09Set to 1 to position the image source at the position of the spot reflector\n\x09*/" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkSpotReflector.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "This number scales the distance between the listener and the actual image source, preserving orientation.\nSet to 1 to position the image source at the position of the spot reflector" },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_DistanceScalingFactor = { "DistanceScalingFactor", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AAkSpotReflector, DistanceScalingFactor), METADATA_PARAMS(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_DistanceScalingFactor_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_DistanceScalingFactor_MetaData)) };
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_DistanceScalingFactor = { "DistanceScalingFactor", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAkSpotReflector, DistanceScalingFactor), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_DistanceScalingFactor_MetaData), Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_DistanceScalingFactor_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_Level_MetaData[] = {
 		{ "Category", "AkSpotReflector" },
 		{ "ClampMax", "4.0" },
 		{ "ClampMin", "0.0" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/** Game-controlled level for the sound that will emit from the image source. Valid range: (0.0, 4.0)*/" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkSpotReflector.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Game-controlled level for the sound that will emit from the image source. Valid range: (0.0, 4.0)" },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_Level = { "Level", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AAkSpotReflector, Level), METADATA_PARAMS(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_Level_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_Level_MetaData)) };
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_Level = { "Level", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAkSpotReflector, Level), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_Level_MetaData), Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_Level_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_SameRoomOnly_MetaData[] = {
 		{ "Category", "AkSpotReflector" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/** Make this spot reflector only reflect emitted sounds in the same Spatial Audio Room.*/" },
+#endif
 		{ "ModuleRelativePath", "Classes/AkSpotReflector.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Make this spot reflector only reflect emitted sounds in the same Spatial Audio Room." },
+#endif
 	};
 #endif
 	void Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_SameRoomOnly_SetBit(void* Obj)
 	{
 		((AAkSpotReflector*)Obj)->SameRoomOnly = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_SameRoomOnly = { "SameRoomOnly", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(AAkSpotReflector), &Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_SameRoomOnly_SetBit, METADATA_PARAMS(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_SameRoomOnly_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_SameRoomOnly_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_SameRoomOnly = { "SameRoomOnly", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AAkSpotReflector), &Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_SameRoomOnly_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_SameRoomOnly_MetaData), Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_SameRoomOnly_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EnableRoomOverride_MetaData[] = {
 		{ "Category", "AkSpotReflector" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/** Override the room this spot reflector is contained in. If disabled, a containment check will be done to find the room.*/" },
+#endif
 		{ "EditCondition", "SameRoomOnly" },
 		{ "ModuleRelativePath", "Classes/AkSpotReflector.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "Override the room this spot reflector is contained in. If disabled, a containment check will be done to find the room." },
+#endif
 	};
 #endif
 	void Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EnableRoomOverride_SetBit(void* Obj)
 	{
 		((AAkSpotReflector*)Obj)->EnableRoomOverride = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EnableRoomOverride = { "EnableRoomOverride", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, sizeof(bool), sizeof(AAkSpotReflector), &Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EnableRoomOverride_SetBit, METADATA_PARAMS(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EnableRoomOverride_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EnableRoomOverride_MetaData)) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EnableRoomOverride = { "EnableRoomOverride", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AAkSpotReflector), &Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EnableRoomOverride_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EnableRoomOverride_MetaData), Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EnableRoomOverride_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_RoomOverride_MetaData[] = {
 		{ "Category", "AkSpotReflector" },
+#if !UE_BUILD_SHIPPING
 		{ "Comment", "/** The room in which the spot reflector will be virtually placed in. If set to None, the default \"Outdoors\" room will be used.*/" },
+#endif
 		{ "EditCondition", "EnableRoomOverride" },
 		{ "ModuleRelativePath", "Classes/AkSpotReflector.h" },
+#if !UE_BUILD_SHIPPING
 		{ "ToolTip", "The room in which the spot reflector will be virtually placed in. If set to None, the default \"Outdoors\" room will be used." },
+#endif
 	};
 #endif
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_RoomOverride = { "RoomOverride", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, nullptr, nullptr, STRUCT_OFFSET(AAkSpotReflector, RoomOverride), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_RoomOverride_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_RoomOverride_MetaData)) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_RoomOverride = { "RoomOverride", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAkSpotReflector, RoomOverride), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_RoomOverride_MetaData), Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_RoomOverride_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AAkSpotReflector_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EarlyReflectionAuxBus,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AAkSpotReflector_Statics::NewProp_EarlyReflectionAuxBusName,
@@ -191,8 +224,9 @@ void EmptyLinkFunctionForGeneratedCodeAkSpotReflector() {}
 		UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::PropPointers),
 		0,
 		0x009000A4u,
-		METADATA_PARAMS(Z_Construct_UClass_AAkSpotReflector_Statics::Class_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::Class_MetaDataParams))
+		METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::Class_MetaDataParams), Z_Construct_UClass_AAkSpotReflector_Statics::Class_MetaDataParams)
 	};
+	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AAkSpotReflector_Statics::PropPointers) < 2048);
 	UClass* Z_Construct_UClass_AAkSpotReflector()
 	{
 		if (!Z_Registration_Info_UClass_AAkSpotReflector.OuterSingleton)
@@ -207,15 +241,15 @@ void EmptyLinkFunctionForGeneratedCodeAkSpotReflector() {}
 	}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(AAkSpotReflector);
 	AAkSpotReflector::~AAkSpotReflector() {}
-	struct Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpotReflector_h_Statics
+	struct Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpotReflector_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpotReflector_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_AAkSpotReflector, AAkSpotReflector::StaticClass, TEXT("AAkSpotReflector"), &Z_Registration_Info_UClass_AAkSpotReflector, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAkSpotReflector), 482606924U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpotReflector_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_AAkSpotReflector, AAkSpotReflector::StaticClass, TEXT("AAkSpotReflector"), &Z_Registration_Info_UClass_AAkSpotReflector, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAkSpotReflector), 2546904395U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpotReflector_h_3372684905(TEXT("/Script/AkAudio"),
-		Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpotReflector_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Gary_Desktop_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpotReflector_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpotReflector_h_1417185224(TEXT("/Script/AkAudio"),
+		Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpotReflector_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_juanf_Documents_GitHub_UnrealGame_Plugins_Wwise_Source_AkAudio_Classes_AkSpotReflector_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
