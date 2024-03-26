@@ -6274,6 +6274,18 @@
 			"Type": "RequiredResource"
 		},
 		{
+			"Path": "$(ProjectDir)/Plugins/WwiseNiagara/Binaries/Win64/UnrealEditor-WwiseNiagara.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/WwiseNiagara/Binaries/Win64/UnrealEditor-WwiseNiagara.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/WwiseNiagara/Binaries/Win64/UnrealEditor.modules",
+			"Type": "RequiredResource"
+		},
+		{
 			"Path": "$(ProjectDir)/Plugins/Wwise/Binaries/Win64/UnrealEditor-AkAudio.dll",
 			"Type": "DynamicLibrary"
 		},
@@ -6314,11 +6326,43 @@
 			"Type": "SymbolFile"
 		},
 		{
+			"Path": "$(ProjectDir)/Plugins/Wwise/Binaries/Win64/UnrealEditor-WwiseEngineUtils.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Wwise/Binaries/Win64/UnrealEditor-WwiseEngineUtils.pdb",
+			"Type": "SymbolFile"
+		},
+		{
 			"Path": "$(ProjectDir)/Plugins/Wwise/Binaries/Win64/UnrealEditor-WwiseFileHandler.dll",
 			"Type": "DynamicLibrary"
 		},
 		{
 			"Path": "$(ProjectDir)/Plugins/Wwise/Binaries/Win64/UnrealEditor-WwiseFileHandler.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Wwise/Binaries/Win64/UnrealEditor-WwiseObjectUtils.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Wwise/Binaries/Win64/UnrealEditor-WwiseObjectUtils.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Wwise/Binaries/Win64/UnrealEditor-WwiseObstructionOcclusion.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Wwise/Binaries/Win64/UnrealEditor-WwiseObstructionOcclusion.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Wwise/Binaries/Win64/UnrealEditor-WwiseProcessing.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Wwise/Binaries/Win64/UnrealEditor-WwiseProcessing.pdb",
 			"Type": "SymbolFile"
 		},
 		{
@@ -6367,6 +6411,14 @@
 		},
 		{
 			"Path": "$(ProjectDir)/Plugins/Wwise/Binaries/Win64/UnrealEditor-WwiseSoundEngine.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Wwise/Binaries/Win64/UnrealEditor-WwiseUtils.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Wwise/Binaries/Win64/UnrealEditor-WwiseUtils.pdb",
 			"Type": "SymbolFile"
 		},
 		{
@@ -27656,11 +27708,23 @@
 			"Type": "UFS"
 		},
 		{
+			"Path": "$(ProjectDir)/Plugins/WwiseNiagara/WwiseNiagara.uplugin",
+			"Type": "UFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Wwise/ThirdParty/x64_vc170/Profile/bin/ASIO.dll",
+			"Type": "NonUFS"
+		},
+		{
 			"Path": "$(ProjectDir)/Plugins/Wwise/ThirdParty/x64_vc170/Profile/bin/Ak3DAudioBedMixer.dll",
 			"Type": "NonUFS"
 		},
 		{
 			"Path": "$(ProjectDir)/Plugins/Wwise/ThirdParty/x64_vc170/Profile/bin/AkAudioInput.dll",
+			"Type": "NonUFS"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/Wwise/ThirdParty/x64_vc170/Profile/bin/AkChannelRouter.dll",
 			"Type": "NonUFS"
 		},
 		{

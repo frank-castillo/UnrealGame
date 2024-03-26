@@ -20,7 +20,8 @@ void ANPlayerController::TogglePauseMenu()
 {
     if (PauseMenuInstance && PauseMenuInstance->IsInViewport())
     {
-        PauseMenuInstance->RemoveFromViewport();
+        //PauseMenuInstance->RemoveFromViewport();
+        PauseMenuInstance->RemoveFromParent();
         PauseMenuInstance = nullptr;
 
         bShowMouseCursor = false;

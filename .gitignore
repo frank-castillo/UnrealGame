@@ -17,7 +17,8 @@
 
 # Don't ignore Wwise .dll and .lib files as these are needed for compiling
 #!Plugins/Wwise/**/*.dll
-Plugins/Wwise/**/*.dll
+!Plugins/Wwise/*.dll
+!Plugins/Wwise/**/*.dll
 
 # Fortran module files
 *.mod
@@ -29,7 +30,8 @@ Plugins/Wwise/**/*.dll
 *.lib
 
 #!Plugins/Wwise/**/*.lib
-Plugins/Wwise/**/*.lib
+!Plugins/Wwise/**/*.lib
+!Plugins/Wwise/*.lib
 
 # Executables
 *.exe

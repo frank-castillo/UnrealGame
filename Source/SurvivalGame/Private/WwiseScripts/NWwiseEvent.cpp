@@ -21,10 +21,10 @@ void UNWwiseEvent::BeginPlay()
     Super::BeginPlay();
 
     // ...
-    if (FAkAudioDevice::Get())
-    {
-        FAkAudioDevice::Get()->PostAkAudioEventOnActor(TestEvent, this->GetOwner());
-    }
+    FOnAkPostEventCallback nullCallback;
+    TArray<FAkExternalSourceInfo> nullSources;
+
+    skillEventID = UAkGameplayStatics::PostEvent(TestEvent, this->GetOwner(), int32(0), nullCallback);
 }
 
 

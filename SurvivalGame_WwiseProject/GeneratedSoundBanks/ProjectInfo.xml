@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ProjectInfo>
-	<Project Name="SurvivalGame_WwiseProject" GUID="{F8F7DCFD-5BB0-49DA-A875-F4D9163E6E11}" Generator="2022.1.6.8263"/>
+	<Project Name="SurvivalGame_WwiseProject" GUID="{F8F7DCFD-5BB0-49DA-A875-F4D9163E6E11}" Generator="2023.1.2.8444"/>
 	<CacheRoot>../.cache</CacheRoot>
 	<Platforms>
 		<Platform Name="Mac" GUID="{07D990AA-A4B4-4050-AC68-0A1325690FA2}" BasePlatform="Mac" BasePlatformGUID="{9C6217D5-DD11-4795-87C1-6CE02853C540}" Path="Mac"/>
@@ -9,5 +9,5 @@
 	<Languages>
 		<Language Name="English(US)" Id="684519430" GUID="{83587D0A-E8D9-474C-8541-E80763F8F8ED}" Default="true" UseAsStandIn="true"/>
 	</Languages>
-	<FileHash>{3D260B5B-B06A-6F86-3946-E606C8F5F640}</FileHash>
+	<FileHash>{D6601E00-B235-606B-9BAF-53DF02A2328D}</FileHash>
 </ProjectInfo>

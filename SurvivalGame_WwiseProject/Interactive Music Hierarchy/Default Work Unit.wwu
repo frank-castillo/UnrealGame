@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WwiseDocument Type="WorkUnit" ID="{68716D04-D25B-4811-B7B1-936C8093DDE9}" SchemaVersion="110">
+<WwiseDocument Type="WorkUnit" ID="{68716D04-D25B-4811-B7B1-936C8093DDE9}" SchemaVersion="119">
 	<InteractiveMusic>
 		<WorkUnit Name="Default Work Unit" ID="{68716D04-D25B-4811-B7B1-936C8093DDE9}" PersistMode="Standalone">
 			<ChildrenList>
@@ -13,6 +13,43 @@
 						</Reference>
 						<Reference Name="OutputBus">
 							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{882C04B8-B0DD-4064-B808-1F373B643D82}"/>
+						</Reference>
+						<Reference Name="PlaylistRoot">
+							<Custom>
+								<MusicPlaylistItem Name="" ID="{1561E8A6-962D-49F0-A427-1FEEDFD3DD5A}" ShortID="1037464486">
+									<PropertyList>
+										<Property Name="LoopCount" Type="int16" Value="0"/>
+										<Property Name="PlayMode" Type="int16" Value="1"/>
+									</PropertyList>
+									<ChildrenList>
+										<MusicPlaylistItem Name="" ID="{A8525428-34CA-4983-92A6-E7241978FD58}" ShortID="18209268">
+											<PropertyList>
+												<Property Name="PlaylistItemType" Type="int16" Value="1"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Segment">
+													<ObjectRef Name="Judgement" ID="{7745DF8E-4EBD-45BD-96BB-D6A5F45D23DF}" WorkUnitID="{68716D04-D25B-4811-B7B1-936C8093DDE9}"/>
+												</Reference>
+											</ReferenceList>
+										</MusicPlaylistItem>
+									</ChildrenList>
+								</MusicPlaylistItem>
+							</Custom>
+						</Reference>
+						<Reference Name="TransitionRoot">
+							<Custom>
+								<MusicTransition Name="Root" ID="{28578510-3E66-4DB5-91B4-B480B8358517}">
+									<PropertyList>
+										<Property Name="IsFolder" Type="bool" Value="True"/>
+									</PropertyList>
+									<ChildrenList>
+										<MusicTransition Name="Transition" ID="{B6E20794-BCD6-419A-9393-A3D91B5BAE61}">
+											<TransitionInfo/>
+										</MusicTransition>
+									</ChildrenList>
+									<TransitionInfo/>
+								</MusicTransition>
+							</Custom>
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>
@@ -34,6 +71,16 @@
 										<Reference Name="OutputBus">
 											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{882C04B8-B0DD-4064-B808-1F373B643D82}"/>
 										</Reference>
+										<Reference Name="TransitionRoot">
+											<Custom>
+												<MusicTransition Name="Root" ID="{61DE7C99-C672-42AE-8718-06C087887205}">
+													<PropertyList>
+														<Property Name="IsFolder" Type="bool" Value="True"/>
+													</PropertyList>
+													<TransitionInfo/>
+												</MusicTransition>
+											</Custom>
+										</Reference>
 									</ReferenceList>
 									<ChildrenList>
 										<AudioFileSource Name="3 - Judgement" ID="{9B174121-737A-4D44-8081-FE1B05F6AE75}">
@@ -44,14 +91,6 @@
 											</MediaIDList>
 										</AudioFileSource>
 									</ChildrenList>
-									<TransitionList>
-										<MusicTransition Name="Root" ID="{61DE7C99-C672-42AE-8718-06C087887205}">
-											<PropertyList>
-												<Property Name="IsFolder" Type="bool" Value="True"/>
-											</PropertyList>
-											<TransitionInfo/>
-										</MusicTransition>
-									</TransitionList>
 									<ObjectLists>
 										<ObjectList Name="Sequences">
 											<Reference>
@@ -101,35 +140,6 @@
 							</ObjectLists>
 						</MusicSegment>
 					</ChildrenList>
-					<TransitionList>
-						<MusicTransition Name="Root" ID="{28578510-3E66-4DB5-91B4-B480B8358517}">
-							<PropertyList>
-								<Property Name="IsFolder" Type="bool" Value="True"/>
-							</PropertyList>
-							<ChildrenList>
-								<MusicTransition Name="Transition" ID="{B6E20794-BCD6-419A-9393-A3D91B5BAE61}">
-									<TransitionInfo/>
-								</MusicTransition>
-							</ChildrenList>
-							<TransitionInfo/>
-						</MusicTransition>
-					</TransitionList>
-					<Playlist>
-						<MusicPlaylistItem Name="" ID="{1561E8A6-962D-49F0-A427-1FEEDFD3DD5A}" ShortID="1037464486">
-							<PropertyList>
-								<Property Name="LoopCount" Type="int16" Value="0"/>
-								<Property Name="PlayMode" Type="int16" Value="1"/>
-							</PropertyList>
-							<ChildrenList>
-								<MusicPlaylistItem Name="" ID="{A8525428-34CA-4983-92A6-E7241978FD58}" ShortID="18209268">
-									<PropertyList>
-										<Property Name="PlaylistItemType" Type="int16" Value="1"/>
-									</PropertyList>
-									<SegmentRef Name="Judgement" ID="{7745DF8E-4EBD-45BD-96BB-D6A5F45D23DF}"/>
-								</MusicPlaylistItem>
-							</ChildrenList>
-						</MusicPlaylistItem>
-					</Playlist>
 				</MusicPlaylistContainer>
 			</ChildrenList>
 		</WorkUnit>

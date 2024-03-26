@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="145">
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="150">
 	<SoundBanks>
-		<SoundBank Id="3291379323" Type="User" GUID="{2D92AE94-0755-4201-A775-E585E898812E}" Language="SFX" Hash="{85315035-A6C7-207D-1494-F8A97733ED9B}">
+		<SoundBank Id="3291379323" Type="User" GUID="{2D92AE94-0755-4201-A775-E585E898812E}" Language="SFX" Hash="{32B3385A-9BB5-981F-257C-0EC5CCF6E492}">
 			<ObjectPath>\SoundBanks\Default Work Unit\TestBank</ObjectPath>
 			<ShortName>TestBank</ShortName>
 			<Path>TestBank.bnk</Path>
 			<Media>
 				<File Id="972576954" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>3 - Judgement.wav</ShortName>
-					<CachePath>SFX/3 - Judgement_D79FB2B7.wem</CachePath>
+					<CachePath>SFX/3 - Judgement_FBC78EF0.wem</CachePath>
 				</File>
 			</Media>
 			<Events>
@@ -20,5 +20,5 @@
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{9B04FF1F-19A7-A885-430B-E7B162A6C188}</FileHash>
+	<FileHash>{082B3414-B319-16DE-3BE4-E8984F4E8B17}</FileHash>
 </SoundBanksInfo>
