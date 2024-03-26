@@ -12,14 +12,16 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
 
 #include "Wwise/WwiseExecutionQueue.h"
 #include "Wwise/WwiseFileStateTools.h"
+#include <atomic>
 
+class FWwiseAsyncCycleCounter;
 class FWwiseStreamableFileStateInfo;
 
 enum class WWISEFILEHANDLER_API EWwiseFileStateOperationOrigin
@@ -45,10 +47,30 @@ public:
 		return Result;
 	}
 
-	FWwiseExecutionQueue* FileStateExecutionQueue{ new FWwiseExecutionQueue };
+	/// A serial queue of operations being processed for this state
+	FWwiseExecutionQueue* FileStateExecutionQueue{ new FWwiseExecutionQueue(WWISE_EQ_NAME("FWwiseFileState")) };
+
+	using FBasicFunction = FWwiseExecutionQueue::FBasicFunction;
+	using FOpQueueItem = FWwiseExecutionQueue::FOpQueueItem; 
+	using FLaterOpQueue = TQueue<FOpQueueItem, EQueueMode::Spsc>;
+
+	/// Operation queue containing operations waiting to be unclogged (such as a load time)
+	FLaterOpQueue LaterOpQueue;
+
+	/// Number of instances opened. Slightly equivalent to LoadCount, but set synchronously and updated at extremities.
+	std::atomic<int> OpenedInstances{ 0 };
 	
+	/// Number of times the Loading operation got requested for this state
 	int LoadCount{ 0 };
+
+	/// Number of times the Streaming operation got requested for this state
 	int StreamingCount{ 0 };
+
+	/// Current operation serial # being processed. Used to return callbacks in order of calling.
+	int CreationOpOrder{ 0 };
+
+	/// Current operation serial # done. Used to return callbacks in order of calling.
+	int DoneOpOrder{ 0 };
 
 	enum class WWISEFILEHANDLER_API EState
 	{
@@ -66,6 +88,10 @@ public:
 		CanReopen			// Equivalent to Closed, but won't Delete
 	};
 	EState State;
+	static const TCHAR* GetStateNameFor(EState State);
+	const TCHAR* GetStateName() const;
+	void SetState(const TCHAR* const Caller, EState NewState);
+	void SetStateFrom(const TCHAR* const Caller, EState ExpectedState, EState NewState);
 
 	enum class WWISEFILEHANDLER_API EResult
 	{
@@ -93,7 +119,7 @@ public:
 
 	virtual FWwiseStreamableFileStateInfo* GetStreamableFileStateInfo() { return nullptr; }
 	virtual const FWwiseStreamableFileStateInfo* GetStreamableFileStateInfo()  const { return nullptr; }
-	bool IsStreamedState() const { return GetStreamableFileStateInfo() != nullptr; }
+	virtual bool IsStreamedState() const { return GetStreamableFileStateInfo() != nullptr; }
 
 	FWwiseFileState(FWwiseFileState const&) = delete;
 	FWwiseFileState& operator=(FWwiseFileState const&) = delete;
@@ -101,18 +127,25 @@ public:
 	FWwiseFileState& operator=(FWwiseFileState&&) = delete;
 
 protected:
+	std::atomic<bool> bRecurringCallbackRegistered { false };
+
 	FWwiseFileState();
 	void Term();
 
-	virtual void IncrementCount(EWwiseFileStateOperationOrigin InOperationOrigin, FIncrementCountCallback&& InCallback);
-	virtual void IncrementCountOpen(EWwiseFileStateOperationOrigin InOperationOrigin, FIncrementCountCallback&& InCallback);
-	virtual void IncrementCountLoad(EWwiseFileStateOperationOrigin InOperationOrigin, FIncrementCountCallback&& InCallback);
-	virtual void IncrementCountDone(EWwiseFileStateOperationOrigin InOperationOrigin, FIncrementCountCallback&& InCallback);
+	static void IncrementCountAsyncDone(FWwiseAsyncCycleCounter&& InOpCycleCounter, FIncrementCountCallback&& InCallback, bool bInResult);
+	static void DecrementCountAsyncDone(FWwiseAsyncCycleCounter&& InOpCycleCounter, FDecrementCountCallback&& InCallback);
 
-	virtual void DecrementCount(EWwiseFileStateOperationOrigin InOperationOrigin, FDeleteFileStateFunction&& InDeleteState, FDecrementCountCallback&& InCallback);
-	virtual void DecrementCountUnload(EWwiseFileStateOperationOrigin InOperationOrigin, FDeleteFileStateFunction&& InDeleteState, FDecrementCountCallback&& InCallback);
-	virtual void DecrementCountClose(EWwiseFileStateOperationOrigin InOperationOrigin, FDeleteFileStateFunction&& InDeleteState, FDecrementCountCallback&& InCallback);
-	virtual void DecrementCountDone(EWwiseFileStateOperationOrigin InOperationOrigin, FDeleteFileStateFunction&& InDeleteState, FDecrementCountCallback&& InCallback);
+	virtual void IncrementCount(EWwiseFileStateOperationOrigin InOperationOrigin, int InCurrentOpOrder, FIncrementCountCallback&& InCallback);
+	virtual void IncrementCountOpen(EWwiseFileStateOperationOrigin InOperationOrigin, int InCurrentOpOrder, FIncrementCountCallback&& InCallback);
+	virtual void IncrementCountLoad(EWwiseFileStateOperationOrigin InOperationOrigin, int InCurrentOpOrder, FIncrementCountCallback&& InCallback);
+	virtual void IncrementCountDone(EWwiseFileStateOperationOrigin InOperationOrigin, int InCurrentOpOrder, FIncrementCountCallback&& InCallback);
+
+	virtual void DecrementCount(EWwiseFileStateOperationOrigin InOperationOrigin, int InCurrentOpOrder, FDeleteFileStateFunction&& InDeleteState, FDecrementCountCallback&& InCallback);
+	virtual void DecrementCountUnload(EWwiseFileStateOperationOrigin InOperationOrigin, int InCurrentOpOrder, FDeleteFileStateFunction&& InDeleteState, FDecrementCountCallback&& InCallback);
+	virtual void DecrementCountUnloadCallback(EWwiseFileStateOperationOrigin InOperationOrigin, int InCurrentOpOrder, FDeleteFileStateFunction&& InDeleteState, FDecrementCountCallback&& InCallback, EResult InDefer);
+	virtual void DecrementCountClose(EWwiseFileStateOperationOrigin InOperationOrigin, int InCurrentOpOrder, FDeleteFileStateFunction&& InDeleteState, FDecrementCountCallback&& InCallback);
+	virtual void DecrementCountCloseCallback(EWwiseFileStateOperationOrigin InOperationOrigin, int InCurrentOpOrder, FDeleteFileStateFunction&& InDeleteState, FDecrementCountCallback&& InCallback, EResult InDefer);
+	virtual void DecrementCountDone(EWwiseFileStateOperationOrigin InOperationOrigin, int InCurrentOpOrder, FDeleteFileStateFunction&& InDeleteState, FDecrementCountCallback&& InCallback);
 
 	using FOpenFileCallback = TUniqueFunction<void()>;
 	using FLoadInSoundEngineCallback = TUniqueFunction<void()>;
@@ -142,6 +175,14 @@ protected:
 	virtual void CloseFile(FCloseFileCallback&& InCallback) { CloseFileDone(MoveTemp(InCallback)); }
 	void CloseFileDone(FCloseFileCallback&& InCallback);
 	void CloseFileDefer(FCloseFileCallback&& InCallback);
+
+	bool IsBusy() const;
+	
+	void AsyncOp(const TCHAR* InDebugName, FBasicFunction&& Fct);
+	void AsyncOpLater(const TCHAR* InDebugName, FBasicFunction&& Fct);
+	void ProcessLaterOpQueue();
+	
+	virtual void RegisterRecurringCallback();
 };
 
 using FWwiseFileStateSharedPtr = TSharedPtr<FWwiseFileState, ESPMode::ThreadSafe>;

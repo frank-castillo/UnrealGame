@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 // AkTypes.h
@@ -31,7 +31,9 @@ the specific language governing permissions and limitations under the License.
 
 #pragma once
 
-#define AK_ANDROID
+#if !defined(AK_ANDROID)
+  #define AK_ANDROID
+#endif
 
 #if defined(__LP64__) || defined(_LP64)
 #ifdef __aarch64__

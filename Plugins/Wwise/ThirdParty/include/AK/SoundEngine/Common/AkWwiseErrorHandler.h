@@ -9,7 +9,7 @@ may use this file in accordance with the end user license agreement provided
 with the software or, alternatively, in accordance with the terms contained in a
 written agreement between you and Audiokinetic Inc.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 // MessageTranslator.h
@@ -36,11 +36,6 @@ public:
 	virtual ~AkWwiseErrorHandler() {};
 
 	/**
-		On initialization, a DefaultErrorMessageTranslator is created and affected to the m_currentMessageTranslator
-	*/
-	static void Init();
-
-	/**
 		Set the m_currentMessageTranslator to the given translator. 
 		The added translator can either override previously added translator, or attach them to itself. 
 		In the case overridePreviousTranslator is true, the responsibility of deleting all the translator previously attached to
@@ -57,6 +52,11 @@ public:
 	*/
 	static void Release();
 
+	/** 
+		Reset the translator chain to the default, which only prints numbers for IDs in error messages
+	*/
+	static void ResetTranslator();
+
 	///Translate and then send back the translated message to the sound engine via it's m_funcLocalOutput
 	static void Execute(
 		AK::Monitor::ErrorCode in_eErrorCode,	///< Error code number value
@@ -66,7 +66,9 @@ public:
 		AkUInt64 in_gId,						///< Related Game Object ID if applicable, AK_INVALID_GAME_OBJECT otherwise
 		AkUniqueID in_sId,						///< Related Sound ID if applicable, AK_INVALID__ID otherwise
 		char* in_args,							///< Variable arguments to replace the wwise tags contained in the message or error string
-		AkUInt32 in_uArgSize					///< Size of argument blob.
+		AkUInt32 in_uArgSize,					///< Size of argument blob.
+		AkOSChar* out_pBuffer = nullptr,		///< Optional: buffer to receive the output string. If not provided, the output goes to the local output function
+		AkUInt32 in_BufferSize = 0				///< Optional: out_pBuffer size.
 	);
 
 	///Sets the localoutputfunc

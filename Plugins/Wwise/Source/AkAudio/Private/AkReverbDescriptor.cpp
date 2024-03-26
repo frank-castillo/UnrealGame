@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "AkReverbDescriptor.h"
@@ -104,11 +104,13 @@ void UpdateVolumeAndArea(UBodySetup* bodySetup, const FVector& scale, float& vol
 	for (const FKBoxElem& box : geometry.BoxElems)
 	{
 		surfaceArea += BoxSurfaceArea(box, scale);
+#if (!UE_5_1_OR_LATER)
 		// ... correct for any FKBoxElem elements in the geometry.
 		// UBodySetup::GetVolume has an inaccuracy for box elements. It is scaled uniformly by the minimum scale dimension (see FKBoxElem::GetVolume).
 		// For our purposes we want to scale by each dimension individually.
 		volume -= InaccurateBoxVolume(box, scale);
 		volume += BoxVolume(box, scale);
+#endif
 	}
 	for (const FKConvexElem& convexElem : geometry.ConvexElems)
 	{
@@ -137,6 +139,30 @@ void UpdateVolumeAndArea(UBodySetup* bodySetup, const FVector& scale, float& vol
 		surfaceArea += CapsuleSurfaceArea(capsule, scale);
 	}
 }
+
+bool ConvertToAkAcousticTextures(TArray<FAkAcousticTextureParams>& InTexturesParams, TArray<AkAcousticTexture>& OutTextures)
+{
+	bool bAreAbsorptionValuesZero = true;
+	for (const FAkAcousticTextureParams& params : InTexturesParams)
+	{
+		AkAcousticTexture Texture;
+		Texture.fAbsorptionLow = params.AbsorptionLow();
+		Texture.fAbsorptionMidLow = params.AbsorptionMidLow();
+		Texture.fAbsorptionMidHigh = params.AbsorptionMidHigh();
+		Texture.fAbsorptionHigh = params.AbsorptionHigh();
+		OutTextures.Add(Texture);
+
+		if (Texture.fAbsorptionLow != 0 ||
+			Texture.fAbsorptionMidLow != 0 ||
+			Texture.fAbsorptionMidHigh != 0 ||
+			Texture.fAbsorptionHigh != 0)
+		{
+			bAreAbsorptionValuesZero = false;
+		}
+	}
+	return bAreAbsorptionValuesZero;
+}
+
 
 /*=============================================================================
 	FAkReverbDescriptor:
@@ -189,12 +215,12 @@ void FAkReverbDescriptor::SetPrimitive(UPrimitiveComponent* primitive)
 	Primitive = primitive;
 }
 
-void FAkReverbDescriptor::SetReverbComponent(UAkLateReverbComponent* reverbComp)
+void FAkReverbDescriptor::SetReverbComponent(UAkLateReverbComponent* InReverbComp)
 {
-	ReverbComponent = reverbComp;
+	ReverbComponent = InReverbComp;
 }
 
-void FAkReverbDescriptor::CalculateT60()
+void FAkReverbDescriptor::CalculateT60(UAkLateReverbComponent* InReverbComp)
 {
 	if (IsValid(Primitive))
 	{
@@ -245,19 +271,55 @@ void FAkReverbDescriptor::CalculateT60()
 			auto* SpatialAudio = IWwiseSpatialAudioAPI::Get();
 			if (SpatialAudio && PrimitiveVolume > 0.0f && PrimitiveSurfaceArea > 0.0f)
 			{
-				float absorption = 0.5f;
-				UAkSettings* AkSettings = GetMutableDefault<UAkSettings>();
-				if (AkSettings != nullptr)
-					absorption = AkSettings->GlobalDecayAbsorption;
+				float Absorption = AK_SA_MIN_ENVIRONMENT_ABSORPTION;
+
+				TArray<FAkAcousticTextureParams> TexturesParams;
+				TArray<float> SurfaceAreas;
+
+				auto TextureSetComponent = InReverbComp->GetAttachedTextureSetComponent();
+				if (TextureSetComponent.IsValid())
+				{
+					TextureSetComponent->GetTexturesAndSurfaceAreas(TexturesParams, SurfaceAreas);
+					checkf(TexturesParams.Num() == SurfaceAreas.Num(), TEXT("FAkReverbDescriptor::CalculateT60: TexturesParams.Num (%d) != SurfaceAreas.Num (%d)"), (int)TexturesParams.Num(), (int)SurfaceAreas.Num());
+				}
+				
+				// If we have at least one texture specified, we compute an average absorption value.
+				if(TexturesParams.Num() != 0)
+				{
+					TArray<AkAcousticTexture> Textures;
+					bool bAreAbsorptionValuesZero = ConvertToAkAcousticTextures(TexturesParams, Textures);
+
+					if (!bAreAbsorptionValuesZero)
+					{
+						AkAcousticTexture AverageTextures;
+						SpatialAudio->ReverbEstimation->GetAverageAbsorptionValues(&Textures[0], &SurfaceAreas[0], Textures.Num(), AverageTextures);
+						float AverageAbsorption = (AverageTextures.fAbsorptionLow + AverageTextures.fAbsorptionMidLow + AverageTextures.fAbsorptionMidHigh + AverageTextures.fAbsorptionHigh) / 4.f;
+
+						// We only update the absorption value if the value is above 1
+						if (AverageAbsorption > AK_SA_MIN_ENVIRONMENT_ABSORPTION)
+						{
+							Absorption = AverageAbsorption;
+						}
+					}
+				}
+				// Else we use the Global Decay Absorption Value
+				else {
+					UAkSettings* AkSettings = GetMutableDefault<UAkSettings>();
+					if (AkSettings != nullptr)
+					{
+						Absorption = AkSettings->GlobalDecayAbsorption;
+					}
+				}
+
 				//calcuate t60 using the Sabine equation
-				SpatialAudio->ReverbEstimation->EstimateT60Decay(PrimitiveVolume, PrimitiveSurfaceArea, absorption, T60Decay);
+				SpatialAudio->ReverbEstimation->EstimateT60Decay(PrimitiveVolume, PrimitiveSurfaceArea, Absorption, T60Decay);
 			}
 		}
 	}
-#if WITH_EDITOR
+
 	if (IsValid(ReverbComponent))
 		ReverbComponent->UpdateDecayEstimation(T60Decay, PrimitiveVolume, PrimitiveSurfaceArea);
-#endif
+
 	UpdateDecayRTPC();
 }
 
@@ -300,41 +362,27 @@ void FAkReverbDescriptor::CalculateHFDamping(const UAkAcousticTextureSetComponen
 			}
 			else
 			{
-				bool areAbsorptionValuesZero = true;
-				bool areSurfaceAreasZero = true;
-				int idx = 0;
+				bool bAreAbsorptionValuesZero = true;
+				bool bAreSurfaceAreasZero = true;
 
 				TArray<AkAcousticTexture> textures;
-				for (const FAkAcousticTextureParams& params : texturesParams)
-				{
-					AkAcousticTexture texture;
-					texture.fAbsorptionLow = params.AbsorptionLow();
-					texture.fAbsorptionMidLow = params.AbsorptionMidLow();
-					texture.fAbsorptionMidHigh = params.AbsorptionMidHigh();
-					texture.fAbsorptionHigh = params.AbsorptionHigh();
-					textures.Add(texture);
+				bAreAbsorptionValuesZero = ConvertToAkAcousticTextures(texturesParams, textures);
 
-					if (texture.fAbsorptionLow != 0 ||
-						texture.fAbsorptionMidLow != 0 ||
-						texture.fAbsorptionMidHigh != 0 ||
-						texture.fAbsorptionHigh != 0)
-					{
-						areAbsorptionValuesZero = false;
-					}
+				for (int idx=0; idx<surfaceAreas.Num(); idx++)
+				{
 					if (surfaceAreas[idx] != 0)
 					{
-						areSurfaceAreasZero = false;
+						bAreSurfaceAreasZero = false;
 					}
-					idx++;
 				}
 
-				if (areAbsorptionValuesZero || areSurfaceAreasZero)
+				if (bAreAbsorptionValuesZero || bAreSurfaceAreasZero)
 				{
 					HFDamping = 0.0f;
 				}
 				else
 				{
-					SpatialAudio->ReverbEstimation->EstimateHFDamping(&textures[0], &surfaceAreas[0], textures.Num(), HFDamping);
+					HFDamping = SpatialAudio->ReverbEstimation->EstimateHFDamping(&textures[0], &surfaceAreas[0], textures.Num());
 				}
 			}
 		}

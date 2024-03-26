@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 // AkiOSSoundEngine.h
@@ -116,6 +116,17 @@ struct AkAudioSessionProperties
 	AkAudioSessionBehaviorOptions eAudioSessionBehavior; ///< Flags to change the default Sound Engine behavior related to the management of the iOS Audio Session with regards to application lifecycle events. \sa AkAudioSessionBehaviorFlags
 };
 
+///< API used for audio output
+///< Use with AkPlatformInitSettings to select the API used for audio output. The selected API may be ignored if the device does not support it.
+///< Use AkAPI_Default, it will select the more appropriate API depending on the device's capabilities.  Other values should be used for testing purposes.
+///< \sa AK::SoundEngine::Init
+typedef enum AkAudioAPIiOS
+{
+	AkAudioAPI_AVAudioEngine    = 1 << 0,                                 ///< Use AVFoundation framework (modern, has more capabilities, not available for iOS/tvOS 12 or below)
+	AkAudioAPI_AudioUnit        = 1 << 1,                                 ///< Use AudioUnit framework (basic functionality, compatible with all iOS devices)
+	AkAudioAPI_Default = AkAudioAPI_AVAudioEngine | AkAudioAPI_AudioUnit, ///< Default value, will select the more appropriate API (AVAudioEngine for compatible devices, AudioUnit for others)
+} AkAudioAPI;
+
 namespace AK
 {
 	namespace SoundEngine
@@ -129,7 +140,7 @@ namespace AK
 			/// \sa
 			/// - \ref AkPlatformInitSettings
 			typedef AKRESULT ( * AudioInputCallbackFunc )(
-				AudioBufferList* io_Data,	///< An exposed CoreAudio structure that holds the input audio samples generated from 
+				const AudioBufferList* io_Data,	///< An exposed CoreAudio structure that holds the input audio samples generated from 
 											///< audio input hardware. The buffer is pre-allocated by the sound engine and the buffer 
 											///< size can be obtained from the structure. Refer to the microphone demo of the IntegrationDemo for an example of usage.
 				void* in_pCookie ///< User-provided data, e.g., a user structure.
@@ -168,6 +179,12 @@ namespace AK
 				const AkAudioSessionProperties &in_properties                 ///< New properties to apply to the app's AVAudioSession shared instance.
 				);
 		}
+
+		/// Get the motion device ID corresponding to a GCController player index. This device ID can be used to add/remove motion output for that gamepad.
+		/// The player index is 0-based, and corresponds to a value of type GCControllerPlayerIndex in the Core.Haptics framework.
+		/// \note The ID returned is unique to Wwise and does not correspond to any sensible value outside of Wwise.
+		/// \return Unique device ID
+		AK_EXTERNAPIFUNC(AkDeviceID, GetDeviceIDFromPlayerIndex) (int playerIndex);
 	}
 }
 
@@ -183,7 +200,6 @@ struct AkAudioCallbacks
 	void* interruptionCallbackCookie;											///< Application-defined user data for the audio interruption callback function
 };
 
-/// \cond !(Web)
 /// Platform specific initialization settings
 /// \sa AK::SoundEngine::Init
 /// \sa AK::SoundEngine::GetDefaultPlatformInitSettings
@@ -201,10 +217,14 @@ struct AkPlatformInitSettings
 	AkUInt16            uNumRefillsInVoice;		///< Number of refill buffers in voice buffer. 2 == double-buffered, defaults to 4
 	AkAudioSessionProperties audioSession;	///< iOS audio session properties 
 	AkAudioCallbacks audioCallbacks; ///< iOS audio callbacks
+	
+	AkAudioAPI          eAudioAPI;  ///< Main audio API to use. Leave to AkAPI_Default for the default sink (default value).
+									///< \ref AkAudioAPI
+	
+	AkUInt32            uNumSpatialAudioPointSources; ///< Number of Apple Spatial Audio point sources to allocate for 3D audio use (each point source is a system audio object). Default: 128
 
 	bool bVerboseSystemOutput; ///< Print additional debugging information specific to iOS to the system output log.
 };
-/// \endcond
 
 
 #endif //_AK_IOS_SOUND_ENGINE_H_

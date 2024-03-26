@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "SAkGeometrySurfaceOverrideController.h"
@@ -26,7 +26,7 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "Widgets/Layout/SBox.h"
 
 #include "AkGeometryComponent.h"
-#include "AkUEFeatures.h"
+#include "WwiseUEFeatures.h"
 
 namespace AkGeometryUI
 {
@@ -172,7 +172,15 @@ void SAkGeometrySurfaceController::OnTextureAssetChanged(const FAssetData& InAss
 	FAkGeometrySurfaceOverride* SurfaceProperties = GetSurfaceOverride();
 	if (SurfaceProperties != nullptr)
 	{
-		SurfaceProperties->AcousticTexture = Cast<UAkAcousticTexture>(InAssetData.GetAsset());
+		UAkAcousticTexture* AcousticTexture = Cast<UAkAcousticTexture>(InAssetData.GetAsset());
+		if (SurfaceProperties->AcousticTexture != AcousticTexture)
+		{
+			SurfaceProperties->AcousticTexture = AcousticTexture;
+			if (ComponentBeingCustomized != nullptr)
+			{
+				ComponentBeingCustomized->SurfacePropertiesChanged();
+			}
+		}
 	}
 
 	EndModify();

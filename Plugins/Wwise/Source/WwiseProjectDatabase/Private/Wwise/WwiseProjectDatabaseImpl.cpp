@@ -12,12 +12,12 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/WwiseProjectDatabaseImpl.h"
 
-#include "AkUnrealHelper.h"
+#include "WwiseUnrealHelper.h"
 #include "Wwise/Metadata/WwiseMetadataPlatformInfo.h"
 #include "Wwise/WwiseResourceLoader.h"
 #include "Wwise/WwiseProjectDatabaseDelegates.h"
@@ -125,9 +125,12 @@ void FWwiseProjectDatabaseImpl::UpdateDataStructure(const FDirectoryPath* InUpda
 		bIsDatabaseParsed = true;
 		UE_LOG(LogWwiseProjectDatabase, Log, TEXT("UpdateDataStructure: Done."));
 	}
-	if (Get() == this)		// Only broadcast database updates on main project.
+	if (Get() == this && bShouldBroadcast)		// Only broadcast database updates on main project.
 	{
-		FWwiseProjectDatabaseDelegates::Get().GetOnDatabaseUpdateCompletedDelegate().Broadcast();
+		//Stop multiple threads from Broadcasting this delegate at the same time.
+		bShouldBroadcast = false;
+		FWwiseProjectDatabaseDelegates::Get()->GetOnDatabaseUpdateCompletedDelegate().Broadcast();
+		bShouldBroadcast = true;
 	}
 }
 

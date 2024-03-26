@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 /*=============================================================================
@@ -50,8 +50,8 @@ enum class PanningRule : uint8
 UENUM(BlueprintType)
 enum class AkAcousticPortalState : uint8
 {
-	Closed = 0,
-	Open = 1,
+	Closed = 0 UMETA(DisplayName = "Disabled"),
+	Open = 1 UMETA(DisplayName = "Enabled"),
 };
 
 UENUM(BlueprintType)
@@ -199,7 +199,7 @@ enum class EAkResult : uint8
 	InvalidStateGroup = AK_InvalidStateGroup			 UMETA(ToolTip = "The StateGroup is not a valid channel."),
 	ChildAlreadyHasAParent = AK_ChildAlreadyHasAParent		 UMETA(ToolTip = "The child already has a parent.", DisplayName = "Child Already Has A Parent"),
 	InvalidLanguage = AK_InvalidLanguage				 UMETA(ToolTip = "The language is invalid (applies to the Low-Level I/O)."),
-	CannotAddItseflAsAChild = AK_CannotAddItseflAsAChild		 UMETA(ToolTip = "It is not possible to add itself as its own child.", DisplayName = "Cannot Add Itself As A Child"),
+	CannotAddItselfAsAChild = AK_CannotAddItselfAsAChild		 UMETA(ToolTip = "It is not possible to add itself as its own child.", DisplayName = "Cannot Add Itself As A Child"),
 	InvalidParameter = AK_InvalidParameter			 UMETA(ToolTip = "Something is not within bounds."),
 	ElementAlreadyInList = AK_ElementAlreadyInList		 UMETA(ToolTip = "The item could not be added because it was already in the list."),
 	PathNotFound = AK_PathNotFound				 UMETA(ToolTip = "This path is not known."),
@@ -241,6 +241,25 @@ enum class EAkResult : uint8
 	OpenSLError = AK_OpenSLError					 UMETA(ToolTip = "OpenSL returned an error.  Check error log for more details."),
 	PluginNotRegistered = AK_PluginNotRegistered			 UMETA(ToolTip = "Plugin is not registered.  Make sure to implement a AK::PluginRegistration class for it and use AK_STATIC_LINK_PLUGIN in the game binary."),
 	DataAlignmentError = AK_DataAlignmentError			 UMETA(ToolTip = "A pointer to audio data was not aligned to the platform's required alignment (check AkTypes.h in the platform-specific folder)."),
+	DeviceNotCompatible = AK_DeviceNotCompatible	UMETA(ToolTip = "Incompatible Audio device."),
+	DuplicateUniqueID = AK_DuplicateUniqueID		UMETA(ToolTip = "Two Wwise objects share the same ID."),
+	InitBankNotLoaded = AK_InitBankNotLoaded		UMETA(ToolTip = "The Init bank was not loaded yet, the sound engine isn't completely ready yet."),
+	DeviceNotFound = AK_DeviceNotFound			UMETA(ToolTip = "The specified device ID does not match with any of the output devices that the sound engine is currently using."),
+	PlayingIDNotFound = AK_PlayingIDNotFound		UMETA(ToolTip = "Calling a function with a playing ID that is not known."),
+	InvalidFloatValue = AK_InvalidFloatValue		UMETA(ToolTip = "One parameter has a invalid float value such as NaN, INF or FLT_MAX."),
+	FileFormatMismatch = AK_FileFormatMismatch      UMETA(ToolTip = "Media file format unexpected"),
+	NoDistinctListener = AK_NoDistinctListener		UMETA(ToolTip = "No distinct listener provided for AddOutput"),
+	ACP_Error = AK_ACP_Error				UMETA(ToolTip = "Generic XMA decoder error."),
+	ResourceInUse = AK_ResourceInUse			UMETA(ToolTip = "Resource is in use and cannot be released."),
+	InvalidBankType = AK_InvalidBankType			UMETA(ToolTip = "Invalid bank type. The bank type was either supplied through a function call (e.g. LoadBank) or obtained from a bank loaded from memory."),
+	AlreadyInitialized = AK_AlreadyInitialized		UMETA(ToolTip = "Init() was called but that element was already initialized."),
+	NotInitialized = AK_NotInitialized			UMETA(ToolTip = "The component being used is not initialized. Most likely AK::SoundEngine::Init() was not called yet, or AK::SoundEngine::Term was called too early."),
+	FilePermissionError = AK_FilePermissionError		UMETA(ToolTip = "The file access permissions prevent opening a file."),
+	UnknownFileError = AK_UnknownFileError			UMETA(ToolTip = "Rare file error occured, as opposed to AK_FileNotFound or AK_FilePermissionError. This lumps all unrecognized OS file system errors."),
+	TooManyConcurrentOperations = AK_TooManyConcurrentOperations UMETA(ToolTip = "When using StdStream, file operations can be blocking or not. When not blocking, operations need to be synchronized externally properly. If not, this error occurs."),
+	InvalidFileSize = AK_InvalidFileSize			UMETA(ToolTip = "The file requested was found and opened but is either 0 bytes long or not the expected size. This usually point toward a Low Level IO Hook implementation error."),
+	Deferred = AK_Deferred					UMETA(ToolTip = "Returned by functions to indicate to the caller the that the operation is done asynchronously. Used by Low Level IO Hook implementations when async operation are suppored by the hardware."),
+	FilePathTooLong = AK_FilePathTooLong			UMETA(ToolTip = "The combination of base path and file name exceeds maximum buffer lengths.")
 };
 
 #define CHECK_AKRESULT_VALUE(ValueName) static_assert(AK_##ValueName == (uint32)EAkResult::ValueName, #ValueName " value has changed in AKRESULT, please update the EAkResult::" #ValueName " value");
@@ -260,7 +279,7 @@ CHECK_AKRESULT_VALUE(NoMoreData);
 CHECK_AKRESULT_VALUE(InvalidStateGroup);
 CHECK_AKRESULT_VALUE(ChildAlreadyHasAParent);
 CHECK_AKRESULT_VALUE(InvalidLanguage);
-CHECK_AKRESULT_VALUE(CannotAddItseflAsAChild);
+CHECK_AKRESULT_VALUE(CannotAddItselfAsAChild);
 CHECK_AKRESULT_VALUE(InvalidParameter);
 CHECK_AKRESULT_VALUE(ElementAlreadyInList);
 CHECK_AKRESULT_VALUE(PathNotFound);

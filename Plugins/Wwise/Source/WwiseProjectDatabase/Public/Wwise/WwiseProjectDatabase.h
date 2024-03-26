@@ -12,19 +12,20 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
 
-#include "Misc/CommandLine.h"
 #include "Wwise/WwiseDataStructure.h"
 #include "Wwise/WwiseResourceLoader.h"
 #include "Wwise/WwiseProjectDatabaseModule.h"
 
+#include "Misc/CommandLine.h"
+
 class FWwiseResourceLoader;
 class FWwiseProjectDatabase;
-using FSharedWwiseDataStructure = TSharedRef<FWwiseDataStructure>;
+using FSharedWwiseDataStructure = TSharedRef<FWwiseDataStructure, ESPMode::ThreadSafe>;
 
 class WWISEPROJECTDATABASE_API FWwiseDataStructureScopeLock : public FRWScopeLock
 {
@@ -148,22 +149,12 @@ public:
 
 	inline static FWwiseProjectDatabase* Get()
 	{
-		if(IsRunningCommandlet())
-		{
-			TArray<FString> Switches;
-			TArray<FString> Tokens;
-			FCommandLine::Parse(FCommandLine::Get(), Tokens, Switches);
-			for(auto& Token : Tokens)
-			{
-				if(Token.Contains(TEXT("run=GenerateSoundBanks"), ESearchCase::IgnoreCase))
-				{
-					return nullptr;
-				}
-			}
-		}
 		if (auto* Module = IWwiseProjectDatabaseModule::GetModule())
 		{
-			return Module->GetProjectDatabase();
+			if(Module->CanHaveDefaultInstance())
+			{
+				return Module->GetProjectDatabase();
+			}
 		}
 		return nullptr;
 	}

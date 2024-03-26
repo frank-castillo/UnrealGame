@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #ifndef __AK_PLATFORM_CONTEXT_IOS_H__
@@ -49,6 +49,14 @@ namespace AK
 		// Usually this is done in the sink's Term() function.
 		// \sa ActivateAudioSession
 		virtual void DeactivateAudioSession() = 0;
+		
+		// Returns the minimum buffer period, in seconds, required to avoid starvation on the current audio route
+		virtual float GetCurrentRouteMinimumLatency() const = 0;
+		
+		// Request a change in the audio session's output channel count
+		// The request may be denied by the system, in which case AK_UnsupportedChannelConfig will be returned.
+		// Pass 0 to maximize the number of output channels with regards to AVAudioSession::maximumOutputNumberOfChannels
+		virtual AKRESULT SetPreferredNumberOfOutputChannels(AkUInt32 uNumChannels) = 0;
 	};
 }
 

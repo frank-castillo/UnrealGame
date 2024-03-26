@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "WaapiPicker/WwiseTreeItem.h"
@@ -120,8 +120,9 @@ bool FWwiseTreeItem::IsUAssetOutOfDate() const
 	{
 		uint32 AssetShortId = 0;
 		FGuid AssetGuid;
-		auto GuidValue = Asset.TagsAndValues.FindTag(FName("WwiseGuid"));
-		auto ShortIdValue = Asset.TagsAndValues.FindTag(FName("WwiseShortId"));
+		auto GuidValue = Asset.TagsAndValues.FindTag(GET_MEMBER_NAME_CHECKED(FWwiseObjectInfo, WwiseGuid));
+		auto ShortIdValue = Asset.TagsAndValues.FindTag(GET_MEMBER_NAME_CHECKED(FWwiseObjectInfo, WwiseShortId));
+		auto WwiseName = Asset.TagsAndValues.FindTag(GET_MEMBER_NAME_CHECKED(FWwiseObjectInfo, WwiseName));
 		if (GuidValue.IsSet())
 		{
 			FString GuidAsString = GuidValue.GetValue();
@@ -132,7 +133,7 @@ bool FWwiseTreeItem::IsUAssetOutOfDate() const
 		{
 			AssetShortId = FCString::Strtoui64(*ShortIdValue.GetValue(), NULL, 10);
 		}
-		if(AssetGuid != ItemId || AssetShortId != ShortId)
+		if (AssetGuid != ItemId || AssetShortId != ShortId || WwiseName != DisplayName)
 		{
 			return true;
 		}

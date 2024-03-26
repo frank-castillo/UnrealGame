@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 /*=============================================================================
@@ -33,9 +33,12 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "Engine/GameEngine.h"
 #include "EngineUtils.h"
 #include "AkAcousticPortal.h"
+#include "AkRoomComponent.h"
 #include "AkAuxBus.h"
 #include "Wwise/API/WwiseSoundEngineAPI.h"
+#include "Wwise/API/WwiseSpatialAudioAPI.h"
 #include "Wwise/WwiseExternalSourceManager.h"
+#include "AkComponentHelpers.h"
 
 #include "inttypes.h"
 #include "WwiseInitBankLoader/WwiseInitBankLoader.h"
@@ -93,23 +96,15 @@ bool UAkGameplayStatics::IsGame(UObject* WorldContextObject)
 }
 
 int32 UAkGameplayStatics::PostEvent(UAkAudioEvent* AkEvent, AActor* Actor, int32 CallbackMask,
-	const FOnAkPostEventCallback& PostEventCallback, bool bStopWhenAttachedToDestroyed,
-	FString EventName)
+	const FOnAkPostEventCallback& PostEventCallback, bool bStopWhenAttachedToDestroyed)
 {
-	if (LIKELY(IsValid(AkEvent)))
+	if (UNLIKELY(!IsValid(AkEvent)))
 	{
-		return AkEvent->PostOnActor(Actor, PostEventCallback, CallbackMask, bStopWhenAttachedToDestroyed);
-	}
-
-	AkDeviceAndWorld DeviceAndWorld(Actor);
-	if (UNLIKELY(!DeviceAndWorld.IsValid()))
-	{
+		UE_LOG(LogAkAudio, Warning, TEXT("Failed to post invalid AkAudioEvent."))
 		return AK_INVALID_PLAYING_ID;
 	}
 	
-	AkCallbackType AkCallbackMask = AkCallbackTypeHelpers::GetCallbackMaskFromBlueprintMask(CallbackMask);
-	AkUInt32 ShortId = DeviceAndWorld.AkAudioDevice->GetShortID(AkEvent, EventName);
-	return DeviceAndWorld.AkAudioDevice->PostEventOnActor(ShortId, Actor, PostEventCallback, AkCallbackMask, bStopWhenAttachedToDestroyed, {});
+	return AkEvent->PostOnActor(Actor, PostEventCallback, CallbackMask, bStopWhenAttachedToDestroyed);
 }
 
 int32 UAkGameplayStatics::PostAndWaitForEndOfEvent(UAkAudioEvent* AkEvent, AActor* Actor, bool bStopWhenAttachedToDestroyed,
@@ -124,77 +119,15 @@ int32 UAkGameplayStatics::PostAndWaitForEndOfEvent(UAkAudioEvent* AkEvent, AActo
 	return AkEvent->PostOnActorAndWait(Actor, bStopWhenAttachedToDestroyed, LatentInfo);
 }
 
-void UAkGameplayStatics::PostAndWaitForEndOfEventAsync(
-	class UAkAudioEvent* AkEvent,
-	class AActor* Actor,
-	int32& PlayingID,
-	bool bStopWhenAttachedToDestroyed,
-	FLatentActionInfo LatentInfo
-	)
-{
-	if (!AkEvent)
-	{
-		UE_LOG(LogAkAudio, Warning, TEXT("UAkGameplayStatics::PostAndWaitForEndOfEventAsync: No Event specified!"));
-		PlayingID = AK_INVALID_PLAYING_ID;
-		return;
-	}
-
-	if (!Actor)
-	{
-		UE_LOG(LogAkAudio, Warning, TEXT("UAkGameplayStatics::PostAndWaitForEndOfEventAsync: NULL Actor specified!"));
-		PlayingID = AK_INVALID_PLAYING_ID;
-		return;
-	}
-
-	AkDeviceAndWorld DeviceAndWorld(Actor);
-	if (UNLIKELY(!DeviceAndWorld.IsValid()))
-	{
-		PlayingID  = AK_INVALID_PLAYING_ID;
-	}
-
-	FLatentActionManager& LatentActionManager = DeviceAndWorld.CurrentWorld->GetLatentActionManager();
-	FWaitEndOfEventAsyncAction* NewAction = LatentActionManager.FindExistingAction<FWaitEndOfEventAsyncAction>(LatentInfo.CallbackTarget, LatentInfo.UUID);
-	if (!NewAction)
-	{
-		NewAction = new FWaitEndOfEventAsyncAction(LatentInfo, &PlayingID, AkEvent, bStopWhenAttachedToDestroyed);
-		LatentActionManager.AddNewAction(LatentInfo.CallbackTarget, LatentInfo.UUID, NewAction);
-		NewAction->FuturePlayingID = DeviceAndWorld.AkAudioDevice->PostAkAudioEventWithLatentActionOnActorAsync(AkEvent, Actor, bStopWhenAttachedToDestroyed, NewAction);
-	}
-}
-
-void UAkGameplayStatics::PostEventByName(const FString& EventName, class AActor* Actor, bool bStopWhenAttachedToDestroyed)
-{
-	AkDeviceAndWorld DeviceAndWorld(Actor);
-	if (UNLIKELY(!DeviceAndWorld.IsValid()))
-	{
-		return;
-	}
-	AkUInt32 ShortId = DeviceAndWorld.AkAudioDevice->GetShortID(nullptr, EventName);
-	DeviceAndWorld.AkAudioDevice->PostEventOnActor(ShortId, Actor, 0, {}, {}, bStopWhenAttachedToDestroyed);
-}
-
-int32 UAkGameplayStatics::PostEventAtLocation(class UAkAudioEvent* AkEvent, FVector Location, FRotator Orientation, const FString& EventName, UObject* WorldContextObject)
+int32 UAkGameplayStatics::PostEventAtLocation(class UAkAudioEvent* AkEvent, FVector Location, FRotator Orientation, UObject* WorldContextObject)
 {
 	if (LIKELY(IsValid(AkEvent)))
 	{
 		return AkEvent->PostAtLocation(Location, Orientation, {}, 0, WorldContextObject);
 	}
-	AkDeviceAndWorld DeviceAndWorld(WorldContextObject);
-	if (UNLIKELY(!DeviceAndWorld.IsValid()))
-		return AK_INVALID_PLAYING_ID;
 
-	AkUInt32 ShortId = DeviceAndWorld.AkAudioDevice->GetShortID(nullptr, EventName);
-	return DeviceAndWorld.AkAudioDevice->PostEventAtLocation(EventName, ShortId, Location, Orientation, DeviceAndWorld.CurrentWorld);
-}
-
-void UAkGameplayStatics::PostEventAtLocationByName(const FString& EventName, FVector Location, FRotator Orientation, UObject* WorldContextObject)
-{
-	AkDeviceAndWorld DeviceAndWorld(WorldContextObject);
-	if (UNLIKELY(!DeviceAndWorld.IsValid()))
-		return;
-
-	AkUInt32 ShortId = DeviceAndWorld.AkAudioDevice->GetShortID(nullptr, EventName);
-	DeviceAndWorld.AkAudioDevice->PostEventAtLocation(EventName, ShortId, Location, Orientation, DeviceAndWorld.CurrentWorld);
+	UE_LOG(LogAkAudio, Error, TEXT("Failed to post event at location: posting a NULL event is not allowed."));
+	return AK_INVALID_PLAYING_ID;
 }
 
 UAkComponent* UAkGameplayStatics::SpawnAkComponentAtLocation(UObject* WorldContextObject, class UAkAudioEvent* AkEvent, FVector Location, FRotator Orientation, bool AutoPost, const FString& EventName, bool AutoDestroy /* = true*/)
@@ -205,33 +138,6 @@ UAkComponent* UAkGameplayStatics::SpawnAkComponentAtLocation(UObject* WorldConte
 		return nullptr;
 	}
 	return DeviceAndWorld.AkAudioDevice->SpawnAkComponentAtLocation(AkEvent, Location, Orientation, AutoPost, EventName, AutoDestroy, DeviceAndWorld.CurrentWorld);
-}
-
-void UAkGameplayStatics::ExecuteActionOnEvent(class UAkAudioEvent* AkEvent, AkActionOnEventType ActionType, class AActor* Actor, int32 TransitionDuration, EAkCurveInterpolation FadeCurve, int32 PlayingID)
-{
-	if (!AkEvent)
-	{
-		UE_LOG(LogAkAudio, Warning, TEXT("UAkGameplayStatics::ExecuteActionOnEvent: No Event specified!"));
-		return;
-	}
-
-	AkEvent->ExecuteAction(ActionType, Actor, PlayingID, TransitionDuration, FadeCurve);
-	
-}
-
-void UAkGameplayStatics::ExecuteActionOnPlayingID(AkActionOnEventType ActionType, int32 PlayingID, int32 TransitionDuration, EAkCurveInterpolation FadeCurve)
-{
-	if (PlayingID == AK_INVALID_PLAYING_ID)
-	{
-		UE_LOG(LogAkAudio, Warning, TEXT("UAkGameplayStatics::ExecuteActionOnPlayingID: Invalid Playing ID!"));
-		return;
-	}
-
-	FAkAudioDevice * AudioDevice = FAkAudioDevice::Get();
-	if (AudioDevice)
-	{
-		AudioDevice->ExecuteActionOnPlayingID(ActionType, PlayingID, TransitionDuration, FadeCurve);
-	}
 }
 
 void UAkGameplayStatics::SetRTPCValue(const UAkRtpc* RTPCValue, float Value, int32 InterpolationTimeMs, AActor* Actor, FName RTPC)
@@ -451,28 +357,17 @@ void UAkGameplayStatics::UseReverbVolumes(bool inUseReverbVolumes, class AActor*
 		UAkComponent * ComponentToSet = AudioDevice->GetAkComponent(Actor->GetRootComponent(), FName(), NULL, EAttachLocation::KeepRelativeOffset);
 		if( ComponentToSet != NULL )
 		{
-			ComponentToSet->UseReverbVolumes(inUseReverbVolumes);
+			ComponentToSet->bUseReverbVolumes = inUseReverbVolumes;
 		}
 	}
-}
-
-void UAkGameplayStatics::UseEarlyReflections(class AActor* Actor,
-	class UAkAuxBus* AuxBus,
-	int Order,
-	float BusSendGain,
-	float MaxPathLength,
-	bool SpotReflectors,
-	const FString& AuxBusName)
-{
-	// Deprecated
 }
 
 void UAkGameplayStatics::SetReflectionsOrder(int Order, bool RefreshPaths)
 {
 	if (Order > 4 || Order < 0)
 	{
+		UE_LOG(LogAkAudio, Warning, TEXT("UAkGameplayStatics::SetReflectionsOrder: Invalid reflection order value (%d). Clamping between 0 and 4."), Order);
 		Order = FMath::Clamp(Order, 0, 4);
-		UE_LOG(LogAkAudio, Warning, TEXT("UAkGameplayStatics::SetReflectionsOrder: The order value is invalid. It was clamped to %d"), Order);
 	}
 
 	FAkAudioDevice* AudioDevice = FAkAudioDevice::Get();
@@ -482,18 +377,70 @@ void UAkGameplayStatics::SetReflectionsOrder(int Order, bool RefreshPaths)
 	}
 }
 
+void UAkGameplayStatics::SetDiffractionOrder(int InDiffractionOrder, bool bInUpdatePaths)
+{
+	if (InDiffractionOrder < 0)
+	{
+		UE_LOG(LogAkAudio, Warning, TEXT("UAkGameplayStatics::SetDiffractionOrder: Invalid diffraction order value (%d). Clamping to 0."), InDiffractionOrder);
+		InDiffractionOrder = 0;
+	}
+
+	auto* SpatialAudio = IWwiseSpatialAudioAPI::Get();
+	if (UNLIKELY(!SpatialAudio)) return;
+	SpatialAudio->SetDiffractionOrder(InDiffractionOrder, bInUpdatePaths);
+}
+
+void UAkGameplayStatics::SetMaxEmitterRoomAuxSends(int InMaxEmitterRoomAuxSends)
+{
+	if (InMaxEmitterRoomAuxSends < 0)
+	{
+		UE_LOG(LogAkAudio, Warning, TEXT("UAkGameplayStatics::SetMaxEmitterRoomAuxSends: Invalid MaxEmitterRoomAuxSends value (%d). Clamping to 0."), InMaxEmitterRoomAuxSends);
+		InMaxEmitterRoomAuxSends = 0;
+	}
+
+	auto* SpatialAudio = IWwiseSpatialAudioAPI::Get();
+	if (UNLIKELY(!SpatialAudio)) return;
+	SpatialAudio->SetMaxEmitterRoomAuxSends(InMaxEmitterRoomAuxSends);
+}
+
+void UAkGameplayStatics::SetNumberOfPrimaryRays(int InNbPrimaryRays)
+{
+	if (InNbPrimaryRays < 0)
+	{
+		UE_LOG(LogAkAudio, Warning, TEXT("UAkGameplayStatics::SetNumberOfPrimaryRays: Invalid number of Primary Rays (%d). Clamping to 0."), InNbPrimaryRays);
+		InNbPrimaryRays = 0;
+	}
+
+	auto* SpatialAudio = IWwiseSpatialAudioAPI::Get();
+	if (UNLIKELY(!SpatialAudio)) return;
+	SpatialAudio->SetNumberOfPrimaryRays(InNbPrimaryRays);
+}
+
+void UAkGameplayStatics::SetLoadBalancingSpread(int InNbFrames)
+{
+	if (InNbFrames < 1)
+	{
+		UE_LOG(LogAkAudio, Warning, TEXT("UAkGameplayStatics::SetLoadBalancingSpread: Invalid number of frames (%d). Clamping to 1."), InNbFrames);
+		InNbFrames = 1;
+	}
+
+	auto* SpatialAudio = IWwiseSpatialAudioAPI::Get();
+	if (UNLIKELY(!SpatialAudio)) return;
+	SpatialAudio->SetLoadBalancingSpread(InNbFrames);
+}
+
 void UAkGameplayStatics::SetPortalObstructionAndOcclusion(UAkPortalComponent* PortalComponent, float ObstructionValue, float OcclusionValue)
 {
 	if (ObstructionValue > 1.f || ObstructionValue < 0.f)
 	{
+		UE_LOG(LogAkAudio, Warning, TEXT("UAkGameplayStatics::SetPortalObstructionAndOcclusion: Setting Portal %s to an invalid obstruction value (%.6g). Clamping between 0.0 and 1.0."), *PortalComponent->GetPortalName(), ObstructionValue);
 		ObstructionValue = FMath::Clamp(ObstructionValue, 0.f, 1.f);
-		UE_LOG(LogAkAudio, Warning, TEXT("UAkGameplayStatics::SetPortalObstructionAndOcclusion: The obstruction value is invalid. It was clamped to %f"), ObstructionValue);
 	}
 
 	if (OcclusionValue > 1.f || OcclusionValue < 0.f)
 	{
+		UE_LOG(LogAkAudio, Warning, TEXT("UAkGameplayStatics::SetPortalObstructionAndOcclusion: Setting Portal %s to an invalid occlusion value (%.6g). Clamping between 0.0 and 1.0."), *PortalComponent->GetPortalName(), OcclusionValue);
 		OcclusionValue = FMath::Clamp(OcclusionValue, 0.f, 1.f);
-		UE_LOG(LogAkAudio, Warning, TEXT("UAkGameplayStatics::SetPortalObstructionAndOcclusion: The occlusion value is invalid. It was clamped to %f"), OcclusionValue);
 	}
 
 	FAkAudioDevice* AudioDevice = FAkAudioDevice::Get();
@@ -507,8 +454,10 @@ void UAkGameplayStatics::SetGameObjectToPortalObstruction(UAkComponent* GameObje
 {
 	if (ObstructionValue > 1.f || ObstructionValue < 0.f)
 	{
+		FString gameObjectName;
+		GameObjectAkComponent->GetAkGameObjectName(gameObjectName);
+		UE_LOG(LogAkAudio, Warning, TEXT("UAkGameplayStatics::SetGameObjectToPortalObstruction: Setting an invalid obstruction value (%.6g) between Game Object %s and Portal %s. Clamping between 0.0 and 1.0."), ObstructionValue, *gameObjectName, *PortalComponent->GetPortalName());
 		ObstructionValue = FMath::Clamp(ObstructionValue, 0.f, 1.f);
-		UE_LOG(LogAkAudio, Warning, TEXT("UAkGameplayStatics::SetGameObjectToPortalObstruction: The obstruction value is invalid. It was clamped to %f"), ObstructionValue);
 	}
 
 	FAkAudioDevice* AudioDevice = FAkAudioDevice::Get();
@@ -522,8 +471,8 @@ void UAkGameplayStatics::SetPortalToPortalObstruction(UAkPortalComponent* Portal
 {
 	if (ObstructionValue > 1.f || ObstructionValue < 0.f)
 	{
+		UE_LOG(LogAkAudio, Warning, TEXT("UAkGameplayStatics::SetGameObjectToPortalObstruction: Setting an invalid obstruction value (%.6g) between Portals %s and %s. Clamping between 0.0 and 1.0."), ObstructionValue, *PortalComponent0->GetPortalName(), *PortalComponent1->GetPortalName());
 		ObstructionValue = FMath::Clamp(ObstructionValue, 0.f, 1.f);
-		UE_LOG(LogAkAudio, Warning, TEXT("UAkGameplayStatics::SetGameObjectToPortalObstruction: The obstruction value is invalid. It was clamped to %f"), ObstructionValue);
 	}
 
 	FAkAudioDevice* AudioDevice = FAkAudioDevice::Get();
@@ -598,7 +547,7 @@ void UAkGameplayStatics::AddOutput(const FAkOutputSettings& in_Settings, FAkOutp
 
 	AkOutputDeviceID outputDeviceID;
 	AKRESULT result = AK_Fail;
-	if (in_ListenerIDs.Num() > 0)
+	if (in_ListenerIDs.Num() == 0)
 	{
 		result = SoundEngine->AddOutput(OutSettings, &outputDeviceID);
 	}
@@ -687,10 +636,22 @@ void UAkGameplayStatics::SetOcclusionRefreshInterval(float RefreshInterval, clas
 		return;
 	}
 
+	if (RefreshInterval < 0)
+	{
+		UE_LOG(LogAkAudio, Warning, TEXT("UAkGameplayStatics::SetOcclusionRefreshInterval: Setting actor %s to an invalid RefreshInterval value (%.6g). Clamping to 0.0."), *Actor->GetName(), RefreshInterval);
+		RefreshInterval = 0;
+	}
+
 	UAkComponent* ComponentToSet = AudioDevice->GetAkComponent(Actor->GetRootComponent(), FName(), NULL, EAttachLocation::KeepRelativeOffset);
 	if (ComponentToSet != NULL)
 	{
 		ComponentToSet->OcclusionRefreshInterval = RefreshInterval;
+	}
+
+	UAkPortalComponent* PortalComponent = AkComponentHelpers::GetChildComponentOfType<UAkPortalComponent>(*Actor->GetRootComponent());
+	if(PortalComponent != NULL)
+	{
+		PortalComponent->ObstructionRefreshInterval = RefreshInterval;
 	}
 }
 	
@@ -789,11 +750,6 @@ void UAkGameplayStatics::ClearSoundBanksAndMedia()
 	AudioDevice->ClearSoundBanksAndMedia();
 }
 
-void UAkGameplayStatics::ClearBanks()
-{
-	ClearSoundBanksAndMedia();
-}
-
 void UAkGameplayStatics::LoadInitBank()
 {
 	auto* InitBankLoader = FWwiseInitBankLoader::Get();
@@ -816,28 +772,6 @@ void UAkGameplayStatics::UnloadInitBank()
 	}
 
 	InitBankLoader->UnloadInitBank();
-}
-
-void UAkGameplayStatics::LoadBankByName(const FString& BankName)
-{
-	FAkAudioDevice * AudioDevice = FAkAudioDevice::Get();
-	if (UNLIKELY(!AudioDevice))
-	{
-		return;
-	}
-	AkBankID BankId;
-	AudioDevice->LoadBank(BankName, BankId);
-}
-
-
-void UAkGameplayStatics::UnloadBankByName(const FString& BankName)
-{
-	FAkAudioDevice * AudioDevice = FAkAudioDevice::Get();
-	if (UNLIKELY(!AudioDevice))
-	{
-		return;
-	}
-	AudioDevice->UnloadBank(BankName);
 }
 
 void UAkGameplayStatics::StartOutputCapture(const FString& Filename)

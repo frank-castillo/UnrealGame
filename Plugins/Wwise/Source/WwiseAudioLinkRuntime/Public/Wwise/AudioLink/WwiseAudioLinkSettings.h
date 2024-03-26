@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -73,15 +73,15 @@ public:
 	UPROPERTY(Config, EditAnywhere, Category = "Wwise|AudioLink")
 	TSoftObjectPtr<UAkAudioEvent> StartEvent;
 
-	/** If this is set, the receiving code will clear the buffer after it's read, so it's not rendered by Unreal. Only applies if running both renderers at once.  */
+	/** When enabled, the receiving code clears the buffer after it is read, so it is not rendered by Unreal. Only applies if running both renderers simultaneously.  */
 	UPROPERTY(Config, EditAnywhere, Category = "Wwise|AudioLink")
 	bool bShouldClearBufferOnReceipt = true;
 
-	/** This is the ratio of producer to consumer buffer size, 2.0 means its twice as big as the consumer buffer.  */
+	/** The ratio of producer to consumer buffer size. A value of 2.0 means it is twice as big as the consumer buffer.  */
 	UPROPERTY(Config, EditAnywhere, Category = "Wwise|AudioLink")
 	float ProducerToConsumerBufferRatio = 2.0f;
 
-	/** Ratio of initial buffer to fill with silence ahead of consumption. This can resolve starvation at the cost of added latency. */
+	/** Ratio of the initial buffer to fill with silence before consumption. This can prevent starvation at the cost of additional latency. */
 	UPROPERTY(Config, EditAnywhere, Category = "Wwise|AudioLink")
 	float InitialSilenceFillRatio = 1.0f;
 

@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -30,5 +30,5 @@ struct AkAsyncFileOpenData
 	AkFileOpenCallback	pCallback;			///< Callback function used to notify the high-level device when Open is done
 	void*				pCookie;			///< Reserved. Pass this unchanged to the callback function. The I/O device uses this cookie to retrieve the owner of the transfer.
 	AkFileDesc*			pFileDesc;			///< File Descriptor to fill once the Open operation is complete. 
-	void*				pCustomData;		///< Convienience pointer for the IO hook implementer. Useful for additional data used in asynchronous implementations, for example.
+	void*				pCustomData;		///< Convenience pointer for the IO hook implementer. Useful for additional data used in asynchronous implementations, for example.
 };

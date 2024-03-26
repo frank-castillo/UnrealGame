@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -35,7 +35,7 @@ public:
 	/// \return AK_Success if the Init was successful, AK_Fail otherwise.
 	/// \sa
 	/// - \ref workingwithsdks_initialization
-	AKRESULT Init(
+	virtual AKRESULT Init(
 		AkMusicSettings* in_pSettings	///< Initialization settings (can be NULL, to use the default values)
 		) override;
 
@@ -43,7 +43,7 @@ public:
 	/// \sa
 	/// - \ref soundengine_integration_init_advanced
 	/// - AK::MusicEngine::Init()
-	void GetDefaultInitSettings(
+	virtual void GetDefaultInitSettings(
 		AkMusicSettings& out_settings	///< Returned default platform-independent music engine settings
 		) override;
 
@@ -51,12 +51,12 @@ public:
 	/// \warning This function must be called before calling Term() on the base sound engine.
 	/// \sa
 	/// - \ref workingwithsdks_termination
-	void Term(
+	virtual void Term(
 		) override;
 
 	/// Query information on the active segment of a music object that is playing. Use the playing ID 
 	/// that was returned from AK::SoundEngine::PostEvent(), provided that the event contained a play
-	/// action that was targetting a music object. For any configuration of interactive music hierarchy, 
+	/// action that was targeting a music object. For any configuration of interactive music hierarchy, 
 	/// there is only one segment that is active at a time. 
 	/// To be able to query segment information, you must pass the AK_EnableGetMusicPlayPosition flag 
 	/// to the AK::SoundEngine::PostEvent() method. This informs the sound engine that the source associated 
@@ -75,7 +75,7 @@ public:
 	/// \sa
 	/// - AK::SoundEngine::PostEvent
 	/// - AkSegmentInfo
-	AKRESULT GetPlayingSegmentInfo(
+	virtual AKRESULT GetPlayingSegmentInfo(
 		AkPlayingID		in_PlayingID,			///< Playing ID returned by AK::SoundEngine::PostEvent().
 		AkSegmentInfo& out_segmentInfo,		///< Structure containing information about the active segment of the music structure that is playing.
 		bool			in_bExtrapolate = true	///< Position is extrapolated based on time elapsed since last sound engine update.

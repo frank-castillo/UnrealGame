@@ -12,13 +12,13 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
 
 #include "AkAudioDevice.h"
-
+#include "WwiseUnrealDefines.h"
 
 class IAkUserEventCallbackPackage
 {
@@ -51,9 +51,11 @@ class FAkFunctionPtrEventCallbackPackage : public IAkUserEventCallbackPackage
 public:
 	FAkFunctionPtrEventCallbackPackage(AkCallbackFunc CbFunc, void* Cookie, uint32 Flags, uint32 in_Hash, bool in_HasExternalSources)
 		: IAkUserEventCallbackPackage(Flags, in_Hash, in_HasExternalSources)
-		, pfnUserCallback(CbFunc)
-		, pUserCookie(Cookie)
-	{}
+		  , pfnUserCallback(CbFunc)
+		  , pUserCookie(Cookie)
+		  , bShouldExecute(true)
+	{
+	}
 
 	virtual void HandleAction(AkCallbackType in_eType, AkCallbackInfo* in_pCallbackInfo) override;
 	virtual void CancelCallback() override;
@@ -65,6 +67,11 @@ private:
 	/** Copy of the user cookie, for use in our own callback */
 	void* pUserCookie;
 
+	/* Whether the callback should be executed, false if it has been cancelled. */
+	TAtomic<bool> bShouldExecute;
+
+	/* Prevent cancelling a callback while it is executing and vice-versa */
+	static FCriticalSection CancelLock;
 };
 
 class FAkBlueprintDelegateEventCallbackPackage : public IAkUserEventCallbackPackage
@@ -133,7 +140,7 @@ private:
 
 	FCriticalSection CriticalSection;
 
-	typedef AkGameObjectIdKeyFuncs<PackageSet, false> PackageSetGameObjectIDKeyFuncs;
+	typedef WwiseUnrealHelper::AkGameObjectIdKeyFuncs<PackageSet, false> PackageSetGameObjectIDKeyFuncs;
 	TMap<AkGameObjectID, PackageSet, FDefaultSetAllocator, PackageSetGameObjectIDKeyFuncs> GameObjectToPackagesMap;
 
 	// Used for quick lookup in cancel

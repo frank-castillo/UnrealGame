@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -24,13 +24,13 @@ Copyright (c) 2023 Audiokinetic Inc.
 #endif
 
 #include "WwiseDefines.h"
+#include "WwiseUnrealDefines.h"
 #if UE_5_1_OR_LATER
 #include "Engine/HitResult.h"
 #endif
 
 namespace AkSpatialAudioHelper
 {
-	AActor* GetActorFromHitResult(const FHitResult& HitResult);
 	bool IsAkSpatialAudioActorClass(const AActor* Actor);
 
 #if WITH_EDITOR

@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/API_Null/WwiseSoundEngineAPI_Null.h"
@@ -142,6 +142,15 @@ AKRESULT FWwiseSoundEngineAPI_Null::SetMaxNumVoicesLimit(
 	return AK_NotImplemented;
 }
 
+AKRESULT FWwiseSoundEngineAPI_Null::SetJobMgrMaxActiveWorkers( 
+	AkJobType in_jobType,
+	AkUInt32 in_uNewMaxActiveWorkers
+	)
+{
+	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_Null);
+	return AK_NotImplemented;
+}
+
 AKRESULT FWwiseSoundEngineAPI_Null::RenderAudio(
 	bool in_bAllowSyncRender
 )
@@ -176,6 +185,16 @@ AKRESULT FWwiseSoundEngineAPI_Null::RegisterPluginDLL(
 {
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_Null);
 	return AK_NotImplemented;
+}
+
+bool FWwiseSoundEngineAPI_Null::IsPluginRegistered(
+	AkPluginType in_eType,
+	AkUInt32 in_ulCompanyID,
+	AkUInt32 in_ulPluginID
+	)
+{
+	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_Null);
+	return false;
 }
 
 AKRESULT FWwiseSoundEngineAPI_Null::RegisterCodec(
@@ -874,8 +893,32 @@ AKRESULT FWwiseSoundEngineAPI_Null::LoadBankMemoryView(
 	AkUInt32			in_uInMemoryBankSize,
 	AkBankCallbackFunc  in_pfnBankCallback,
 	void* in_pCookie,
+	AkBankID& out_bankID
+)
+{
+	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_Null);
+	return AK_NotImplemented;
+}
+
+AKRESULT FWwiseSoundEngineAPI_Null::LoadBankMemoryView(
+	const void* in_pInMemoryBankPtr,
+	AkUInt32			in_uInMemoryBankSize,
+	AkBankCallbackFunc  in_pfnBankCallback,
+	void* in_pCookie,
 	AkBankID& out_bankID,
 	AkBankType& out_bankType
+)
+{
+	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_Null);
+	return AK_NotImplemented;
+}
+
+AKRESULT FWwiseSoundEngineAPI_Null::LoadBankMemoryCopy(
+	const void* in_pInMemoryBankPtr,
+	AkUInt32			in_uInMemoryBankSize,
+	AkBankCallbackFunc  in_pfnBankCallback,
+	void* in_pCookie,
+	AkBankID& out_bankID
 )
 {
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_Null);
@@ -1692,8 +1735,8 @@ AKRESULT FWwiseSoundEngineAPI_Null::SetObjectObstructionAndOcclusion(
 AKRESULT FWwiseSoundEngineAPI_Null::SetMultipleObstructionAndOcclusion(
 	AkGameObjectID in_EmitterID,
 	AkGameObjectID in_uListenerID,
-	AkObstructionOcclusionValues* in_fObstructionAndOcclusionValues,
-	AkUInt32 in_uNumObstructionAndOcclusion
+	AkObstructionOcclusionValues* in_fObstructionOcclusionValues,
+	AkUInt32 in_uNumOcclusionObstruction
 )
 {
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_Null);
@@ -1733,6 +1776,15 @@ AKRESULT FWwiseSoundEngineAPI_Null::StopOutputCapture()
 AKRESULT FWwiseSoundEngineAPI_Null::AddOutputCaptureMarker(
 	const char* in_MarkerText
 )
+{
+	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_Null);
+	return AK_NotImplemented;
+}
+
+AKRESULT FWwiseSoundEngineAPI_Null::AddOutputCaptureBinaryMarker(
+	void* in_pMarkerData,
+	AkUInt32 in_uMarkerDataSize
+	)
 {
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_Null);
 	return AK_NotImplemented;
@@ -1967,7 +2019,7 @@ AKRESULT FWwiseSoundEngineAPI_Null::FQuery::GetListeners(
 }
 
 AKRESULT FWwiseSoundEngineAPI_Null::FQuery::GetListenerPosition(
-	AkGameObjectID in_uIndex,
+	AkGameObjectID in_uListenerID,
 	AkListenerPosition& out_rPosition
 )
 {
@@ -1976,7 +2028,7 @@ AKRESULT FWwiseSoundEngineAPI_Null::FQuery::GetListenerPosition(
 }
 
 AKRESULT FWwiseSoundEngineAPI_Null::FQuery::GetListenerSpatialization(
-	AkUInt32 in_uIndex,
+	AkGameObjectID in_uListenerID,
 	bool& out_rbSpatialized,
 	AK::SpeakerVolumes::VectorPtr& out_pVolumeOffsets,
 	AkChannelConfig& out_channelConfig

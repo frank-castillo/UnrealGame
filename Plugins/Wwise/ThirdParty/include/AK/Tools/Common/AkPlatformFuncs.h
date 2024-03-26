@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 // AkPlatformFuncs.h
@@ -42,7 +42,7 @@ the specific language governing permissions and limitations under the License.
 #include <AK/Tools/Win32/AkPlatformFuncs.h>
 
 #elif defined (AK_XBOX)
-#include <AK/Tools/XboxOne/AkPlatformFuncs.h>
+#include <AK/Tools/XboxGC/AkPlatformFuncs.h>
 
 #elif defined (AK_APPLE)
 #include <AK/Tools/Mac/AkPlatformFuncs.h>
@@ -61,10 +61,6 @@ the specific language governing permissions and limitations under the License.
 #include <AK/Tools/Emscripten/AkPlatformFuncs.h>
 
 #elif defined (AK_LINUX)
-
-#ifdef AK_GGP
-#include <AK/Tools/GGP/AkPlatformFuncs.h>
-#endif
 #include <AK/Tools/Linux/AkPlatformFuncs.h>
 #include <AK/Tools/POSIX/AkPlatformFuncs.h>
 
@@ -114,43 +110,6 @@ the specific language governing permissions and limitations under the License.
 #define AK_THREAD_INIT_CODE(_threadProperties)
 #endif
 
-/// Utility functions
-namespace AK
-{
-	/// Count non-zero bits.
-	/// \return Number of channels.
-	AkForceInline AkUInt32 GetNumNonZeroBits( AkUInt32 in_uWord )
-	{
-		AkUInt32 num = 0;
-		while( in_uWord ){ ++num; in_uWord &= in_uWord-1; }
-		return num;
-	}
-
-	/// Computes the next power of two given a value.
-	/// \return next power of two.
-	AkForceInline AkUInt32 GetNextPowerOfTwo( AkUInt32 in_uValue )
-	{
-		in_uValue--;
-		in_uValue |= in_uValue >> 1;
-		in_uValue |= in_uValue >> 2;
-		in_uValue |= in_uValue >> 4;
-		in_uValue |= in_uValue >> 8;
-		in_uValue |= in_uValue >> 16;
-		in_uValue++;
-		return in_uValue;
-	}
-
-	AkForceInline AkUInt32 ROTL32( AkUInt32 x, AkUInt32 r )
-	{
-		return ( x << r ) | ( x >> ( 32 - r ) );
-	}
-
-	AkForceInline AkUInt64 ROTL64( AkUInt64 x, AkUInt64 r )
-	{
-		return ( x << r ) | ( x >> ( 64 - r ) );
-	}
-}
-
 /// Platform-dependent helpers
 namespace AKPLATFORM
 {
@@ -159,66 +118,8 @@ namespace AKPLATFORM
 		AkGetDefaultThreadProperties(out_threadProperties);
 		out_threadProperties.nPriority = AK_THREAD_PRIORITY_ABOVE_NORMAL;
 	}
-
-
-#if defined _MSC_VER && defined AK_CPU_X86_64
-	AkForceInline AkUInt32 AkBitScanForward64(unsigned long long in_bits)
-	{
-		unsigned long ret = 0;
-		_BitScanForward64(&ret, in_bits);
-		return ret;
-	}
-#elif __clang__ || defined __GNUG__
-	AkForceInline AkUInt32 AkBitScanForward64(AkUInt64 in_bits)
-	{
-		return __builtin_ctzll(in_bits);
-	}
-#else
-	AkForceInline AkUInt32 AkBitScanForward64(unsigned long long in_bits)
-	{
-		unsigned long ret = 0;
-		if (in_bits)
-		{
-			while ((in_bits & 1ULL) == 0)
-			{
-				in_bits >>= 1;
-				ret++;
-			}
-		}
-		return ret;
-	}
-#endif
-
-#if defined _MSC_VER
-	AkForceInline AkUInt32 AkBitScanForward(unsigned long in_bits)
-	{
-		unsigned long ret = 0;
-		_BitScanForward(&ret, in_bits);
-		return ret;
-	}
-
-#elif __clang__ || defined __GNUG__
-	AkForceInline AkUInt32 AkBitScanForward(AkUInt32 in_bits)
-	{
-		return __builtin_ctzl(in_bits);
-	}
-#else
-	AkForceInline AkUInt32 AkBitScanForward(unsigned long in_bits)
-	{
-		unsigned long ret = 0;
-		if (in_bits)
-		{
-			while ((in_bits & 1ULL) == 0)
-			{
-				in_bits >>= 1;
-				ret++;
-			}
-		}
-		return ret;
-	}
-#endif
-
-	// fallback implementation for when platform doesn't have its own implementation
+	
+	// fallback implementations for when platform don't have their own implementation
 #if !defined(AK_LIMITEDSPINFORZERO)
 	// Waits for a limited amount of time for in_pVal to hit zero (without yielding the thread)
 	inline void AkLimitedSpinForZero(AkAtomic32* in_pVal)
@@ -244,16 +145,64 @@ namespace AKPLATFORM
 			}
 		}
 	}
-#endif
+
+	// Waits for a limited amount of time for in_pVal to get atomically shift from the expected value to the proposed one
+	// returns true if acquisition succeeded
+	inline bool AkLimitedSpinToAcquire(AkAtomic32* in_pVal, AkInt32 in_proposed, AkInt32 in_expected)
+	{
+		if (AkAtomicCas32(in_pVal, in_proposed, in_expected))
+		{
+			return true;
+		}
+
+		// Cas failed, start the slower evaluation
+		AkInt64 endSpinTime = 0;
+		AkInt64 currentTime = 0;
+		PerformanceCounter(&endSpinTime);
+		endSpinTime += AkInt64(AK::g_fFreqRatio * 0.01); // only spin for about 10us
+		while (true)
+		{
+			// attempt cas to acquire and if successful, skip out
+			if (AkAtomicCas32(in_pVal, in_proposed, in_expected))
+			{
+				return true;
+			}
+			AkSpinHint();
+
+			// Check if we've hit the deadline for the timeout
+			PerformanceCounter(&currentTime);
+			if (currentTime > endSpinTime)
+			{
+				return false;
+			}
+		}
+	}
+#endif // !defined(AK_LIMITEDSPINFORZERO)
 
 	inline void AkSpinWaitForZero(AkAtomic32* in_pVal)
 	{
+		if (AkAtomicLoad32(in_pVal) == 0)
+		{
+			return;
+		}
+
 		// do a limited spin on-the-spot until in_pVal hits zero
 		AkLimitedSpinForZero(in_pVal);
 
 		// if in_pVal is still non-zero, then the other thread is either blocked or waiting for us.  Yield for real.
 		while (AkAtomicLoad32(in_pVal))
 			AkThreadYield();
+	}
+
+	// Waits for a limited amount of time for in_pVal to get atomically shift from 0 to 1
+	inline void AkSpinToAcquire(AkAtomic32* in_pVal, AkInt32 in_proposed, AkInt32 in_expected)
+	{
+		// do a limited spin on-the-spot until in_pVal can successfully hit 1
+		// or if it fails, then the other thread is either blocked or waiting for us.  Yield for real.
+		while (!AkLimitedSpinToAcquire(in_pVal, in_proposed, in_expected))
+		{
+			AkThreadYield();
+		}
 	}
 }
 

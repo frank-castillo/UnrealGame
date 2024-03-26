@@ -12,12 +12,13 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/WwiseFileHandlerBase.h"
 #include "Wwise/WwiseIOHook.h"
 #include "Wwise/WwiseStreamableFileStateInfo.h"
+#include "Wwise/WwiseTask.h"
 
 #include "Wwise/Stats/FileHandler.h"
 #include "Wwise/Stats/AsyncStats.h"
@@ -27,7 +28,8 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include <inttypes.h>
 
 
-FWwiseFileHandlerBase::FWwiseFileHandlerBase()
+FWwiseFileHandlerBase::FWwiseFileHandlerBase() :
+	FileHandlerExecutionQueue(WWISE_EQ_NAME("FWwiseFileHandler"), EWwiseTaskPriority::High)
 {
 }
 
@@ -74,9 +76,8 @@ void FWwiseFileHandlerBase::OpenStreaming(AkAsyncFileOpenData* io_pOpenData)
 			else
 			{
 				UE_LOG(LogWwiseFileHandler, VeryVerbose, TEXT("Failed opening %" PRIu32 " for streaming. Doing callback later."), io_pOpenData->fileID);
-				FFunctionGraphTask::CreateAndDispatchWhenReady([io_pOpenData, Result]
+				LaunchWwiseTask(WWISEFILEHANDLER_ASYNC_NAME("FWwiseFileHandlerBase::OpenStreaming Failure Async"), [io_pOpenData, Result]
 				{
-					SCOPED_WWISEFILEHANDLER_EVENT_3(TEXT("FWwiseFileHandlerBase::OpenStreaming Failure Async"));
 					io_pOpenData->pCallback(io_pOpenData, Result);
 				});
 			}
@@ -120,7 +121,7 @@ void FWwiseFileHandlerBase::CloseStreaming(uint32 InShortId, FWwiseFileState& In
 void FWwiseFileHandlerBase::IncrementFileStateUseAsync(uint32 InShortId, EWwiseFileStateOperationOrigin InOperationOrigin,
 	FCreateStateFunction&& InCreate, FIncrementStateCallback&& InCallback)
 {
-	FileHandlerExecutionQueue.Async([this, InShortId, InOperationOrigin, InCreate = MoveTemp(InCreate), InCallback = MoveTemp(InCallback)]() mutable
+	FileHandlerExecutionQueue.Async(WWISEFILEHANDLER_ASYNC_NAME("FWwiseFileHandlerBase::IncrementFileStateUseAsync"), [this, InShortId, InOperationOrigin, InCreate = MoveTemp(InCreate), InCallback = MoveTemp(InCallback)]() mutable
 	{
 		IncrementFileStateUse(InShortId, InOperationOrigin, MoveTemp(InCreate), MoveTemp(InCallback));
 	});
@@ -128,7 +129,7 @@ void FWwiseFileHandlerBase::IncrementFileStateUseAsync(uint32 InShortId, EWwiseF
 
 void FWwiseFileHandlerBase::DecrementFileStateUseAsync(uint32 InShortId, FWwiseFileState* InFileState, EWwiseFileStateOperationOrigin InOperationOrigin, FDecrementStateCallback&& InCallback)
 {
-	FileHandlerExecutionQueue.Async([this, InShortId, InFileState, InOperationOrigin, InCallback = MoveTemp(InCallback)]() mutable
+	FileHandlerExecutionQueue.Async(WWISEFILEHANDLER_ASYNC_NAME("FWwiseFileHandlerBase::DecrementFileStateUseAsync"), [this, InShortId, InFileState, InOperationOrigin, InCallback = MoveTemp(InCallback)]() mutable
 	{
 		DecrementFileStateUse(InShortId, InFileState, InOperationOrigin, MoveTemp(InCallback));
 	});
@@ -155,8 +156,8 @@ void FWwiseFileHandlerBase::IncrementFileStateUse(uint32 InShortId, EWwiseFileSt
 		}
 		else
 		{
-			UE_LOG(LogWwiseFileHandler, VeryVerbose, TEXT("Creating new State for %s %" PRIu32), GetManagingTypeName(), InShortId);
 			State = InCreate();
+			UE_LOG(LogWwiseFileHandler, VeryVerbose, TEXT("Created new State for %s %" PRIu32 " [%p]"), GetManagingTypeName(), InShortId, State.Get());
 			if (LIKELY(State.IsValid()))
 			{
 				FileStatesById.Add(InShortId, State);
@@ -173,16 +174,9 @@ void FWwiseFileHandlerBase::IncrementFileStateUse(uint32 InShortId, EWwiseFileSt
 	else
 	{
 		UE_LOG(LogWwiseFileHandler, VeryVerbose, TEXT("Incrementing State for %s %" PRIu32), GetManagingTypeName(), InShortId);
-		State->IncrementCountAsync(InOperationOrigin, [this, InOperationOrigin, State, InCallback = MoveTemp(InCallback)](bool bInResult)
+		State->IncrementCountAsync(InOperationOrigin, [this, InOperationOrigin, State, InCallback = MoveTemp(InCallback)](bool bInResult) mutable
 		{
-			if (UNLIKELY(!bInResult) && LIKELY(State))
-			{
-				// This returns the callback before Decrement is actually fully processed
-				DecrementFileStateUse(State->GetShortId(), State.Get(), InOperationOrigin, []{});
-			}
-
-			SCOPED_WWISEFILEHANDLER_EVENT_4(TEXT("FWwiseFileHandlerBase::IncrementFileStateUse Callback"));
-			InCallback(State, bInResult);
+			OnIncrementCountAsyncDone(bInResult, InOperationOrigin, State, MoveTemp(InCallback));
 		});
 	}
 }
@@ -213,7 +207,7 @@ void FWwiseFileHandlerBase::DecrementFileStateUse(uint32 InShortId, FWwiseFileSt
 	InFileState->DecrementCountAsync(InOperationOrigin, [this, InShortId, InFileState, InOperationOrigin](FDecrementStateCallback&& InCallback) mutable
 	{
 		// File state deletion request
-		FileHandlerExecutionQueue.Async([this, InShortId, InFileState, InOperationOrigin, InCallback = MoveTemp(InCallback)]() mutable
+		FileHandlerExecutionQueue.Async(WWISEFILEHANDLER_ASYNC_NAME("FWwiseFileHandlerBase::DecrementFileStateUse delete"), [this, InShortId, InFileState, InOperationOrigin, InCallback = MoveTemp(InCallback)]() mutable
 		{
 			OnDeleteState(InShortId, *InFileState, InOperationOrigin, MoveTemp(InCallback));
 		});
@@ -224,22 +218,47 @@ void FWwiseFileHandlerBase::OnDeleteState(uint32 InShortId, FWwiseFileState& InF
 {
 	SCOPED_WWISEFILEHANDLER_EVENT_F_3(TEXT("FWwiseFileHandlerBase::OnDeleteState %s"), GetManagingTypeName());
 	{
-		FRWScopeLock StateLock(FileStatesByIdLock, FRWScopeLockType::SLT_Write);
-		if (!InFileState.CanDelete())
-		{
-			UE_LOG(LogWwiseFileHandler, Verbose, TEXT("OnDeleteState %s %" PRIu32 ": Cannot delete State. Probably re-loaded between deletion request and now."),
-				GetManagingTypeName(), InShortId);
-		}
-		else
-		{
-			UE_LOG(LogWwiseFileHandler, Verbose, TEXT("OnDeleteState %s %" PRIu32 ": Deleting."), GetManagingTypeName(), InShortId);
-			const auto RemovalCount = FileStatesById.Remove(InShortId);		// WARNING: This will very probably delete InFileState reference. Do not use the File State from that point!
+		FWwiseFileStateSharedPtr DeletingState;
 
-			UE_CLOG(RemovalCount != 1, LogWwiseFileHandler, Error, TEXT("Removing a state for %s %" PRIu32 ", ended up deleting %" PRIi32 " states."),
-				GetManagingTypeName(), InShortId, RemovalCount);
+		{
+			FRWScopeLock StateLock(FileStatesByIdLock, FRWScopeLockType::SLT_Write);
+			if (!InFileState.CanDelete())
+			{
+				UE_LOG(LogWwiseFileHandler, Verbose, TEXT("OnDeleteState %s %" PRIu32 " [%p]: Cannot delete State. Probably re-loaded between deletion request and now."),
+					GetManagingTypeName(), InShortId, &InFileState);
+			}
+			else
+			{
+				UE_LOG(LogWwiseFileHandler, VeryVerbose, TEXT("OnDeleteState %s %" PRIu32 " [%p]: Deleting."), GetManagingTypeName(), InShortId, &InFileState);
+				DeletingState = FileStatesById[InShortId];		// Will delete at the end of the scope, out of lock's harm way
+				const auto RemovalCount = FileStatesById.Remove(InShortId);
+
+				UE_CLOG(RemovalCount != 1, LogWwiseFileHandler, Error, TEXT("Removing a state for %s %" PRIu32 ", ended up deleting %" PRIi32 " states."),
+					GetManagingTypeName(), InShortId, RemovalCount);
+			}
 		}
+
+		// State will be deleted here (if required)
 	}
 
 	SCOPED_WWISEFILEHANDLER_EVENT_F_4(TEXT("FWwiseFileHandlerBase::OnDeleteState %s Callback"), GetManagingTypeName());
 	InCallback();
+}
+
+void FWwiseFileHandlerBase::OnIncrementCountAsyncDone(bool bInResult, EWwiseFileStateOperationOrigin InOperationOrigin,
+	FWwiseFileStateSharedPtr State, FIncrementStateCallback&& InCallback)
+{
+	if (UNLIKELY(!bInResult) && LIKELY(State))
+	{
+		DecrementFileStateUse(State->GetShortId(), State.Get(), InOperationOrigin, [State, Callback = MoveTemp(InCallback)]()
+		{
+			SCOPED_WWISEFILEHANDLER_EVENT_4(TEXT("FWwiseFileHandlerBase::IncrementFileStateUse Callback Fail"));
+			Callback(State, false);
+		});
+	}
+	else
+	{
+		SCOPED_WWISEFILEHANDLER_EVENT_4(TEXT("FWwiseFileHandlerBase::IncrementFileStateUse Callback"));
+		InCallback(State, bInResult);
+	}
 }

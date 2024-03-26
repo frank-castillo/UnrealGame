@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -32,7 +32,7 @@ public:
 	///			In optimized mode, this function returns AK_NotCompatible.
 	/// \remark This function is provided as a tracking tool only. It does nothing if it is 
 	///			called in the optimized/release configuration and return AK_NotCompatible.
-	AKRESULT PostCode(
+	virtual AKRESULT PostCode(
 		AK::Monitor::ErrorCode in_eError,		///< Message or error code to be displayed
 		AK::Monitor::ErrorLevel in_eErrorLevel,	///< Specifies whether it should be displayed as a message or an error
 		AkPlayingID in_playingID = AK_INVALID_PLAYING_ID,   ///< Related Playing ID if applicable
@@ -41,7 +41,7 @@ public:
 		bool in_bIsBus = false		///< true if in_audioNodeID is a bus
 		) override;
 
-	AKRESULT PostCodeVarArg(
+	virtual AKRESULT PostCodeVarArg(
 		AK::Monitor::ErrorCode in_eError,		///< Error code to be displayed. This code corresponds to a predefined message, that may have parameters that can be passed in the variable arguments. Check the message format at the end of AkMonitorError.h.
 		AK::Monitor::ErrorLevel in_eErrorLevel,	///< Specifies whether it should be displayed as a message or an error
 		AK::Monitor::MsgContext msgContext,		///< The message context containing the following information : Related Playing ID if applicable, Related Game Object ID if applicable, AK_INVALID_GAME_OBJECT otherwise,  Related Audio Node ID if applicable, AK_INVALID_UNIQUE_ID otherwise and whether if in_audioNodeID is a bus
@@ -53,7 +53,7 @@ public:
 	///			In optimized mode, this function returns AK_NotCompatible.
 	/// \remark This function is provided as a tracking tool only. It does nothing if it is 
 	///			called in the optimized/release configuration and return AK_NotCompatible.
-	AKRESULT PostCodeVaList(
+	virtual AKRESULT PostCodeVaList(
 		AK::Monitor::ErrorCode in_eError,		///< Error code to be displayed. This code corresponds to a predefined message, that may have parameters that can be passed in the variable arguments. Check the message format at the end of AkMonitorError.h.
 		AK::Monitor::ErrorLevel in_eErrorLevel,	///< Specifies whether it should be displayed as a message or an error
 		AK::Monitor::MsgContext msgContext,		///< The message context containing the following information : Related Playing ID if applicable, Related Game Object ID if applicable, AK_INVALID_GAME_OBJECT otherwise,  Related Audio Node ID if applicable, AK_INVALID_UNIQUE_ID otherwise and whether if in_audioNodeID is a bus
@@ -67,7 +67,7 @@ public:
 	///			In optimized mode, this function returns AK_NotCompatible.
 	/// \remark This function is provided as a tracking tool only. It does nothing if it is 
 	///			called in the optimized/release configuration and return AK_NotCompatible.
-	AKRESULT PostString(
+	virtual AKRESULT PostString(
 		const wchar_t* in_pszError,	///< Message or error string to be displayed
 		AK::Monitor::ErrorLevel in_eErrorLevel,	///< Specifies whether it should be displayed as a message or an error
 		AkPlayingID in_playingID = AK_INVALID_PLAYING_ID,   ///< Related Playing ID if applicable
@@ -84,7 +84,7 @@ public:
 	///			In optimized mode, this function returns AK_NotCompatible.
 	/// \remark This function is provided as a tracking tool only. It does nothing if it is 
 	///			called in the optimized/release configuration and return AK_NotCompatible.
-	AKRESULT PostString(
+	virtual AKRESULT PostString(
 		const char* in_pszError,	///< Message or error string to be displayed
 		AK::Monitor::ErrorLevel in_eErrorLevel,	///< Specifies whether it should be displayed as a message or an error
 		AkPlayingID in_playingID = AK_INVALID_PLAYING_ID,   ///< Related Playing ID if applicable
@@ -97,17 +97,17 @@ public:
 	/// or any combination of ErrorLevel_Message and ErrorLevel_Error to enable. 
 	/// \return AK_Success.
 	///			In optimized/release configuration, this function returns AK_NotCompatible.
-	AKRESULT SetLocalOutput(
+	virtual AKRESULT SetLocalOutput(
 		AkUInt32 in_uErrorLevel = AK::Monitor::ErrorLevel_All, ///< ErrorLevel(s) to enable in output. Default parameters enable all.
 		AK::Monitor::LocalOutputFunc in_pMonitorFunc = 0 	  ///< Handler for local output. If NULL, the standard platform debug output method is used.
 		) override;
 
 	/// Add a translator to the wwiseErrorHandler
 	/// The additional translators increase the chance of a monitoring messages or errors
-	/// to be succeffully translated.
+	/// to be successfully translated.
 	/// \return AK_Success.
 	///	In optimized/release configuration, this function returns AK_NotCompatible.
-	AKRESULT AddTranslator(
+	virtual AKRESULT AddTranslator(
 		AkErrorMessageTranslator* translator,	///< The AkErrorMessageTranslator to add to the WwiseErrorHandler
 		bool overridePreviousTranslators = false		///< Whether or not the newly added translator should override all the previous translators. 
 														///< In both cases, the default translator will remain
@@ -116,16 +116,16 @@ public:
 	/// Reset the wwiseErrorHandler to only using the default translator
 	/// \return AK_Success.
 	///	In optimized/release configuration, this function returns AK_NotCompatible.
-	AKRESULT ResetTranslator(
+	virtual AKRESULT ResetTranslator(
 		) override;
 
 	/// Get the time stamp shown in the capture log along with monitoring messages.
 	/// \return Time stamp in milliseconds.
 	///			In optimized/release configuration, this function returns 0.
-	AkTimeMs GetTimeStamp() override;
+	virtual AkTimeMs GetTimeStamp() override;
 
 	/// Add the streaming manager settings to the profiler capture.
-	void MonitorStreamMgrInit(
+	virtual void MonitorStreamMgrInit(
 		const AkStreamMgrSettings& in_streamMgrSettings
 		) override;
 
@@ -135,14 +135,14 @@ public:
 	/// 
 	/// \remark \c AK::Monitor::MonitorStreamMgrTerm must be called to
 	///			clean-up memory	used to keep track of active streaming devices.
-	void MonitorStreamingDeviceInit(
+	virtual void MonitorStreamingDeviceInit(
 		AkDeviceID in_deviceID,
 		const AkDeviceSettings& in_deviceSettings
 		) override;
 
 	/// Remove streaming device entry from the list of devices
 	/// to send when remote connecting from Wwise.
-	void MonitorStreamingDeviceDestroyed(
+	virtual void MonitorStreamingDeviceDestroyed(
 		AkDeviceID in_deviceID
 		) override;
 
@@ -152,17 +152,17 @@ public:
 	/// \remark This function must be called to clean-up memory	used by
 	///			\c AK::Monitor::MonitorStreamingDeviceInit and \c AK::Monitor::MonitorStreamingDeviceTerm
 	/// 		to keep track of active streaming devices.
-	void MonitorStreamMgrTerm() override;
+	virtual void MonitorStreamMgrTerm() override;
 
 	/// Add the default, WwiseSDK-provided WAAPI error translator.
-	void SetupDefaultWAAPIErrorTranslator(
+	virtual void SetupDefaultWAAPIErrorTranslator(
 		const FString& WaapiIP, ///< IP Address of the WAAPI server
 		AkUInt32 WaapiPort, ///< Port of the WAAPI server
 		AkUInt32 Timeout ///< Maximum time that can be spent resolving the error parameters. Set to INT_MAX to wait infinitely or 0 to disable XML translation entirely.
 		) override;
 
 	/// Terminate the default, WwiseSDK-provided WAAPI error translator.
-	void TerminateDefaultWAAPIErrorTranslator() override;
+	virtual void TerminateDefaultWAAPIErrorTranslator() override;
 private:
 #if AK_SUPPORT_WAAPI && WITH_EDITORONLY_DATA && !defined(AK_OPTIMIZED)
 	static AkWAAPIErrorMessageTranslator WaapiErrorMessageTranslator;

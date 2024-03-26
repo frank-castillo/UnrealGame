@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 /*=============================================================================
@@ -78,12 +78,11 @@ Super(ObjectInitializer)
 
 int32 UAkGameObject::PostAssociatedAkEvent(int32 CallbackMask, const FOnAkPostEventCallback& PostEventCallback)
 {
-	return PostAkEvent(AkAudioEvent, CallbackMask, PostEventCallback, EventName);
+	return PostAkEvent(AkAudioEvent, CallbackMask, PostEventCallback);
 }
 
 int32 UAkGameObject::PostAkEvent(UAkAudioEvent* AkEvent, int32 CallbackMask,
-	const FOnAkPostEventCallback& PostEventCallback,
-	const FString& InEventName
+	const FOnAkPostEventCallback& PostEventCallback
 )
 {
 	if (LIKELY(IsValid(AkEvent)))
@@ -96,7 +95,7 @@ int32 UAkGameObject::PostAkEvent(UAkAudioEvent* AkEvent, int32 CallbackMask,
 	auto AudioDevice = FAkAudioDevice::Get();
 	if (AudioDevice)
 	{
-		playingID = AudioDevice->PostEventOnAkGameObject(AudioDevice->GetShortID(AkEvent, InEventName), this, PostEventCallback, CallbackMask, {});
+		AkEvent->PostOnGameObject(this, PostEventCallback, CallbackMask);
 	}
 	
 	return playingID;
@@ -113,24 +112,6 @@ AkPlayingID UAkGameObject::PostAkEvent(UAkAudioEvent* AkEvent, AkUInt32 Flags, A
 	return AkEvent->PostOnGameObject(this, nullptr, UserCallback, UserCookie, static_cast<AkCallbackType>(Flags), nullptr);
 }
 
-AkPlayingID UAkGameObject::PostAkEventByNameWithDelegate(class UAkAudioEvent * AkEvent, const FString& InEventName, int32 CallbackMask, const FOnAkPostEventCallback& PostEventCallback)
-{
-	if (AkEvent)
-	{
-		return AkEvent->PostOnGameObject(this, &PostEventCallback, nullptr, nullptr, (AkCallbackType)CallbackMask, nullptr);
-	}
-
-	AkPlayingID playingID = AK_INVALID_PLAYING_ID;
-
-	auto AudioDevice = FAkAudioDevice::Get();
-	if (AudioDevice)
-	{
-		playingID = AudioDevice->PostEventOnAkGameObject(AudioDevice->GetShortID(AkEvent, InEventName), this, PostEventCallback, CallbackMask, {});
-	}
-	
-	return playingID;
-}
-
 void UAkGameObject::PostAssociatedAkEventAsync(const UObject* WorldContextObject, int32 CallbackMask, const FOnAkPostEventCallback& PostEventCallback, FLatentActionInfo LatentInfo, int32& PlayingID)
 {
 	AkDeviceAndWorld DeviceAndWorld(WorldContextObject);
@@ -139,7 +120,7 @@ void UAkGameObject::PostAssociatedAkEventAsync(const UObject* WorldContextObject
 	if (!NewAction)
 	{
 		NewAction = new FPostAssociatedEventAction(LatentInfo, &PlayingID, AkAudioEvent, &bEventPosted);
-		NewAction->FuturePlayingID = DeviceAndWorld.AkAudioDevice->PostAkAudioEventOnAkGameObjectAsync(AkAudioEvent, this, PostEventCallback, CallbackMask);
+		AkAudioEvent->PostOnGameObject(this, PostEventCallback, CallbackMask);
 		LatentActionManager.AddNewAction(LatentInfo.CallbackTarget, LatentInfo.UUID, NewAction);
 	}
 }
@@ -158,26 +139,7 @@ void UAkGameObject::PostAkEventAsync(const UObject* WorldContextObject,
 	if (!NewAction)
 	{
 		NewAction = new FPostAssociatedEventAction(LatentInfo, &PlayingID, AkEvent, &bEventPosted);
-		NewAction->FuturePlayingID = DeviceAndWorld.AkAudioDevice->PostAkAudioEventOnAkGameObjectAsync(AkEvent, this, PostEventCallback, CallbackMask);
-		LatentActionManager.AddNewAction(LatentInfo.CallbackTarget, LatentInfo.UUID, NewAction);
-	}
-}
-
-void UAkGameObject::PostAkEventAsyncByEvent(const UObject* WorldContextObject,
-	class UAkAudioEvent* AkEvent,
-	int32 CallbackMask,
-	const FOnAkPostEventCallback& PostEventCallback,
-	FLatentActionInfo LatentInfo,
-	int32& PlayingID
-)
-{
-	AkDeviceAndWorld DeviceAndWorld(WorldContextObject);
-	FLatentActionManager& LatentActionManager = DeviceAndWorld.CurrentWorld->GetLatentActionManager();
-	FPostAssociatedEventAction* NewAction = LatentActionManager.FindExistingAction<FPostAssociatedEventAction>(LatentInfo.CallbackTarget, LatentInfo.UUID);
-	if (!NewAction)
-	{
-		NewAction = new FPostAssociatedEventAction(LatentInfo, &PlayingID, AkEvent, &bEventPosted);
-		NewAction->FuturePlayingID = DeviceAndWorld.AkAudioDevice->PostAkAudioEventOnAkGameObjectAsync(AkEvent, this, PostEventCallback, CallbackMask);
+		AkEvent->PostOnGameObject(this, PostEventCallback, CallbackMask);
 		LatentActionManager.AddNewAction(LatentInfo.CallbackTarget, LatentInfo.UUID, NewAction);
 	}
 }
@@ -187,15 +149,24 @@ void UAkGameObject::SetRTPCValue(const UAkRtpc* RTPCValue, float Value, int32 In
 	if (FAkAudioDevice::Get())
 	{
 		auto* SoundEngine = IWwiseSoundEngineAPI::Get();
-		if (UNLIKELY(!SoundEngine)) return;
+		if (UNLIKELY(!SoundEngine))
+		{
+			return;
+		}
+
+		auto GameObjectID = GetAkGameObjectID();
+		if (UNLIKELY(GameObjectID == AK_INVALID_GAME_OBJECT || GameObjectID == 0))
+		{
+			return;
+		}
 
 		if (RTPCValue)
 		{
-			SoundEngine->SetRTPCValue(RTPCValue->GetShortID(), Value, GetAkGameObjectID(), InterpolationTimeMs);
+			SoundEngine->SetRTPCValue(RTPCValue->GetShortID(), Value, GameObjectID, InterpolationTimeMs);
 		}
 		else
 		{
-			SoundEngine->SetRTPCValue(TCHAR_TO_AK(*RTPC), Value, GetAkGameObjectID(), InterpolationTimeMs);
+			SoundEngine->SetRTPCValue(TCHAR_TO_AK(*RTPC), Value, GameObjectID, InterpolationTimeMs);
 		}
 	}
 }
@@ -220,11 +191,6 @@ void UAkGameObject::GetRTPCValue(const UAkRtpc* RTPCValue, ERTPCValueType InputV
 
 		OutputValueType = (ERTPCValueType)RTPCType;
 	}
-}
-
-void UAkGameObject::GetRTPCValue(FString RTPC, int32 PlayingID, ERTPCValueType InputValueType, float& Value, ERTPCValueType& OutputValueType) const
-{
-	GetRTPCValue(nullptr, InputValueType, Value, OutputValueType, RTPC, PlayingID);
 }
 
 bool UAkGameObject::VerifyEventName(const FString& InEventName) const

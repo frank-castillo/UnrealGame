@@ -1,11 +1,11 @@
 {
 	"FileVersion": 1,
 	"FriendlyName": "Wwise Unreal Engine Integration",
-	"Version": 202212748,
-	"VersionName": "2022.1.6.8263.2748",
+	"Version": 202312933,
+	"VersionName": "2023.1.2.8444.2933",
 	"CreatedBy": "Audiokinetic, Inc.",
 	"CreatedByURL": "http://audiokinetic.com",
-	"EngineVersion": "5.1.0",
+	"EngineVersion": "5.3.0",
 	"Description": "Wwise integration for Unreal Engine",
 	"Category": "Audio",
 	"EnabledByDefault": true,
@@ -36,7 +36,27 @@
 			"LoadingPhase": "None"
 		},
 		{
+			"Name": "WwiseEngineUtils",
+			"Type": "Runtime",
+			"LoadingPhase": "None"
+		},
+		{
 			"Name": "WwiseFileHandler",
+			"Type": "Runtime",
+			"LoadingPhase": "None"
+		},
+		{
+			"Name": "WwiseObjectUtils",
+			"Type": "Runtime",
+			"LoadingPhase": "None"
+		},
+		{
+			"Name": "WwiseObstructionOcclusion",
+			"Type": "Runtime",
+			"LoadingPhase": "None"
+		},
+		{
+			"Name": "WwiseProcessing",
 			"Type": "Runtime",
 			"LoadingPhase": "None"
 		},
@@ -67,6 +87,11 @@
 		},
 		{
 			"Name": "WwiseSimpleExternalSource",
+			"Type": "Runtime",
+			"LoadingPhase": "None"
+		},
+		{
+			"Name": "WwiseUtils",
 			"Type": "Runtime",
 			"LoadingPhase": "None"
 		}

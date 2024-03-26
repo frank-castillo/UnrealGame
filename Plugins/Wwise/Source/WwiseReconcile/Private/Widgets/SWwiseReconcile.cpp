@@ -12,12 +12,12 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Widgets/SWwiseReconcile.h"
 #include "AkAudioStyle.h"
-#include "AkUEFeatures.h"
+#include "WwiseUEFeatures.h"
 #include "ProjectedResultColumn.h"
 #include "ReconcileOperationColumn.h"
 #include "ReconcileUEAssetStatusColumn.h"
@@ -172,6 +172,6 @@ FReply SWwiseReconcile::CloseWindow()
 FReply SWwiseReconcile::ReconcileAssets()
 {
 	CloseWindow();
-	FWwiseReconcile::Get()->ReconcileAssets();
+	IWwiseReconcile::Get()->ReconcileAssets();
 	return FReply::Handled();
 }

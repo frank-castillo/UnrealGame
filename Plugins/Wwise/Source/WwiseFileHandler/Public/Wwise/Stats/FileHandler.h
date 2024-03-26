@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -69,3 +69,5 @@ WWISEFILEHANDLER_API DECLARE_LOG_CATEGORY_EXTERN(LogWwiseFileHandler, Log, All);
 #define SCOPED_WWISEFILEHANDLER_EVENT_F_2(Format, ...) SCOPED_WWISE_NAMED_EVENT_F_2(TEXT("WwiseFileHandler"), Format, __VA_ARGS__)
 #define SCOPED_WWISEFILEHANDLER_EVENT_F_3(Format, ...) SCOPED_WWISE_NAMED_EVENT_F_3(TEXT("WwiseFileHandler"), Format, __VA_ARGS__)
 #define SCOPED_WWISEFILEHANDLER_EVENT_F_4(Format, ...) SCOPED_WWISE_NAMED_EVENT_F_4(TEXT("WwiseFileHandler"), Format, __VA_ARGS__)
+
+#define WWISEFILEHANDLER_ASYNC_NAME(Text) TEXT("WwiseFileHandler ") TEXT(Text)

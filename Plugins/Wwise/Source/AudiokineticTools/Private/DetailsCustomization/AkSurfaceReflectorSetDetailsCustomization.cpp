@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "AkSurfaceReflectorSetDetailsCustomization.h"
@@ -105,7 +105,7 @@ void FAkSurfaceReflectorSetDetailsCustomization::OnRedrawViewports()
 	if (SelectedObjectModifiedThisFrame && DetailBuilder.IsValid())
 	{
 		// If there is any user interaction going on, we don't want to refresh the details panel.
-		// (This would interupt the interaction and make sliders unusable)
+		// (This would interrupt the interaction and make sliders unusable)
 		for (TWeakObjectPtr<UObject> UObjectPtr : ObjectsBeingCustomized)
 		{
 			if (UAkSurfaceReflectorSetComponent* reflectorSet = Cast<UAkSurfaceReflectorSetComponent>(UObjectPtr.Get()))
@@ -138,9 +138,8 @@ TSharedRef<IDetailCustomization> FAkSurfaceReflectorSetDetailsCustomization::Mak
 
 void FAkSurfaceReflectorSetDetailsCustomization::CustomizeDetails(const TSharedPtr<IDetailLayoutBuilder>& InDetailBuilder)
 {
-	InDetailBuilder->EditCategory("Toggle", FText::GetEmpty(), ECategoryPriority::Important);
-	InDetailBuilder->EditCategory("Geometry Settings", FText::GetEmpty(), ECategoryPriority::TypeSpecific);
-	InDetailBuilder->EditCategory("Fit To Geometry", FText::GetEmpty(), ECategoryPriority::TypeSpecific);
+	InDetailBuilder->EditCategory("EnableComponent", FText::GetEmpty(), ECategoryPriority::Important);
+	InDetailBuilder->EditCategory("SurfaceReflectorSet", FText::GetEmpty(), ECategoryPriority::TypeSpecific);
 	DetailBuilder = InDetailBuilder;
 
 	CustomizeDetails(*InDetailBuilder);
@@ -168,9 +167,9 @@ void FAkSurfaceReflectorSetDetailsCustomization::CustomizeDetails(IDetailLayoutB
 	}
 
 	if (!showGeometrySettings)
-		InDetailBuilder.HideCategory("Geometry Settings");
+		InDetailBuilder.HideCategory("SurfaceReflectorSet");
 
-	IDetailCategoryBuilder& CategoryBuilder = InDetailBuilder.EditCategory("Geometry Surfaces", FText::GetEmpty(), ECategoryPriority::TypeSpecific);
+	IDetailCategoryBuilder& CategoryBuilder = InDetailBuilder.EditCategory("Surface Properties", FText::GetEmpty(), ECategoryPriority::TypeSpecific);
 	FString enableEditSurfacesTooltip(FString("Enable ") + GEOMETRY_EDIT_DISPLAY_NAME + " and show only selected actors");
 	FString disableEditSurfacesTooltip(FString("Disable ") + GEOMETRY_EDIT_DISPLAY_NAME + " and show all actors");
 

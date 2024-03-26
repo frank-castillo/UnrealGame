@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/API_2022_1/WwiseCommAPI_2022_1.h"
@@ -24,22 +24,17 @@ AKRESULT FWwiseCommAPI_2022_1::Init(
 {
 	SCOPED_WWISESOUNDENGINE_EVENT(TEXT("FWwiseCommAPI_2022_1::Init"));
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
-#ifdef AK_OPTIMIZED
-	return AK_NotImplemented;
-#else
+#if AK_ENABLE_COMMUNICATION
 	return AK::Comm::Init(in_settings);
+#else
+	return AK_NotImplemented;
 #endif
 }
 
 AkInt32 FWwiseCommAPI_2022_1::GetLastError()
 {
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
-#ifdef AK_OPTIMIZED
 	return 0;
-#else
-	return 0;
-	//return AK::Comm::GetLastError();
-#endif
 }
 
 void FWwiseCommAPI_2022_1::GetDefaultInitSettings(
@@ -47,10 +42,10 @@ void FWwiseCommAPI_2022_1::GetDefaultInitSettings(
 )
 {
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
-#ifdef AK_OPTIMIZED
-	return;
-#else
+#if AK_ENABLE_COMMUNICATION
 	AK::Comm::GetDefaultInitSettings(out_settings);
+#else
+	return;
 #endif
 }
 
@@ -58,30 +53,36 @@ void FWwiseCommAPI_2022_1::Term()
 {
 	SCOPED_WWISESOUNDENGINE_EVENT(TEXT("FWwiseCommAPI_2022_1::Term"));
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
-#ifdef AK_OPTIMIZED
-	return;
-#else
+#if AK_ENABLE_COMMUNICATION
 	AK::Comm::Term();
+#else
+	return;
 #endif
 }
 
 AKRESULT FWwiseCommAPI_2022_1::Reset()
 {
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
-#ifdef AK_OPTIMIZED
-	return AK_NotImplemented;
-#else
+#if AK_ENABLE_COMMUNICATION
 	return AK::Comm::Reset();
+#else
+	return AK_NotImplemented;
 #endif
 }
 
 const AkCommSettings& FWwiseCommAPI_2022_1::GetCurrentSettings()
 {
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
-#ifdef AK_OPTIMIZED
+#if AK_ENABLE_COMMUNICATION
+	return AK::Comm::GetCurrentSettings();
+#else
 	static const AkCommSettings StaticSettings;
 	return StaticSettings;
-#else
-	return AK::Comm::GetCurrentSettings();
 #endif
+}
+
+AkUInt16 FWwiseCommAPI_2022_1::GetCommandPort()
+{
+	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
+	return 0;
 }

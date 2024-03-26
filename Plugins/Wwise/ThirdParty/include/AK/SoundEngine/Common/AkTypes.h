@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 // AkTypes.h
@@ -49,7 +49,6 @@ the specific language governing permissions and limitations under the License.
 	#endif
 #endif
 
-
 #ifndef AK_ALIGN
 #if defined(SWIG)
 #define AK_ALIGN( _declaration_, _alignment_ ) _declaration_
@@ -61,6 +60,8 @@ the specific language governing permissions and limitations under the License.
 #endif // _MSC_VER
 #endif // SWIG
 #endif // AK_ALIGN
+
+#define AK_ALIGN_TO_NEXT_BOUNDARY( __num__, __boundary__ ) (((__num__) + ((__boundary__)-1)) & ~((__boundary__)-1))
 
 #if !defined(AK_ENDIANNESS_LITTLE) && !defined(AK_ENDIANNESS_BIG)
 #define AK_ENDIANNESS_LITTLE
@@ -109,6 +110,25 @@ the specific language governing permissions and limitations under the License.
 #if !defined(AK_UNUSEDVAR)
 // use to mark variables as unused to avoid warnings
 #define AK_UNUSEDVAR(x)	((void)(x))	
+#endif
+
+#if defined(AK_SUPPORT_THREADS)
+#define AK_THREAD_LOCAL thread_local
+#else
+#define AK_THREAD_LOCAL
+#endif
+
+// Helper macro to disable optimizations in a specific file (or part of a file)
+// (no code using these macros should be checked in)
+#if defined(_MSC_VER)
+#define AK_DISABLE_OPTIMIZATIONS    __pragma(optimize("", off))
+#define AK_ENABLE_OPTIMIZATIONS     __pragma(optimize("", on))
+#elif defined(__clang__)
+#define AK_DISABLE_OPTIMIZATIONS    _Pragma("clang optimize off")
+#define AK_ENABLE_OPTIMIZATIONS     _Pragma("clang optimize on")
+#elif defined(__GNUC__)
+#define AK_DISABLE_OPTIMIZATIONS    _Pragma("GCC optimize (\"O0\")")
+#define AK_ENABLE_OPTIMIZATIONS     _Pragma("GCC optimize (\"O2\")")
 #endif
 
 typedef AkUInt32		AkUniqueID;			 		///< Unique 32-bit ID
@@ -180,7 +200,7 @@ static const AkPriority					AK_DEFAULT_BANK_IO_PRIORITY			= AK_DEFAULT_PRIORITY;
 static const AkReal32					AK_DEFAULT_BANK_THROUGHPUT			= 1*1024*1024/1000.f;	///<  Default bank load throughput (1 Mb/ms)
 
 // Bank version
-static const AkUInt32					AK_SOUNDBANK_VERSION =				145;					///<  Version of the soundbank reader
+static const AkUInt32					AK_SOUNDBANK_VERSION =				150;					///<  Version of the soundbank reader
 
 // Job types
 static const AkJobType                  AkJobType_Generic                   = 0;                    ///< Job type for general-purpose work
@@ -207,7 +227,7 @@ enum AKRESULT
 	AK_InvalidStateGroup		= 20,	///< The StateGroup is not a valid channel.
 	AK_ChildAlreadyHasAParent	= 21,	///< The child already has a parent.
 	AK_InvalidLanguage			= 22,	///< The language is invalid (applies to the Low-Level I/O).
-	AK_CannotAddItseflAsAChild	= 23,	///< It is not possible to add itself as its own child.
+	AK_CannotAddItselfAsAChild = 23,	///< It is not possible to add itself as its own child.
 	AK_InvalidParameter			= 31,	///< Something is not within bounds, check the documentation of the function returning this code.
 	AK_ElementAlreadyInList		= 35,	///< The item could not be added because it was already in the list.
 	AK_PathNotFound				= 36,	///< This path is not known.
@@ -264,6 +284,11 @@ enum AKRESULT
 	AK_NotInitialized			= 102,	///< The component being used is not initialized. Most likely AK::SoundEngine::Init() was not called yet, or AK::SoundEngine::Term was called too early.
 	AK_FilePermissionError		= 103,	///< The file access permissions prevent opening a file.
 	AK_UnknownFileError			= 104,	///< Rare file error occured, as opposed to AK_FileNotFound or AK_FilePermissionError. This lumps all unrecognized OS file system errors.
+	AK_TooManyConcurrentOperations = 105, ///< When using StdStream, file operations can be blocking or not. When not blocking, operations need to be synchronized externally properly. If not, this error occurs.
+	AK_InvalidFileSize			= 106,	///< The file requested was found and opened but is either 0 bytes long or not the expected size. This usually point toward a Low Level IO Hook implementation error.
+	AK_Deferred					= 107,	///< Returned by functions to indicate to the caller the that the operation is done asynchronously. Used by Low Level IO Hook implementations when async operation are suppored by the hardware.
+	AK_FilePathTooLong			= 108,	///< The combination of base path and file name exceeds maximum buffer lengths.
+	AK_InvalidState             = 109,  ///< This method should not be called when the object is in its current state.
 };
 
 /// Game sync group type
@@ -805,6 +830,7 @@ public:
 		, fSpread(0.f)
 		, fAperture(100.f)
 		, fScalingFactor(1.f)
+		, fPathGain(1.f)
 		, uEmitterChannelMask(0xFFFFFFFF)
 		, id(0)
 		, m_uListenerID(0)
@@ -836,6 +862,9 @@ public:
 	/// Get the transmission loss factor for this emitter-listener pair
 	inline AkReal32 TransmissionLoss() const { return fTransmissionLoss; }
 
+	/// Get the overall path-contribution gain, used to scale the dry + gamedef + userdef gains
+	inline AkReal32 PathGain() const { return fPathGain; }
+
 	/// Get the emitter-listener-pair-specific gain (due to distance and cone attenuation), linear [0,1], for a given connection type.
 	inline AkReal32 GetGainForConnectionType(AkConnectionType in_eType) const
 	{
@@ -865,10 +894,11 @@ public:
 	AkReal32 fOcclusion;				///< Emitter-listener-pair-specific occlusion factor
 	AkReal32 fObstruction;				///< Emitter-listener-pair-specific obstruction factor
 	AkReal32 fDiffraction;				///< Emitter-listener-pair-specific diffraction coefficient
-	AkReal32 fTransmissionLoss;				///< Emitter-listener-pair-specific transmission occlusion.
+	AkReal32 fTransmissionLoss;			///< Emitter-listener-pair-specific transmission occlusion.
 	AkReal32 fSpread;					///< Emitter-listener-pair-specific spread
 	AkReal32 fAperture;					///< Emitter-listener-pair-specific aperture
 	AkReal32 fScalingFactor;			///< Combined scaling factor due to both emitter and listener.
+	AkReal32 fPathGain;					///< Emitter-listener-pair-specific overall gain that scales fDryMixGain, fGameDefAuxMixGain and fUserDefAuxMixGain
 	AkChannelMask uEmitterChannelMask;	///< Channels of the emitter that apply to this ray.
 protected:
 	AkRayID id;							///< ID of this emitter-listener pair, unique for a given emitter.
@@ -958,6 +988,10 @@ struct AkGraphPointBase
 	bool operator==(const AkGraphPointBase& other) const
 	{
 		return From == other.From && To == other.To && Interp == other.Interp;
+	}
+	bool operator!=(const AkGraphPointBase& other) const
+	{
+		return !(*this == other);
 	}
 };
 
@@ -1128,6 +1162,9 @@ namespace AK
 		// If you modify MultiPositionType, don't forget to modify WAAPI validation schema accordingly.
 
 		/// MultiPositionType.
+		/// \aknote
+		/// - If a sound has diffraction enabled, it is treated as <tt>MultiPositionType_MultiDirections</tt>. <tt>MultiPositionType_MultiSources</tt> is not supported in this case.
+		/// \endaknote
 		/// \sa
 		/// - AK::SoundEngine::SetMultiplePosition()
 		/// - \ref soundengine_3dpositions_multiplepos
@@ -1202,7 +1239,7 @@ enum AkMeteringFlags : AkUInt8
 	AK_EnableBusMeter_RMS		= 1 << 2,		///< Enable computation of RMS metering.
 	// 1 << 3 is reserved.
 	AK_EnableBusMeter_KPower	= 1 << 4,		///< Enable computation of K-weighted power metering (used as a basis for computing loudness, as defined by ITU-R BS.1770).
-	AK_EnableBusMeter_3DMeter = 1 << 5
+	AK_EnableBusMeter_3DMeter = 1 << 5			///< Enable computation of data necessary to render a 3D visualization of volume distribution over the surface of a sphere.
 };
 
 /// Plug-in type.

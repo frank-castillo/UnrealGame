@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/AudioLink/WwiseAudioLinkInputClient.h"
@@ -24,7 +24,7 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "AkAudioInputManager.h"
 #include "AkAudioEvent.h"
 #include "AkAudioDevice.h"
-#include "AkUnrealHelper.h"
+#include "WwiseUnrealHelper.h"
 #include "Wwise/API/WwiseSoundEngineAPI.h"
 #include "Wwise/Stats/AudioLink.h"
 #include "Wwise/Stats/Global.h"
@@ -83,8 +83,14 @@ void FWwiseAudioLinkInputClient::Start(UWwiseAudioLinkComponent* InAkComponent)
 
 	const auto StartEvent = Settings->GetStartEvent();		// Might not be loaded at this point, only the pointer should be valid.
 	
-	IsLoadedHandle = Settings->CallOnEventLoaded([this, StartEvent, InAkComponent]() mutable
+	IsLoadedHandle = Settings->CallOnEventLoaded([this, SelfSP = AsShared(), StartEvent, InAkComponent]() mutable
 	{
+        if (UNLIKELY(ObjectId == UINT64_MAX))
+        {
+            UE_LOG(LogWwiseAudioLink, Error, TEXT("WwiseAudioLinkInputClient::OnEventLoaded: Invalid Object Id On event loaded. Sound was deleted before the load could be completed. No sound will be played."));
+            return;
+        }
+            
 		if (UNLIKELY(!IsValid(InAkComponent)))
 		{
 			UE_LOG(LogWwiseAudioLink, Error, TEXT("FWwiseAudioLinkInputClient::Start: Invalid component (this=%" PRIu64 " %s)"), this, *ProducerName.ToString());
@@ -96,8 +102,6 @@ void FWwiseAudioLinkInputClient::Start(UWwiseAudioLinkComponent* InAkComponent)
 			UE_LOG(LogWwiseAudioLink, Log, TEXT("FWwiseAudioLinkInputClient::Start (OnEventLoaded): Reusing an already playing %" PRIu32 " Component %" PRIu64 " (%s). Stopping previous instance."), PlayId.load(), InAkComponent->GetAkGameObjectID(), *InAkComponent->GetName());
 			Stop();
 		}
-
-		const auto SelfSP = AsShared();
 
 		PlayId = FAkAudioInputManager::PostAudioInputEvent(
 			StartEvent.Get(),
@@ -139,8 +143,14 @@ void FWwiseAudioLinkInputClient::Start()
 
 	const auto StartEvent = Settings->GetStartEvent();		// Might not be loaded at this point, only the pointer should be valid.
 	
-	IsLoadedHandle = Settings->CallOnEventLoaded([this, StartEvent]() mutable
+	IsLoadedHandle = Settings->CallOnEventLoaded([this, SelfSP = AsShared(), StartEvent]() mutable
 	{
+		if (UNLIKELY(ObjectId == UINT64_MAX))
+		{
+			UE_LOG(LogWwiseAudioLink, Error, TEXT("WwiseAudioLinkInputClient::OnEventLoaded: Invalid Object Id On event loaded. Sound was deleted before the load could be completed. No sound will be played."));
+			return;
+		}
+        
 		if (UNLIKELY(!StartEvent || !IsValid(StartEvent.Get())))
 		{
 			UE_LOG(LogWwiseAudioLink, Error, TEXT("FWwiseAudioLinkInputClient::Start: Invalid StartEvent (this=%" PRIu64 " %s)"), this, *ProducerName.ToString());
@@ -152,8 +162,6 @@ void FWwiseAudioLinkInputClient::Start()
 			UE_LOG(LogWwiseAudioLink, Log, TEXT("FWwiseAudioLinkInputClient::Start (OnEventLoaded): Reusing an already playing %" PRIu32 " ObjectID %" PRIu64 " (%s). Stopping previous instance."), PlayId.load(), this, *ProducerName.ToString());
 			Stop();
 		}
-
-		const auto SelfSP = AsShared();
 
 		PlayId = FAkAudioInputManager::PostAudioInputEvent(
 			StartEvent.Get(),
@@ -245,7 +253,7 @@ void FWwiseAudioLinkInputClient::Register(const FName& InNameOfProducingSource)
 	}
 #endif
 	UE_CLOG(LIKELY(Result == AK_Success), LogWwiseAudioLink, VeryVerbose, TEXT("FWwiseAudioLinkInputClient::Register: Registered Object ID %" PRIu64 " (%s)"), ObjectId, *Name);
-	UE_CLOG(UNLIKELY(Result != AK_Success), LogWwiseAudioLink, Warning, TEXT("FWwiseAudioLinkInputClient::Register: Error registering Object ID %" PRIu64 " (%s): (%" PRIu32 ") %s"), ObjectId, *Name, Result, AkUnrealHelper::GetResultString(Result));
+	UE_CLOG(UNLIKELY(Result != AK_Success), LogWwiseAudioLink, Warning, TEXT("FWwiseAudioLinkInputClient::Register: Error registering Object ID %" PRIu64 " (%s): (%" PRIu32 ") %s"), ObjectId, *Name, Result, WwiseUnrealHelper::GetResultString(Result));
 
 	// Sanity checks
 #ifndef AK_OPTIMIZED
@@ -267,9 +275,6 @@ void FWwiseAudioLinkInputClient::Register(const FName& InNameOfProducingSource)
 		UE_CLOG(UNLIKELY(AudioDevice->GetMaxChannels() == 0),
 			LogWwiseHints, Warning, TEXT("WwiseAudioLink: The current AudioDevice %" PRIu32 " has 0 MaxChannel. Consider setting AudioMaxChannels to a sensible value in the Engine config file's TargetSettings for your platform."),
 			AudioDevice->DeviceID);
-
-		UE_CLOG(!FWwiseAudioLinkFactory::bHasSubmix,
-			LogWwiseHints, Warning, TEXT("WwiseAudioLink: No initial submix got routed to AudioLink. Consider creating custom versions of global submixes in Project Settings Audio, and Enable Audio Link in their advanced settings."));
 	});
 #endif
 }
@@ -290,7 +295,7 @@ void FWwiseAudioLinkInputClient::Unregister()
 
 	const auto Result = SoundEngine->UnregisterGameObj(ObjectId);
 	UE_CLOG(LIKELY(Result == AK_Success), LogWwiseAudioLink, VeryVerbose, TEXT("FWwiseAudioLinkInputClient::Unregister: Unregistered Object ID %" PRIu64 " (%s)"), ObjectId, *ProducerName.ToString());
-	UE_CLOG(UNLIKELY(Result != AK_Success), LogWwiseAudioLink, Warning, TEXT("FWwiseAudioLinkInputClient::Unregister: Error Unregistering Object ID %" PRIu64 " (%s): (%" PRIu32 ") %s"), ObjectId, *ProducerName.ToString(), Result, AkUnrealHelper::GetResultString(Result));
+	UE_CLOG(UNLIKELY(Result != AK_Success), LogWwiseAudioLink, Warning, TEXT("FWwiseAudioLinkInputClient::Unregister: Error Unregistering Object ID %" PRIu64 " (%s): (%" PRIu32 ") %s"), ObjectId, *ProducerName.ToString(), Result, WwiseUnrealHelper::GetResultString(Result));
 	ObjectId = AK_INVALID_AUDIO_OBJECT_ID;
 }
 
@@ -466,11 +471,14 @@ void FWwiseAudioLinkInputClient::GetFormat(AkAudioFormat& io_AudioFormat)
 	{
 		return;
 	}
-
-	// Cache the format from the Consumer.
-	// Ensure the format is known at this point.
-	ensure(StrongPtr->GetFormat(UnrealFormat));
-
+    // Cache the format from the Consumer.
+    // Ensure the format is known at this point.
+    if(!StrongPtr->GetFormat(UnrealFormat))
+    {
+        UE_LOG(LogWwiseAudioLink, Error, TEXT("FWwiseAudioLinkInputClient::GetFormat: UnrealFormat is invalid"));
+        return;
+    }
+    
 	AkChannelConfig ChannelConfig(
 		UnrealFormat.NumChannels,									// Num Channels
 		AK::ChannelMaskFromNumChannels(UnrealFormat.NumChannels)	// Channel mask

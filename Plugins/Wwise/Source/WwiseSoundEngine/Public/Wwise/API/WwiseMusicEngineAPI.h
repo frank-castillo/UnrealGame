@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -68,7 +68,7 @@ public:
 
 	/// Query information on the active segment of a music object that is playing. Use the playing ID 
 	/// that was returned from AK::SoundEngine::PostEvent(), provided that the event contained a play
-	/// action that was targetting a music object. For any configuration of interactive music hierarchy, 
+	/// action that was targeting a music object. For any configuration of interactive music hierarchy, 
 	/// there is only one segment that is active at a time. 
 	/// To be able to query segment information, you must pass the AK_EnableGetMusicPlayPosition flag 
 	/// to the AK::SoundEngine::PostEvent() method. This informs the sound engine that the source associated 

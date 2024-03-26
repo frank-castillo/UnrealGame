@@ -12,20 +12,21 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 
 #include "SWwiseBrowserTreeView.h"
 #include "AkAudioStyle.h"
 #include "AkSettings.h"
+#include "WwiseUEFeatures.h"
 #include "IAudiokineticTools.h"
 #include "SWwiseBrowser.h"
 #include "SlateOptMacros.h"
 #include "WwiseBrowser/WwiseAssetDragDropOp.h"
 
 #if UE_5_0_OR_LATER
-#include "AkUEFeatures.h"
+#include "WwiseUEFeatures.h"
 #endif
 
 BEGIN_SLATE_FUNCTION_BUILD_OPTIMIZATION

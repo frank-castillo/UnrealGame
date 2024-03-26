@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/AudioLink/WwiseAudioLinkFactory.h"
@@ -228,6 +228,12 @@ TUniquePtr<IAudioLink> FWwiseAudioLinkFactory::CreateSourceAudioLink(const FAudi
 
 	UE_LOG(LogWwiseAudioLink, VeryVerbose, TEXT("FWwiseAudioLinkFactory:CreateSourceAudioLink: Starting Unreal producer."));
 	ProducerSP->Start(Handle.GetAudioDevice());
+	
+	AsyncTask(ENamedThreads::GameThread, []
+	{
+		UE_CLOG(!bHasSubmix,
+		LogWwiseAudioLink, Log, TEXT("WwiseAudioLink: No initial submix got routed to AudioLink. Consider creating custom versions of global submixes in Project Settings Audio, and Enable Audio Link in their advanced settings."));
+	});
 
 	return MakeUnique<FWwiseAudioLink>(ProducerSP, ConsumerSP);
 }

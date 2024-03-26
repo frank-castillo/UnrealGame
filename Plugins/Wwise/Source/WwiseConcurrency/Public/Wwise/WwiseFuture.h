@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -25,23 +25,16 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "Templates/SharedPointer.h"
 #include "Misc/DateTime.h"
 #include "HAL/Event.h"
-#include "HAL/PlatformProcess.h"
-#include "Misc/ScopeLock.h"
 
 #include "Wwise/Stats/Concurrency.h"
 #include "Wwise/Stats/AsyncStats.h"
 
+#include <atomic>
+
 //
 // WwiseFuture is a replica of Unreal's Async/Future.h code, with optimizations on the FutureState to reduce the
 // amount of FCriticalSection and FEvent to the bare minimum. Most of Wwise Integrations code uses the "Then" paradigm
-// of Futures/Promises instead of the Wait paradigm. Even when waiting a result, it is usually ready for usage.
-// 
-// This means there is a very strong chance a Future doesn't need to retrieve an Event from its pool of resources.
-// 
-// Since some platforms have set amount of hardware synchronization primitites, it's preferable to reduce the number of
-// them to a minimum. Although they are useful for actually waiting for a longer operation to finish in a particular
-// thread, even then, there will usually be one lengthy operation, and all the subsequent operations will be done
-// instantaneously without a lock.
+// of Futures/Promises instead of the Wait paradigm.
 //
 
 
@@ -56,7 +49,6 @@ public:
 	/** Default constructor. */
 	FWwiseFutureState()
 		: CompletionCallback(nullptr)
-		, CompletionEvent(nullptr)
 		, Complete(false)
 	{
 		ASYNC_INC_DWORD_STAT(STAT_WwiseFutures);
@@ -69,7 +61,6 @@ public:
 	 */
 	FWwiseFutureState(TUniqueFunction<void()>&& InCompletionCallback)
 		: CompletionCallback(InCompletionCallback ? new TUniqueFunction<void()>(MoveTemp(InCompletionCallback)) : nullptr)
-		, CompletionEvent(nullptr)
 		, Complete(false)
 	{
 		ASYNC_INC_DWORD_STAT(STAT_WwiseFutures);
@@ -78,18 +69,14 @@ public:
 	/** Destructor. */
 	~FWwiseFutureState()
 	{
+		const auto* Continuation = CompletionCallback.exchange(nullptr);
+		check(!Continuation);
+		if (UNLIKELY(Continuation))
+		{
+			delete Continuation;
+		}
+
 		ASYNC_DEC_DWORD_STAT(STAT_WwiseFutures);
-		if (CompletionCallback)
-		{
-			delete CompletionCallback;
-			CompletionCallback = nullptr;
-		}
-		if (CompletionEvent)
-		{
-			FPlatformProcess::ReturnSynchEventToPool(CompletionEvent);
-			CompletionEvent = nullptr;
-			ASYNC_DEC_DWORD_STAT(STAT_WwiseFuturesWithEvent);
-		}
 	}
 
 public:
@@ -102,53 +89,34 @@ public:
 	 */
 	bool IsComplete() const
 	{
-		return Complete.Load(EMemoryOrder::SequentiallyConsistent);
+		return Complete.load(std::memory_order_seq_cst);
 	}
 
 	/**
 	 * Blocks the calling thread until the future result is available.
 	 *
+	 * Compared to Unreal's native version, this version uses continuation, and assumes you haven't set a continuation
+	 * function on this state.
+	 *
 	 * @param Duration The maximum time span to wait for the future result.
 	 * @return true if the result is available, false otherwise.
 	 * @see IsComplete
 	 */
-	bool WaitFor(const FTimespan& Duration) const
+	bool WaitFor(const FTimespan& Duration)
 	{
+		check(!CompletionCallback.load(std::memory_order_seq_cst));
+		
 		if (IsComplete())
 		{
 			return true;
 		}
 
-		SCOPED_WWISECONCURRENCY_EVENT_4(TEXT("FWwiseFutureState::WaitFor"));
-		FEvent* CompletionEventToUse = CompletionEvent.Load(EMemoryOrder::SequentiallyConsistent);
-		if (!CompletionEventToUse)
+		auto CompletionEvent = MakeShared<FEventRef, ESPMode::ThreadSafe>();
+		SetContinuation([CompletionEvent]
 		{
-			auto* NewCompletionEvent = FPlatformProcess::GetSynchEventFromPool(true);
-			if (CompletionEvent.CompareExchange(CompletionEventToUse, NewCompletionEvent))
-			{
-				CompletionEventToUse = NewCompletionEvent;
-				ASYNC_INC_DWORD_STAT(STAT_WwiseFuturesWithEvent);
-			}
-			else
-			{
-				FPlatformProcess::ReturnSynchEventToPool(NewCompletionEvent);
-			}
-
-			if (IsComplete())
-			{
-				return true;
-			}
-		}
-
-		const bool bIsInGameThread = IsInGameThread();
-		CONDITIONAL_SCOPE_CYCLE_COUNTER(STAT_WwiseConcurrencyGameThreadWait, bIsInGameThread);
-		CONDITIONAL_SCOPE_CYCLE_COUNTER(STAT_WwiseConcurrencyWait, !bIsInGameThread);
-		if (CompletionEventToUse->Wait(Duration))
-		{
-			return true;
-		}
-
-		return false;
+			CompletionEvent.Get()->Trigger();
+		});
+		return CompletionEvent.Get()->Wait(Duration);
 	}
 
 	/**
@@ -168,7 +136,7 @@ public:
 
 		// Store the Copy to the CompletionCallback
 		auto Copy = Continuation ? new TUniqueFunction<void()>(MoveTemp(Continuation)) : nullptr;
-		auto OldCopy = CompletionCallback.Exchange(Copy);
+		auto OldCopy = CompletionCallback.exchange(Copy);
 		check(!OldCopy);		// We can only execute one continuation per WwiseFuture.
 
 		if (!IsComplete())
@@ -177,7 +145,7 @@ public:
 		}
 
 		// We are already complete. See if we need to execute ourselves.
-		Copy = CompletionCallback.Exchange(nullptr);
+		Copy = CompletionCallback.exchange(nullptr);
 		if (Copy)
 		{
 			(*Copy)();
@@ -190,15 +158,10 @@ protected:
 	/** Notifies any waiting threads that the result is available. */
 	void MarkComplete()
 	{
-		Complete.Store(true, EMemoryOrder::SequentiallyConsistent);
+		Complete.store(true, std::memory_order_seq_cst);
 
-		FEvent* Event = CompletionEvent.Load(EMemoryOrder::SequentiallyConsistent);
-		auto* Continuation = CompletionCallback.Exchange(nullptr);
+		auto* Continuation = CompletionCallback.exchange(nullptr);
 
-		if (Event)
-		{
-			Event->Trigger();
-		}
 		if (Continuation)
 		{
 			(*Continuation)();
@@ -208,13 +171,10 @@ protected:
 
 private:
 	/** An optional callback function that is executed the state is completed. */
-	TAtomic< TUniqueFunction<void()>* > CompletionCallback;
-
-	/** Holds an event signaling that the result is available. */
-	mutable TAtomic< FEvent* > CompletionEvent;
+	std::atomic< TUniqueFunction<void()>* > CompletionCallback;
 
 	/** Whether the asynchronous result is available. */
-	TAtomic<bool> Complete;
+	std::atomic<bool> Complete;
 };
 
 
@@ -257,7 +217,7 @@ public:
 	 * @return The result value.
 	 * @see EmplaceResult
 	 */
-	const InternalResultType& GetResult() const
+	const InternalResultType& GetResult()
 	{
 		while (!IsComplete())
 		{
@@ -438,7 +398,7 @@ protected:
 
 	/**
 	 * Reset the future.
-	 *	Reseting a future removes any continuation from its shared state and invalidates it.
+	 *	Resetting a future removes any continuation from its shared state and invalidates it.
 	 *	Useful for discarding yet to be completed future cleanly.
 	 */
 	void Reset()
@@ -455,9 +415,6 @@ private:
 	/** Holds the future's state. */
 	StateType State;
 };
-
-
-template<typename ResultType> class TWwiseSharedFuture;
 
 /**
  * Template for unshared futures.
@@ -505,16 +462,6 @@ public:
 	ResultType Get() const
 	{
 		return this->GetState()->GetResult();
-	}
-
-	/**
-	 * Moves this future's state into a shared future.
-	 *
-	 * @return The shared future object.
-	 */
-	TWwiseSharedFuture<ResultType> Share()
-	{
-		return TWwiseSharedFuture<ResultType>(MoveTemp(*this));
 	}
 
 	/**
@@ -594,16 +541,6 @@ public:
 	}
 
 	/**
-	 * Moves this future's state into a shared future.
-	 *
-	 * @return The shared future object.
-	 */
-	TWwiseSharedFuture<ResultType&> Share()
-	{
-		return TWwiseSharedFuture<ResultType&>(MoveTemp(*this));
-	}
-
-	/**
 	 * Expose Then functionality
 	 * @see TWwiseFutureBase
 	 */
@@ -680,13 +617,6 @@ public:
 	}
 
 	/**
-	 * Moves this future's state into a shared future.
-	 *
-	 * @return The shared future object.
-	 */
-	TWwiseSharedFuture<void> Share();
-
-	/**
 	 * Expose Then functionality
 	 * @see TWwiseFutureBase
 	 */
@@ -712,219 +642,6 @@ private:
 	/** Hidden copy assignment (futures cannot be copied). */
 	TWwiseFuture& operator=(const TWwiseFuture&);
 };
-
-/* TWwiseSharedFuture
-*****************************************************************************/
-
-/**
- * Template for shared futures.
- */
-template<typename ResultType>
-class TWwiseSharedFuture
-	: public TWwiseFutureBase<ResultType>
-{
-	typedef TWwiseFutureBase<ResultType> BaseType;
-
-public:
-
-	/** Default constructor. */
-	TWwiseSharedFuture() { }
-
-	/**
-	 * Creates and initializes a new instance.
-	 *
-	 * @param InState The shared state to initialize from.
-	 */
-	TWwiseSharedFuture(const typename BaseType::StateType& InState)
-		: BaseType(InState)
-	{ }
-
-	/**
-	 * Creates and initializes a new instances from a future object.
-	 *
-	 * @param Future The future object to initialize from.
-	 */
-	TWwiseSharedFuture(TWwiseFuture<ResultType>&& Future)
-		: BaseType(MoveTemp(Future))
-	{ }
-
-	/**
-	 * Copy constructor.
-	 */
-	TWwiseSharedFuture(const TWwiseSharedFuture&) = default;
-
-	/**
-	 * Copy assignment operator.
-	 */
-	TWwiseSharedFuture& operator=(const TWwiseSharedFuture& Other) = default;
-
-	/**
-	 * Move constructor.
-	 */
-	TWwiseSharedFuture(TWwiseSharedFuture&&) = default;
-
-	/**
-	 * Move assignment operator.
-	 */
-	TWwiseSharedFuture& operator=(TWwiseSharedFuture&& Other) = default;
-
-	/** Destructor. */
-	~TWwiseSharedFuture() { }
-
-public:
-
-	/**
-	 * Gets the future's result.
-	 *
-	 * @return The result.
-	 */
-	ResultType Get() const
-	{
-		return this->GetState()->GetResult();
-	}
-};
-
-
-/**
- * Template for shared futures (specialization for reference types).
- */
-template<typename ResultType>
-class TWwiseSharedFuture<ResultType&>
-	: public TWwiseFutureBase<ResultType*>
-{
-	typedef TWwiseFutureBase<ResultType*> BaseType;
-
-public:
-
-	/** Default constructor. */
-	TWwiseSharedFuture() { }
-
-	/**
-	 * Creates and initializes a new instance.
-	 *
-	 * @param InState The shared state to initialize from.
-	 */
-	TWwiseSharedFuture(const typename BaseType::StateType& InState)
-		: BaseType(InState)
-	{ }
-
-	/**
-	* Creates and initializes a new instances from a future object.
-	*
-	* @param Future The future object to initialize from.
-	*/
-	TWwiseSharedFuture(TWwiseFuture<ResultType>&& Future)
-		: BaseType(MoveTemp(Future))
-	{ }
-
-	/**
-	 * Copy constructor.
-	 */
-	TWwiseSharedFuture(const TWwiseSharedFuture&) = default;
-
-	/** Copy assignment operator. */
-	TWwiseSharedFuture& operator=(const TWwiseSharedFuture& Other) = default;
-
-	/**
-	 * Move constructor.
-	 */
-	TWwiseSharedFuture(TWwiseSharedFuture&&) = default;
-
-	/**
-	 * Move assignment operator.
-	 */
-	TWwiseSharedFuture& operator=(TWwiseSharedFuture&& Other) = default;
-
-	/** Destructor. */
-	~TWwiseSharedFuture() { }
-
-public:
-
-	/**
-	 * Gets the future's result.
-	 *
-	 * @return The result.
-	 */
-	ResultType& Get() const
-	{
-		return *this->GetState()->GetResult();
-	}
-};
-
-
-/**
- * Template for shared futures (specialization for void).
- */
-template<>
-class TWwiseSharedFuture<void>
-	: public TWwiseFutureBase<int>
-{
-	typedef TWwiseFutureBase<int> BaseType;
-
-public:
-
-	/** Default constructor. */
-	TWwiseSharedFuture() { }
-
-	/**
-	 * Creates and initializes a new instance from shared state.
-	 *
-	 * @param InState The shared state to initialize from.
-	 */
-	TWwiseSharedFuture(const BaseType::StateType& InState)
-		: BaseType(InState)
-	{ }
-
-	/**
-	 * Creates and initializes a new instances from a future object.
-	 *
-	 * @param Future The future object to initialize from.
-	 */
-	TWwiseSharedFuture(TWwiseFuture<void>&& Future)
-		: BaseType(MoveTemp(Future))
-	{ }
-
-	/**
-	 * Copy constructor.
-	 */
-	TWwiseSharedFuture(const TWwiseSharedFuture&) = default;
-
-	/**
-	 * Copy assignment operator.
-	 */
-	TWwiseSharedFuture& operator=(const TWwiseSharedFuture& Other) = default;
-
-	/**
-	 * Move constructor.
-	 */
-	TWwiseSharedFuture(TWwiseSharedFuture&&) = default;
-
-	/**
-	 * Move assignment operator.
-	 */
-	TWwiseSharedFuture& operator=(TWwiseSharedFuture&& Other) = default;
-
-	/** Destructor. */
-	~TWwiseSharedFuture() { }
-
-public:
-
-	/**
-	 * Gets the future's result.
-	 *
-	 * @return The result.
-	 */
-	void Get() const
-	{
-		GetState()->GetResult();
-	}
-};
-
-
-inline TWwiseSharedFuture<void> TWwiseFuture<void>::Share()
-{
-	return TWwiseSharedFuture<void>(MoveTemp(*this));
-}
 
 
 /* TWwisePromise

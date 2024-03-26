@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 /*=============================================================================
@@ -21,7 +21,7 @@ Copyright (c) 2023 Audiokinetic Inc.
 
 #include "AkLateReverbComponent.h"
 #include "AkCustomVersion.h"
-#include "AkSettings.h"
+#include "AkSettingsPerUser.h"
 #include "AkComponentHelpers.h"
 #include "AkAudioDevice.h"
 #include "AkAuxBus.h"
@@ -53,18 +53,23 @@ float UAkLateReverbComponent::TextVisualizerHeightOffset = 80.0f;
 UAkLateReverbComponent::UAkLateReverbComponent(const class FObjectInitializer& ObjectInitializer) :
 	Super(ObjectInitializer)
 {
-	Parent = nullptr;
+	// SceneComponent property initialization
 	bUseAttachParentBound = true;
+	bWantsOnUpdateTransform = true;
+	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bStartWithTickEnabled = true;
 
-	// Property initialization
+	// LateReverbComponent property initialization
 	SendLevel = 1.0f;
 	FadeRate = 0.5f;
 	Priority = 1.0f;
-
+	Parent = TWeakObjectPtr<UPrimitiveComponent>();
 	bEnable = true;
-	bWantsOnUpdateTransform = true;
 
 #if WITH_EDITOR
+	// In editor we always want to tick in case the global RTPCs become active, or aux bus assignment is enabled.
+	bTickInEditor = true;
+
 	if (AkSpatialAudioHelper::GetObjectReplacedEvent())
 	{
 		AkSpatialAudioHelper::GetObjectReplacedEvent()->AddUObject(this, &UAkLateReverbComponent::HandleObjectsReplaced);
@@ -102,6 +107,29 @@ bool UAkLateReverbComponent::HasEffectOnLocation(const FVector& Location) const
 	return LateReverbIsActive() && EncompassesPoint(Location, RADIUS);
 }
 
+void UAkLateReverbComponent::SetAutoAssignAuxBus(bool bInEnable)
+{
+	if (bInEnable == AutoAssignAuxBus)
+	{
+		return;
+	}
+	AutoAssignAuxBus = bInEnable;
+	if (AutoAssignAuxBus)
+	{
+		AuxBusManual = AuxBus ;
+		DecayEstimationNeedsUpdate = true;
+	}
+	else
+	{
+		AuxBus = AuxBusManual;
+		ReverbParamsChanged = true;
+	}
+
+#if WITH_EDITOR
+	bTextStatusNeedsUpdate = true;
+#endif //WITH_EDITOR
+}
+
 uint32 UAkLateReverbComponent::GetAuxBusId() const
 {
 	return FAkAudioDevice::GetShortID(AuxBus, AuxBusName);
@@ -114,16 +142,20 @@ void UAkLateReverbComponent::InitializeParent()
 	{
 		ReverbDescriptor.SetPrimitive(Cast<UPrimitiveComponent>(SceneParent));
 		Parent = Cast<UPrimitiveComponent>(SceneParent);
-		if (Parent)
+		if (Parent.IsValid())
 		{
 			ReverbDescriptor.SetReverbComponent(this);
+
+			DecayEstimationNeedsUpdate = true;
+			PredelayEstimationNeedsUpdate = true;
+
 			UBodySetup* bodySetup = Parent->GetBodySetup();
 			if (bodySetup == nullptr || !AkComponentHelpers::HasSimpleCollisionGeometry(bodySetup))
 			{
-				if (UBrushComponent* brush = Cast<UBrushComponent>(Parent))
+				if (UBrushComponent* brush = Cast<UBrushComponent>(Parent.Get()))
 					brush->BuildSimpleBrushCollision();
 				else
-					AkComponentHelpers::LogSimpleGeometryWarning(Parent, this);
+					AkComponentHelpers::LogSimpleGeometryWarning(Parent.Get(), this);
 			}
 		}
 		else
@@ -135,7 +167,7 @@ void UAkLateReverbComponent::InitializeParent()
 	}
 	else // will happen when this component gets detached from its parent
 	{
-		Parent = nullptr;
+		Parent = TWeakObjectPtr<UPrimitiveComponent>();
 		ReverbDescriptor.SetPrimitive(nullptr);
 		bEnable = false;
 	}
@@ -149,9 +181,9 @@ void UAkLateReverbComponent::BeginPlay()
 	PredelayEstimationNeedsUpdate = true;
 
 	UAkRoomComponent* pRoomCmpt = nullptr;
-	if (Parent)
+	if (Parent.IsValid())
 	{
-		pRoomCmpt = AkComponentHelpers::GetChildComponentOfType<UAkRoomComponent>(*Parent);
+		pRoomCmpt = AkComponentHelpers::GetChildComponentOfType<UAkRoomComponent>(*Parent.Get());
 	}
 
 	if (!pRoomCmpt || !pRoomCmpt->RoomIsActive())
@@ -167,7 +199,7 @@ void UAkLateReverbComponent::BeginPlay()
 void UAkLateReverbComponent::BeginDestroy()
 {
 	Super::BeginDestroy();
-	if (TextureSetComponent != nullptr)
+	if (TextureSetComponent.IsValid())
 	{
 		TextureSetComponent->SetReverbDescriptor(nullptr);
 	}
@@ -186,40 +218,28 @@ void UAkLateReverbComponent::OnRegister()
 	SetRelativeTransform(FTransform::Identity);
 	InitializeParent();
 	ParentChanged();
-
-	// During runtime (non editor), we only want to tick if we'll ever need to update the reverb parameters.
-	PrimaryComponentTick.bCanEverTick = ReverbDescriptor.RequiresUpdates();
-	PrimaryComponentTick.bStartWithTickEnabled = ReverbDescriptor.RequiresUpdates();
-#if WITH_EDITOR
-	// In editor builds we always want to tick in case the global RTPCs become active, or aux bus assignment is enabled.
-	bTickInEditor = true;
-	PrimaryComponentTick.bCanEverTick = true;
-	PrimaryComponentTick.bStartWithTickEnabled = true;
-#endif
 }
 
 void UAkLateReverbComponent::ParentChanged()
 {
-	if (IsValid(Parent))
+	if (Parent.IsValid())
 	{
 #if WITH_EDITOR
-		RegisterAuxBusMapChangedCallback();
+		RegisterReverbAssignmentChangedCallback();
+		RegisterGlobalDecayAbsorptionChangedCallback();
 		RegisterReverbRTPCChangedCallback();
 #endif
 		// In the case where a blueprint class has a texture set component and a late reverb component as siblings, We can't know which will be registered first.
 		// We need to check for the sibling in each OnRegister function and associate the texture set component to the late reverb when they are both registered.
-		if (UAkSurfaceReflectorSetComponent* surfaceComponent = AkComponentHelpers::GetChildComponentOfType<UAkSurfaceReflectorSetComponent>(*Parent))
+		if (UAkSurfaceReflectorSetComponent* surfaceComponent = AkComponentHelpers::GetChildComponentOfType<UAkSurfaceReflectorSetComponent>(*Parent.Get()))
 		{
 			AssociateAkTextureSetComponent(surfaceComponent);
 		}
-		else if (UAkGeometryComponent* geometryComponent = AkComponentHelpers::GetChildComponentOfType<UAkGeometryComponent>(*Parent))
+		else if (UAkGeometryComponent* geometryComponent = AkComponentHelpers::GetChildComponentOfType<UAkGeometryComponent>(*Parent.Get()))
 		{
 			AssociateAkTextureSetComponent(geometryComponent);
 		}
 	}
-
-	DecayEstimationNeedsUpdate = true;
-	PredelayEstimationNeedsUpdate = true;
 }
 
 void UAkLateReverbComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -246,9 +266,13 @@ void UAkLateReverbComponent::OnUnregister()
 	UAkSettings* AkSettings = GetMutableDefault<UAkSettings>();
 	if (AkSettings != nullptr)
 	{
-		if (AuxBusChangedHandle.IsValid())
+		if (ReverbAssignmentChangedHandle.IsValid())
 		{
-			AkSettings->OnAuxBusAssignmentMapChanged.Remove(AuxBusChangedHandle);
+			AkSettings->OnReverbAssignmentChanged.Remove(ReverbAssignmentChangedHandle);
+		}
+		if (GlobalDecayAbsorptionChangedHandle.IsValid())
+		{
+			AkSettings->OnGlobalDecayAbsorptionChanged.Remove(GlobalDecayAbsorptionChangedHandle);
 		}
 		if (RTPCChangedHandle.IsValid())
 		{
@@ -266,7 +290,7 @@ bool UAkLateReverbComponent::MoveComponentImpl(
 	EMoveComponentFlags MoveFlags,
 	ETeleportType Teleport)
 {
-	if (AkComponentHelpers::DoesMovementRecenterChild(this, Parent, Delta))
+	if (AkComponentHelpers::DoesMovementRecenterChild(this, Parent.Get(), Delta))
 		Super::MoveComponentImpl(Delta, NewRotation, bSweep, Hit, MoveFlags, Teleport);
 
 	return false;
@@ -288,7 +312,7 @@ void UAkLateReverbComponent::OnUpdateTransform(EUpdateTransformFlags UpdateTrans
 	if (TextVisualizerLabels != nullptr)
 	{
 		TextVisualizerLabels->SetWorldScale3D(FVector::OneVector);
-		if (IsValid(Parent))
+		if (Parent.IsValid())
 		{
 			TextVisualizerLabels->SetWorldLocation(GetTextVisualizersLocation());
 		}
@@ -296,7 +320,7 @@ void UAkLateReverbComponent::OnUpdateTransform(EUpdateTransformFlags UpdateTrans
 	if (TextVisualizerValues != nullptr)
 	{
 		TextVisualizerValues->SetWorldScale3D(FVector::OneVector);
-		if (IsValid(Parent))
+		if (Parent.IsValid())
 		{
 			TextVisualizerValues->SetWorldLocation(GetTextVisualizersLocation());
 		}
@@ -308,24 +332,38 @@ void UAkLateReverbComponent::TickComponent(float DeltaTime, enum ELevelTick Tick
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// Update decay and time to first reflection estimations when the size is changed, every PARAM_ESTIMATION_UPDATE_PERIOD seconds.
-	if (SecondsSinceDecayUpdate < PARAM_ESTIMATION_UPDATE_PERIOD)
+	if (ReverbDescriptor.RequiresUpdates())
 	{
-		SecondsSinceDecayUpdate += DeltaTime;
-	}
-	if (DecayEstimationNeedsUpdate && SecondsSinceDecayUpdate >= PARAM_ESTIMATION_UPDATE_PERIOD)
-	{
-		RecalculateDecay();
-		DecayEstimationNeedsUpdate = false;
-	}
-	if (SecondsSincePredelayUpdate < PARAM_ESTIMATION_UPDATE_PERIOD)
-	{
-		SecondsSincePredelayUpdate += DeltaTime;
-	}
-	if (PredelayEstimationNeedsUpdate && SecondsSincePredelayUpdate >= PARAM_ESTIMATION_UPDATE_PERIOD)
-	{
-		RecalculatePredelay();
-		PredelayEstimationNeedsUpdate = false;
+		// Update decay and time to first reflection estimations when the size is changed, every PARAM_ESTIMATION_UPDATE_PERIOD seconds.
+		if (SecondsSinceDecayUpdate < PARAM_ESTIMATION_UPDATE_PERIOD)
+		{
+			SecondsSinceDecayUpdate += DeltaTime;
+		}
+		if ((TextureSetHasChanged || DecayEstimationNeedsUpdate) && SecondsSinceDecayUpdate >= PARAM_ESTIMATION_UPDATE_PERIOD)
+		{
+			RecalculateDecay();
+			DecayEstimationNeedsUpdate = false;
+			TextureSetHasChanged = false;
+		}
+		if (SecondsSincePredelayUpdate < PARAM_ESTIMATION_UPDATE_PERIOD)
+		{
+			SecondsSincePredelayUpdate += DeltaTime;
+		}
+		if (PredelayEstimationNeedsUpdate && SecondsSincePredelayUpdate >= PARAM_ESTIMATION_UPDATE_PERIOD)
+		{
+			RecalculatePredelay();
+			PredelayEstimationNeedsUpdate = false;
+		}
+		if (ReverbAssignmentNeedsUpdate)
+		{
+			UpdateDecayEstimation(ReverbDescriptor.T60Decay, ReverbDescriptor.PrimitiveVolume, ReverbDescriptor.PrimitiveSurfaceArea);
+			ReverbAssignmentNeedsUpdate = false;
+		}
+		if (ReverbParamsChanged)
+		{
+			OnReverbParamsChanged();
+			ReverbParamsChanged = false;
+		}
 	}
 
 #if WITH_EDITOR
@@ -374,7 +412,7 @@ void UAkLateReverbComponent::RecalculateDecay()
 {
 	if (ReverbDescriptor.ShouldEstimateDecay())
 	{
-		ReverbDescriptor.CalculateT60();
+		ReverbDescriptor.CalculateT60(this);
 		SecondsSinceDecayUpdate = 0.0f;
 	}
 }
@@ -388,13 +426,18 @@ void UAkLateReverbComponent::RecalculatePredelay()
 	}
 }
 
+void UAkLateReverbComponent::TextureSetUpdated()
+{
+	TextureSetHasChanged = true;
+}
+
 #if WITH_EDITOR
 void UAkLateReverbComponent::RegisterReverbInfoEnabledCallback()
 {
-	UAkSettings* AkSettings = GetMutableDefault<UAkSettings>();
-	if (AkSettings == nullptr || ShowReverbInfoChangedHandle.IsValid())
+	UAkSettingsPerUser* AkSettingsPerUser = GetMutableDefault<UAkSettingsPerUser>();
+	if (AkSettingsPerUser == nullptr || ShowReverbInfoChangedHandle.IsValid())
 		return;
-	ShowReverbInfoChangedHandle = AkSettings->OnShowReverbInfoChanged.AddLambda([this, AkSettings]()
+	ShowReverbInfoChangedHandle = AkSettingsPerUser->OnShowReverbInfoChanged.AddLambda([this, AkSettingsPerUser]()
 	{
 		bTextStatusNeedsUpdate = true;
 	});
@@ -402,10 +445,10 @@ void UAkLateReverbComponent::RegisterReverbInfoEnabledCallback()
 
 void UAkLateReverbComponent::OnComponentDestroyed(bool bDestroyingHierarchy)
 {
-	UAkSettings* AkSettings = GetMutableDefault<UAkSettings>();
-	if (!AkSettings)
+	UAkSettingsPerUser* AkSettingsPerUser = GetMutableDefault<UAkSettingsPerUser>();
+	if (!AkSettingsPerUser)
 		return;
-	AkSettings->OnShowRoomsPortalsChanged.Remove(ShowReverbInfoChangedHandle);
+	AkSettingsPerUser->OnShowRoomsPortalsChanged.Remove(ShowReverbInfoChangedHandle);
 	ShowReverbInfoChangedHandle.Reset();
 }
 
@@ -423,21 +466,21 @@ void UAkLateReverbComponent::OnComponentCreated()
 
 void UAkLateReverbComponent::HandleObjectsReplaced(const TMap<UObject*, UObject*>& ReplacementMap)
 {
-	if (ReplacementMap.Contains(Parent))
+	if (ReplacementMap.Contains(Parent.Get()))
 	{
 		InitializeParent();
 		DecayEstimationNeedsUpdate = true;
 		PredelayEstimationNeedsUpdate = true;
 	}
-	if (ReplacementMap.Contains(TextureSetComponent))
+	if (ReplacementMap.Contains(TextureSetComponent.Get()))
 	{
-		if (Parent != nullptr)
+		if (Parent.IsValid())
 		{
-			if (UAkSurfaceReflectorSetComponent* SurfaceComponent = AkComponentHelpers::GetChildComponentOfType<UAkSurfaceReflectorSetComponent>(*Parent))
+			if (UAkSurfaceReflectorSetComponent* SurfaceComponent = AkComponentHelpers::GetChildComponentOfType<UAkSurfaceReflectorSetComponent>(*Parent.Get()))
 			{
 				AssociateAkTextureSetComponent(SurfaceComponent);
 			}
-			else if (UAkGeometryComponent* GeomComponent = AkComponentHelpers::GetChildComponentOfType<UAkGeometryComponent>(*Parent))
+			else if (UAkGeometryComponent* GeomComponent = AkComponentHelpers::GetChildComponentOfType<UAkGeometryComponent>(*Parent.Get()))
 			{
 				AssociateAkTextureSetComponent(GeomComponent);
 			}
@@ -447,7 +490,7 @@ void UAkLateReverbComponent::HandleObjectsReplaced(const TMap<UObject*, UObject*
 
 void UAkLateReverbComponent::UpdateTextVisualizerStatus()
 {
-	bool bShowReverbInfo = GetDefault<UAkSettings>()->bShowReverbInfo;
+	bool bShowReverbInfo = GetDefault<UAkSettingsPerUser>()->bShowReverbInfo;
 	// The reverb descriptor may or may not require updates depending on which global RTPCs are in use, and whether auto assign aux bus is selected.
 	// We only want to show the text renderers when the reverb parameter estimation is in use.
 	if ((!bShowReverbInfo || !ReverbDescriptor.RequiresUpdates()) && TextVisualizersInitialized())
@@ -489,7 +532,7 @@ FText UAkLateReverbComponent::GetValuesLabels() const
 		decayString = FText::AsNumber(EnvironmentDecayEstimate, &NumberFormat).ToString() + " seconds";
 	}
 
-	if (Parent != nullptr && AkComponentHelpers::GetChildComponentOfType<UAkRoomComponent>(*Parent))
+	if (Parent.IsValid() && AkComponentHelpers::GetChildComponentOfType<UAkRoomComponent>(*Parent.Get()))
 	{
 		decayString = ReverbDescriptor.ShouldEstimateDecay() ? FText::AsNumber(EnvironmentDecayEstimate, &NumberFormat).ToString() + " seconds" : FString("Invalid Late Reverb or Room Primitive Component");
 
@@ -504,7 +547,7 @@ FText UAkLateReverbComponent::GetValuesLabels() const
 		}
 
 		dampingString = "No associated geometry component.";
-		if (TextureSetComponent != nullptr)
+		if (TextureSetComponent.IsValid())
 		{
 			dampingString = ReverbDescriptor.ShouldEstimateDamping() ? FText::AsNumber(HFDamping, &NumberFormat).ToString() : FString("Invalid Late Reverb or Room Primitive Component");
 		}
@@ -559,7 +602,7 @@ void UAkLateReverbComponent::InitTextVisualizers()
 					TextVisualizerLabels->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
 					TextVisualizerLabels->ResetRelativeTransform();
 					TextVisualizerLabels->SetWorldScale3D(FVector::OneVector);
-					if (IsValid(Parent))
+					if (Parent.IsValid())
 					{
 						TextVisualizerLabels->SetWorldLocation(GetTextVisualizersLocation());
 						UWorld* World = TextVisualizerLabels->GetWorld();
@@ -586,7 +629,7 @@ void UAkLateReverbComponent::InitTextVisualizers()
 					TextVisualizerValues->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
 					TextVisualizerValues->ResetRelativeTransform();
 					TextVisualizerValues->SetWorldScale3D(FVector::OneVector);
-					if (IsValid(Parent))
+					if (Parent.IsValid())
 					{
 						TextVisualizerValues->SetWorldLocation(GetTextVisualizersLocation());
 						UWorld* World = TextVisualizerValues->GetWorld();
@@ -620,7 +663,7 @@ void UAkLateReverbComponent::DestroyTextVisualizers()
 
 void UAkLateReverbComponent::UpdateValuesLabels()
 {
-	if (!GetDefault<UAkSettings>()->bShowReverbInfo)
+	if (!GetDefault<UAkSettingsPerUser>()->bShowReverbInfo)
 		return;
 	if (!TextVisualizersInitialized())
 		InitTextVisualizers();
@@ -658,11 +701,17 @@ void UAkLateReverbComponent::UpdateRTPCs(const UAkRoomComponent* room) const
 
 void UAkLateReverbComponent::AssociateAkTextureSetComponent(UAkAcousticTextureSetComponent* textureSetComponent)
 {
-	if (TextureSetComponent != nullptr)
+	if (TextureSetComponent.IsValid())
 		TextureSetComponent->SetReverbDescriptor(nullptr);
 	TextureSetComponent = textureSetComponent;
 	TextureSetComponent->SetReverbDescriptor(&ReverbDescriptor);
 }
+
+TWeakObjectPtr<UAkAcousticTextureSetComponent> UAkLateReverbComponent::GetAttachedTextureSetComponent()
+{
+	return TextureSetComponent;
+}
+
 
 void UAkLateReverbComponent::UpdateDecayEstimation(float decay, float volume, float surfaceArea)
 {
@@ -671,7 +720,12 @@ void UAkLateReverbComponent::UpdateDecayEstimation(float decay, float volume, fl
 		UAkSettings* AkSettings = GetMutableDefault<UAkSettings>();
 		if (AkSettings != nullptr)
 		{
-			AkSettings->GetAuxBusForDecayValue(decay, AuxBus);
+			auto newAuxBus = AkSettings->GetAuxBusForDecayValue(decay);
+			if (AuxBus != newAuxBus)
+			{
+				AuxBus = newAuxBus;
+				ReverbParamsChanged = true;
+			}
 		}
 	}
 
@@ -713,6 +767,8 @@ void UAkLateReverbComponent::PreEditChange(FProperty* PropertyAboutToChange)
 			AuxBus = AuxBusManual;
 		}
 	}
+
+	Super::PreEditChange(PropertyAboutToChange);
 }
 
 void UAkLateReverbComponent::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
@@ -722,16 +778,16 @@ void UAkLateReverbComponent::PostEditChangeProperty(FPropertyChangedEvent& Prope
 	const FName MemberPropertyName = (PropertyChangedEvent.MemberProperty != nullptr) ? PropertyChangedEvent.MemberProperty->GetFName() : NAME_None;
 	if (MemberPropertyName == GET_MEMBER_NAME_CHECKED(UAkLateReverbComponent, AutoAssignAuxBus))
 	{
-		PrimaryComponentTick.bCanEverTick = AutoAssignAuxBus;
-		PrimaryComponentTick.bStartWithTickEnabled = AutoAssignAuxBus;
-		bTickInEditor = AutoAssignAuxBus;
 		DecayEstimationNeedsUpdate = true;
 		bTextStatusNeedsUpdate = true;
 
 		if (!AutoAssignAuxBus)
 		{
 			AuxBus = AuxBusManual;
+			ReverbParamsChanged = true;
 		}
+
+		UpdateValuesLabels();
 	}
 	if (MemberPropertyName == GET_MEMBER_NAME_CHECKED(UAkLateReverbComponent, AuxBus))
 	{
@@ -739,37 +795,17 @@ void UAkLateReverbComponent::PostEditChangeProperty(FPropertyChangedEvent& Prope
 		{
 			AuxBusManual = AuxBus;
 		}
-		if (AkComponentHelpers::IsInGameWorld(this))
-		{
-			UAkRoomComponent* RoomCmpt = nullptr;
-			if (Parent)
-			{
-				RoomCmpt = AkComponentHelpers::GetChildComponentOfType<UAkRoomComponent>(*Parent);
-			}
-			if (!RoomCmpt || !RoomCmpt->RoomIsActive())
-			{
-				// No room, or inactive room. Update the late reverb in the oct tree.
-				FAkAudioDevice* AkAudioDevice = FAkAudioDevice::Get();
-				if (AkAudioDevice && bEnable && IsIndexed)
-				{
-					AkAudioDevice->ReindexLateReverb(this);
-				}
-			}
-			else if (RoomCmpt && RoomCmpt->RoomIsActive())
-			{
-				// Late reverb is inside an active room. Update the room such that the reverb aux bus is correctly updated.
-				RoomCmpt->UpdateSpatialAudioRoom();
-			}
-		}
+		ReverbParamsChanged = true;
+		UpdateValuesLabels();
 	}
 	if (MemberPropertyName == GET_MEMBER_NAME_CHECKED(UAkLateReverbComponent, bEnable))
 	{
 		if (AkComponentHelpers::IsInGameWorld(this))
 		{
 			UAkRoomComponent* RoomCmpt = nullptr;
-			if (Parent)
+			if (Parent.IsValid())
 			{
-				RoomCmpt = AkComponentHelpers::GetChildComponentOfType<UAkRoomComponent>(*Parent);
+				RoomCmpt = AkComponentHelpers::GetChildComponentOfType<UAkRoomComponent>(*Parent.Get());
 			}
 
 			if (!RoomCmpt || !RoomCmpt->RoomIsActive())
@@ -795,36 +831,14 @@ void UAkLateReverbComponent::PostEditChangeProperty(FPropertyChangedEvent& Prope
 			}
 		}
 		else if (CreationMethod == EComponentCreationMethod::Instance && bEnable
-			&& GetDefault<UAkSettings>()->bShowReverbInfo)
+			&& GetDefault<UAkSettingsPerUser>()->bShowReverbInfo)
 		{
 			InitTextVisualizers();
 		}
 	}
 	if (MemberPropertyName == GET_MEMBER_NAME_CHECKED(UAkLateReverbComponent, SendLevel))
 	{
-		UWorld* World = GetWorld();
-		if (World != nullptr && (World->WorldType == EWorldType::Game || World->WorldType == EWorldType::PIE))
-		{
-			UAkRoomComponent* RoomCmpt = nullptr;
-			if (Parent)
-			{
-				RoomCmpt = AkComponentHelpers::GetChildComponentOfType<UAkRoomComponent>(*Parent);
-			}
-			if (!RoomCmpt || !RoomCmpt->RoomIsActive())
-			{
-				// No room, or inactive room. Update the late reverb in the oct tree.
-				FAkAudioDevice* AkAudioDevice = FAkAudioDevice::Get();
-				if (AkAudioDevice && bEnable && IsIndexed)
-				{
-					AkAudioDevice->ReindexLateReverb(this);
-				}
-			}
-			else if (RoomCmpt&& RoomCmpt->RoomIsActive())
-			{
-				// Late reverb is inside an active room. Update the room such that the reverb send level is correctly updated.
-				RoomCmpt->UpdateSpatialAudioRoom();
-			}
-		}
+		ReverbParamsChanged = true;
 	}
 }
 
@@ -843,21 +857,40 @@ void UAkLateReverbComponent::OnAttachmentChanged()
 
 FVector UAkLateReverbComponent::GetTextVisualizersLocation()
 {
-	if (!IsValid(Parent))
+	if (!Parent.IsValid())
 		return FVector();
 
 	FBoxSphereBounds bounds = Parent->CalcBounds(Parent->GetComponentTransform());
 	return Parent->GetComponentLocation() + FVector(0.0f, 0.0f, bounds.BoxExtent.Z + TextVisualizerHeightOffset);
 }
 
-void UAkLateReverbComponent::RegisterAuxBusMapChangedCallback()
+void UAkLateReverbComponent::RegisterReverbAssignmentChangedCallback()
 {
 	UAkSettings* AkSettings = GetMutableDefault<UAkSettings>();
 	if (AkSettings != nullptr)
 	{
-		if (AuxBusChangedHandle.IsValid())
-			AkSettings->OnAuxBusAssignmentMapChanged.Remove(AuxBusChangedHandle);
-		AuxBusChangedHandle = AkSettings->OnAuxBusAssignmentMapChanged.AddLambda([this]()
+		if (ReverbAssignmentChangedHandle.IsValid())
+		{
+			AkSettings->OnReverbAssignmentChanged.Remove(ReverbAssignmentChangedHandle);
+		}
+		ReverbAssignmentChangedHandle = AkSettings->OnReverbAssignmentChanged.AddLambda([this]()
+		{
+			ReverbAssignmentNeedsUpdate = true;
+			bTextStatusNeedsUpdate = true;
+		});
+	}
+}
+
+void UAkLateReverbComponent::RegisterGlobalDecayAbsorptionChangedCallback()
+{
+	UAkSettings* AkSettings = GetMutableDefault<UAkSettings>();
+	if (AkSettings != nullptr)
+	{
+		if (GlobalDecayAbsorptionChangedHandle.IsValid())
+		{
+			AkSettings->OnGlobalDecayAbsorptionChanged.Remove(GlobalDecayAbsorptionChangedHandle);
+		}
+		GlobalDecayAbsorptionChangedHandle = AkSettings->OnGlobalDecayAbsorptionChanged.AddLambda([this]()
 		{
 			DecayEstimationNeedsUpdate = true;
 			bTextStatusNeedsUpdate = true;
@@ -871,7 +904,9 @@ void UAkLateReverbComponent::RegisterReverbRTPCChangedCallback()
 	if (AkSettings != nullptr)
 	{
 		if (RTPCChangedHandle.IsValid())
+		{
 			AkSettings->OnReverbRTPCChanged.Remove(RTPCChangedHandle);
+		}
 		RTPCChangedHandle = AkSettings->OnReverbRTPCChanged.AddLambda([this]()
 		{
 			DecayEstimationNeedsUpdate = true;
@@ -884,9 +919,9 @@ void UAkLateReverbComponent::RegisterReverbRTPCChangedCallback()
 
 bool UAkLateReverbComponent::EncompassesPoint(FVector Point, float SphereRadius/*=0.f*/, float* OutDistanceToPoint) const
 {
-	if (IsValid(Parent))
+	if (Parent.IsValid())
 	{
-		return AkComponentHelpers::EncompassesPoint(*Parent, Point, SphereRadius, OutDistanceToPoint);
+		return AkComponentHelpers::EncompassesPoint(*Parent.Get(), Point, SphereRadius, OutDistanceToPoint);
 	}
 	FString actorString = FString("NONE");
 	if (GetOwner() != nullptr)
@@ -899,5 +934,31 @@ bool UAkLateReverbComponent::EncompassesPoint(FVector Point, float SphereRadius/
 	}
 	UE_LOG(LogAkAudio, Error, TEXT("UAkLateReverbComponent::EncompassesPoint : Error. In actor %s, AkLateReverbComponent %s has an invalid Parent."), *actorString, *GetName());
 	return false;
+}
+
+void UAkLateReverbComponent::OnReverbParamsChanged()
+{
+	if (AkComponentHelpers::IsInGameWorld(this))
+	{
+		UAkRoomComponent* RoomCmpt = nullptr;
+		if (Parent.IsValid())
+		{
+			RoomCmpt = AkComponentHelpers::GetChildComponentOfType<UAkRoomComponent>(*Parent.Get());
+		}
+		if (!RoomCmpt || !RoomCmpt->RoomIsActive())
+		{
+			// No room, or inactive room. Update the late reverb in the oct tree.
+			FAkAudioDevice* AkAudioDevice = FAkAudioDevice::Get();
+			if (AkAudioDevice && bEnable && IsIndexed)
+			{
+				AkAudioDevice->ReindexLateReverb(this);
+			}
+		}
+		else if (RoomCmpt && RoomCmpt->RoomIsActive())
+		{
+			// Late reverb is inside an active room. Update the room such that the reverb aux bus is correctly updated.
+			RoomCmpt->UpdateSpatialAudioRoom();
+		}
+	}
 }
 

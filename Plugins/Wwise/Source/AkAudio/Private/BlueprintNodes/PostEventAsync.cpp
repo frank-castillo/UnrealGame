@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "BlueprintNodes/PostEventAsync.h"
@@ -60,7 +60,7 @@ void UPostEventAsync::Activate()
 	if (DeviceAndWorld.IsValid())
 	{
 		AkCallbackType AkCallbackMask = AkCallbackTypeHelpers::GetCallbackMaskFromBlueprintMask(CallbackMask);
-		PlayingIDFuture = DeviceAndWorld.AkAudioDevice->PostAkAudioEventOnActorAsync(AkEvent, Actor, PostEventCallback, AkCallbackMask);
+		AkEvent->PostOnActor(Actor, PostEventCallback, AkCallbackMask, false);
 
 		WorldContextObject->GetWorld()->GetTimerManager().SetTimer(Timer, this, &UPostEventAsync::PollPostEventFuture, 1.f / 60.f, true);
 	}

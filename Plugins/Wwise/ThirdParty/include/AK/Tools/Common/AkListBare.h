@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 // AkListBare.h
@@ -430,6 +430,13 @@ public:
 		LAST_POLICY<T>::AddItem( in_pItem, in_pNextItem );
         
 	    COUNT_POLICY<T>::IncrementCount( in_pItem );
+	}
+
+	void Transfer(AkListBare<T,U_NEXTITEM,COUNT_POLICY,LAST_POLICY>& in_src)
+	{
+		Term();
+		m_pFirst = in_src.m_pFirst;
+		in_src.m_pFirst = nullptr;
 	}
 
 protected:

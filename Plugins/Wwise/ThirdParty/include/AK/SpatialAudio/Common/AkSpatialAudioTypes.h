@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 /// \file 
@@ -31,6 +31,7 @@ the specific language governing permissions and limitations under the License.
 
 #include <AK/Tools/Common/AkString.h>
 #include <AK/Tools/Common/AkLock.h>
+#include <AK/Tools/Common/AkSet.h>
 
 class AkAcousticRoom;
 class AkAcousticPortal;
@@ -39,19 +40,20 @@ class AkImageSourcePlane;
 
 #define AK_MAX_REFLECT_ORDER 4
 #define AK_MAX_REFLECTION_PATH_LENGTH (AK_MAX_REFLECT_ORDER + 4)
+#define AK_STOCHASTIC_RESERVE_LENGTH AK_MAX_REFLECTION_PATH_LENGTH
 #define AK_MAX_SOUND_PROPAGATION_DEPTH 8
 #define AK_MAX_SOUND_PROPAGATION_WIDTH 8
-#define AK_DEFAULT_MOVEMENT_THRESHOLD (1.0f)
 #define AK_SA_EPSILON (0.001f)
 #define AK_SA_DIFFRACTION_EPSILON (0.002f) // Radians
 #define AK_SA_DIFFRACTION_DOT_EPSILON (0.000002) // 1.f - cos(AK_SA_DIFFRACTION_EPSILON)
-#define AK_SA_PLANE_THICKNESS_RATIO (0.005f)
-#define AK_SA_MIN_ENVIRONMENT_ABSORPTION (0.1f)
+#define AK_SA_PLANE_THICKNESS (0.01f)
+#define AK_SA_MIN_ENVIRONMENT_ABSORPTION (0.01f)
 #define AK_SA_MIN_ENVIRONMENT_SURFACE_AREA (1.0f)
 
 const AkUInt32 kDefaultDiffractionMaxEdges = 8;
 const AkUInt32 kDefaultDiffractionMaxPaths = 8;
 const AkReal32 kMaxDiffraction = 1.0f;
+const AkUInt32 kHashListBlockAllocItemCount = 50;	// Number of items per block to allocate for in AkStochasticCollectionHashList
 
 // Max values that are used for calculating diffraction paths between the listener and a portal.
 const AkUInt32 kDiffractionMaxEdges = 8;
@@ -154,6 +156,18 @@ private:
 	/// A game object ID that is in the reserved range, used for 'outdoor' rooms, i.e. when not in a room.
 	/// \akwarning This AkGameObjectID is the underlying game object ID of the outdoor room, and should not be confused with the actual outdoor room's ID, AK::SpatialAudio::kOutdoorRoomID.\endakwarning
 	static const AkGameObjectID OutdoorsGameObjID = (AkGameObjectID)-4;
+};
+typedef AkSet<AkRoomID, ArrayPoolSpatialAudio> AkRoomIDSet;
+
+
+struct AkRoomHierarchyID
+{
+	AkRoomHierarchyID() : id() {}
+	explicit AkRoomHierarchyID(AkRoomID in_roomID) : id(in_roomID) {}
+	bool operator == (AkRoomHierarchyID rhs) const { return id == rhs.id; }
+	bool operator != (AkRoomHierarchyID rhs) const { return id != rhs.id; }
+
+	AkRoomID id;
 };
 
 namespace AK

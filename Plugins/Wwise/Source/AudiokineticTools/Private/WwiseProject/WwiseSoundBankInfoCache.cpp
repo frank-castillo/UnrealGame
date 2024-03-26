@@ -12,14 +12,15 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "WwiseSoundBankInfoCache.h"
 
 #include "AssetManagement/AkAssetDatabase.h"
 #include "WwiseDefines.h"
-#include "AkUnrealHelper.h"
+#include "WwiseUnrealDefines.h"
+#include "WwiseUnrealHelper.h"
 #include "HAL/FileManager.h"
 #if UE_5_0_OR_LATER
 #include "HAL/PlatformFileManager.h"
@@ -157,7 +158,7 @@ void WwiseSoundBankInfoCache::readBool(FArchive& Ar, bool& Value)
 
 bool WwiseSoundBankInfoCache::IsSoundBankUpToUpdate(const FGuid& Id, const FString& Platform, const FString& Language, const uint32 Hash) const
 {
-	FString bankName = AkUnrealHelper::GuidToBankName(Id);
+	FString bankName = WwiseUnrealHelper::GuidToBankName(Id);
 
 	FGuid platformGuid;
 	

@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 /*=============================================================================
@@ -29,7 +29,7 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "AkAudioDevice.h"
 #include "AkSettings.h"
 #include "AkSettingsPerUser.h"
-#include "AkUnrealHelper.h"
+#include "WwiseUnrealDefines.h"
 #include "Serialization/JsonSerializer.h"
 #include "Async/Async.h"
 #include "Misc/ScopeLock.h"
@@ -37,7 +37,6 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "Wwise/API/WAAPI.h"
 
 #if AK_SUPPORT_WAAPI
-
 #include "Misc/App.h"
 #include "Misc/Paths.h"
 #if PLATFORM_WINDOWS
@@ -590,7 +589,7 @@ bool FAkWaapiClient::CheckProjectLoaded()
 
 	if (const UAkSettings* AkSettings = GetDefault<UAkSettings>())
 	{
-		auto ProjectPathString = AkUnrealHelper::GetWwiseProjectPath();
+		auto ProjectPathString = WwiseUnrealHelper::GetWwiseProjectPath();
 
 		FString sCurrentlyLoadedProjectPath = GetAndWaitForCurrentProject(1.0f);
 		if (FPaths::IsSamePath(sCurrentlyLoadedProjectPath, ProjectPathString))
@@ -1173,7 +1172,7 @@ const FString FAkWaapiClient::WAAPIStrings::CHILDREN = TEXT("children");
 const FString FAkWaapiClient::WAAPIStrings::CHILDREN_COUNT = TEXT("childrenCount");
 const FString FAkWaapiClient::WAAPIStrings::ANCESTORS = TEXT("ancestors");
 const FString FAkWaapiClient::WAAPIStrings::DESCENDANTS = TEXT("descendants");
-const FString FAkWaapiClient::WAAPIStrings::WOKUNIT_TYPE = TEXT("workunit:type");
+const FString FAkWaapiClient::WAAPIStrings::WORKUNIT_TYPE = TEXT("workunit:type");
 const FString FAkWaapiClient::WAAPIStrings::FOLDER = TEXT("Folder");
 const FString FAkWaapiClient::WAAPIStrings::PHYSICAL_FOLDER = TEXT("PhysicalFolder");
 const FString FAkWaapiClient::WAAPIStrings::SEARCH = TEXT("search");

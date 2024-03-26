@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 // AkAndroidSoundEngine.h
@@ -37,10 +37,9 @@ the specific language governing permissions and limitations under the License.
 #include "SLES/OpenSLES_Android.h"
 #include <jni.h>
 
-/// \cond !(Web)
 ///< API used for audio output
 ///< Use with AkPlatformInitSettings to select the API used for audio output.  
-///< Use AkAudioAPI_Default, it will select the more appropriate API depending on the computer's capabilities.  Other values should be used for testing purposes.
+///< Use AkAPI_Default, it will select the more appropriate API depending on the computer's capabilities.  Other values should be used for testing purposes.
 ///< \sa AK::SoundEngine::Init
 typedef enum AkAudioAPIAndroid
 {
@@ -78,7 +77,7 @@ struct AkPlatformInitSettings
 												/// If true (default), the output audio device will be initialized in low-latency operation, allowing for more responsive audio playback on most devices. However, when operating in low-latency mode, some devices may have differences in audio reproduction.
 												/// If false, the output audio device will be initialized without low-latency operation.
 };
-/// \endcond
+
 struct AkInitSettings;
 
 namespace AK

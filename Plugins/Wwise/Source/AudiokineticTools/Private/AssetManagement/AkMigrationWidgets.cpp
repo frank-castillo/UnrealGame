@@ -12,14 +12,14 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "AkMigrationWidgets.h" 
 #include "AkSettingsPerUser.h"
-#include "AkUEFeatures.h"
+#include "WwiseUEFeatures.h"
 #include "AkUnrealEditorHelper.h"
-#include "AkUnrealHelper.h"
+#include "WwiseUnrealHelper.h"
 #include "AkWaapiClient.h"
 
 #include "DesktopPlatformModule.h"
@@ -113,8 +113,8 @@ void SMigrationWidget::Construct(const FArguments& InArgs)
 					.AutoWidth()
 					[
 						SNew(SHyperlink)
-						.Text(LOCTEXT("MigrationNotesLink", "Please refer to Wwise 2022.1 migration notes for more information about the migration process."))
-						.OnNavigate_Lambda([=]{ FPlatformProcess::LaunchURL(TEXT("https://www.audiokinetic.com/library/edge/?source=UE4&id=pg_important_migration_notes_2022_1_0.html"), nullptr, nullptr); })
+						.Text(LOCTEXT("MigrationNotesLink", "Please refer to Wwise 2023.1 migration notes for more information about the migration process."))
+						.OnNavigate_Lambda([=]{ FPlatformProcess::LaunchURL(TEXT("https://www.audiokinetic.com/library/edge/?source=UE4&id=pg_important_migration_notes_2023_1_0.html"), nullptr, nullptr); })
 
 					]
 					+ SHorizontalBox::Slot()
@@ -257,7 +257,7 @@ FText SMigrationWidget::GetContinueToolTip() const
 		}
 		if (BankTransferWidget->BankTransferMethod == AkAssetMigration::EBankTransferMode::DefinitionFile && BankTransferWidget->SoundBankDefinitionFilePath.IsEmpty())
 		{
-			return FText::FromString("Please choose a SoundBank Defintion file path first");
+			return FText::FromString("Please choose a SoundBank Definition file path first");
 		}
 	}
 	return  FText::FromString("Continue");
@@ -304,7 +304,7 @@ EVisibility SMigrationWidget::GetProjectMigrationWidgetVisibility() const
 
 void SBankTransferWidget::Construct(const FArguments& InArgs)
 {
-	SoundBankDefinitionFilePath = AkUnrealHelper::GetProjectDirectory() + "SoundBankDefinition.tsv";
+	SoundBankDefinitionFilePath = WwiseUnrealHelper::GetProjectDirectory() + "SoundBankDefinition.tsv";
 
 	ChildSlot
 	[
@@ -772,7 +772,7 @@ void SProjectMigrationWidget::Construct(const FArguments& InArgs)
 						.AutoHeight()
 						[
 							SAssignNew(GeneratedSoundBanksFolderPickerWidget, SDirectoryPicker)
-							.Directory(AkUnrealHelper::GetSoundBankDirectory())
+							.Directory(WwiseUnrealHelper::GetSoundBankDirectory())
 							.Visibility(this, &SProjectMigrationWidget::GetPathVisibility)
 						]
 					]
@@ -899,7 +899,7 @@ void SDefinitionFilePicker::Construct( const FArguments& InArgs )
 			SAssignNew(EditableTextBox, SEditableTextBox)
 			.Text(this, &SDefinitionFilePicker::GetFilePathText)
 			.OnTextChanged(this, &SDefinitionFilePicker::OnFileTextChanged)
-			.OnTextCommitted(this, &SDefinitionFilePicker::OnFileTextCommited)
+			.OnTextCommitted(this, &SDefinitionFilePicker::OnFileTextCommitted)
 		]
 
 		+ SHorizontalBox::Slot()
@@ -924,7 +924,7 @@ void SDefinitionFilePicker::OnFileTextChanged(const FText& InFilePath)
 	FilePath = InFilePath.ToString();
 }
 
-void SDefinitionFilePicker::OnFileTextCommited(const FText& InText, ETextCommit::Type InCommitType)
+void SDefinitionFilePicker::OnFileTextCommitted(const FText& InText, ETextCommit::Type InCommitType)
 {
 	FilePath = InText.ToString();
 	OnFileChanged.ExecuteIfBound(FilePath);

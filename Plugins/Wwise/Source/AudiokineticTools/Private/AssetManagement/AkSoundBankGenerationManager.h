@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -22,7 +22,7 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "HAL/ThreadSafeBool.h"
 #include "Widgets/Notifications/SNotificationList.h"
 #include "AssetManagement/WwiseProjectInfo.h"
-#include "AkUnrealHelper.h"
+#include "WwiseUnrealHelper.h"
 
 DECLARE_STATS_GROUP(TEXT("AkSoundBankGeneration"), STATGROUP_AkSoundBankGenerationSource, STATCAT_Wwise);
 

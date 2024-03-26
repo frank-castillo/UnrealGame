@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/API_2022_1/Platforms/IOS/IOSAPI_2022_1.h"
@@ -25,5 +25,11 @@ void FWwisePlatformAPI_2022_1_IOS::ChangeAudioSessionProperties(
 {
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
 	AK::SoundEngine::iOS::ChangeAudioSessionProperties(in_properties);
+}
+
+AkDeviceID FWwisePlatformAPI_2022_1_IOS::GetDeviceIDFromPlayerIndex(int playerIndex)
+{
+	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
+	return AK_INVALID_DEVICE_ID;
 }
 #endif

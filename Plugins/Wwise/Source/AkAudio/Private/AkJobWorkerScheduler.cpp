@@ -12,33 +12,40 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "AkJobWorkerScheduler.h"
 #include "AkAudioDevice.h"
+#include "Wwise/WwiseTask.h"
 #include "Wwise/API/WwiseMemoryMgrAPI.h"
 
 #define AK_DECLARE_JOB_TYPE(__job__, __desc__, __thread__) \
 	DECLARE_CYCLE_STAT(TEXT(__desc__), STAT_AkJob##__job__, STATGROUP_Audio); \
-	static ENamedThreads::Type kThread##__job__ = __thread__;
+	namespace AkJobWorkerSchedulerInternals \
+	{ \
+		static const TCHAR* const Name##__job__ = TEXT(__desc__); \
+		static EWwiseTaskPriority Task##__job__ = __thread__; \
+	}
 
 #define AK_DEFINE_JOB_CASE(__job__) \
 	case AkJobType_##__job__: \
-		jobStatId = GET_STATID(STAT_AkJob##__job__); \
-		jobThreadType = kThread##__job__
+		Name = AkJobWorkerSchedulerInternals::Name##__job__; \
+		StatId = GET_STATID(STAT_AkJob##__job__); \
+		TaskPriority = AkJobWorkerSchedulerInternals::Task##__job__
 
 static_assert(AK_NUM_JOB_TYPES == 3, "Update the stat groups and switch cases below for new job types!");
-AK_DECLARE_JOB_TYPE(Generic, "Wwise Generic Job", ENamedThreads::AnyHiPriThreadNormalTask);
-AK_DECLARE_JOB_TYPE(AudioProcessing, "Wwise Audio Processing Job", ENamedThreads::AnyHiPriThreadNormalTask);
-AK_DECLARE_JOB_TYPE(SpatialAudio, "Wwise Spatial Audio Job", ENamedThreads::AnyHiPriThreadNormalTask);
+AK_DECLARE_JOB_TYPE(Generic, "Wwise Generic Job", EWwiseTaskPriority::High)
+AK_DECLARE_JOB_TYPE(AudioProcessing, "Wwise Audio Processing Job", EWwiseTaskPriority::High)
+AK_DECLARE_JOB_TYPE(SpatialAudio, "Wwise Spatial Audio Job", EWwiseTaskPriority::High)
 
 static void OnJobWorkerRequest(AkJobWorkerFunc in_fnJobWorker, AkJobType in_jobType, AkUInt32 in_uNumWorkers, void* in_pUserData)
 {
-	FAkJobWorkerScheduler* pScheduler = static_cast<FAkJobWorkerScheduler*>(in_pUserData);
-	AkUInt32 uMaxExecutionTime = pScheduler->uMaxExecutionTime;
-	TStatId jobStatId;
-	ENamedThreads::Type jobThreadType;
+	FAkJobWorkerScheduler* Scheduler = static_cast<FAkJobWorkerScheduler*>(in_pUserData);
+	AkUInt32 MaxExecutionTime = Scheduler->uMaxExecutionTime;
+	const TCHAR* Name;
+	TStatId StatId;
+	EWwiseTaskPriority TaskPriority;
 	switch (in_jobType)
 	{
 		AK_DEFINE_JOB_CASE(AudioProcessing); break;
@@ -50,16 +57,27 @@ static void OnJobWorkerRequest(AkJobWorkerFunc in_fnJobWorker, AkJobType in_jobT
 	}
 	for (int i=0; i < (int)in_uNumWorkers; i++)
 	{ 
-		FFunctionGraphTask::CreateAndDispatchWhenReady([=]() { 
-			in_fnJobWorker(in_jobType, uMaxExecutionTime); 
+		LaunchWwiseTask(Name, TaskPriority, [=]() {
+#if STATS
+#if UE_5_0_OR_LATER
+			FScopeCycleCounter CycleCount(StatId, FStat_STAT_AkJobGeneric::GetFlags());
+#else
+			FScopeCycleCounter CycleCount(StatId);
+#endif
+#endif
+			in_fnJobWorker(in_jobType, MaxExecutionTime); 
 			// After completion of the worker function, release any thread-local memory resources
 			if (auto* MemoryManager = IWwiseMemoryMgrAPI::Get())
 			{
 				MemoryManager->TrimForThread();
 			}
-		}, jobStatId, nullptr, jobThreadType); 
+		}); 
 	} 
 }
+
+#undef AK_DECLARE_JOB_TYPE
+#undef AK_DEFINE_JOB_TYPE
+
 
 void FAkJobWorkerScheduler::InstallJobWorkerScheduler(uint32 in_uMaxExecutionTime, uint32 in_uMaxWorkerCount, AkJobMgrSettings & out_settings)
 {
@@ -73,7 +91,6 @@ void FAkJobWorkerScheduler::InstallJobWorkerScheduler(uint32 in_uMaxExecutionTim
 	}
 	else
 	{
-		check(ENamedThreads::bHasHighPriorityThreads);
 		uMaxExecutionTime = in_uMaxExecutionTime;
 		AkUInt32 uNumWorkerThreads = FTaskGraphInterface::Get().GetNumWorkerThreads();
 		AkUInt32 uMaxActiveWorkers = FMath::Min(uNumWorkerThreads, in_uMaxWorkerCount);

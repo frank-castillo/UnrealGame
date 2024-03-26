@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -23,6 +23,7 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "AssetRegistry/AssetRegistryModule.h"
 #include "WwiseDefines.h"
 #include "AkRtpc.h"
+#include "Engine/DataTable.h"
 #include "AkSettings.generated.h"
 
 class UAkInitBank;
@@ -64,7 +65,7 @@ struct FAkGeometrySurfacePropertiesToMap
 
 	UPROPERTY(EditAnywhere, Category = "AkGeometry Surface Properties Map")
 	TSoftObjectPtr<class UAkAcousticTexture> AcousticTexture = nullptr;
-	
+
 	UPROPERTY(EditAnywhere, DisplayName = "Transmission Loss", Category = "AkGeometry Surface Properties Map", meta = (ClampMin = "0.0", ClampMax = "1.0"))
 	float OcclusionValue = 1.f;
 
@@ -86,10 +87,54 @@ struct FAkGeometrySurfacePropertiesToMap
 	}
 };
 
-struct AkGeometrySurfaceProperties
+USTRUCT()
+struct FWwiseGeometrySurfacePropertiesRow : public FTableRowBase
 {
-	UAkAcousticTexture* AcousticTexture = nullptr;
-	float OcclusionValue = 1.f;
+	GENERATED_BODY()
+
+	FWwiseGeometrySurfacePropertiesRow() {}
+
+	FWwiseGeometrySurfacePropertiesRow(TSoftObjectPtr<class UAkAcousticTexture> InAcousticTexture, float InTransmissionLoss)
+	{
+		AcousticTexture = InAcousticTexture;
+		TransmissionLoss = InTransmissionLoss;
+	}
+
+	// The Acoustic Texture associated with this row's Physical Material.
+	// A sound reflected on a surface is filtered according to the acoustic texture's absorption values.
+	// When estimating the Reverb of an environment, acoustic textures applied to the surfaces are used to estimate the environment's Decay and HF Damping.
+	// The default value is set to None. A surface with no acoustic texture is considered completely reflective.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Geometry Surface Properties")
+	TSoftObjectPtr<class UAkAcousticTexture> AcousticTexture = nullptr;
+
+	// The Transmission Loss value associated with this row's Physical Material.
+	// A sound going through a surface is filtered according to the amount of transmission loss.
+	// A surface with a transmission loss value of 0 is considered transparent and lets sound pass through without any filtering. Sound cannot reflect on such surfaces.
+	// The default value is set to 1, which is also the maximum possible value.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Geometry Surface Properties", meta = (ClampMin = "0.0", ClampMax = "1.0"))
+	float TransmissionLoss = 1.f;
+};
+
+USTRUCT()
+struct FWwiseDecayAuxBusRow : public FTableRowBase
+{
+	GENERATED_BODY()
+
+	FWwiseDecayAuxBusRow() {}
+
+	FWwiseDecayAuxBusRow(float InDecay, TSoftObjectPtr<class UAkAuxBus> InAuxBus)
+	{
+		Decay = InDecay;
+		AuxBus = InAuxBus;
+	}
+
+	// The number of seconds it takes for the sound reverberation in an environment to decay by 60 dB.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Reverb Assignment", meta = (ClampMin = "0.0"))
+	float Decay = 0.f;
+
+	// The Auxiliary Bus with a reverb effect to use for a chosen Decay value.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Reverb Assignment")
+	TSoftObjectPtr<class UAkAuxBus> AuxBus = nullptr;
 };
 
 USTRUCT()
@@ -111,9 +156,8 @@ struct FAkAcousticTextureParams
 #define AK_MAX_AUX_PER_OBJ	4
 
 DECLARE_EVENT(UAkSettings, ActivatedNewAssetManagement);
-DECLARE_EVENT(UAkSettings, ShowRoomsPortalsChanged);
-DECLARE_EVENT(UAkSettings, ShowReverbInfoChanged)
-DECLARE_EVENT(UAkSettings, AuxBusAssignmentMapChanged);
+DECLARE_EVENT(UAkSettings, ReverbAssignmentChanged);
+DECLARE_EVENT(UAkSettings, GlobalDecayAbsorptionChanged);
 DECLARE_EVENT(UAkSettings, ReverbRTPCChanged);
 DECLARE_EVENT_TwoParams(UAkSettings, SoundDataFolderChanged, const FString&, const FString&);
 DECLARE_EVENT_OneParam(UAkSettings, AcousticTextureParamsChanged, const FGuid&)
@@ -148,11 +192,15 @@ public:
 
 	// Where the Sound Data will be generated in the Content Folder
 	UPROPERTY()
-	FDirectoryPath WwiseSoundDataFolder;
+ 	FDirectoryPath WwiseSoundDataFolder;
 
+	// The location of the folder where Wwise project metadata will be generated. This should be the same as the Root Output Path in the Wwise Project Settings.
 	UPROPERTY(Config, EditAnywhere, Category="Installation", meta=( AbsolutePath))
-	FDirectoryPath GeneratedSoundBanksFolder;
+	FDirectoryPath RootOutputPath;
 
+	UPROPERTY(Config)
+	FDirectoryPath GeneratedSoundBanksFolder_DEPRECATED;
+	
 	//Where wwise .bnk and .wem files will be copied to when staging files during cooking
 	UPROPERTY(Config, EditAnywhere, Category = "Cooking", meta=(RelativeToGameContentDir))
 	FDirectoryPath WwiseStagingDirectory = {TEXT("WwiseAudio")};
@@ -172,8 +220,8 @@ public:
 	UPROPERTY(Config)
 	bool bAutoConnectToWAAPI_DEPRECATED = false;
 
-	// Default value for Occlusion Collision Channel when creating a new Ak Component.
-	UPROPERTY(Config, EditAnywhere, Category = "Occlusion")
+	// Default value for the Collision Channel when creating a new Ak Component.
+	UPROPERTY(Config, EditAnywhere, Category = "Obstruction Occlusion", meta = (DisplayName = "DefaultCollisionChannel"))
 	TEnumAsByte<ECollisionChannel> DefaultOcclusionCollisionChannel = ECollisionChannel::ECC_Visibility;
 	
 	// Default value for Collision Channel when fitting Ak Acoustic Portals and Ak Spatial Audio Volumes to surrounding geometry.
@@ -181,45 +229,76 @@ public:
 	TEnumAsByte<ECollisionChannel> DefaultFitToGeometryCollisionChannel = ECollisionChannel::ECC_WorldStatic;
 
 	// PhysicalMaterial to AcousticTexture and Occlusion Value Map
-	UPROPERTY(Config, EditAnywhere, EditFixedSize, Category = "AkGeometry Surface Properties Map")
+	// @deprecated Use GeometrySurfacePropertiesTable instead.
+	UPROPERTY(Config)
 	TMap<TSoftObjectPtr<UPhysicalMaterial>, FAkGeometrySurfacePropertiesToMap> AkGeometryMap;
 
-	// Global surface absorption value to use when estimating environment decay value. Acts as a global scale factor for the decay estimations. Defaults to 0.5.
-	UPROPERTY(Config, EditAnywhere, Category = "Reverb Assignment Map", meta = (ClampMin = 0.1f, ClampMax = 1.0f, UIMin = 0.1f, UIMax = 1.0f))
+	// The default Acoustic Texture set on a surface of a Spatial Audio Volume actor when Fit to Geometry is used and no geometry is hit.
+	// Default value is None, which indicates a completely reflective surface.
+	UPROPERTY(Config, EditAnywhere, Category = "Geometry Surface Properties")
+	TSoftObjectPtr<class UAkAcousticTexture> DefaultAcousticTexture = nullptr;
+
+	// The default Transmission Loss value set on a surface of a Spatial Audio Volume actor when Fit to Geometry is used and no geometry is hit. The valid range is between 0 and 1.
+	// The default value is 0, which indicates that sound can pass through the surface without any loss. A surface with 0 transmission loss is considered transparent. It disables any reflections and does not use the Acoustic Texture.
+	UPROPERTY(Config, EditAnywhere, Category = "Geometry Surface Properties", meta = (ClampMin = "0.0", ClampMax = "1.0"))
+	float DefaultTransmissionLoss = 0.0f;
+
+	// Table that associates Geometry Surface Properties (Acoustic Texture and Transmission Loss) with Physical Materials.
+	// This table is used to retrieve the Geometry Surface Properties according to the Static Mesh's Physical Materials when using the AkGeometry component or when using Fit to Geometry with the AkSpatialAudioVolume.
+	// Rows must be of type FWwiseGeometrySurfacePropertiesRow. We recommend that you do not add or remove rows.
+	// Rows are updated when Physical Material assets are added to or removed from the project.
+	// Rows are also updated when an Acoustic Texture with a name similar to a Physical Material is added to the project.
+	UPROPERTY(Config, EditAnywhere, Category = "Geometry Surface Properties")
+	TSoftObjectPtr<UDataTable> GeometrySurfacePropertiesTable;
+
+	// Default surface absorption value to use when estimating environment Decay value. It is used for the decay estimations of environments without Acoustic Texture information. The default value is 0.5.
+	UPROPERTY(Config, EditAnywhere, Category = "Reverb Assignment", DisplayName = "Default Surface Absorption", meta = (ClampMin = 0.1f, ClampMax = 1.0f, UIMin = 0.1f, UIMax = 1.0f))
 	float GlobalDecayAbsorption = .5f;
 
-	// Default reverb aux bus to apply to rooms
-	UPROPERTY(Config, EditAnywhere, Category = "Reverb Assignment Map")
+	// The default Auxiliary Bus to choose for Automatic Reverb Assignment.
+	// Automatic Reverb Assignment can be enabled on Late Reverb components. When their Decay values exceed the highest Decay value in the Reverb Assignment Table, or if the table is empty or nonexistant, the default Auxiliary Bus is chosen.
+	// This Auxiliary Bus must have a reverb effect.
+	UPROPERTY(Config, EditAnywhere, Category = "Reverb Assignment")
 	TSoftObjectPtr<class UAkAuxBus> DefaultReverbAuxBus = nullptr;
 	
-	// RoomDecay to AuxBusID Map. Used to automatically assign aux bus ids to rooms depending on their volume and surface area.
-	UPROPERTY(Config, EditAnywhere, Category = "Reverb Assignment Map")
+	// RoomDecay to AuxBus Map.
+	// @deprecated Use ReverbAssignmentTable instead.
+	UPROPERTY(Config)
 	TMap<float, TSoftObjectPtr<class UAkAuxBus>> EnvironmentDecayAuxBusMap;
 
-	UPROPERTY(Config, EditAnywhere, Category = "Reverb Assignment Map|RTPCs")
+	// Table that associates Auxiliary Busses with Reverb Decay values. Rows must be of type FWwiseDecayAuxBusRow.
+	// The Decay value represents the number of seconds it takes for the sound reverberation in an environment to decay by 60 dB.
+	// The Auxiliary Busses are Auxiliary Busses in Wwise Authoring that have reverb effects.
+	// If Automatic Reverb Assignment is enabled on a Late Reverb component, its Decay value is compared to the table's Decay values. The chosen Auxiliary Bus is the one associated with the closest and highest Decay value in the table.
+	// If the given Decay value exceeds the highest Decay value in the table, or if the table is empty or nonexistant, the Default Reverb Aux Bus is chosen.
+	// Decay values are represented with floating point numbers. We recommend that consecutive Decay values differ by at least 0.01 to ensure the correct Auxiliary Bus is chosen for a given Decay value.
+	UPROPERTY(Config, EditAnywhere, Category = "Reverb Assignment")
+	TSoftObjectPtr<UDataTable> ReverbAssignmentTable;
+
+	UPROPERTY(Config, EditAnywhere, Category = "Reverb Assignment|RTPCs")
 	FString HFDampingName = "";
 
-	UPROPERTY(Config, EditAnywhere, Category = "Reverb Assignment Map|RTPCs")
+	UPROPERTY(Config, EditAnywhere, Category = "Reverb Assignment|RTPCs")
 	FString DecayEstimateName = "";
 
-	UPROPERTY(Config, EditAnywhere, Category = "Reverb Assignment Map|RTPCs")
+	UPROPERTY(Config, EditAnywhere, Category = "Reverb Assignment|RTPCs")
 	FString TimeToFirstReflectionName = "";
 
-	UPROPERTY(Config, EditAnywhere, Category = "Reverb Assignment Map|RTPCs")
+	UPROPERTY(Config, EditAnywhere, Category = "Reverb Assignment|RTPCs")
 	TSoftObjectPtr<UAkRtpc> HFDampingRTPC = nullptr;
 
-	UPROPERTY(Config, EditAnywhere, Category = "Reverb Assignment Map|RTPCs")
+	UPROPERTY(Config, EditAnywhere, Category = "Reverb Assignment|RTPCs")
 	TSoftObjectPtr<UAkRtpc> DecayEstimateRTPC = nullptr;
 
-	UPROPERTY(Config, EditAnywhere, Category = "Reverb Assignment Map|RTPCs")
+	UPROPERTY(Config, EditAnywhere, Category = "Reverb Assignment|RTPCs")
 	TSoftObjectPtr<UAkRtpc> TimeToFirstReflectionRTPC = nullptr;
 
 	// Input event associated with the Wwise Audio Input
 	UPROPERTY(Config, EditAnywhere, Category = "Initialization")
 	TSoftObjectPtr<class UAkAudioEvent> AudioInputEvent = nullptr;
 
-	UPROPERTY(Config)
-	TMap<FGuid, FAkAcousticTextureParams> AcousticTextureParamsMap;
+	UPROPERTY(Config, meta = (Deprecated, DeprecationMessage = "AcousticTextureParamsMap is now an internal map."))
+	TMap<FGuid, FAkAcousticTextureParams> AcousticTextureParamsMap_DEPRECATED;
 
 	// When generating the event data, the media contained in switch containers will be split by state/switch value
 	// and only loaded if the state/switch value are currently loaded
@@ -252,16 +331,16 @@ public:
 	TSoftObjectPtr<UAkInitBank> InitBank;
 
 	// Routing Audio from Unreal Audio to Wwise Sound Engine
-	UPROPERTY(Config, EditAnywhere, Category = "Initialization", DisplayName = "Unreal Audio Routing (Experimental)", meta=(ConfigRestartRequired=true))
+	UPROPERTY(Config, EditAnywhere, Category = "Initialization", DisplayName = "Unreal Audio Routing", meta=(ConfigRestartRequired=true))
 	EAkUnrealAudioRouting AudioRouting = EAkUnrealAudioRouting::Custom;
 
-	UPROPERTY(Config, EditAnywhere, Category = "Initialization", DisplayName = "Wwise SoundEngine Enabled (Experimental)", meta=(ConfigRestartRequired=true, EditCondition="AudioRouting == EAkUnrealAudioRouting::Custom"))
+	UPROPERTY(Config, EditAnywhere, Category = "Initialization", meta=(ConfigRestartRequired=true, EditCondition="AudioRouting == EAkUnrealAudioRouting::Custom"))
 	bool bWwiseSoundEngineEnabled = true;
 
-	UPROPERTY(Config, EditAnywhere, Category = "Initialization", DisplayName = "Wwise AudioLink Enabled (Experimental)", meta=(ConfigRestartRequired=true, EditCondition="AudioRouting == EAkUnrealAudioRouting::Custom"))
+	UPROPERTY(Config, EditAnywhere, Category = "Initialization", meta=(ConfigRestartRequired=true, EditCondition="AudioRouting == EAkUnrealAudioRouting::Custom"))
 	bool bWwiseAudioLinkEnabled = false;
 
-	UPROPERTY(Config, EditAnywhere, Category = "Initialization", DisplayName = "AkAudioMixer Enabled (Experimental)", meta=(ConfigRestartRequired=true, EditCondition="AudioRouting == EAkUnrealAudioRouting::Custom"))
+	UPROPERTY(Config, EditAnywhere, Category = "Initialization", meta=(ConfigRestartRequired=true, EditCondition="AudioRouting == EAkUnrealAudioRouting::Custom"))
 	bool bAkAudioMixerEnabled = false;
 
 	UPROPERTY(Config)
@@ -309,16 +388,21 @@ public:
 	void RemoveSoundDataFromAlwaysStageAsUFS(const FString& SoundDataPath);
 	void RemoveSoundDataFromAlwaysCook(const FString& SoundDataPath);
 	void EnsurePluginContentIsInAlwaysCook() const;
-	void InitAkGeometryMap();
-	void DecayAuxBusMapChanged();
-	void SortDecayKeys();
-	static float MinimumDecayKeyDistance;
+
+	AK_DEPRECATED(2023.1, "Use InitGeometrySurfacePropertiesTable instead.")
+	void InitAkGeometryMap() { InitGeometrySurfacePropertiesTable(); }
+
+	void InitGeometrySurfacePropertiesTable();
+	void VerifyAndUpdateGeometrySurfacePropertiesTable();
+
+	void InitReverbAssignmentTable();
 #endif
 
 protected:
 #if WITH_EDITOR
 	virtual void PostEditChangeProperty( struct FPropertyChangedEvent& PropertyChangedEvent ) override;
 	virtual void PreEditChange(FProperty* PropertyAboutToChange) override;
+	virtual void OnReverbAssignmentTableChanged();
 #endif
 
 private:
@@ -331,17 +415,15 @@ private:
 
 	void OnAssetAdded(const FAssetData& NewAssetData);
 	void OnAssetRemoved(const struct FAssetData& AssetData);
-	void FillAkGeometryMap(const TArray<FAssetData>& PhysicalMaterials, const TArray<FAssetData>& AcousticTextureAssets);
-	void UpdateAkGeometryMap();
+	void UpdateGeometrySurfacePropertiesTable(const TArray<FAssetData>& PhysicalMaterials, const TArray<FAssetData>& AcousticTextureAssets);
+	void FillGeometrySurfacePropertiesTable();
+
 	void SanitizeProjectPath(FString& Path, const FString& PreviousPath, const FText& DialogMessage);
 	void OnAudioRoutingUpdate();
 	
-	bool bAkGeometryMapInitialized = false;
-	TMap< UPhysicalMaterial*, UAkAcousticTexture* > PhysicalMaterialAcousticTextureMap;
-	TMap< UPhysicalMaterial*, float > PhysicalMaterialOcclusionMap;
+	bool bGeometrySurfacePropertiesTableInitialized = false;
 
-	// This is used to track which key has changed and restrict its value between the two neighbouring keys
-	TMap<float, TSoftObjectPtr<class UAkAuxBus>> PreviousDecayAuxBusMap;
+	FDelegateHandle ReverbAssignmentTableChangedHandle;
 
 #if AK_SUPPORT_WAAPI
 	TMap<FGuid, TArray<uint64>> WaapiTextureSubscriptions;
@@ -352,12 +434,12 @@ private:
 #endif
 #endif
 
+	TMap<FGuid, FAkAcousticTextureParams> AcousticTextureParamsMap;
+
 public:
 	bool bRequestRefresh = false;
-	const FAkAcousticTextureParams* GetTextureParams(const uint32& shortID) const;
 #if WITH_EDITOR
-	void ClearAkRoomDecayAuxBusMap();
-	void InsertDecayKeyValue(const float& decayKey);
+	const FAkAcousticTextureParams* GetTextureParams(const uint32& shortID) const;
 	void SetAcousticTextureParams(const FGuid& textureID, const FAkAcousticTextureParams& params);
 	void ClearTextureParamsMap();
 #if AK_SUPPORT_WAAPI
@@ -376,29 +458,16 @@ public:
 #endif // WITH_EDITOR
 
 #if WITH_EDITORONLY_DATA
-	// Visualize rooms and portals in the viewport. This requires 'realtime' to be enabled in the viewport.
-	UPROPERTY(Config, EditAnywhere, Category = "Viewports")
-	bool VisualizeRoomsAndPortals = false;
-	// Flips the state of VisualizeRoomsAndPortals. Used for the viewport menu options. (See FAudiokineticToolsModule in AudiokineticTooslModule.cpp).
-	void ToggleVisualizeRoomsAndPortals();
-	// When enabled, information about AkReverbComponents will be displayed in viewports, above the component's UPrimitiveComponent parent. This requires 'realtime' to be enabled in the viewport.
-	UPROPERTY(Config, EditAnywhere, Category = "Viewports")
-	bool bShowReverbInfo = true;
-	// Flips the state of bShowReverbInfo. Used for the viewport menu options. (See FAudiokineticToolsModule in AudiokineticTooslModule.cpp).
-	void ToggleShowReverbInfo();
-	ShowRoomsPortalsChanged OnShowRoomsPortalsChanged;
-	ShowReverbInfoChanged OnShowReverbInfoChanged;
-	AuxBusAssignmentMapChanged OnAuxBusAssignmentMapChanged;
+	ReverbAssignmentChanged OnReverbAssignmentChanged;
+	GlobalDecayAbsorptionChanged OnGlobalDecayAbsorptionChanged;
 	ReverbRTPCChanged OnReverbRTPCChanged;
-
 	FOnSoundBanksPathChangedDelegate OnGeneratedSoundBanksPathChanged;
-
 #endif
 
 	/** Get the associated AuxBus for the given environment decay value.
-	 * Return the AuxBus associated to the next highest decay value in the EnvironmentDecayAuxBusMap, after the given value. 
+	 * Return the AuxBus associated with the next highest decay value in the ReverbAssignmentTable, after the given value. 
 	 */
-	void GetAuxBusForDecayValue(float decay, class UAkAuxBus*& auxBus);
+	UAkAuxBus* GetAuxBusForDecayValue(float Decay);
 
 	void GetAudioInputEvent(class UAkAudioEvent*& OutInputEvent);
 

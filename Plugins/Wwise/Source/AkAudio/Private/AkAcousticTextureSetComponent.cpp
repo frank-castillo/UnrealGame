@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "AkAcousticTextureSetComponent.h"
@@ -86,6 +86,15 @@ void UAkAcousticTextureSetComponent::TickComponent(float DeltaTime, enum ELevelT
 	if (DampingEstimationNeedsUpdate && SecondsSinceDampingUpdate >= PARAM_ESTIMATION_UPDATE_PERIOD)
 	{
 		RecalculateHFDamping();
+
+		if (USceneComponent* parent = GetAttachParent())
+		{
+			if (UAkLateReverbComponent* ReverbComp = AkComponentHelpers::GetChildComponentOfType<UAkLateReverbComponent>(*parent))
+			{
+				ReverbComp->TextureSetUpdated(); // We notify the late reverb component so it can recompute the Decay value.
+			}
+		}
+
 		DampingEstimationNeedsUpdate = false;
 	}
 }
@@ -123,9 +132,10 @@ void UAkAcousticTextureSetComponent::BeginDestroy()
 
 void UAkAcousticTextureSetComponent::HandleObjectsReplaced(const TMap<UObject*, UObject*>& ReplacementMap)
 {
-	if (ReplacementMap.Contains(this))
+	auto ValuePtr = ReplacementMap.Find(this);
+	if (ValuePtr && *ValuePtr)
 	{
-		UAkAcousticTextureSetComponent* NewTextureSetComponent = Cast<UAkAcousticTextureSetComponent>(ReplacementMap[this]);
+		UAkAcousticTextureSetComponent* NewTextureSetComponent = Cast<UAkAcousticTextureSetComponent>(*ValuePtr);
 		if (USceneComponent* Parent = NewTextureSetComponent->GetAttachParent())
 		{
 			if (UAkLateReverbComponent* ReverbComp = AkComponentHelpers::GetChildComponentOfType<UAkLateReverbComponent>(*Parent))
@@ -206,7 +216,7 @@ void UAkAcousticTextureSetComponent::SendGeometryToWwise(const AkGeometryParams&
 	}
 }
 
-void UAkAcousticTextureSetComponent::SendGeometryInstanceToWwise(const FRotator& rotation, const FVector& location, const FVector& scale, const AkRoomID roomID)
+void UAkAcousticTextureSetComponent::SendGeometryInstanceToWwise(const FRotator& rotation, const FVector& location, const FVector& scale, const AkRoomID roomID, bool useForReflectionAndDiffraction)
 {
 	if (ShouldSendGeometry() && GeometryHasBeenSent)
 	{
@@ -221,6 +231,9 @@ void UAkAcousticTextureSetComponent::SendGeometryInstanceToWwise(const FRotator&
 		FAkAudioDevice::FVectorToAKVector(scale, params.Scale);
 		params.GeometrySetID = GetGeometrySetID();
 		params.RoomID = roomID;
+#if WWISE_2023_1_OR_LATER
+		params.UseForReflectionAndDiffraction = useForReflectionAndDiffraction;
+#endif
 
 		FAkAudioDevice* AkAudioDevice = FAkAudioDevice::Get();
 		if (AkAudioDevice != nullptr && AkAudioDevice->SetGeometryInstance(GetGeometrySetID(), params) == AK_Success)
@@ -230,7 +243,7 @@ void UAkAcousticTextureSetComponent::SendGeometryInstanceToWwise(const FRotator&
 
 void UAkAcousticTextureSetComponent::RemoveGeometryFromWwise()
 {
-	if (ShouldSendGeometry() && GeometryHasBeenSent)
+	if (GeometryHasBeenSent)
 	{
 		FAkAudioDevice* AkAudioDevice = FAkAudioDevice::Get();
 		if (AkAudioDevice != nullptr && AkAudioDevice->RemoveGeometrySet(GetGeometrySetID()) == AK_Success)
@@ -243,7 +256,7 @@ void UAkAcousticTextureSetComponent::RemoveGeometryFromWwise()
 
 void UAkAcousticTextureSetComponent::RemoveGeometryInstanceFromWwise()
 {
-	if (ShouldSendGeometry() && GeometryInstanceHasBeenSent)
+	if (GeometryInstanceHasBeenSent)
 	{
 		FAkAudioDevice* AkAudioDevice = FAkAudioDevice::Get();
 		if (AkAudioDevice != nullptr && AkAudioDevice->RemoveGeometrySet(GetGeometrySetID()) == AK_Success)

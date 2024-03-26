@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -37,6 +37,7 @@ struct WWISERESOURCELOADER_API FWwiseLoadedEventInfo
 		TArray<const FWwiseSoundBankCookedData*> LoadedSoundBanks;
 		TArray<const FWwiseExternalSourceCookedData*> LoadedExternalSources;
 		TArray<const FWwiseMediaCookedData*> LoadedMedia;
+		int IsProcessing{0};
 
 		FWwiseLoadedGroupValueList LoadedRequiredGroupValues;
 		bool bLoadedSwitchContainerLeaves = false;
@@ -53,6 +54,7 @@ private:
 
 using FWwiseLoadedEventList = TDoubleLinkedList<FWwiseLoadedEventInfo>;
 using FWwiseLoadedEventListNode = FWwiseLoadedEventList::TDoubleLinkedListNode;
-using FWwiseLoadedEvent = FWwiseLoadedEventListNode*;
-using FWwiseLoadedEventPromise = TWwisePromise<FWwiseLoadedEvent>;
-using FWwiseLoadedEventFuture = TWwiseFuture<FWwiseLoadedEvent>;
+using FWwiseLoadedEventPtr = FWwiseLoadedEventListNode*;
+using FWwiseLoadedEventPtrAtomic = std::atomic<FWwiseLoadedEventPtr>;
+using FWwiseLoadedEventPromise = TWwisePromise<FWwiseLoadedEventPtr>;
+using FWwiseLoadedEventFuture = TWwiseFuture<FWwiseLoadedEventPtr>;

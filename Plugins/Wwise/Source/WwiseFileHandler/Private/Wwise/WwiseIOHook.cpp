@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/WwiseIOHook.h"
@@ -22,6 +22,7 @@ Copyright (c) 2023 Audiokinetic Inc.
 
 bool FWwiseIOHook::Init(const AkDeviceSettings& InDeviceSettings)
 {
+	SCOPED_WWISEFILEHANDLER_EVENT_2(TEXT("FWwiseIOHook::Init"));
 	auto* StreamMgr = IWwiseStreamMgrAPI::Get();
 	if (UNLIKELY(!StreamMgr))
 	{
@@ -42,14 +43,15 @@ bool FWwiseIOHook::Init(const AkDeviceSettings& InDeviceSettings)
 	}
 
 	// Create a device in the Stream Manager, specifying this as the hook.
-	StreamingDevice = StreamMgr->CreateDevice(InDeviceSettings, GetIOHook());
-	UE_CLOG(UNLIKELY(StreamingDevice == AK_INVALID_DEVICE_ID), LogWwiseFileHandler, Error, TEXT("IOHook: CreateDevice failed."));
-	UE_CLOG(LIKELY(StreamingDevice != AK_INVALID_DEVICE_ID), LogWwiseFileHandler, Verbose, TEXT("IOHook: CreateDevice = %" PRIu32), StreamingDevice);
+	auto Result = StreamMgr->CreateDevice(InDeviceSettings, GetIOHook(), StreamingDevice);
+	UE_CLOG(UNLIKELY(Result != AK_Success || StreamingDevice == AK_INVALID_DEVICE_ID), LogWwiseFileHandler, Error, TEXT("IOHook: CreateDevice failed."));
+	UE_CLOG(LIKELY(Result == AK_Success && StreamingDevice != AK_INVALID_DEVICE_ID), LogWwiseFileHandler, Verbose, TEXT("IOHook: CreateDevice = %" PRIu32), StreamingDevice);
 	return StreamingDevice != AK_INVALID_DEVICE_ID;
 }
 
 void FWwiseIOHook::Term()
 {
+	SCOPED_WWISEFILEHANDLER_EVENT_2(TEXT("FWwiseIOHook::Term"));
 	auto* StreamMgr = IWwiseStreamMgrAPI::Get();
 	if (UNLIKELY(!StreamMgr))
 	{

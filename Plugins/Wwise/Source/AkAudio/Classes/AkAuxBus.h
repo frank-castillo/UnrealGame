@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -35,6 +35,9 @@ class AKAUDIO_API UAkAuxBus : public UAkAudioType
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(Transient, VisibleAnywhere, BlueprintReadOnly, Category = "AkAudioEvent")
+	float MaxAttenuationRadius = .0f;
+
 
 #if WITH_EDITORONLY_DATA
 	UPROPERTY(EditAnywhere, Category = "AkAuxBus")
@@ -55,6 +58,7 @@ public:
 	virtual AkUInt32 GetShortID() const override {return AuxBusCookedData.AuxBusId;}
 
 #if WITH_EDITORONLY_DATA
+	virtual void FillMetadata(FWwiseProjectDatabase* ProjectDatabase) override;
 	virtual FWwiseObjectInfo* GetInfoMutable() override {return &AuxBusInfo;}
 	virtual FWwiseObjectInfo GetInfo() const override{return AuxBusInfo;}
 	virtual bool ObjectIsInSoundBanks() override;
@@ -63,7 +67,7 @@ public:
 private:
 	void LoadAuxBus();
 	void UnloadAuxBus(bool bAsync);
-	FWwiseLoadedAuxBus LoadedAuxBus;
+	FWwiseLoadedAuxBusPtrAtomic LoadedAuxBus{nullptr};
 
 #if WITH_EDITORONLY_DATA
 	virtual void CookAdditionalFilesOverride(const TCHAR* PackageFilename, const ITargetPlatform* TargetPlatform,

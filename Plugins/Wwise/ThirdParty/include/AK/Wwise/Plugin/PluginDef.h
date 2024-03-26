@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 /**
@@ -70,6 +70,12 @@ namespace AK
 				LicenseStatus_Valid,		///< A license is found and is valid
 
 				LicenseStatus_Incompatible	///< The plugin was made for an older version of Wwise
+			};
+
+			struct LicenseID
+			{
+				// nul-terminated 8 characters license
+				char id[9];
 			};
 
 			/// Type of operation for the NotifyInnerObjectAddedRemoved function.
@@ -598,6 +604,15 @@ struct ak_wwise_plugin_frontend_instance AK_WWISE_PLUGIN_DERIVE_FROM_INSTANCE_BA
  * - AK::Wwise::Plugin::V1::Host C++ class.
  */
 struct ak_wwise_plugin_host_instance_v1 AK_WWISE_PLUGIN_DERIVE_FROM_INSTANCE_BASE {};
+
+/**
+ * \brief Base host-provided instance type for ak_wwise_plugin_host_v2.
+ * 
+ * \sa
+ * - ak_wwise_plugin_host_v2 C interface.
+ * - AK::Wwise::Plugin::V2::Host C++ class.
+ */
+struct ak_wwise_plugin_host_instance_v2 : public ak_wwise_plugin_host_instance_v1 {};
 
 /**
  * \brief Base host-provided instance type for ak_wwise_plugin_host_conversion_helpers_v1.

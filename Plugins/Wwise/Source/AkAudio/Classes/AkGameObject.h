@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 /*=============================================================================
@@ -39,10 +39,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="AkEvent")
 	UAkAudioEvent* AkAudioEvent = nullptr;
 
-	/** Associated Event name to be posted on this game object. Deprecation warning: You should always use the associated AkAudioEvent to ensure the assets are properly loaded. */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, AdvancedDisplay, Category = "AkEvent")
-	FString EventName;
-
 	/**
 	 * Posts this game object's AkAudioEvent to Wwise, using this as the game object source
 	 */
@@ -64,15 +60,13 @@ public:
 	 * @param AkEvent			The event to post
 	 * @param CallbackMask		Mask of desired callbacks
 	 * @param PostEventCallback	Blueprint Event to execute on callback
-	 * @param InEventName		Deprecated: If AkEvent is not set, this is used. You should ensure your AkEvent is always set.
 	 *
 	 */
 	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Audiokinetic|AkGameObject", meta = (AdvancedDisplay = "1", AutoCreateRefTerm = "PostEventCallback,ExternalSources"))
 	virtual int32 PostAkEvent(
 		class UAkAudioEvent * AkEvent,
 		UPARAM(meta = (Bitmask, BitmaskEnum = "/Script/AkAudio.EAkCallbackType")) int32 CallbackMask,
-		const FOnAkPostEventCallback& PostEventCallback,
-		const FString& InEventName
+		const FOnAkPostEventCallback& PostEventCallback
 	);
 
 	virtual AkPlayingID PostAkEvent(UAkAudioEvent* AkEvent, AkUInt32 Flags = 0, AkCallbackFunc UserCallback = nullptr, void* UserCookie = nullptr);
@@ -101,28 +95,6 @@ public:
 	virtual void Stop();
 
 	/**
-	 * @warning Using EventName in this function is deprecated. Use \ref PostAkEvent.
-	 */
-	AK_DEPRECATED(2022.1, "Use PostAkEvent.")
-	virtual AkPlayingID PostAkEventByNameWithDelegate(
-		UAkAudioEvent* AkEvent,
-		const FString& InEventName,
-		int32 CallbackMask, 
-		const FOnAkPostEventCallback& PostEventCallback);
-
-	/**
-	 * @warning This function is deprecated. You are expected to use an UAkAudioEvent. Use \ref PostAkEvent.
-	 */
-	AK_DEPRECATED(2022.1, "Use PostAkEvent.")
-	virtual void PostAkEventAsyncByEvent(const UObject* WorldContextObject,
-		class UAkAudioEvent* AkEvent,
-		int32 CallbackMask,
-		const FOnAkPostEventCallback& PostEventCallback,
-		FLatentActionInfo LatentInfo,
-		int32& PlayingID
-	);
-
-	/**
 	* Sets an RTPC value, using this game object as the game object source
 	*
 	* @param RTPC			The name of the RTPC to set
@@ -143,8 +115,6 @@ public:
 	*/
 	UFUNCTION(BlueprintCallable, BlueprintCosmetic, Category = "Audiokinetic|AkGameObject", meta = (AdvancedDisplay = "RTPC"))
 	void GetRTPCValue(class UAkRtpc const* RTPCValue, ERTPCValueType InputValueType, float& Value, ERTPCValueType& OutputValueType, FString RTPC, int32 PlayingID = 0) const;
-	AK_DEPRECATED(2019.1.3, "This function is deprecated and will be removed in future releases.")
-	void GetRTPCValue(FString RTPC, int32 PlayingID, ERTPCValueType InputValueType, float& Value, ERTPCValueType& OutputValueType) const;
 
 #if CPP
 	bool VerifyEventName(const FString& InEventName) const;

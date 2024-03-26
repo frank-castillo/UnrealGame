@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 /*------------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "AkAudioStyle.h"
 #include "AkSettings.h"
 #include "AkSettingsPerUser.h"
-#include "AkUnrealHelper.h"
+#include "WwiseUnrealHelper.h"
 
 #if !UE_5_0_OR_LATER
 #include "EditorFontGlyphs.h"
@@ -221,7 +221,7 @@ SWwiseBrowser::SWwiseBrowser(): CommandList(MakeShared<FUICommandList>())
 	DataSource = MakeUnique<FWwiseBrowserDataSource>();
 	Transport = MakeUnique<WaapiPlaybackTransport>();
 
-	DataSource->WwiseBrowserDataSourceRefreshed.BindLambda([this]()
+	DataSource->WwiseBrowserDataSourceRefreshed.BindLambda([this]
 	{
 		AsyncTask(ENamedThreads::Type::GameThread, [this]
 		{
@@ -256,7 +256,7 @@ void SWwiseBrowser::CreateWwiseBrowserCommands()
 
 	// Action find an item in the Wwise Project Explorer
 	ActionList.MapAction(
-		Commands.RequestFindInProjectExplorerWwisetem,
+		Commands.RequestFindInProjectExplorerWwiseItem,
 		FExecuteAction::CreateSP(this, &SWwiseBrowser::HandleFindInProjectExplorerWwiseItemCommandExecute),
 		FCanExecuteAction::CreateSP(this, &SWwiseBrowser::HandleFindInProjectExplorerWwiseItemCanExecute));
 
@@ -297,7 +297,7 @@ TSharedPtr<SWidget> SWwiseBrowser::MakeWwiseBrowserContextMenu()
 		MenuBuilder.EndSection();
 		MenuBuilder.BeginSection("WwiseBrowserFindOptions", LOCTEXT("ExploreMenuHeader", "Explore"));
 		{
-			MenuBuilder.AddMenuEntry(Commands.RequestFindInProjectExplorerWwisetem);
+			MenuBuilder.AddMenuEntry(Commands.RequestFindInProjectExplorerWwiseItem);
 			MenuBuilder.AddMenuEntry(Commands.RequestFindInContentBrowser);
 			MenuBuilder.AddMenuEntry(Commands.RequestExploreWwiseItem);
 		}
@@ -662,6 +662,7 @@ void SWwiseBrowser::Construct(const FArguments& InArgs)
 					[
 						SNew(STextBlock)
 						.Text(this, &SWwiseBrowser::GetSoundBanksLocationText)
+						.ColorAndOpacity(this, &SWwiseBrowser::GetSoundBanksLocationTextColor)
 					]
 				]
 			]
@@ -991,17 +992,14 @@ EVisibility SWwiseBrowser::IsItemPlaying(FGuid ItemId) const
 
 FText SWwiseBrowser::GetWarningText() const
 {
-	if (auto AkSettings = GetMutableDefault<UAkSettings>())
+	FString soundBankDirectory = WwiseUnrealHelper::GetSoundBankDirectory();
+	if (soundBankDirectory.IsEmpty())
 	{
-		if (AkSettings->GeneratedSoundBanksFolder.Path.IsEmpty())
-		{
-			const FText WarningText = LOCTEXT("BrowserSoundBanksFolderEmpty", "Generated SoundBanks Folder in Wwise Integration settings is empty.\nThis folder should match the \"Root Output Path\" in the Wwise Project's SoundBanks settings.");
-			return WarningText;
-		}
+		const FText WarningText = LOCTEXT("BrowserSoundBanksFolderEmpty", "Root Output Path in Wwise Integration settings is empty.\nThis folder should match the \"Root Output Path\" in the Wwise Project's SoundBanks settings.");
+		return WarningText;
 	}
 
-	FString soundBankDirectory = AkUnrealHelper::GetSoundBankDirectory();
-	const FText WarningText = FText::FormatOrdered(LOCTEXT("BrowserMissingSoundBanks", "SoundBank metadata was not found at path specified by \"Generated SoundBanks Folder\" setting: {0}.\nThis folder should match the \"Root Output Path\" in the Wwise Project's SoundBanks settings.\nEnsure the folders match, and that SoundBanks and JSON metadata are generated.\nPress the \"Refresh\" button to re-parse the generated metadata."), FText::FromString(soundBankDirectory));
+	const FText WarningText = FText::FormatOrdered(LOCTEXT("BrowserMissingSoundBanks", "SoundBank metadata was not found at path specified by the \"Root Output Path\" setting: {0}.\nThis folder should match the \"Root Output Path\" in the Wwise Project's SoundBanks settings.\nEnsure the folders match, and that SoundBanks and JSON metadata are generated.\nPress the \"Refresh\" button to re-parse the generated metadata."), FText::FromString(soundBankDirectory));
 	return WarningText;
 }
 
@@ -1023,7 +1021,23 @@ FText SWwiseBrowser::GetConnectionStatusText() const
 
 FText SWwiseBrowser::GetSoundBanksLocationText() const
 {
-	return FText::Format(LOCTEXT("RootOutputPath", "Root Output Path: {0}"), FText::FromString(AkUnrealHelper::GetSoundBankDirectory()));
+	FString RootOutputPath = TEXT("Root Output Path");
+	UAkSettingsPerUser* UserSettings = GetMutableDefault<UAkSettingsPerUser>();
+	if(UserSettings && !UserSettings->RootOutputPathOverride.Path.IsEmpty())
+	{
+		RootOutputPath = TEXT("Root Output Path Override");
+	}
+	return FText::Format(LOCTEXT("RootOutputPath", "{0}: {1}"), FText::FromString(RootOutputPath), FText::FromString(WwiseUnrealHelper::GetSoundBankDirectory()));
+}
+
+FSlateColor SWwiseBrowser::GetSoundBanksLocationTextColor() const
+{
+	UAkSettingsPerUser* UserSettings = GetMutableDefault<UAkSettingsPerUser>();
+	if(UserSettings && !UserSettings->RootOutputPathOverride.Path.IsEmpty())
+	{
+		return FLinearColor(1.f, 0.33f, 0);
+	}
+	return FLinearColor::Gray;
 }
 
 FReply SWwiseBrowser::OnOpenSettingsClicked()
@@ -1314,7 +1328,7 @@ void SWwiseBrowser::RestoreTreeExpansion(const TArray< FWwiseTreeItemPtr >& Item
 	}
 }
 
-void SWwiseBrowser::TreeSelectionChanged( FWwiseTreeItemPtr TreeItem, ESelectInfo::Type /*SelectInfo*/ )
+void SWwiseBrowser::TreeSelectionChanged( FWwiseTreeItemPtr TreeItem, ESelectInfo::Type SelectInfo )
 {
 	if (AllowTreeViewDelegates)
 	{
@@ -1331,7 +1345,8 @@ void SWwiseBrowser::TreeSelectionChanged( FWwiseTreeItemPtr TreeItem, ESelectInf
 		}
 
 		const UAkSettingsPerUser* AkSettingsPerUser = GetDefault<UAkSettingsPerUser>();
-		if (AkSettingsPerUser && AkSettingsPerUser->AutoSyncSelection && DataSource->GetWaapiConnectionStatus() == Connected)
+		if (AkSettingsPerUser && AkSettingsPerUser->AutoSyncSelection &&
+			DataSource->GetWaapiConnectionStatus() == Connected && SelectInfo != ESelectInfo::Direct)
 		{
 			DataSource->HandleFindWwiseItemInProjectExplorerCommandExecute(SelectedItems);
 		}
@@ -1580,7 +1595,7 @@ void SWwiseBrowser::CreateReconcileTab() const
 		SelectedItems = RootItems;
 	}
 	TArray<FWwiseReconcileItem> ReconcileItems;
-	if (auto WwiseReconcile = FWwiseReconcile::Get())
+	if (auto WwiseReconcile = IWwiseReconcile::Get())
 	{
 		WwiseReconcile->ConvertWwiseItemTypeToReconcileItem(SelectedItems, ReconcileItems);
 		if (ReconcileItems.Num() == 0)

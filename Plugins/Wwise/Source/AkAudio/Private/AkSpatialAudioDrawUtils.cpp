@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 /*=============================================================================
@@ -22,7 +22,7 @@ Copyright (c) 2023 Audiokinetic Inc.
 
 #if WITH_EDITOR
 
-#include "AkUEFeatures.h"
+#include "WwiseUEFeatures.h"
 #include "AkAcousticPortal.h"
 #include "AkSpatialAudioVolume.h"
 #include "AkSurfaceReflectorSetComponent.h"
@@ -58,12 +58,12 @@ namespace AkSpatialAudioColors
 			FrontColor = ErrorColor;
 			BackColor = ErrorColor;
 		}
-		else if (Portal->GetFrontRoomComponent() == nullptr)
+		else if (!Portal->GetFrontRoomComponent().IsValid())
 		{
 			FLinearColor DisconnectedColor = FLinearColor::Gray;
 			FrontColor = DisconnectedColor;
 		}
-		else if (Portal->GetBackRoomComponent() == nullptr)
+		else if (!Portal->GetBackRoomComponent().IsValid())
 		{
 			FLinearColor DisconnectedColor = FLinearColor::Gray;
 			BackColor = DisconnectedColor;

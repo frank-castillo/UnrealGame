@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 // AkAtomic.h
@@ -29,6 +29,7 @@ the specific language governing permissions and limitations under the License.
 #pragma once
 
 #include <Windows.h>
+
 
 // Sleep of 1 is as close as we can get on Microsoft platforms
 // SwitchToThread() is liable to cause the current thread to be unscheduled for 10-30ms

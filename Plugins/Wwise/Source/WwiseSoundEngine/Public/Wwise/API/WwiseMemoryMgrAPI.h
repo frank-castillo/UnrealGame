@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -52,7 +52,7 @@ public:
 	/// @name Initialization
 	//@{
 
-	/// Query whether the Memory Manager has been sucessfully initialized.
+	/// Query whether the Memory Manager has been successfully initialized.
 	/// \warning This function is not thread-safe. It should not be called at the same time as MemoryMgr::Init or MemoryMgr::Term.
 	/// \return True if the Memory Manager is initialized, False otherwise
 	/// \sa
@@ -102,10 +102,10 @@ public:
 	/// @name Memory Allocation
 	//@{
 
-		/// Allocate memory: debug version.
-		/// \return A pointer to the start of the allocated memory (NULL if the allocation could not be completed)
-		/// \sa
-		/// - \ref memorymanager
+	/// Allocate memory: debug version.
+	/// \return A pointer to the start of the allocated memory (NULL if the allocation could not be completed)
+	/// \sa
+	/// - \ref memorymanager
 	virtual void* dMalloc(
 		AkMemPoolId in_poolId,				///< ID of the memory category (AkMemID)
 		size_t		in_uSize,				///< Number of bytes to allocate
@@ -140,7 +140,7 @@ public:
 	/// - \ref memorymanager
 	virtual void* Realloc(
 		AkMemPoolId in_poolId,				///< ID of the memory category (AkMemID)
-		void* in_pAlloc,				///< Pointer to the start of the allocated memory
+		void* in_pAlloc,					///< Pointer to the start of the allocated memory
 		size_t		in_uSize 				///< Number of bytes to allocate
 		) = 0;
 
@@ -150,10 +150,10 @@ public:
 	/// - \ref memorymanager
 	virtual void* dReallocAligned(
 		AkMemPoolId	in_poolId,				///< ID of the memory category (AkMemID)
-		void* in_pAlloc,				///< Pointer to the start of the allocated memory
+		void* in_pAlloc,					///< Pointer to the start of the allocated memory
 		size_t		in_uSize,				///< Number of bytes to allocate
 		AkUInt32	in_uAlignment,			///< Alignment (in bytes)
-		const char* in_pszFile,			///< Debug file name
+		const char* in_pszFile,				///< Debug file name
 		AkUInt32	in_uLine				///< Debug line number
 		) = 0;
 
@@ -163,7 +163,7 @@ public:
 	/// - \ref memorymanager
 	virtual void* ReallocAligned(
 		AkMemPoolId in_poolId,				///< ID of the memory category (AkMemID)
-		void* in_pAlloc,				///< Pointer to the start of the allocated memory
+		void* in_pAlloc,					///< Pointer to the start of the allocated memory
 		size_t		in_uSize, 				///< Number of bytes to allocate
 		AkUInt32	in_uAlignment			///< Alignment (in bytes)
 		) = 0;
@@ -173,7 +173,7 @@ public:
 	/// - \ref memorymanager
 	virtual void Free(
 		AkMemPoolId in_poolId,				///< ID of the memory category (AkMemID)
-		void* in_pMemAddress			///< Pointer to the start of memory
+		void* in_pMemAddress				///< Pointer to the start of memory
 		) = 0;
 
 	/// Allocate memory with a specific alignment. debug version.
@@ -184,7 +184,7 @@ public:
 		AkMemPoolId in_poolId,				///< ID of the memory category (AkMemID)
 		size_t		in_uSize,				///< Number of bytes to allocate
 		AkUInt32	in_uAlignment, 			///< Alignment (in bytes)
-		const char* in_pszFile,			///< Debug file name
+		const char* in_pszFile,				///< Debug file name
 		AkUInt32	in_uLine				///< Debug line number
 		) = 0;
 

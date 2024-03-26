@@ -12,14 +12,14 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "AkSettingsPerUser.h"
 
 #include "AkAudioDevice.h"
 #include "Misc/Paths.h"
-#include "AkUnrealHelper.h"
+#include "WwiseUnrealDefines.h"
 
 #if WITH_EDITOR
 #include "AkUnrealEditorHelper.h"
@@ -32,6 +32,8 @@ UAkSettingsPerUser::UAkSettingsPerUser(const FObjectInitializer& ObjectInitializ
 {
 #if WITH_EDITOR
 	WwiseWindowsInstallationPath.Path = FPlatformMisc::GetEnvironmentVariable(TEXT("WWISEROOT"));
+	VisualizeRoomsAndPortals = false;
+	bShowReverbInfo = true;
 #endif
 }
 
@@ -40,7 +42,9 @@ void UAkSettingsPerUser::PreEditChange(FProperty* PropertyAboutToChange)
 {
 	PreviousWwiseWindowsInstallationPath = WwiseWindowsInstallationPath.Path;
 	PreviousWwiseMacInstallationPath = WwiseMacInstallationPath.FilePath;
-	PreviousGeneratedSoundBanksFolder = GeneratedSoundBanksFolderUserOverride.Path;
+	PreviousGeneratedSoundBanksFolder = RootOutputPathOverride.Path;
+
+	Super::PreEditChange(PropertyAboutToChange);
 }
 
 void UAkSettingsPerUser::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
@@ -68,10 +72,10 @@ void UAkSettingsPerUser::PostEditChangeProperty(FPropertyChangedEvent& PropertyC
 			AkAudioDevice->SetLocalOutput();
 		}
 	}
-	else if (MemberPropertyName == GET_MEMBER_NAME_CHECKED(UAkSettingsPerUser, GeneratedSoundBanksFolderUserOverride))
+	else if (MemberPropertyName == GET_MEMBER_NAME_CHECKED(UAkSettingsPerUser, RootOutputPathOverride))
 	{
 		bool bPathChanged = AkUnrealEditorHelper::SanitizeFolderPathAndMakeRelativeToContentDir(
-			GeneratedSoundBanksFolderUserOverride.Path, PreviousGeneratedSoundBanksFolder, 
+			RootOutputPathOverride.Path, PreviousGeneratedSoundBanksFolder, 
 			FText::FromString("Please enter a valid directory path"));
 
 		if (bPathChanged)
@@ -80,7 +84,32 @@ void UAkSettingsPerUser::PostEditChangeProperty(FPropertyChangedEvent& PropertyC
 		}
 		OnGeneratedSoundBanksPathChanged.Broadcast();
 	}
+	else if (MemberPropertyName == GET_MEMBER_NAME_CHECKED(UAkSettingsPerUser, VisualizeRoomsAndPortals))
+	{
+		OnShowRoomsPortalsChanged.Broadcast();
+	}
+	else if (MemberPropertyName == GET_MEMBER_NAME_CHECKED(UAkSettingsPerUser, bShowReverbInfo))
+	{
+		OnShowReverbInfoChanged.Broadcast();
+	}
+
+	if(RootOutputPathOverride.Path.IsEmpty())
+	{
+		RootOutputPathOverride = GeneratedSoundBanksFolderOverride_DEPRECATED;	
+	}
 
 	Super::PostEditChangeProperty(PropertyChangedEvent);
+}
+
+void UAkSettingsPerUser::ToggleVisualizeRoomsAndPortals()
+{
+	VisualizeRoomsAndPortals = !VisualizeRoomsAndPortals;
+	OnShowRoomsPortalsChanged.Broadcast();
+}
+
+void UAkSettingsPerUser::ToggleShowReverbInfo()
+{
+	bShowReverbInfo = !bShowReverbInfo;
+	OnShowReverbInfoChanged.Broadcast();
 }
 #endif

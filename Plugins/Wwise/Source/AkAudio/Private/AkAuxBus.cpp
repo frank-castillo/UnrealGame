@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "AkAuxBus.h"
@@ -43,11 +43,14 @@ void UAkAuxBus::Serialize(FArchive& Ar)
 		if (auto* ResourceCooker = FWwiseResourceCooker::GetForArchive(Ar))
 		{
 			ResourceCooker->PrepareCookedData(CookedDataToArchive, GetValidatedInfo(AuxBusInfo));
+			FillMetadata(ResourceCooker->GetProjectDatabase());
 		}
 		CookedDataToArchive.Serialize(Ar);
+		Ar << MaxAttenuationRadius;
 	}
 #else
 	AuxBusCookedData.Serialize(Ar);
+	Ar << MaxAttenuationRadius;
 #endif
 #endif
 
@@ -62,13 +65,10 @@ void UAkAuxBus::LoadAuxBus()
 		return;
 	}
 
-	if (LoadedAuxBus)
-	{
-		UnloadAuxBus(false);
-	}
+	UnloadAuxBus(false);
 
 #if WITH_EDITORONLY_DATA
-	if (IWwiseProjectDatabaseModule::IsInACookingCommandlet())
+	if (!IWwiseProjectDatabaseModule::ShouldInitializeProjectDatabase())
 	{
 		return;
 	}
@@ -87,14 +87,21 @@ void UAkAuxBus::LoadAuxBus()
 	{
 		return;
 	}
+	FillMetadata(ResourceCooker->GetProjectDatabase());
 #endif
 
-	LoadedAuxBus = ResourceLoader->LoadAuxBus(AuxBusCookedData);
+	const auto NewlyLoadedAuxBus = ResourceLoader->LoadAuxBus(AuxBusCookedData);
+	auto PreviouslyLoadedAuxBus = LoadedAuxBus.exchange(NewlyLoadedAuxBus);
+	if (UNLIKELY(PreviouslyLoadedAuxBus))
+	{
+		ResourceLoader->UnloadAuxBus(MoveTemp(PreviouslyLoadedAuxBus));
+	}
 }
 
 void UAkAuxBus::UnloadAuxBus(bool bAsync)
 {
-	if (LoadedAuxBus)
+	auto PreviouslyLoadedAuxBus = LoadedAuxBus.exchange(nullptr);
+	if (PreviouslyLoadedAuxBus)
 	{
 		auto* ResourceLoader = FWwiseResourceLoader::Get();
 		if (UNLIKELY(!ResourceLoader))
@@ -105,14 +112,13 @@ void UAkAuxBus::UnloadAuxBus(bool bAsync)
 		if (bAsync)
 		{
 			FWwiseLoadedAuxBusPromise Promise;
-			Promise.EmplaceValue(MoveTemp(LoadedAuxBus));
+			Promise.EmplaceValue(MoveTemp(PreviouslyLoadedAuxBus));
 			ResourceUnload = ResourceLoader->UnloadAuxBusAsync(Promise.GetFuture());
 		}
 		else
 		{
-			ResourceLoader->UnloadAuxBus(MoveTemp(LoadedAuxBus));
+			ResourceLoader->UnloadAuxBus(MoveTemp(PreviouslyLoadedAuxBus));
 		}
-		LoadedAuxBus = nullptr;
 	}
 }
 
@@ -133,6 +139,27 @@ void UAkAuxBus::CookAdditionalFilesOverride(const TCHAR* PackageFilename, const 
 	ResourceCooker->SetSandboxRootPath(PackageFilename);
 
 	ResourceCooker->CookAuxBus(GetValidatedInfo(AuxBusInfo), WriteAdditionalFile);
+}
+
+void UAkAuxBus::FillMetadata(FWwiseProjectDatabase* ProjectDatabase)
+{
+	Super::FillMetadata(ProjectDatabase);
+	
+	const auto AuxBusRef = FWwiseDataStructureScopeLock(*ProjectDatabase).GetAuxBus(GetValidatedInfo(AuxBusInfo));
+	if (UNLIKELY(!AuxBusRef.IsValid()))
+	{
+		UE_LOG(LogAkAudio, Log, TEXT("UAkAuxBus::FillMetadata (%s): Cannot fill Metadata - Aux Bus not found in Project Database"), *GetName());
+		return;
+	}
+
+	const FWwiseMetadataBus* AuxBusMetadata = AuxBusRef.GetAuxBus();
+	if (AuxBusMetadata->Name.ToString().IsEmpty() || !AuxBusMetadata->GUID.IsValid() || AuxBusMetadata->Id == AK_INVALID_UNIQUE_ID)
+	{
+		UE_LOG(LogAkAudio, Warning, TEXT("UAkAuxBus::FillMetadata: Valid object not found in Project Database"));
+		return;
+	}
+
+	MaxAttenuationRadius = AuxBusMetadata->MaxAttenuation;
 }
 
 bool UAkAuxBus::ObjectIsInSoundBanks()
@@ -178,7 +205,7 @@ void UAkAuxBus::FillInfo()
 	const FWwiseRefAuxBus AudioTypeRef = FWwiseDataStructureScopeLock(*ProjectDatabase).GetAuxBus(
 		GetValidatedInfo(AuxBusInfo));
 
-	if (AudioTypeRef.AuxBusName().IsNone() || !AudioTypeRef.AuxBusGuid().IsValid() || AudioTypeRef.AuxBusId() == AK_INVALID_UNIQUE_ID)
+	if (AudioTypeRef.AuxBusName().ToString().IsEmpty() || !AudioTypeRef.AuxBusGuid().IsValid() || AudioTypeRef.AuxBusId() == AK_INVALID_UNIQUE_ID)
 	{
 		UE_LOG(LogAkAudio, Warning, TEXT("UAkAuxBus::FillInfo: Valid object not found in Project Database"));
 		return;

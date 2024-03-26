@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #ifndef _AKARRAY_H
@@ -220,6 +220,23 @@ struct AkGrowByPolicy_Legacy
 struct AkGrowByPolicy_NoGrow
 {
 	static AkUInt32 GrowBy( AkUInt32 /*in_CurrentArraySize*/ ) { return 0; }
+};
+
+// The hybrid GrowBy policy will try to grow to exactly uCount before growing farther to prevent unneccesary allocations.
+// The goal is to avoid expanding past uBufferSizeBytes until you have to, then behave like AkGrowByPolicy_Proportional
+// uCount should be uBufferSizeBytes / sizeof(T)
+template <AkUInt32 uCount>
+struct AkGrowByPolicy_Hybrid
+{
+	static AkUInt32 GrowBy(AkUInt32 in_CurrentArraySize)
+	{
+		if (in_CurrentArraySize < uCount)
+			return uCount - in_CurrentArraySize;
+		else
+		{
+			return in_CurrentArraySize + (in_CurrentArraySize >> 1);
+		}
+	}
 };
 
 struct AkGrowByPolicy_Proportional
@@ -667,6 +684,27 @@ public:
         AKASSERT( uiIndex < Length() );
         return m_pItems[uiIndex];
     }
+
+	/// Insert an item at the specified position without filling it.
+	/// Success: returns an iterator pointing to the new item.
+	/// Failure: returns end iterator.
+	Iterator Insert(Iterator& in_rIter)
+	{
+		AKASSERT(!in_rIter.pItem || m_pItems);
+
+		AkUInt32 index = (in_rIter.pItem && m_pItems) ? (AkUInt32)(in_rIter.pItem - m_pItems) : 0;
+		if (index <= Length())
+		{
+			if (T* ptr = Insert(index))
+			{
+				Iterator it;
+				it.pItem = ptr;
+				return it;
+			}
+		}
+
+		return End();
+	}
 
 	/// Insert an item at the specified position without filling it.
 	/// Returns the pointer to the item to be filled.

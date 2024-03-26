@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "AkSwitchValue.h"
@@ -35,13 +35,10 @@ void UAkSwitchValue::LoadGroupValue()
 		return;
 	}
 	
-	if (LoadedGroupValue)
-	{
-		UnloadGroupValue(false);
-	}
+	UnloadGroupValue(false);
 
 #if WITH_EDITORONLY_DATA
-	if (IWwiseProjectDatabaseModule::IsInACookingCommandlet())
+	if (!IWwiseProjectDatabaseModule::ShouldInitializeProjectDatabase())
 	{
 		return;
 	}
@@ -61,7 +58,13 @@ void UAkSwitchValue::LoadGroupValue()
 		return;
 	}
 #endif
-	LoadedGroupValue = ResourceLoader->LoadGroupValue(GroupValueCookedData);
+	
+	const auto NewlyLoadedGroupValue = ResourceLoader->LoadGroupValue(GroupValueCookedData);
+	auto PreviouslyLoadedGroupValue = LoadedGroupValue.exchange(NewlyLoadedGroupValue);
+	if (UNLIKELY(PreviouslyLoadedGroupValue))
+	{
+		ResourceLoader->UnloadGroupValue(MoveTemp(PreviouslyLoadedGroupValue));
+	}
 }
 
 void UAkSwitchValue::Serialize(FArchive& Ar)
@@ -111,7 +114,7 @@ void UAkSwitchValue::FillInfo()
 	FWwiseRefSwitch RefSwitch = FWwiseDataStructureScopeLock(*ProjectDatabase).GetSwitch(
 		GetValidatedInfo(*AudioTypeInfo));
 
-	if (RefSwitch.SwitchName().IsNone() || !RefSwitch.SwitchGuid().IsValid() || RefSwitch.SwitchId() == AK_INVALID_UNIQUE_ID)
+	if (RefSwitch.SwitchName().ToString().IsEmpty() || !RefSwitch.SwitchGuid().IsValid() || RefSwitch.SwitchId() == AK_INVALID_UNIQUE_ID)
 	{
 		UE_LOG(LogAkAudio, Warning, TEXT("UAkSwitchValue::FillInfo: Valid object not found in Project Database"));
 		return;
@@ -129,11 +132,9 @@ void UAkSwitchValue::FillInfo(const FWwiseAnyRef& CurrentWwiseRef)
 {
 	FWwiseGroupValueInfo* AudioTypeInfo = static_cast<FWwiseGroupValueInfo*>(GetInfoMutable());
 
-	const FWwiseMetadataSwitch* MetadataSwitch = CurrentWwiseRef.GetSwitch();
-
-	AudioTypeInfo->WwiseName = MetadataSwitch->Name;
-	AudioTypeInfo->WwiseGuid = MetadataSwitch->GUID;
-	AudioTypeInfo->WwiseShortId = MetadataSwitch->Id;
+	AudioTypeInfo->WwiseName = CurrentWwiseRef.GetName();
+	AudioTypeInfo->WwiseGuid = CurrentWwiseRef.GetGuid();
+	AudioTypeInfo->WwiseShortId = CurrentWwiseRef.GetId();
 	AudioTypeInfo->GroupShortId = CurrentWwiseRef.GetGroupId();
 }
 

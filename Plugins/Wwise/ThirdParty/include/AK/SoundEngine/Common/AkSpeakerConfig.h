@@ -21,13 +21,15 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #ifndef _AK_SPEAKERCONFIG_H_
 #define _AK_SPEAKERCONFIG_H_
 
 #include <AK/SoundEngine/Common/AkTypes.h>
+#include <AK/Tools/Common/AkBitFuncs.h>
+#include <AK/Tools/Common/AkPlatformFuncs.h>
 
 /// Standard speakers (channel mask):
 #define AK_SPEAKER_FRONT_LEFT				0x1		///< Front left speaker bit mask
@@ -125,6 +127,11 @@ the specific language governing permissions and limitations under the License.
 #define AK_IDX_SETUP_WITHCENTER_BACK_RIGHT	(4)	///< Index of back-right channel in configurations with a front-center channel.
 #define AK_IDX_SETUP_WITHCENTER_SIDE_LEFT	(5)	///< Index of side-left channel in configurations with a front-center channel.
 #define AK_IDX_SETUP_WITHCENTER_SIDE_RIGHT	(6)	///< Index of side-right channel in configurations with a front-center channel.
+
+#define AK_IDX_SETUP_WITHCENTER_HEIGHT_FRONT_LEFT	 (7) ///< Index of height-front-left channel in configurations with a front-center channel.
+#define AK_IDX_SETUP_WITHCENTER_HEIGHT_FRONT_RIGHT	 (8) ///< Index of height-front-right channel in configurations with a front-center channel.
+#define AK_IDX_SETUP_WITHCENTER_HEIGHT_BACK_LEFT	 (9) ///< Index of height-back-left channel in configurations with a front-center channel.
+#define AK_IDX_SETUP_WITHCENTER_HEIGHT_BACK_RIGHT	(10) ///< Index of height-back-right channel in configurations with a front-center channel.
 
 // Channel indices for specific setups.
 #define AK_IDX_SETUP_0_LFE			(0)	///< Index of low-frequency channel in 0.1 setup (use with AkAudioBuffer::GetChannel())
@@ -254,9 +261,7 @@ namespace AK
 /// Returns the number of channels of a given channel configuration.
 static inline AkUInt8 ChannelMaskToNumChannels( AkChannelMask in_uChannelMask )
 {
-	AkUInt8 num = 0;
-	while( in_uChannelMask ){ ++num; in_uChannelMask &= in_uChannelMask-1; } // iterate max once per channel.
-	return num;
+	return (AkUInt8)AKPLATFORM::AkPopCount(in_uChannelMask);
 }
 
 /// Returns a 'best guess' channel configuration from a given number of channels.

@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -25,10 +25,14 @@ class WWISEPROJECTDATABASE_API FWwiseProjectDatabaseModule : public IWwiseProjec
 public:
 	FWwiseProjectDatabase* GetProjectDatabase() override;
 	FWwiseProjectDatabase* InstantiateProjectDatabase() override;
+	bool CanHaveDefaultInstance() override;
+	FWwiseProjectDatabaseDelegates* GetProjectDatabaseDelegates() override;
+	FWwiseProjectDatabaseDelegates* InstantiateProjectDatabaseDelegates() override;
 
 	void ShutdownModule() override;
 
 protected:
 	FRWLock Lock;
 	TUniquePtr<FWwiseProjectDatabase> ProjectDatabase;
+	FWwiseProjectDatabaseDelegates* ProjectDatabaseDelegates;
 };

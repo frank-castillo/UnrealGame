@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -39,6 +39,12 @@ public:
 	virtual void ChangeAudioSessionProperties(
 		const AkAudioSessionProperties &in_properties                 ///< New properties to apply to the app's AVAudioSession shared instance.
 		) override;
+
+	/// Get the motion device ID corresponding to a GCController player index. This device ID can be used to add/remove motion output for that gamepad.
+	/// The player index is 0-based, and corresponds to a value of type GCControllerPlayerIndex in the Core.Haptics framework.
+	/// \note The ID returned is unique to Wwise and does not correspond to any sensible value outside of Wwise.
+	/// \return Unique device ID
+	virtual AkDeviceID GetDeviceIDFromPlayerIndex(int playerIndex) override;
 };
 
 using FWwisePlatformAPI = FWwisePlatformAPI_2022_1_TVOS;

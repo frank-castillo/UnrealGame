@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "AkAssetMigrationManager.h"
@@ -38,7 +38,7 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "Misc/MessageDialog.h"
 #include "Widgets/Notifications/SNotificationList.h"
 #include "Settings/ProjectPackagingSettings.h"
-#include "AkUnrealHelper.h"
+#include "WwiseUnrealHelper.h"
 #include "ToolMenus.h"
 #include "FileHelpers.h"
 
@@ -444,7 +444,7 @@ void AkAssetMigrationManager::ClearSoundBanksForMigration()
 
 bool AkAssetMigrationManager::MigrateProjectSettings(const bool bWasUsingEBP, const bool bUseGeneratedSubFolders, const FString& GeneratedSoundBanksFolder)
 {
-	const auto ProjectPath = AkUnrealHelper::GetWwiseProjectPath();
+	const auto ProjectPath = WwiseUnrealHelper::GetWwiseProjectPath();
 	FString ProjectContent;
 	bool bSuccess = FFileHelper::LoadFileToString(ProjectContent, *ProjectPath);
 	if (bSuccess)
@@ -463,7 +463,7 @@ bool AkAssetMigrationManager::MigrateProjectSettings(const bool bWasUsingEBP, co
 
 bool AkAssetMigrationManager::SetStandardProjectSettings()
 {
-	const auto ProjectPath = AkUnrealHelper::GetWwiseProjectPath();
+	const auto ProjectPath = WwiseUnrealHelper::GetWwiseProjectPath();
 	FString ProjectContent;
 	bool bSuccess = FFileHelper::LoadFileToString(ProjectContent, *ProjectPath);
 	if (bSuccess)
@@ -496,7 +496,7 @@ bool AkAssetMigrationManager::SetGeneratedSoundBanksPath(const FString& ProjectC
 				auto GeneratedPath = ProjectContent.Mid(SoundBankPathValueStartPosition, SoundBankPathValueEndPosition - SoundBankPathValueStartPosition);
 				if(FPaths::IsRelative(GeneratedPath))
 				{
-					auto WwiseProjectDirectory = FPaths::GetPath(AkUnrealHelper::GetWwiseProjectPath());
+					auto WwiseProjectDirectory = FPaths::GetPath(WwiseUnrealHelper::GetWwiseProjectPath());
 					GeneratedPath = FPaths::Combine(WwiseProjectDirectory, GeneratedPath);
 				}
 				FPaths::MakePathRelativeTo(GeneratedPath, *FPaths::ProjectContentDir());

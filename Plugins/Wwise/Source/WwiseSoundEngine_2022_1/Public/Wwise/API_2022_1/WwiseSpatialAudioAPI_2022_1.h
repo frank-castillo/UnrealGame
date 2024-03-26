@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -27,19 +27,19 @@ public:
 
 	////////////////////////////////////////////////////////////////////////
 	/// @name Basic functions. 
-	/// In order to use SpatialAudio, you need to initalize it using Init, and register the listeners that you plan on using with any of the services offered by SpatialAudio, using 
+	/// In order to use SpatialAudio, you need to initialize it using Init, and register the listeners that you plan on using with any of the services offered by SpatialAudio, using 
 	/// RegisterListener respectively, _after_ having registered their corresponding game object to the sound engine.
 	/// \akwarning At the moment, there can be only one Spatial Audio listener registered at any given time.
 	//@{
 
 	/// Initialize the SpatialAudio API.  
-	AKRESULT Init(const AkSpatialAudioInitSettings& in_initSettings) override;
+	virtual AKRESULT Init(const AkSpatialAudioInitSettings& in_initSettings) override;
 
 	/// Assign a game object as the Spatial Audio listener.  There can be only one Spatial Audio listener registered at any given time; in_gameObjectID will replace any previously set Spatial Audio listener.
 	/// The game object passed in must be registered by the client, at some point, for sound to be heard.  It is not necessary to be registered at the time of calling this function.
 	/// If not listener is explicitly registered to spatial audio, then a default listener (set via \c AK::SoundEngine::SetDefaultListeners()) is selected.  If the are no default listeners, or there are more than one
 	/// default listeners, then it is necessary to call RegisterListener() to specify which listener to use with Spatial Audio.
-	AKRESULT RegisterListener(
+	virtual AKRESULT RegisterListener(
 		AkGameObjectID in_gameObjectID				///< Game object ID
 		) override;
 
@@ -49,7 +49,7 @@ public:
 	/// This function is optional - listener are automatically unregistered when their game object is deleted in the sound engine.
 	/// \sa 
 	/// - \ref AK::SpatialAudio::RegisterListener
-	AKRESULT UnregisterListener(
+	virtual AKRESULT UnregisterListener(
 		AkGameObjectID in_gameObjectID				///< Game object ID
 		) override;
 
@@ -66,7 +66,7 @@ public:
 	/// it is necessary to pass multiple sound positions into \c AK::SoundEngine::SetMultiplePositions to allow the engine to 'sample' the area at different points.
 	/// - \ref AK::SoundEngine::SetPosition
 	/// - \ref AK::SoundEngine::SetMultiplePositions
-	AKRESULT SetGameObjectRadius(
+	virtual AKRESULT SetGameObjectRadius(
 		AkGameObjectID in_gameObjectID,				///< Game object ID
 		AkReal32 in_outerRadius,					///< Outer radius around each sound position, defining 50% spread. Must satisfy \c in_innerRadius <= \c in outerRadius.
 		AkReal32 in_innerRadius						///< Inner radius around each sound position, defining 100% spread and 0 attenuation distance. Must satisfy \c in_innerRadius <= \c in outerRadius.
@@ -98,7 +98,7 @@ public:
 	///	- \ref AK::SpatialAudio::ClearImageSources
 	/// - \ref AK::SpatialAudio::SetGameObjectInRoom
 	/// - \ref AK::SpatialAudio::SetEarlyReflectionsAuxSend
-	AKRESULT SetImageSource(
+	virtual AKRESULT SetImageSource(
 		AkImageSourceID in_srcID,								///< The ID of the image source being added.
 		const AkImageSourceSettings& in_info,					///< Image source information.
 		const char* in_name,									///< Name given to image source, can be used to identify the image source in the AK Reflect plugin UI.
@@ -112,7 +112,7 @@ public:
 	/// \sa 
 	///	- \ref AK::SpatialAudio::SetImageSource
 	///	- \ref AK::SpatialAudio::ClearImageSources
-	AKRESULT RemoveImageSource(
+	virtual AKRESULT RemoveImageSource(
 		AkImageSourceID in_srcID,									///< The ID of the image source to remove.
 		AkUniqueID in_AuxBusID = AK_INVALID_AUX_ID,					///< Aux bus that was passed to SetImageSource.
 		AkGameObjectID in_gameObjectID = AK_INVALID_GAME_OBJECT		///< Game object ID that was passed to SetImageSource.
@@ -123,7 +123,7 @@ public:
 	/// \sa 
 	///	- \ref AK::SpatialAudio::SetImageSource
 	/// - \ref AK::SpatialAudio::RemoveImageSource
-	AKRESULT ClearImageSources(
+	virtual AKRESULT ClearImageSources(
 		AkUniqueID in_AuxBusID = AK_INVALID_AUX_ID,							///< Aux bus that was passed to SetImageSource, or AK_INVALID_AUX_ID to match all aux buses.
 		AkGameObjectID in_gameObjectID = AK_INVALID_GAME_OBJECT				///< Game object ID that was passed to SetImageSource, or AK_INVALID_GAME_OBJECT to match all game objects.
 		) override;
@@ -142,7 +142,7 @@ public:
 	///	- \ref AkGeometryParams
 	///	- \ref AK::SpatialAudio::SetGeometryInstance
 	///	- \ref AK::SpatialAudio::RemoveGeometry
-	AKRESULT SetGeometry(
+	virtual AKRESULT SetGeometry(
 		AkGeometrySetID in_GeomSetID,		///< Unique geometry set ID, chosen by client.
 		const AkGeometryParams& in_params	///< Geometry parameters to set.
 		) override;
@@ -151,7 +151,7 @@ public:
 	/// Calling \c AK::SpatialAudio::RemoveGeometry will remove all instances of the geometry from the scene.
 	/// \sa 
 	///	- \ref AK::SpatialAudio::SetGeometry
-	AKRESULT RemoveGeometry(
+	virtual AKRESULT RemoveGeometry(
 		AkGeometrySetID in_SetID		///< ID of geometry set to be removed.
 		) override;
 
@@ -163,7 +163,7 @@ public:
 	/// \sa 
 	///	- \ref AkGeometryInstanceParams
 	///	- \ref AK::SpatialAudio::RemoveGeometryInstance
-	AKRESULT SetGeometryInstance(
+	virtual AKRESULT SetGeometryInstance(
 		AkGeometryInstanceID in_GeometryInstanceID,	///< Unique geometry set instance ID, chosen by client.
 		const AkGeometryInstanceParams& in_params	///< Geometry instance parameters to set.
 		) override;
@@ -171,7 +171,7 @@ public:
 	/// Remove a geometry instance from the SpatialAudio API.
 	/// \sa 
 	///	- \ref AK::SpatialAudio::SetGeometryInstance
-	AKRESULT RemoveGeometryInstance(
+	virtual AKRESULT RemoveGeometryInstance(
 		AkGeometryInstanceID in_GeometryInstanceID	///< ID of geometry set instance to be removed.
 		) override;
 
@@ -179,7 +179,7 @@ public:
 	/// This function must acquire the global sound engine lock and therefore, may block waiting for the lock.
 	/// \sa
 	/// - \ref AkReflectionPathInfo
-	AKRESULT QueryReflectionPaths(
+	virtual AKRESULT QueryReflectionPaths(
 		AkGameObjectID in_gameObjectID, ///< The ID of the game object that the client wishes to query.
 		AkUInt32 in_positionIndex,		///< The index of the associated game object position.
 		AkVector64& out_listenerPos,		///< Returns the position of the listener game object that is associated with the game object \c in_gameObjectID.
@@ -204,7 +204,7 @@ public:
 	/// - \ref AkRoomID
 	/// - \ref AkRoomParams
 	/// - \ref AK::SpatialAudio::RemoveRoom
-	AKRESULT SetRoom(
+	virtual AKRESULT SetRoom(
 		AkRoomID in_RoomID,				///< Unique room ID, chosen by the client.
 		const AkRoomParams& in_Params,	///< Parameter for the room.
 		const char* in_RoomName = nullptr ///< Name used to identify the room (optional)
@@ -214,7 +214,7 @@ public:
 	/// \sa
 	/// - \ref AkRoomID
 	/// - \ref AK::SpatialAudio::SetRoom
-	AKRESULT RemoveRoom(
+	virtual AKRESULT RemoveRoom(
 		AkRoomID in_RoomID	///< Room ID that was passed to \c SetRoom.
 		) override;
 
@@ -225,7 +225,7 @@ public:
 	/// - \ref AkPortalID
 	/// - \ref AkPortalParams
 	/// - \ref AK::SpatialAudio::RemovePortal
-	AKRESULT SetPortal(
+	virtual AKRESULT SetPortal(
 		AkPortalID in_PortalID,		///< Unique portal ID, chosen by the client.
 		const AkPortalParams& in_Params,	///< Parameter for the portal.
 		const char* in_PortalName = nullptr	///< Name used to identify portal (optional)
@@ -235,8 +235,51 @@ public:
 	/// \sa
 	/// - \ref AkPortalID
 	/// - \ref AK::SpatialAudio::SetPortal
-	AKRESULT RemovePortal(
+	virtual AKRESULT RemovePortal(
 		AkPortalID in_PortalID		///< ID of portal to be removed, which was originally passed to SetPortal.
+		) override;
+
+	/// Use a Room as a Reverb Zone.
+	/// AK::SpatialAudio::SetReverbZone establishes a parent-child relationship between two Rooms and allows for sound propagation between them
+	/// as if they were the same Room, without the need for a connecting Portal. Setting a Room as a Reverb Zone
+	/// is useful in situations where two or more acoustic environments are not easily modeled as closed rooms connected by portals.
+	/// Possible uses for Reverb Zones include: a covered area with no walls, a forested area within an outdoor space, or any situation
+	/// where multiple reverb effects are desired within a common space. Reverb Zones have many advantages compared to standard Game-Defined
+	/// Auxiliary Sends. They are part of the wet path, and form reverb chains with other Rooms; they are spatialized according to their 3D extent;
+	/// they are also subject to other acoustic phenomena simulated in Wwise Spatial Audio, such as diffraction and transmission.
+	/// A parent Room may have multiple Reverb Zones, but a Reverb Zone can only have a single Parent. If a Room is already assigned
+	/// to a parent Room, it will first be removed from the old parent (exactly as if AK::SpatialAudio::RemoveReverbZone were called)
+	/// before then being assigned to the new parent Room. A Room can not be its own parent.
+	/// The Reverb Zone and its parent are both Rooms, and as such, must be specified using AK::SpatialAudio::SetRoom.
+	/// If AK::SpatialAudio::SetReverbZone is called before AK::SpatialAudio::SetRoom, and either of the two rooms do not yet exist,
+	/// placeholder Rooms with default parameters are created. They should be subsequently parameteized with AK::SpatialAudio::SetRoom.
+	/// 
+	/// To set which Reverb Zone a Game Object is in, use the AK::SpatialAudio::SetGameObjectInRoom API, and pass the Reverb Zone's Room ID.
+	/// In Wwise Spatial Audio, a Game Object can only ever be inside a single room, and Reverb Zones are no different in this regard.
+	/// \aknote
+	/// The automatically created 'outdoors' Room is commonly used as a parent Room for Reverb Zones, since they often model open spaces.
+	/// To attach a Reverb zone to outdoors, pass AK::SpatialAudio::kOutdoorRoomID as the \c in_ParentRoom argument. Like all Rooms, the 'outdoors' Room
+	/// can be parameterized (for example, to assign a reverb bus) by passing AK::SpatialAudio::kOutdoorRoomID to AK::SpatialAudio::SetRoom.
+	/// \sa
+	/// - \ref AkRoomID
+	///	- \ref AK::SpatialAudio::SetRoom
+	///	- \ref AK::SpatialAudio::RemoveRoom
+	///	- \ref AK::SpatialAudio::RemoveReverbZone
+	/// - \ref AK::SpatialAudio::kOutdoorRoomID
+	virtual AKRESULT SetReverbZone(
+		AkRoomID in_ReverbZone,			///< ID of the Room which will be specified as a Reverb Zone.
+		AkRoomID in_ParentRoom,			///< ID of the parent Room.
+		AkReal32 in_transitionRegionWidth	///< Width of the transition region between the Reverb Zone and its parent. The transition region is centered around the Reverb Zone geometry. It only applies where triangle transmission loss is set to 0.
+		) override;
+
+	/// Remove a Reverb Zone from its parent.
+	/// It will no longer be possible for sound to propagate between the two rooms, unless they are explicitly connected with a Portal.
+	/// \sa
+	///	- \ref AK::SpatialAudio::SetReverbZone
+	///	- \ref AK::SpatialAudio::RemoveRoom
+	///	- \ref AK::SpatialAudio::RemoveReverbZone
+	virtual AKRESULT RemoveReverbZone(
+		AkRoomID in_ReverbZone	///< ID of the Room which has been specified as a Reverb Zone.
 		) override;
 
 	/// Set the room that the game object is currently located in - usually the result of a containment test performed by the client. The room must have been registered with \c SetRoom.
@@ -246,14 +289,23 @@ public:
 	/// \sa 
 	///	- \ref AK::SpatialAudio::SetRoom
 	///	- \ref AK::SpatialAudio::RemoveRoom
-	AKRESULT SetGameObjectInRoom(
+	virtual AKRESULT SetGameObjectInRoom(
 		AkGameObjectID in_gameObjectID, ///< Game object ID 
 		AkRoomID in_CurrentRoomID		///< RoomID that was passed to \c AK::SpatialAudio::SetRoom
 		) override;
 
+	/// Unset the room that the game object is currently located in.
+	///	When a game object has not been explicitly assigned to a room with \ref AK::SpatialAudio::SetGameObjectInRoom, the room is automatically computed.
+	/// \sa 
+	///	- \ref AK::SpatialAudio::SetRoom
+	///	- \ref AK::SpatialAudio::RemoveRoom
+	virtual AKRESULT UnsetGameObjectInRoom(
+		AkGameObjectID in_gameObjectID ///< Game object ID
+		) override;
+
 	/// Set the early reflections order for reflection calculation. The reflections order indicates the number of times sound can bounce off of a surface. 
 	/// A higher number requires more CPU resources but results in denser early reflections. Set to 0 to globally disable reflections processing.
-	AKRESULT SetReflectionsOrder(
+	virtual AKRESULT SetReflectionsOrder(
 		AkUInt32 in_uReflectionsOrder,	///< Number of reflections to calculate. Valid range [0,4]
 		bool in_bUpdatePaths			///< Set to true to clear existing higher-order paths and to force the re-computation of new paths. If false, existing paths will remain and new paths will be computed when the emitter or listener moves.
 		) override;
@@ -262,22 +314,30 @@ public:
 	/// A higher number requires more CPU resources but results in paths found around more complex geometry. Set to 0 to globally disable geometric diffraction processing.
 	/// \sa
 	/// - \ref AkSpatialAudioInitSettings::uMaxDiffractionOrder
-	AKRESULT SetDiffractionOrder(
+	virtual AKRESULT SetDiffractionOrder(
 		AkUInt32 in_uDiffractionOrder,	///< Number of diffraction edges to consider in path calculations. Valid range [0,8]
 		bool in_bUpdatePaths			///< Set to true to clear existing diffraction paths and to force the re-computation of new paths. If false, existing paths will remain and new paths will be computed when the emitter or listener moves.
 		) override;
 
+	/// Set the maximum number of game-defined auxiliary sends that can originate from a single emitter. 
+	/// Set to 1 to only allow emitters to send directly to their current room. Set to 0 to disable the limit.
+	/// \sa
+	/// - \ref AkSpatialAudioInitSettings::uMaxEmitterRoomAuxSends
+	virtual AKRESULT SetMaxEmitterRoomAuxSends(
+		AkUInt32 in_uMaxEmitterRoomAuxSends		///< The maximum number of room aux send connections.
+	) override;
+
 	/// Set the number of rays cast from the listener by the stochastic ray casting engine.
 	/// A higher number requires more CPU resources but provides more accurate results. Default value (100) should be good for most applications.
 	///
-	AKRESULT SetNumberOfPrimaryRays(
+	virtual AKRESULT SetNumberOfPrimaryRays(
 		AkUInt32 in_uNbPrimaryRays		///< Number of rays cast from the listener
 		) override;
 
 	/// Set the number of frames on which the path validation phase will be spread. Value between [1..[
 	/// High values delay the validation of paths. A value of 1 indicates no spread at all.
 	///
-	AKRESULT SetLoadBalancingSpread(
+	virtual AKRESULT SetLoadBalancingSpread(
 		AkUInt32 in_uNbFrames		///< Number of spread frames
 		) override;
 
@@ -289,7 +349,7 @@ public:
 	/// \aknote 
 	/// Users may apply this function to avoid duplicating sounds in the actor-mixer hierarchy solely for the sake of specifying a unique early reflection bus, or in any situation where the same 
 	/// sound should be played on different game objects with different early reflection aux buses (the early reflection bus must be left blank in the authoring tool if the user intends to specify it through the API). \endaknote
-	AKRESULT SetEarlyReflectionsAuxSend(
+	virtual AKRESULT SetEarlyReflectionsAuxSend(
 		AkGameObjectID in_gameObjectID, ///< Game object ID 
 		AkAuxBusID in_auxBusID			///< Auxiliary bus ID. Applies only to sounds which have not specified an early reflection bus in the authoring tool. Pass \c AK_INVALID_AUX_ID to set only the send volume.
 		) override;
@@ -298,18 +358,27 @@ public:
 	/// The \c in_fSendVolume parameter is used to control the volume of the early reflections send. It is combined with the early reflections volume specified in the authoring tool, and is applied to all sounds 
 	/// playing on the game object.
 	/// Setting \c in_fSendVolume to 0.f will disable all reflection processing for this game object.
-	AKRESULT SetEarlyReflectionsVolume(
+	virtual AKRESULT SetEarlyReflectionsVolume(
 		AkGameObjectID in_gameObjectID, ///< Game object ID 
 		AkReal32 in_fSendVolume			///< Send volume (linear) for auxiliary send. Set 0.f to disable reflection processing. Valid range 0.f-1.f. 
 		) override;
 
 	/// Set the obstruction and occlusion value for a portal that has been registered with Spatial Audio.
-	/// Portal obstruction is used to simulate objects between the portal and the listener that are obstructing the sound coming from the portal.  
-	/// The obstruction value affects only the portals dry path, and should relate to how much of the opening
-	/// is obstructed, and must be calculated by the client.  It is applied to the room's game object, as well as to all the emitters virtual positions 
-	/// which propagate from that room through this portal.
-	/// Portal occlusion is applied only on the room game object, and affects both the wet and dry path of the signal emitted from the room's bus.
-	AKRESULT SetPortalObstructionAndOcclusion(
+	/// Portal obstruction simulates objects that block the direct sound path between the portal and the listener, but
+	/// allows indirect sound to pass around the obstacle. For example, use portal obstruction 
+	/// when a piece of furniture is blocking the line of sight of the portal opening.
+	/// Portal obstruction is applied on the connection between the emitter and the listener, and only affects the dry signal path.
+	/// Portal occlusion simulates a complete blockage of both the direct and indirect sound through a portal. For example, use portal occlusion for 
+	/// opening or closing a door or window.
+	/// Portal occlusion is applied on the connection between the emitter and the first room in the chain, as well as the connection between the emitter and listener.
+	/// Portal occlusion affects both the dry and wet (reverberant) signal paths.
+	/// To apply detailed obstruction to specific sound paths but not others, use \c AK::SpatialAudio::SetGameObjectToPortalObstruction and \c AK::SpatialAudio::SetPortalToPortalObstruction.
+	/// To apply occlusion and obstruction to the direct line of sight between the emitter and listener use \c AK::SoundEngine::SetObjectObstructionAndOcclusion.
+	/// \sa
+	/// - \ref AK::SpatialAudio::SetGameObjectToPortalObstruction
+	/// - \ref AK::SpatialAudio::SetPortalToPortalObstruction
+	/// - \ref AK::SoundEngine::SetObjectObstructionAndOcclusion
+	virtual AKRESULT SetPortalObstructionAndOcclusion(
 		AkPortalID in_PortalID,				///< Portal ID.
 		AkReal32 in_fObstruction,			///< Obstruction value.  Valid range 0.f-1.f
 		AkReal32 in_fOcclusion				///< Occlusion value.  Valid range 0.f-1.f
@@ -321,7 +390,9 @@ public:
 	/// Also, there should not be any portals between the provided game object and portal ID parameters.
 	/// The obstruction value is used to simulate objects between the portal and the game object that are obstructing the sound.
 	/// Send an obstruction value of 0 to ensure the value is removed from the internal data structure.
-	AKRESULT SetGameObjectToPortalObstruction(
+	/// \sa
+	/// - \ref AK::SpatialAudio::SetPortalObstructionAndOcclusion
+	virtual AKRESULT SetGameObjectToPortalObstruction(
 		AkGameObjectID in_gameObjectID,		///< Game object ID
 		AkPortalID in_PortalID,				///< Portal ID
 		AkReal32 in_fObstruction			///< Obstruction value.  Valid range 0.f-1.f
@@ -333,7 +404,9 @@ public:
 	/// Also, there should not be any portals between the two provided ID parameters.
 	/// The obstruction value is used to simulate objects between the portals that are obstructing the sound.
 	/// Send an obstruction value of 0 to ensure the value is removed from the internal data structure.
-	AKRESULT SetPortalToPortalObstruction(
+	/// \sa
+	/// - \ref AK::SpatialAudio::SetPortalObstructionAndOcclusion
+	virtual AKRESULT SetPortalToPortalObstruction(
 		AkPortalID in_PortalID0,			///< Portal ID
 		AkPortalID in_PortalID1,			///< Portal ID
 		AkReal32 in_fObstruction			///< Obstruction value.  Valid range 0.f-1.f
@@ -347,7 +420,7 @@ public:
 	/// This function must acquire the global sound engine lock and therefore, may block waiting for the lock.
 	/// \sa
 	/// - \ref AkSpatialAudioInitSettings
-	AKRESULT QueryWetDiffraction(
+	virtual AKRESULT QueryWetDiffraction(
 		AkPortalID in_portal,			///< The ID of the game object that the client wishes to query.
 		AkReal32& out_wetDiffraction	///< The number of slots in \c out_aPaths, after returning the number of valid elements written.
 		) override;
@@ -360,7 +433,7 @@ public:
 	/// This function must acquire the global sound engine lock and, therefore, may block waiting for the lock.
 	/// \sa
 	/// - \ref AkDiffractionPathInfo
-	AKRESULT QueryDiffractionPaths(
+	virtual AKRESULT QueryDiffractionPaths(
 		AkGameObjectID in_gameObjectID,		///< The ID of the game object that the client wishes to query.
 		AkUInt32 in_positionIndex,			///< The index of the associated game object position.
 		AkVector64& out_listenerPos,		///< Returns the position of the listener game object that is associated with the game object \c in_gameObjectID.
@@ -371,7 +444,7 @@ public:
 
 	/// Reset the stochastic engine state by re-initializing the random seeds.
 	///
-	AKRESULT ResetStochasticEngine() override;
+	virtual AKRESULT ResetStochasticEngine() override;
 
 	//@}
 
@@ -389,14 +462,14 @@ public:
 		/// This is used to estimate the line of best fit through the absorption values of an Acoustic Texture.
 		/// This value is what's known as the HFDamping.
 		/// return Gradient of line of best fit through y = mx + c.
-		float CalculateSlope(const AkAcousticTexture& texture) override;
+		virtual float CalculateSlope(const AkAcousticTexture& texture) override;
 
 		/// Calculate average absorption values using each of the textures in in_textures, weighted by their corresponding surface area.
-		void GetAverageAbsorptionValues(AkAcousticTexture* in_textures, float* in_surfaceAreas, int in_numTextures, AkAcousticTexture& out_average) override;
+		virtual void GetAverageAbsorptionValues(AkAcousticTexture* in_textures, float* in_surfaceAreas, int in_numTextures, AkAcousticTexture& out_average) override;
 
 		/// Estimate the time taken (in seconds) for the sound reverberation in a physical environment to decay by 60 dB.
 		/// This is estimated using the Sabine equation. The T60 decay time can be used to drive the decay parameter of a reverb effect.
-		AKRESULT EstimateT60Decay(
+		virtual AKRESULT EstimateT60Decay(
 			AkReal32 in_volumeCubicMeters,				///< The volume (in cubic meters) of the physical environment. 0 volume or negative volume will give a decay estimate of 0.
 			AkReal32 in_surfaceAreaSquaredMeters,		///< The surface area (in squared meters) of the physical environment. Must be >= AK_SA_MIN_ENVIRONMENT_SURFACE_AREA
 			AkReal32 in_environmentAverageAbsorption,	///< The average absorption amount of the surfaces in the environment. Must be between AK_SA_MIN_ENVIRONMENT_ABSORPTION and 1.
@@ -405,21 +478,21 @@ public:
 
 		/// Estimate the time taken (in milliseconds) for the first reflection to reach the listener.
 		/// This assumes the emitter and listener are both positioned in the centre of the environment.
-		AKRESULT EstimateTimeToFirstReflection(
+		virtual AKRESULT EstimateTimeToFirstReflection(
 			AkVector in_environmentExtentMeters,	///< Defines the dimensions of the environment (in meters) relative to the center; all components must be positive numbers.
 			AkReal32& out_timeToFirstReflectionMs,	///< Returns the time taken (in milliseconds) for the first reflection to reach the listener.
 			AkReal32 in_speedOfSound = 343.0f		///< Defaults to 343.0 - the speed of sound in dry air. Must be > 0.
 			) override;
 
 		/// Estimate the high frequency damping from a collection of AkAcousticTextures and corresponding surface areas. 
-		/// The high frequency damping is a measure of how much high frequencies are dampened compared to low frequencies. > 0 indicates more high frequency damping than low frequency damping. < 0 indicates more low frequency damping than high frequency damping. 0 indicates uniform damping.
+		/// The high frequency damping is a measure of how much high frequencies are dampened compared to low frequencies. 
+		/// The value is comprised between -1 and 1. A value > 0 indicates more high frequency damping than low frequency damping. < 0 indicates more low frequency damping than high frequency damping. 0 indicates uniform damping.
 		/// The average absorption values are calculated using each of the textures in the collection, weighted by their corresponding surface area.
 		/// The HFDamping is then calculated as the line-of-best-fit through the average absorption values.
-		AKRESULT EstimateHFDamping(
+		virtual AkReal32 EstimateHFDamping(
 			AkAcousticTexture* in_textures,	///< A collection of AkAcousticTexture structs from which to calculate the average high frequency damping.
 			float* in_surfaceAreas,			///< Surface area values for each of the textures in in_textures.
-			int in_numTextures,				///< The number of textures in in_textures (and the number of surface area values in in_surfaceAreas).
-			AkReal32& out_hfDamping			///< Returns the high frequency damping value. > 0 indicates more high frequency damping than low frequency damping. < 0 indicates more low frequency damping than high frequency damping. 0 indicates uniform damping.
+			int in_numTextures				///< The number of textures in in_textures (and the number of surface area values in in_surfaceAreas).
 			) override;
 
 		//@}

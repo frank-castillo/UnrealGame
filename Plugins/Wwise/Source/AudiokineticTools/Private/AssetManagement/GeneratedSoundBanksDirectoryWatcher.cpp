@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "AssetManagement/GeneratedSoundBanksDirectoryWatcher.h"
@@ -21,7 +21,7 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "AkAudioStyle.h"
 #include "AkSettings.h"
 #include "AkSettingsPerUser.h"
-#include "AkUnrealHelper.h"
+#include "WwiseUnrealHelper.h"
 #include "IAudiokineticTools.h"
 #include "DirectoryWatcherModule.h"
 #include "Async/Async.h"
@@ -37,13 +37,13 @@ Copyright (c) 2023 Audiokinetic Inc.
 
 bool GeneratedSoundBanksDirectoryWatcher::DoesWwiseProjectExist()
 {
-	return FPaths::FileExists(AkUnrealHelper::GetWwiseProjectPath());
+	return FPaths::FileExists(WwiseUnrealHelper::GetWwiseProjectPath());
 }
 
 void GeneratedSoundBanksDirectoryWatcher::CheckIfCachePathChanged()
 {
 	auto* ProjectDatabase = FWwiseProjectDatabase::Get();
-	if (UNLIKELY(!ProjectDatabase) || IWwiseProjectDatabaseModule::IsInACookingCommandlet())
+	if (UNLIKELY(!ProjectDatabase) || !IWwiseProjectDatabaseModule::ShouldInitializeProjectDatabase())
 	{
 		return;
 	}
@@ -52,7 +52,7 @@ void GeneratedSoundBanksDirectoryWatcher::CheckIfCachePathChanged()
 	const FWwiseRefPlatform Platform = DataStructure.GetPlatform(ProjectDatabase->GetCurrentPlatform());
 	if (auto* ProjectInfo = Platform.ProjectInfo.GetProjectInfo())
 	{
-		const FString SourceCachePath = AkUnrealHelper::GetSoundBankDirectory() / ProjectInfo->CacheRoot.ToString();
+		const FString SourceCachePath = WwiseUnrealHelper::GetSoundBankDirectory() / ProjectInfo->CacheRoot.ToString();
 		if (SourceCachePath != CachePath || !CacheChangedHandle.IsValid())
 		{
 			UE_LOG(LogAudiokineticTools, Verbose, TEXT("GeneratedSoundBanksDirectoryWatcher::CheckIfCachePathChanged: Cache path changed, restarting cache watcher."));
@@ -65,10 +65,10 @@ void GeneratedSoundBanksDirectoryWatcher::CheckIfCachePathChanged()
 
 void GeneratedSoundBanksDirectoryWatcher::Initialize()
 {
-	ProjectParsedHandle = FWwiseProjectDatabaseDelegates::Get().GetOnDatabaseUpdateCompletedDelegate().AddRaw(this, &GeneratedSoundBanksDirectoryWatcher::CheckIfCachePathChanged);
+	ProjectParsedHandle = FWwiseProjectDatabaseDelegates::Get()->GetOnDatabaseUpdateCompletedDelegate().AddRaw(this, &GeneratedSoundBanksDirectoryWatcher::CheckIfCachePathChanged);
 	if (UAkSettings* AkSettings = GetMutableDefault<UAkSettings>())
 	{
-		// When GeneratedSoundbanks folder changes we need to reset the watcher
+		// When GeneratedSoundBanks folder changes we need to reset the watcher
 		if (SettingsChangedHandle.IsValid())
 		{
 			AkSettings->OnGeneratedSoundBanksPathChanged.Remove(SettingsChangedHandle);
@@ -80,7 +80,7 @@ void GeneratedSoundBanksDirectoryWatcher::Initialize()
 
 	if (UAkSettingsPerUser* UserSettings = GetMutableDefault<UAkSettingsPerUser>())
 	{
-		// When GeneratedSoundbanks Override folder changes we need to reset the watcher
+		// When GeneratedSoundBanks Override folder changes we need to reset the watcher
 		if (UserSettingsChangedHandle.IsValid())
 		{
 			UserSettings->OnGeneratedSoundBanksPathChanged.Remove(UserSettingsChangedHandle);
@@ -95,13 +95,13 @@ void GeneratedSoundBanksDirectoryWatcher::Initialize()
 
 void GeneratedSoundBanksDirectoryWatcher::StartWatchers()
 {
-	if (IWwiseProjectDatabaseModule::IsInACookingCommandlet())
+	if (!IWwiseProjectDatabaseModule::ShouldInitializeProjectDatabase())
 	{
 		return;
 	}
 
 	//Start GeneratedSoundBanksWatcher to watch files which can be updated by source control (or direct manipulation)
-	StartSoundBanksWatcher(AkUnrealHelper::GetSoundBankDirectory());
+	StartSoundBanksWatcher(WwiseUnrealHelper::GetSoundBankDirectory());
 
 	// If there is a wwise project, we also watch the cache root file which notifies us when bank generation is done
 	if (DoesWwiseProjectExist())
@@ -118,7 +118,7 @@ void GeneratedSoundBanksDirectoryWatcher::StartWatchers()
 		{
 			if (auto* ProjectInfo = Platform.ProjectInfo.GetProjectInfo())
 			{
-				const FString SourceCachePath = AkUnrealHelper::GetSoundBankDirectory() / ProjectInfo->CacheRoot.ToString();
+				const FString SourceCachePath = WwiseUnrealHelper::GetSoundBankDirectory() / ProjectInfo->CacheRoot.ToString();
 				StartCacheWatcher(SourceCachePath);
 			}
 		}
@@ -385,7 +385,7 @@ void GeneratedSoundBanksDirectoryWatcher::Uninitialize(const bool bIsModuleShutd
 
 	if (ProjectParsedHandle.IsValid())
 	{
-		FWwiseProjectDatabaseDelegates::Get().GetOnDatabaseUpdateCompletedDelegate().Remove(ProjectParsedHandle);
+		FWwiseProjectDatabaseDelegates::Get()->GetOnDatabaseUpdateCompletedDelegate().Remove(ProjectParsedHandle);
 		ProjectParsedHandle.Reset();
 	}
 

@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/AudioLink/WwiseAudioLinkComponent.h"
@@ -77,6 +77,9 @@ void UWwiseAudioLinkComponent::CreateAudioComponent()
 		AudioComponent->bStopWhenOwnerDestroyed = true;
 		AudioComponent->bShouldRemainActiveIfDropped = true;
 		AudioComponent->Mobility = EComponentMobility::Movable;
+		AudioComponent->bOverrideAttenuation = 1;
+		AudioComponent->AttenuationOverrides.bEnableSendToAudioLink = 1;
+		AudioComponent->AttenuationOverrides.AudioLinkSettingsOverride = Settings;
 
 #if WITH_EDITORONLY_DATA
 		AudioComponent->bVisualizeComponent = false;
@@ -94,6 +97,10 @@ void UWwiseAudioLinkComponent::OnRegister()
 	{
 		check(LinkInstance == nullptr);
 		CreateLink();		
+	}
+	if(bAutoPlay)
+	{
+		PlayLink(0);
 	}
 }
 

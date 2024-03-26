@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "AkGeometryComponent.h"
@@ -22,7 +22,7 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "AkReverbDescriptor.h"
 #include "AkRoomComponent.h"
 #include "AkSettings.h"
-#include "AkUEFeatures.h"
+#include "WwiseUEFeatures.h"
 
 #if AK_USE_PHYSX
 #include "PhysXPublic.h"
@@ -195,6 +195,14 @@ void UAkGeometryComponent::OnRegister()
 				CalculateSurfaceArea(MeshParent);
 		}
 		DampingEstimationNeedsUpdate = true;
+	}
+	if (AssociatedRoom != nullptr)
+	{
+		UAkRoomComponent* room = Cast<UAkRoomComponent>(AssociatedRoom->GetComponentByClass(UAkRoomComponent::StaticClass()));
+		if (room != nullptr)
+		{
+			UE_LOG(LogAkAudio, Warning, TEXT("AkGeometryComponent %s is associated to Room %s. The AssociatedRoom property is deprecated, it will be removed in a future version. We recommend not using it and leaving it set to None."), *GetOwner()->GetName(), *room->GetRoomName());
+		}
 	}
 #endif
 }
@@ -726,10 +734,17 @@ void UAkGeometryComponent::ConvertCollisionMesh(UPrimitiveComponent* PrimitiveCo
 	else
 		physMatTexture = physicalMaterial;
 
-	if (surfaceOverride.bEnableOcclusionOverride)
-		Surface.Occlusion = surfaceOverride.OcclusionValue;
+	if (bWasAddedByRoom)
+	{
+		Surface.Occlusion = 0.f;
+	}
 	else
-		physMatOcclusion = physicalMaterial;
+	{
+		if (surfaceOverride.bEnableOcclusionOverride)
+			Surface.Occlusion = surfaceOverride.OcclusionValue;
+		else
+			physMatOcclusion = physicalMaterial;
+	}
 	
 	GeometryData.ToOverrideAcousticTexture.Add(physMatTexture);
 	GeometryData.ToOverrideOcclusion.Add(physMatOcclusion);
@@ -759,13 +774,14 @@ void UAkGeometryComponent::ConvertCollisionMesh(UPrimitiveComponent* PrimitiveCo
 		GeometryData.AddBox(surfIdx, box.Center, extent, box.Rotation);
 	}
 
-	const int sides = 16;
+	const int kNumSides = 6;
+	const int kNumRings = 4;
 
 	int32 numSpheres = bodySetup->AggGeom.SphereElems.Num();
 	for (int32 i = 0; i < numSpheres; i++)
 	{
 		FKSphereElem sphere = bodySetup->AggGeom.SphereElems[i];
-		GeometryData.AddSphere(surfIdx, sphere.Center, sphere.Radius, sides, sides / 2);
+		GeometryData.AddSphere(surfIdx, sphere.Center, sphere.Radius, kNumSides, kNumRings);
 	}
 
 	int32 numCapsules = bodySetup->AggGeom.SphylElems.Num();
@@ -777,7 +793,7 @@ void UAkGeometryComponent::ConvertCollisionMesh(UPrimitiveComponent* PrimitiveCo
 		FVector Y = capsule.GetTransform().GetUnitAxis(EAxis::Y);
 		FVector Z = capsule.GetTransform().GetUnitAxis(EAxis::Z);
 
-		GeometryData.AddCapsule(surfIdx, capsule.Center, X, Y, Z, capsule.Radius, capsule.Length / 2, sides / 2);
+		GeometryData.AddCapsule(surfIdx, capsule.Center, X, Y, Z, capsule.Radius, capsule.Length / 2, kNumSides);
 	}
 
 	int32 numConvexElems = bodySetup->AggGeom.ConvexElems.Num();
@@ -876,7 +892,6 @@ void UAkGeometryComponent::SendGeometry()
 			
 			params.EnableDiffraction = bEnableDiffraction;
 			params.EnableDiffractionOnBoundaryEdges = bEnableDiffractionOnBoundaryEdges;
-			params.EnableTriangles = !bWasAddedByRoom;
 
 			SendGeometryToWwise(params);
 		}
@@ -906,7 +921,7 @@ void UAkGeometryComponent::UpdateGeometry()
 				roomID = room->GetRoomID();
 		}
 
-		SendGeometryInstanceToWwise(Parent->GetComponentRotation(), Parent->GetComponentLocation(), Parent->GetComponentTransform().GetScale3D(), roomID);
+		SendGeometryInstanceToWwise(Parent->GetComponentRotation(), Parent->GetComponentLocation(), Parent->GetComponentTransform().GetScale3D(), roomID, !bWasAddedByRoom);
 	}
 }
 
@@ -1098,12 +1113,26 @@ void UAkGeometryComponent::GetTexturesAndSurfaceAreas(TArray<FAkAcousticTextureP
 		{
 			if (CollisionMeshSurfaceOverride.AcousticTexture != nullptr)
 			{
+#if WITH_EDITOR
+				// Get the most accurate absorption values from the list in the AkSettings
 				const FAkAcousticTextureParams* params = AkSettings->GetTextureParams(CollisionMeshSurfaceOverride.AcousticTexture->GetShortID());
 				if (params != nullptr)
 				{
 					textures.Add(*params);
 					surfaceAreas.Add(1.0f); // When there is only 1 acoustic texture, surface area magnitude is not important.
 				}
+#else
+				// Get the absorption values from the cooked data
+				FAkAcousticTextureParams params;
+				params.AbsorptionValues = FVector4(
+					CollisionMeshSurfaceOverride.AcousticTexture->AcousticTextureCookedData.AbsorptionLow / 100.0f,
+					CollisionMeshSurfaceOverride.AcousticTexture->AcousticTextureCookedData.AbsorptionMidLow / 100.0f,
+					CollisionMeshSurfaceOverride.AcousticTexture->AcousticTextureCookedData.AbsorptionMidHigh / 100.0f,
+					CollisionMeshSurfaceOverride.AcousticTexture->AcousticTextureCookedData.AbsorptionHigh / 100.0f
+				);
+				textures.Add(params);
+				surfaceAreas.Add(1.0f); // When there is only 1 acoustic texture, surface area magnitude is not important.
+#endif
 			}
 		}
 		else
@@ -1115,20 +1144,29 @@ void UAkGeometryComponent::GetTexturesAndSurfaceAreas(TArray<FAkAcousticTextureP
 				for (auto it = StaticMeshSurfaceOverride.CreateConstIterator(); it; ++it)
 				{
 					surfaceArea = GetSurfaceAreaSquaredMeters(surfIdx);
-					FAkGeometrySurfaceOverride surface = it.Value();
 					surfaceAreas.Add(surfaceArea);
+
+					FAkAcousticTextureParams params;
+					FAkGeometrySurfaceOverride surface = it.Value();
 					if (surface.AcousticTexture != nullptr)
 					{
-						const FAkAcousticTextureParams* params = AkSettings->GetTextureParams(surface.AcousticTexture->GetShortID());
-						if (params != nullptr)
+#if WITH_EDITOR
+						// Get the most accurate absorption values from the list in the AkSettings
+						const FAkAcousticTextureParams* paramsFound = AkSettings->GetTextureParams(surface.AcousticTexture->GetShortID());
+						if (paramsFound != nullptr)
 						{
-							textures.Add(*params);
+							params = *paramsFound;
 						}
+#else
+						params.AbsorptionValues = FVector4(
+							surface.AcousticTexture->AcousticTextureCookedData.AbsorptionLow / 100.0f,
+							surface.AcousticTexture->AcousticTextureCookedData.AbsorptionMidLow / 100.0f,
+							surface.AcousticTexture->AcousticTextureCookedData.AbsorptionMidHigh / 100.0f,
+							surface.AcousticTexture->AcousticTextureCookedData.AbsorptionHigh / 100.0f
+						);
+#endif
 					}
-					else
-					{
-						textures.Add(FAkAcousticTextureParams());
-					}
+					textures.Add(params);
 					++surfIdx;
 				}
 			}

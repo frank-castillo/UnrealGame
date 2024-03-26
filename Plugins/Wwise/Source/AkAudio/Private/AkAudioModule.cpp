@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "AkAudioModule.h"
@@ -20,7 +20,7 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "AkAudioStyle.h"
 #include "AkSettings.h"
 #include "AkSettingsPerUser.h"
-#include "AkUnrealHelper.h"
+#include "WwiseUnrealDefines.h"
 
 #include "Wwise/WwiseResourceLoader.h"
 #include "Wwise/WwiseSoundEngineModule.h"
@@ -53,9 +53,9 @@ FAkAudioModule* FAkAudioModule::AkAudioModuleInstance = nullptr;
 FSimpleMulticastDelegate FAkAudioModule::OnModuleInitialized;
 FSimpleMulticastDelegate FAkAudioModule::OnWwiseAssetDataReloaded;
 
-// AkUnrealHelper overrides
+// WwiseUnrealHelper overrides
 
-namespace AkUnrealHelper
+namespace WwiseUnrealHelper
 {
 	static FString GetWwisePluginDirectoryImpl()
 	{
@@ -87,21 +87,29 @@ namespace AkUnrealHelper
 	{
 		const UAkSettingsPerUser* UserSettings = GetDefault<UAkSettingsPerUser>();
 		FString SoundBankDirectory;
-		if (UserSettings && !UserSettings->GeneratedSoundBanksFolderUserOverride.Path.IsEmpty())
+		if (UserSettings && !UserSettings->RootOutputPathOverride.Path.IsEmpty())
 		{
-			SoundBankDirectory = FPaths::Combine(GetContentDirectory(), UserSettings->GeneratedSoundBanksFolderUserOverride.Path);
+			SoundBankDirectory = UserSettings->RootOutputPathOverride.Path;
+			if(FPaths::IsRelative(UserSettings->RootOutputPathOverride.Path))
+			{
+				SoundBankDirectory = FPaths::Combine(GetContentDirectory(), UserSettings->RootOutputPathOverride.Path);
+			}
 		}
 		else if (const UAkSettings* AkSettings = GetDefault<UAkSettings>())
 		{
-			if(AkSettings->GeneratedSoundBanksFolder.Path.IsEmpty())
+			if(AkSettings->RootOutputPath.Path.IsEmpty())
 			{
 				return {};
 			}
-			SoundBankDirectory = FPaths::Combine(GetContentDirectory(), AkSettings->GeneratedSoundBanksFolder.Path);
+			SoundBankDirectory = AkSettings->RootOutputPath.Path;
+			if(FPaths::IsRelative(AkSettings->RootOutputPath.Path))
+			{
+				SoundBankDirectory = FPaths::Combine(GetContentDirectory(), AkSettings->RootOutputPath.Path);	
+			}
 		}
 		else
 		{
-			UE_LOG(LogAkAudio, Warning, TEXT("AkUnrealHelper::GetSoundBankDirectory : Please set the Generated Soundbanks Folder in Wwise settings. Otherwise, sound will not function."));
+			UE_LOG(LogAkAudio, Warning, TEXT("WwiseUnrealHelper::GetSoundBankDirectory : Please set the Generated Soundbanks Folder in Wwise settings. Otherwise, sound will not function."));
 			return {};
 		}
 		FPaths::CollapseRelativeDirectories(SoundBankDirectory);
@@ -134,11 +142,11 @@ namespace AkUnrealHelper
 void FAkAudioModule::StartupModule()
 {
 	IWwiseSoundEngineModule::ForceLoadModule();
-	AkUnrealHelper::SetHelperFunctions(
-		AkUnrealHelper::GetWwisePluginDirectoryImpl,
-		AkUnrealHelper::GetWwiseProjectPathImpl,
-		AkUnrealHelper::GetSoundBankDirectoryImpl,
-		AkUnrealHelper::GetStagePathImpl);
+	WwiseUnrealHelper::SetHelperFunctions(
+		WwiseUnrealHelper::GetWwisePluginDirectoryImpl,
+		WwiseUnrealHelper::GetWwiseProjectPathImpl,
+		WwiseUnrealHelper::GetSoundBankDirectoryImpl,
+		WwiseUnrealHelper::GetStagePathImpl);
 
 #if WITH_EDITOR
 	// It is not wanted to initialize the SoundEngine while running the GenerateSoundBanks commandlet.
@@ -147,14 +155,14 @@ void FAkAudioModule::StartupModule()
 		// We COULD use GetRunningCommandletClass(), but unfortunately it is set to nullptr in OnPostEngineInit.
 		// We need to parse the command line.
 		FString CmdLine(FCommandLine::Get());
-		if (CmdLine.Contains(TEXT("-run=GenerateSoundBanks")))
+		if (CmdLine.Contains(TEXT("run=GenerateSoundBanks")))
 		{
 			UE_LOG(LogAkAudio, Log, TEXT("FAkAudioModule::StartupModule: Detected GenerateSoundBanks commandlet is running. AkAudioModule will not be initialized."));
 			return;
 		}
 
 #if WITH_EDITORONLY_DATA
-		if(IWwiseProjectDatabaseModule::IsInACookingCommandlet())
+		if(!IWwiseProjectDatabaseModule::ShouldInitializeProjectDatabase())
 		{
 			// Initialize the Rersource Cooker
 			IWwiseResourceCookerModule::GetModule();
@@ -174,11 +182,19 @@ void FAkAudioModule::StartupModule()
 
 	FScopedSlowTask SlowTask(0, LOCTEXT("InitWwisePlugin", "Initializing Wwise Plug-in AkAudioModule..."));
 
+#if !UE_SERVER
 	UpdateWwiseResourceLoaderSettings();
+#endif
 	
 #if WITH_EDITORONLY_DATA
-	ParseGeneratedSoundBankData();
-	FWwiseInitBankLoader::Get()->UpdateInitBankInSettings();
+	if (auto* AkSettings = GetDefault<UAkSettings>())
+	{
+		if (AkSettings->AreSoundBanksGenerated())
+		{
+			ParseGeneratedSoundBankData();
+			FWwiseInitBankLoader::Get()->UpdateInitBankInSettings();
+		}
+	}
 
 	// Loading the File Handler Module, in case it loads a different module with UStructs, so it gets packaged (Ex.: Simple External Source Manager)
 	IWwiseFileHandlerModule::GetModule();
@@ -230,7 +246,7 @@ void FAkAudioModule::ShutdownModule()
 
 	if (IWwiseSoundEngineModule::IsAvailable())
 	{
-		AkUnrealHelper::SetHelperFunctions(nullptr, nullptr, nullptr, nullptr);
+		WwiseUnrealHelper::SetHelperFunctions(nullptr, nullptr, nullptr, nullptr);
 	}
 
 	AkAudioModuleInstance = nullptr;
@@ -292,36 +308,22 @@ void FAkAudioModule::UpdateWwiseResourceLoaderSettings()
 		return;
 	}
 
-	ResourceLoaderImpl->StagePath = AkUnrealHelper::GetStagePathImpl();
+	ResourceLoaderImpl->StagePath = WwiseUnrealHelper::GetStagePathImpl();
 
 #if WITH_EDITORONLY_DATA
-	ResourceLoaderImpl->GeneratedSoundBanksPath = FDirectoryPath{AkUnrealHelper::GetSoundBankDirectory()};
+	ResourceLoaderImpl->GeneratedSoundBanksPath = FDirectoryPath{WwiseUnrealHelper::GetSoundBankDirectory()};
 #endif
 }
 
 #if WITH_EDITORONLY_DATA
 void FAkAudioModule::ParseGeneratedSoundBankData()
 {
-	if(IsRunningCommandlet())
-	{
-		TArray<FString> Switches;
-		TArray<FString> Tokens;
-		FCommandLine::Parse(FCommandLine::Get(), Tokens, Switches);
-		for(auto& Token : Tokens)
-		{
-			if(Token.Contains(TEXT("-run=GenerateSoundBanks"), ESearchCase::IgnoreCase))
-			{
-				UE_LOG(LogAkAudio, Verbose, TEXT("FAkAudioModule::ParseGeneratedSoundBankData : Running GenerateSoundBanksCommandlet. Generated sound data will not be parsed."));
-				return;
-			}
-		}
-	}
 	SCOPED_AKAUDIO_EVENT(TEXT("ParseGeneratedSoundBankData"));
 	if (auto* AkSettings = GetDefault<UAkSettings>())
 	{
 		if (!AkSettings->AreSoundBanksGenerated())
 		{
-			UE_LOG(LogAkAudio, Warning, TEXT("FAkAudioModule::ParseGeneratedSoundBankData: SoundBanks are not yet generated, nothing to parse.\nCurrent Generated SoundBanks path is: %s"), *AkUnrealHelper::GetSoundBankDirectory());
+			UE_LOG(LogAkAudio, Warning, TEXT("FAkAudioModule::ParseGeneratedSoundBankData: SoundBanks are not yet generated, nothing to parse.\nCurrent Generated SoundBanks path is: %s"), *WwiseUnrealHelper::GetSoundBankDirectory());
 			return;
 		}
 	}

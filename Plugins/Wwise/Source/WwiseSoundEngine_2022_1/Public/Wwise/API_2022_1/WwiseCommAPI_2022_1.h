@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -50,19 +50,19 @@ public:
 	/// - \ref initialization_comm
 	/// - AK::Comm::GetDefaultInitSettings()
 	/// - AkCommSettings::Ports
-	AKRESULT Init(
+	virtual AKRESULT Init(
 		const AkCommSettings& in_settings///< Initialization settings.			
 		) override;
 
 	/// Gets the last error from the OS-specific communication library.
 	/// \return The system error code.  Check the code in the platform manufacturer documentation for details about the error.
-	AkInt32 GetLastError() override;
+	virtual AkInt32 GetLastError() override;
 
 	/// Gets the communication module's default initialization settings values.
 	/// \sa
 	/// - \ref initialization_comm 
 	/// - AK::Comm::Init()
-	void GetDefaultInitSettings(
+	virtual void GetDefaultInitSettings(
 		AkCommSettings& out_settings	///< Returned default initialization settings.
 		) override;
 
@@ -70,7 +70,7 @@ public:
 	/// \warning This function must be called before the memory manager is terminated.		
 	/// \sa
 	/// - \ref termination_comm 
-	void Term() override;
+	virtual void Term() override;
 
 	/// Terminates and reinitialize the communication module using current settings.
 	///
@@ -82,14 +82,21 @@ public:
 	///
 	/// \sa
 	/// - \ref AK::SoundEngine::iOS::WakeupFromSuspend()
-	AKRESULT Reset() override;
+	virtual AKRESULT Reset() override;
 
 
 	/// Get the initialization settings currently in use by the CommunicationSystem
 	///
 	/// \return
 	///      - AK_Success if initialization was successful.
-	const AkCommSettings& GetCurrentSettings() override;
+	virtual const AkCommSettings& GetCurrentSettings() override;
+
+
+	/// Get the port currently in used by the command channel.
+	///
+	/// \return
+	///      - Port number.
+	virtual AkUInt16 GetCommandPort() override;
 
 	//@}
 };

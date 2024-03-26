@@ -12,10 +12,12 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
+
+#include "Wwise/WwiseProjectDatabaseModule.h"
 
 DECLARE_MULTICAST_DELEGATE(FOnDatabaseUpdateCompletedDelegate);
 
@@ -25,14 +27,18 @@ DECLARE_MULTICAST_DELEGATE(FOnDatabaseUpdateCompletedDelegate);
 
 class WWISEPROJECTDATABASE_API FWwiseProjectDatabaseDelegates
 {
-
 	DEFINE_WWISE_DATABASE_DELEGATE(OnDatabaseUpdateCompletedDelegate);
 
 public:
-	static FWwiseProjectDatabaseDelegates& Get()
+	static FWwiseProjectDatabaseDelegates* Get()
 	{
-		// return the singleton object
-		static FWwiseProjectDatabaseDelegates Singleton;
-		return Singleton;
+		IWwiseProjectDatabaseModule* ProjectDatabaseModule = IWwiseProjectDatabaseModule::GetModule();
+
+		if (UNLIKELY(!ProjectDatabaseModule))
+		{
+			return nullptr;
+		}
+
+		return ProjectDatabaseModule->GetProjectDatabaseDelegates();
 	}
 };

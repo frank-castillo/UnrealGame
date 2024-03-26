@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -21,6 +21,9 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "Containers/Queue.h"
 #include "Misc/DateTime.h"
 #include "Misc/QueuedThreadPool.h"
+#include "Wwise/WwiseTask.h"
+
+#include <atomic>
 
 /**
  * @brief Asynchronous sequential execution queue.
@@ -31,32 +34,18 @@ Copyright (c) 2023 Audiokinetic Inc.
 */
 struct WWISECONCURRENCY_API FWwiseExecutionQueue
 {
-	const ENamedThreads::Type NamedThread;
-	FQueuedThreadPool * const ThreadPool;
-	const bool bOwnedPool;
-
+	const TCHAR* const DebugName;
+	const EWwiseTaskPriority TaskPriority;
 	using FBasicFunction = TUniqueFunction<void()>;
 
-	/**
-	 * @brief Starts a new Execution Queue running in a particular Named Thread
-	 * @param InNamedThread The Named Thread that will run the Execution Queue
-	*/
-	FWwiseExecutionQueue(ENamedThreads::Type InNamedThread);
+#define WWISE_EQ_NAME(name) TEXT(name) TEXT(" Execution Queue worker") 
 
 	/**
-	 * @brief Starts a new Execution Queue running in a particular Thread Pool
-	 * @param InThreadPool The Thread Pool that will run the Execution Queue. Using nullptr will run it in the
-	 *                     Wwise Execution Queue's default thread pool.
+	 * @brief Starts a new Execution Queue running at a particular thread priority.
+	 * @param InDebugName Name for this execution queue's task. Can use WWISE_EQ_NAME to create a standardized name.
+	 * @param InTaskPriority The priority for the task.
 	*/
-	FWwiseExecutionQueue(FQueuedThreadPool* InThreadPool = nullptr);
-
-	/**
-	 * @brief Starts a new Execution Queue running in a new, owned Thread Pool (with 1 thread) exclusive to this Execution Queue.
-	 * @param InThreadName Thread Name
-	 * @param InThreadPriority Thread Priority of the new Thread Pool
-	 * @param InStackSize Stack size for new Thread Pool
-	*/
-	FWwiseExecutionQueue(const TCHAR* InThreadName, EThreadPriority InThreadPriority = EThreadPriority::TPri_Normal, int32 InStackSize = 128 * 1024);
+	FWwiseExecutionQueue(const TCHAR* InDebugName, EWwiseTaskPriority InTaskPriority = EWwiseTaskPriority::Default);
 
 	/**
 	 * @brief Destructor for Execution Queue.
@@ -70,27 +59,30 @@ struct WWISECONCURRENCY_API FWwiseExecutionQueue
 
 	/**
 	 * @brief Calls a function asynchronously in the Execution Queue.
+	 * @param InDebugName Name of the async task. Can use UE_SOURCE_LOCATION for a standardized name.
 	 * @param InFunction The function to be called.
 	 * 
 	 * Async usually calls the passed function asynchronously. However, in deletion instances or exiting instances, this
 	 * will be called synchronously. If you absolutely need this call to be done asynchronously (it might not be called),
 	 * you should call AsyncAlways instead.
 	*/
-	void Async(FBasicFunction&& InFunction);
+	void Async(const TCHAR* InDebugName, FBasicFunction&& InFunction);
 	/**
 	 * @brief Calls a function asynchronously in the Execution Queue. If no Execution Queue is available, it will be called
 	 *        on any Task Graph thread.
+	 * @param InDebugName Name of the async task. Can use UE_SOURCE_LOCATION for a standardized name.
 	 * @param InFunction The function to be called.
 	 *
 	 * Execute the function asynchronously, or on the Task Graph, but never synchronously.
 	*/
-	void AsyncAlways(FBasicFunction&& InFunction);
+	void AsyncAlways(const TCHAR* InDebugName, FBasicFunction&& InFunction);
 
 	/**
 	 * @brief Calls a function asynchronously in the Execution Queue, and then wait for it to be called.
+	 * @param InDebugName Name of the async task. Can use UE_SOURCE_LOCATION for a standardized name.
 	 * @param InFunction The function to be called.
 	*/
-	void AsyncWait(FBasicFunction&& InFunction);
+	void AsyncWait(const TCHAR* InDebugName, FBasicFunction&& InFunction);
 
 
 	/**
@@ -111,7 +103,46 @@ struct WWISECONCURRENCY_API FWwiseExecutionQueue
 	bool IsBeingClosed() const;
 	bool IsClosed() const;
 
-	static FQueuedThreadPool* GetDefaultThreadPool();
+	bool IsRunningInThisThread() const;
+
+	struct FOpQueueItem
+	{
+#if ENABLE_NAMED_EVENTS
+		FOpQueueItem() : DebugName(nullptr), Function([]{}) {}
+		FOpQueueItem(const TCHAR* InDebugName, FBasicFunction&& InFunction) :
+			DebugName(InDebugName),
+			Function(MoveTemp(InFunction))
+		{}
+		FOpQueueItem(FOpQueueItem&& Rhs) :
+			DebugName(Rhs.DebugName),
+			Function(MoveTemp(Rhs.Function))
+		{
+		}
+#else
+		FOpQueueItem() : Function([]{}) {}
+		FOpQueueItem(const TCHAR*, FBasicFunction&& InFunction) :
+			Function(MoveTemp(InFunction))
+		{}
+		FOpQueueItem(FOpQueueItem&& Rhs) :
+			Function(MoveTemp(Rhs.Function))
+		{
+		}
+#endif		
+		FOpQueueItem& operator=(const FOpQueueItem& Rhs)
+		{
+#if ENABLE_NAMED_EVENTS
+			check(Rhs.DebugName == nullptr);
+			DebugName = nullptr;
+#endif
+			Function = []{};
+			return *this;
+		}
+		
+#if ENABLE_NAMED_EVENTS
+		const TCHAR* DebugName;
+#endif
+		FBasicFunction Function;
+	};
 
 private:
 	class ExecutionQueuePoolTask;
@@ -124,15 +155,17 @@ private:
 		Closing,			///< While a thread is running, the last producer is asking to permanently close the Execution Queue
 		Closed				///< Execution Queue is permanently closed. It can be deleted.
 	};
-	TAtomic<EWorkerState> WorkerState{ EWorkerState::Stopped };
+	std::atomic<EWorkerState> WorkerState{ EWorkerState::Stopped };
 	bool bDeleteOnceClosed{ false };
 
-	using FOpQueue = TQueue<FBasicFunction, EQueueMode::Mpsc>;
+	using FOpQueue = TQueue<FOpQueueItem, EQueueMode::Mpsc>;
 	FOpQueue OpQueue;
+
+	struct TLS;
 
 	void StartWorkerIfNeeded();
 	void Work();
-	bool StopWorkerIfDone();
+	bool KeepWorking();
 	void ProcessWork();
 	bool TrySetStoppedWorkerToRunning();
 	bool TrySetRunningWorkerToStopped();
@@ -154,11 +187,15 @@ public:
 	struct WWISECONCURRENCY_API Test
 	{
 #if defined(WITH_LOW_LEVEL_TESTS) && WITH_LOW_LEVEL_TESTS || defined(WITH_AUTOMATION_TESTS) || (WITH_DEV_AUTOMATION_TESTS || WITH_PERF_AUTOMATION_TESTS)
-		static bool bMockEngineDeletion;
-		static bool bMockEngineDeleted;
+#define WWISE_EXECUTIONQUEUE_TEST_CONST
 #else
-		static constexpr const auto bMockEngineDeletion{ false };
-		static constexpr const auto bMockEngineDeleted{ false };
+#define WWISE_EXECUTIONQUEUE_TEST_CONST const
 #endif
+		static const bool bExtremelyVerbose;
+		static WWISE_EXECUTIONQUEUE_TEST_CONST bool bMockEngineDeletion;
+		static WWISE_EXECUTIONQUEUE_TEST_CONST bool bMockEngineDeleted;
+		static WWISE_EXECUTIONQUEUE_TEST_CONST bool bMockSleepOnStateUpdate;
+		static WWISE_EXECUTIONQUEUE_TEST_CONST bool bReduceLogVerbosity;
+		static bool IsExtremelyVerbose(){ return bExtremelyVerbose && !bReduceLogVerbosity; }
 	};
 };

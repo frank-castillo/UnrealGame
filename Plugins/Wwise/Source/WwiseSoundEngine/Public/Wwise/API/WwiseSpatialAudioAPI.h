@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -46,7 +46,7 @@ public:
 
 	////////////////////////////////////////////////////////////////////////
 	/// @name Basic functions. 
-	/// In order to use SpatialAudio, you need to initalize it using Init, and register the listeners that you plan on using with any of the services offered by SpatialAudio, using 
+	/// In order to use SpatialAudio, you need to initialize it using Init, and register the listeners that you plan on using with any of the services offered by SpatialAudio, using 
 	/// RegisterListener respectively, _after_ having registered their corresponding game object to the sound engine.
 	/// \akwarning At the moment, there can be only one Spatial Audio listener registered at any given time.
 	//@{
@@ -258,6 +258,49 @@ public:
 		AkPortalID in_PortalID		///< ID of portal to be removed, which was originally passed to SetPortal.
 		) = 0;
 
+	/// Use a Room as a Reverb Zone.
+	/// AK::SpatialAudio::SetReverbZone establishes a parent-child relationship between two Rooms and allows for sound propagation between them
+	/// as if they were the same Room, without the need for a connecting Portal. Setting a Room as a Reverb Zone
+	/// is useful in situations where two or more acoustic environments are not easily modeled as closed rooms connected by portals.
+	/// Possible uses for Reverb Zones include: a covered area with no walls, a forested area within an outdoor space, or any situation
+	/// where multiple reverb effects are desired within a common space. Reverb Zones have many advantages compared to standard Game-Defined
+	/// Auxiliary Sends. They are part of the wet path, and form reverb chains with other Rooms; they are spatialized according to their 3D extent;
+	/// they are also subject to other acoustic phenomena simulated in Wwise Spatial Audio, such as diffraction and transmission.
+	/// A parent Room may have multiple Reverb Zones, but a Reverb Zone can only have a single Parent. If a Room is already assigned
+	/// to a parent Room, it will first be removed from the old parent (exactly as if AK::SpatialAudio::RemoveReverbZone were called)
+	/// before then being assigned to the new parent Room. A Room can not be its own parent.
+	/// The Reverb Zone and its parent are both Rooms, and as such, must be specified using AK::SpatialAudio::SetRoom.
+	/// If AK::SpatialAudio::SetReverbZone is called before AK::SpatialAudio::SetRoom, and either of the two rooms do not yet exist,
+	/// placeholder Rooms with default parameters are created. They should be subsequently parameteized with AK::SpatialAudio::SetRoom.
+	/// 
+	/// To set which Reverb Zone a Game Object is in, use the AK::SpatialAudio::SetGameObjectInRoom API, and pass the Reverb Zone's Room ID.
+	/// In Wwise Spatial Audio, a Game Object can only ever be inside a single room, and Reverb Zones are no different in this regard.
+	/// \aknote
+	/// The automatically created 'outdoors' Room is commonly used as a parent Room for Reverb Zones, since they often model open spaces.
+	/// To attach a Reverb zone to outdoors, pass AK::SpatialAudio::kOutdoorRoomID as the \c in_ParentRoom argument. Like all Rooms, the 'outdoors' Room
+	/// can be parameterized (for example, to assign a reverb bus) by passing AK::SpatialAudio::kOutdoorRoomID to AK::SpatialAudio::SetRoom.
+	/// \sa
+	/// - \ref AkRoomID
+	///	- \ref AK::SpatialAudio::SetRoom
+	///	- \ref AK::SpatialAudio::RemoveRoom
+	///	- \ref AK::SpatialAudio::RemoveReverbZone
+	/// - \ref AK::SpatialAudio::kOutdoorRoomID
+	virtual AKRESULT SetReverbZone(
+		AkRoomID in_ReverbZone,			///< ID of the Room which will be specified as a Reverb Zone.
+		AkRoomID in_ParentRoom,			///< ID of the parent Room.
+		AkReal32 in_transitionRegionWidth	///< Width of the transition region between the Reverb Zone and its parent. The transition region is centered around the Reverb Zone geometry. It only applies where triangle transmission loss is set to 0.
+		) = 0;
+
+	/// Remove a Reverb Zone from its parent.
+	/// It will no longer be possible for sound to propagate between the two rooms, unless they are explicitly connected with a Portal.
+	/// \sa
+	///	- \ref AK::SpatialAudio::SetReverbZone
+	///	- \ref AK::SpatialAudio::RemoveRoom
+	///	- \ref AK::SpatialAudio::RemoveReverbZone
+	virtual AKRESULT RemoveReverbZone(
+		AkRoomID in_ReverbZone	///< ID of the Room which has been specified as a Reverb Zone.
+		) = 0;
+
 	/// Set the room that the game object is currently located in - usually the result of a containment test performed by the client. The room must have been registered with \c SetRoom.
 	///	Setting the room for a game object provides the basis for the sound propagation service, and also sets which room's reverb aux bus to send to.  The sound propagation service traces the path
 	/// of the sound from the emitter to the listener, and calculates the diffraction as the sound passes through each portal.  The portals are used to define the spatial location of the diffracted and reverberated
@@ -268,6 +311,15 @@ public:
 	virtual AKRESULT SetGameObjectInRoom(
 		AkGameObjectID in_gameObjectID, ///< Game object ID 
 		AkRoomID in_CurrentRoomID		///< RoomID that was passed to \c AK::SpatialAudio::SetRoom
+		) = 0;
+
+	/// Unset the room that the game object is currently located in.
+	///	When a game object has not been explicitly assigned to a room with \ref AK::SpatialAudio::SetGameObjectInRoom, the room is automatically computed.
+	/// \sa 
+	///	- \ref AK::SpatialAudio::SetRoom
+	///	- \ref AK::SpatialAudio::RemoveRoom
+	virtual AKRESULT UnsetGameObjectInRoom(
+		AkGameObjectID in_gameObjectID ///< Game object ID
 		) = 0;
 
 	/// Set the early reflections order for reflection calculation. The reflections order indicates the number of times sound can bounce off of a surface. 
@@ -285,6 +337,14 @@ public:
 		AkUInt32 in_uDiffractionOrder,	///< Number of diffraction edges to consider in path calculations. Valid range [0,8]
 		bool in_bUpdatePaths			///< Set to true to clear existing diffraction paths and to force the re-computation of new paths. If false, existing paths will remain and new paths will be computed when the emitter or listener moves.
 		) = 0;
+
+	/// Set the maximum number of game-defined auxiliary sends that can originate from a single emitter. 
+	/// Set to 1 to only allow emitters to send directly to their current room. Set to 0 to disable the limit.
+	/// \sa
+	/// - \ref AkSpatialAudioInitSettings::uMaxEmitterRoomAuxSends
+	virtual AKRESULT SetMaxEmitterRoomAuxSends(
+		AkUInt32 in_uMaxEmitterRoomAuxSends		///< The maximum number of room aux send connections.
+	) = 0;
 
 	/// Set the number of rays cast from the listener by the stochastic ray casting engine.
 	/// A higher number requires more CPU resources but provides more accurate results. Default value (100) should be good for most applications.
@@ -323,11 +383,20 @@ public:
 		) = 0;
 
 	/// Set the obstruction and occlusion value for a portal that has been registered with Spatial Audio.
-	/// Portal obstruction is used to simulate objects between the portal and the listener that are obstructing the sound coming from the portal.  
-	/// The obstruction value affects only the portals dry path, and should relate to how much of the opening
-	/// is obstructed, and must be calculated by the client.  It is applied to the room's game object, as well as to all the emitters virtual positions 
-	/// which propagate from that room through this portal.
-	/// Portal occlusion is applied only on the room game object, and affects both the wet and dry path of the signal emitted from the room's bus.
+	/// Portal obstruction simulates objects that block the direct sound path between the portal and the listener, but
+	/// allows indirect sound to pass around the obstacle. For example, use portal obstruction 
+	/// when a piece of furniture is blocking the line of sight of the portal opening.
+	/// Portal obstruction is applied on the connection between the emitter and the listener, and only affects the dry signal path.
+	/// Portal occlusion simulates a complete blockage of both the direct and indirect sound through a portal. For example, use portal occlusion for 
+	/// opening or closing a door or window.
+	/// Portal occlusion is applied on the connection between the emitter and the first room in the chain, as well as the connection between the emitter and listener.
+	/// Portal occlusion affects both the dry and wet (reverberant) signal paths.
+	/// To apply detailed obstruction to specific sound paths but not others, use \c AK::SpatialAudio::SetGameObjectToPortalObstruction and \c AK::SpatialAudio::SetPortalToPortalObstruction.
+	/// To apply occlusion and obstruction to the direct line of sight between the emitter and listener use \c AK::SoundEngine::SetObjectObstructionAndOcclusion.
+	/// \sa
+	/// - \ref AK::SpatialAudio::SetGameObjectToPortalObstruction
+	/// - \ref AK::SpatialAudio::SetPortalToPortalObstruction
+	/// - \ref AK::SoundEngine::SetObjectObstructionAndOcclusion
 	virtual AKRESULT SetPortalObstructionAndOcclusion(
 		AkPortalID in_PortalID,				///< Portal ID.
 		AkReal32 in_fObstruction,			///< Obstruction value.  Valid range 0.f-1.f
@@ -340,6 +409,8 @@ public:
 	/// Also, there should not be any portals between the provided game object and portal ID parameters.
 	/// The obstruction value is used to simulate objects between the portal and the game object that are obstructing the sound.
 	/// Send an obstruction value of 0 to ensure the value is removed from the internal data structure.
+	/// \sa
+	/// - \ref AK::SpatialAudio::SetPortalObstructionAndOcclusion
 	virtual AKRESULT SetGameObjectToPortalObstruction(
 		AkGameObjectID in_gameObjectID,		///< Game object ID
 		AkPortalID in_PortalID,				///< Portal ID
@@ -352,6 +423,8 @@ public:
 	/// Also, there should not be any portals between the two provided ID parameters.
 	/// The obstruction value is used to simulate objects between the portals that are obstructing the sound.
 	/// Send an obstruction value of 0 to ensure the value is removed from the internal data structure.
+	/// \sa
+	/// - \ref AK::SpatialAudio::SetPortalObstructionAndOcclusion
 	virtual AKRESULT SetPortalToPortalObstruction(
 		AkPortalID in_PortalID0,			///< Portal ID
 		AkPortalID in_PortalID1,			///< Portal ID
@@ -434,14 +507,14 @@ public:
 			) = 0;
 
 		/// Estimate the high frequency damping from a collection of AkAcousticTextures and corresponding surface areas. 
-		/// The high frequency damping is a measure of how much high frequencies are dampened compared to low frequencies. > 0 indicates more high frequency damping than low frequency damping. < 0 indicates more low frequency damping than high frequency damping. 0 indicates uniform damping.
+		/// The high frequency damping is a measure of how much high frequencies are dampened compared to low frequencies. 
+		/// The value is comprised between -1 and 1. A value > 0 indicates more high frequency damping than low frequency damping. < 0 indicates more low frequency damping than high frequency damping. 0 indicates uniform damping.
 		/// The average absorption values are calculated using each of the textures in the collection, weighted by their corresponding surface area.
 		/// The HFDamping is then calculated as the line-of-best-fit through the average absorption values.
-		virtual AKRESULT EstimateHFDamping(
+		virtual AkReal32 EstimateHFDamping(
 			AkAcousticTexture* in_textures,	///< A collection of AkAcousticTexture structs from which to calculate the average high frequency damping.
 			float* in_surfaceAreas,			///< Surface area values for each of the textures in in_textures.
-			int in_numTextures,				///< The number of textures in in_textures (and the number of surface area values in in_surfaceAreas).
-			AkReal32& out_hfDamping			///< Returns the high frequency damping value. > 0 indicates more high frequency damping than low frequency damping. < 0 indicates more low frequency damping than high frequency damping. 0 indicates uniform damping.
+			int in_numTextures				///< The number of textures in in_textures (and the number of surface area values in in_surfaceAreas).
 			) = 0;
 
 		//@}

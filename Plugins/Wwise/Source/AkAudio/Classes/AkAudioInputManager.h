@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -104,63 +104,5 @@ public:
 		FAkGlobalAudioInputDelegate AudioSamplesDelegate,
 		FAkGlobalAudioFormatDelegate AudioFormatDelegate,
         EAkAudioContext AudioContext = EAkAudioContext::Foreign
-	);
-
-    /**
-     * Post an event to ak soundengine
-     *
-     * @param AkEvent   Event UObject, if null EventName is used to determine the ShortID
-     * @param EventName Name of the event to post
-     * @param Actor Actor on which to play the event
-     * @param AudioSamplesDelegate Callback that fills the audio samples buffer
-     * @param AudioFormatDelegate Callback that sets the audio format
-     * @return ID assigned by ak soundengine
-	 *
-	 * @deprecated Use a PostAudioInputEvent without EventName.
-	 */
-    static AkPlayingID PostAudioInputEvent(
-	    class UAkAudioEvent* AkEvent,
-	    const FString& EventName,
-	    AActor * Actor,
-	    FAkGlobalAudioInputDelegate AudioSamplesDelegate, 
-        FAkGlobalAudioFormatDelegate AudioFormatDelegate
-    );
-
-    /**
-     * Post an event to ak soundengine
-     *
-     * @param AkEvent   Event UObject, if null EventName is used to determine the ShortID
-     * @param EventName Name of the event to post
-     * @param Component AkComponent on which to play the event
-     * @param AudioSamplesDelegate Callback that fills the audio samples buffer
-     * @param AudioFormatDelegate Callback that sets the audio format
-     * @return ID assigned by ak soundengine
-	 *
-	 * @deprecated Use a PostAudioInputEvent without EventName.
-	 */
-    static AkPlayingID PostAudioInputEvent(
-		class UAkAudioEvent* AkEvent,
-        const FString& EventName,
-        UAkComponent* Component,
-        FAkGlobalAudioInputDelegate AudioSamplesDelegate,
-        FAkGlobalAudioFormatDelegate AudioFormatDelegate
-    );
-
-	/**
-	 * Post an event to ak soundengine by name
-	 *
-	 * @param EventName Name of the event to post
-	 * @param GameObject AkGameObject on which to play the event
-	 * @param AudioSamplesDelegate Callback that fills the audio samples buffer
-	 * @param AudioFormatDelegate Callback that sets the audio format
-	 * @return ID assigned by ak soundengine
-	 *
-	 * @deprecated Use a PostAudioInputEvent without EventName.
-	 */
-	static AkPlayingID PostAudioInputEvent(
-		const FString& EventName,
-		AkGameObjectID GameObject,
-		FAkGlobalAudioInputDelegate AudioSamplesDelegate,
-		FAkGlobalAudioFormatDelegate AudioFormatDelegate
 	);
 };

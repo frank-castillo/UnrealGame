@@ -12,12 +12,13 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
 #include "Platforms/AkUEPlatform.h"
 #include "AkAcousticTexture.h"
+#include "WwiseUnrealDefines.h"
 #include "Components/SceneComponent.h"
 #include "PhysicalMaterials/PhysicalMaterial.h"
 #include "AkAcousticTextureSetComponent.h"
@@ -136,12 +137,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Geometry", meta = (EditCondition = "bEnableDiffraction"))
 	bool bEnableDiffractionOnBoundaryEdges = false;
 
-	/** (Optional) Associate this Surface Reflector Set with a Room.
-	* Associating a spatial audio geometry with a particular room will limit the scope in which the geometry is visible/accessible. Leave it to None and this geometry will have a global scope.
-	* It is recommended to associate geometry with a room when the geometry is (1) fully contained within the room (ie. not visible to other rooms except by portals), and (2) the room does not share geometry with other rooms. Doing so reduces the search space for ray casting performed by reflection and diffraction calculations.
-	* Take note that once one or more geometry sets are associated with a room, that room will no longer be able to access geometry that is in the global scope.
+	/** (Deprecated) Associate this Geometry component with a Room.
+	* This property is deprecated and will be removed in a future version. We recommend not using it by leaving it set to None.
+	* Associating a Geometry component with a particular Room limits the scope in which the geometry is accessible. Doing so reduces the search space for ray casting performed by reflection and diffraction calculations.
+	* When set to None, this geometry has a global scope.
+	* Note if one or more geometry sets are associated with a room, that room can no longer access geometry that is in the global scope.
 	*/
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Geometry")
+	UPROPERTY(EditAnywhere, AdvancedDisplay, BlueprintReadWrite, Category = "Geometry")
 	AActor* AssociatedRoom = nullptr;
 
 	float GetSurfaceAreaSquaredMeters(const int& surfaceIndex) const;

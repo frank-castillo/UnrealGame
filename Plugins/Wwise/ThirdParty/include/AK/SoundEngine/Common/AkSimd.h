@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 // AkSimd.h
@@ -29,8 +29,7 @@ the specific language governing permissions and limitations under the License.
 /// \file 
 /// Simd definitions.
 
-#ifndef _AK_SIMD_H_
-#define _AK_SIMD_H_
+#pragma once
 
 #include <AK/SoundEngine/Common/AkTypes.h>
 
@@ -51,11 +50,7 @@ the specific language governing permissions and limitations under the License.
 #elif defined( AK_APPLE )
 
 	#include <TargetConditionals.h>
-	#if TARGET_OS_IPHONE
-		#include <AK/SoundEngine/Platforms/iOS/AkSimd.h>
-	#else
-		#include <AK/SoundEngine/Platforms/Mac/AkSimd.h>
-	#endif
+	#include <AK/SoundEngine/Platforms/Mac/AkSimd.h>
 
 #elif defined( AK_ANDROID )
 
@@ -135,4 +130,3 @@ AkForceInline void AKSIMD_TRANSPOSE4X4_V4F32(AKSIMD_V4F32 &A, AKSIMD_V4F32 &B, A
 	D = AKSIMD_SHUFFLE_V4F32(tmp2, tmp4, AKSIMD_SHUFFLE(3, 1, 3, 1));
 }
 
-#endif  //_AK_DATA_TYPES_H_

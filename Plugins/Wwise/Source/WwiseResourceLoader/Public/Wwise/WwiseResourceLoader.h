@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -20,6 +20,9 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "Wwise/WwiseResourceLoaderImpl.h"
 #include "Wwise/WwiseResourceLoaderModule.h"
 
+class IWwiseSoundBankManager;
+class IWwiseExternalSourceManager;
+class IWwiseMediaManager;
 /**
  * @brief Operations available to manage and handle Wwise SoundBanks in Unreal.
 */
@@ -92,29 +95,29 @@ public:
 	virtual void SetLanguage(FWwiseLanguageCookedData InLanguage, EWwiseReloadLanguage InReloadLanguage);
 	virtual void SetPlatform(const FWwiseSharedPlatformId& InPlatform);
 
-	virtual FWwiseLoadedAuxBus LoadAuxBus(const FWwiseLocalizedAuxBusCookedData& InAuxBusCookedData, const FWwiseLanguageCookedData* InLanguageOverride = nullptr);
-	virtual void UnloadAuxBus(FWwiseLoadedAuxBus&& InAuxBus);
+	virtual FWwiseLoadedAuxBusPtr LoadAuxBus(const FWwiseLocalizedAuxBusCookedData& InAuxBusCookedData, const FWwiseLanguageCookedData* InLanguageOverride = nullptr);
+	virtual void UnloadAuxBus(FWwiseLoadedAuxBusPtr&& InAuxBus);
 
-	virtual FWwiseLoadedEvent LoadEvent(const FWwiseLocalizedEventCookedData& InEventCookedData, const FWwiseLanguageCookedData* InLanguageOverride = nullptr);
-	virtual void UnloadEvent(FWwiseLoadedEvent&& InEvent);
+	virtual FWwiseLoadedEventPtr LoadEvent(const FWwiseLocalizedEventCookedData& InEventCookedData, const FWwiseLanguageCookedData* InLanguageOverride = nullptr);
+	virtual void UnloadEvent(FWwiseLoadedEventPtr&& InEvent);
 
-	virtual FWwiseLoadedExternalSource LoadExternalSource(const FWwiseExternalSourceCookedData& InExternalSourceCookedData);
-	virtual void UnloadExternalSource(FWwiseLoadedExternalSource&& InExternalSource);
+	virtual FWwiseLoadedExternalSourcePtr LoadExternalSource(const FWwiseExternalSourceCookedData& InExternalSourceCookedData);
+	virtual void UnloadExternalSource(FWwiseLoadedExternalSourcePtr&& InExternalSource);
 
-	virtual FWwiseLoadedGroupValue LoadGroupValue(const FWwiseGroupValueCookedData& InGroupValueCookedData);
-	virtual void UnloadGroupValue(FWwiseLoadedGroupValue&& InGroupValue);
+	virtual FWwiseLoadedGroupValuePtr LoadGroupValue(const FWwiseGroupValueCookedData& InGroupValueCookedData);
+	virtual void UnloadGroupValue(FWwiseLoadedGroupValuePtr&& InGroupValue);
 
-	virtual FWwiseLoadedInitBank LoadInitBank(const FWwiseInitBankCookedData& InInitBankCookedData);
-	virtual void UnloadInitBank(FWwiseLoadedInitBank&& InInitBank);
+	virtual FWwiseLoadedInitBankPtr LoadInitBank(const FWwiseInitBankCookedData& InInitBankCookedData);
+	virtual void UnloadInitBank(FWwiseLoadedInitBankPtr&& InInitBank);
 
-	virtual FWwiseLoadedMedia LoadMedia(const FWwiseMediaCookedData& InMediaCookedData);
-	virtual void UnloadMedia(FWwiseLoadedMedia&& InMedia);
+	virtual FWwiseLoadedMediaPtr LoadMedia(const FWwiseMediaCookedData& InMediaCookedData);
+	virtual void UnloadMedia(FWwiseLoadedMediaPtr&& InMedia);
 
-	virtual FWwiseLoadedShareSet LoadShareSet(const FWwiseLocalizedShareSetCookedData& InShareSetCookedData, const FWwiseLanguageCookedData* InLanguageOverride = nullptr);
-	virtual void UnloadShareSet(FWwiseLoadedShareSet&& InShareSet);
+	virtual FWwiseLoadedShareSetPtr LoadShareSet(const FWwiseLocalizedShareSetCookedData& InShareSetCookedData, const FWwiseLanguageCookedData* InLanguageOverride = nullptr);
+	virtual void UnloadShareSet(FWwiseLoadedShareSetPtr&& InShareSet);
 
-	virtual FWwiseLoadedSoundBank LoadSoundBank(const FWwiseLocalizedSoundBankCookedData& InSoundBankCookedData, const FWwiseLanguageCookedData* InLanguageOverride = nullptr);
-	virtual void UnloadSoundBank(FWwiseLoadedSoundBank&& InSoundBank);
+	virtual FWwiseLoadedSoundBankPtr LoadSoundBank(const FWwiseLocalizedSoundBankCookedData& InSoundBankCookedData, const FWwiseLanguageCookedData* InLanguageOverride = nullptr);
+	virtual void UnloadSoundBank(FWwiseLoadedSoundBankPtr&& InSoundBank);
 
 	virtual FWwiseSetLanguageFuture SetLanguageAsync(FWwiseLanguageCookedData InLanguage, EWwiseReloadLanguage InReloadLanguage);
 

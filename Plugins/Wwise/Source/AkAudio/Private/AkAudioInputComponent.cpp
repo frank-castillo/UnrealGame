@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 /*=============================================================================
@@ -42,7 +42,7 @@ int32 UAkAudioInputComponent::PostAssociatedAudioInputEvent()
 
 
 	AkPlayingID PlayingID = FAkAudioInputManager::PostAudioInputEvent(
-		 AkAudioEvent, EventName, this, AudioInputDelegate, AudioFormatDelegate);
+		 AkAudioEvent, this, AudioInputDelegate, AudioFormatDelegate);
 
 	if (PlayingID != AK_INVALID_PLAYING_ID)
 	{

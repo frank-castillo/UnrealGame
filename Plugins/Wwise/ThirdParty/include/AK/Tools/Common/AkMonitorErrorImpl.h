@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -40,7 +40,7 @@ namespace AK
 			ERROR_CODE_DEF(AKTEXT("ErrorCode_FileNotFound"), AKTEXT("File %s not found in path(s): %s")),
 			ERROR_CODE_DEF(AKTEXT("ErrorCode_CannotOpenFile"), AKTEXT("Cannot open file %s in path(s): %s")),
 			ERROR_CODE_DEF(AKTEXT("ErrorCode_CannotStartStreamNoMemory"), AKTEXT("Not enough memory in I/O pool to start stream")),
-			ERROR_CODE_DEF(AKTEXT("ErrorCode_IODevice"), AKTEXT("Unknown I/O device error")),
+			ERROR_CODE_DEF(AKTEXT("ErrorCode_IODevice"), AKTEXT("Unknown I/O device error (%s returned %u)")),
 			ERROR_CODE_DEF(AKTEXT("ErrorCode_IncompatibleIOSettings"), AKTEXT("I/O settings incompatible.")),
 
 			ERROR_CODE_DEF(AKTEXT("ErrorCode_PluginUnsupportedChannelConfiguration"), AKTEXT("Plug-in unsupported channel configuration: $p")),
@@ -297,13 +297,32 @@ namespace AK
 			ERROR_CODE_DEF(AKTEXT("ErrorCode_DataAlignement"), AKTEXT("Bank or Media pointer not aligned to %i bytes.")),
 
 			ERROR_CODE_DEF(AKTEXT("ErrorCode_PluginMsgWithShareSet"), AKTEXT("%s (Plugin: $p Shareset: $w)")),
-			ERROR_CODE_DEF(AKTEXT("ErrorCode_SoundEngineNotInit"), AKTEXT("SoundEngine is not initalized yet or Init bank has not been loaded. Function: %s.")),
+			ERROR_CODE_DEF(AKTEXT("ErrorCode_SoundEngineNotInit"), AKTEXT("SoundEngine is not initialized yet or Init bank has not been loaded. Function: %s.")),
 			ERROR_CODE_DEF(AKTEXT("ErrorCode_NoDefaultSwitch"), AKTEXT("No default Switch value selected in group $s.")),
 			ERROR_CODE_DEF(AKTEXT("ErrorCode_CantSetBoundSwitch"), AKTEXT("Switch $s is bound to RTPC $w. It can not be set directly.")),
 
 			ERROR_CODE_DEF(AKTEXT("ErrorCode_IODeviceInitFailed"), AKTEXT("I/O Device initialization failed. Streaming from file will not be possible.")),
 			ERROR_CODE_DEF(AKTEXT("ErrorCode_SwitchListEmpty"), AKTEXT("Switch Group $s has no Switch Values. Switch container will do nothing.")),
 			ERROR_CODE_DEF(AKTEXT("ErrorCode_NoSwitchSelected"), AKTEXT("No Switch Group selected for this Switch container.")),
+
+			ERROR_CODE_DEF(AKTEXT("ErrorCode_FilePermissionError"), AKTEXT("File %s could not be opened due to permissions, access rights or conflicting open modes. (Found in path(s): %s)")),
+
+			ERROR_CODE_DEF(AKTEXT("ErrorCode_SetEffectOnRendered"), AKTEXT("%s: Cannot set Effect because the target object has a rendered Effect (either in the provided slot, or in a lower slot).")),
+			ERROR_CODE_DEF(AKTEXT("ErrorCode_GeometryNotWatertight"), AKTEXT("AK::SpatialAudio::SetGeometryInstance - Geometry %s (%llu) is not watertight. Geometry used for Room definition must be watertight if the Room is a Reverb Zone, or if containment in this Room is managed by Spatial Audio. If that is the case, add the missing triangles with a transmission loss value set to 0.")),
+			ERROR_CODE_DEF(AKTEXT("ErrorCode_CannotInitialize3DAudio"), AKTEXT("Could not initialize 3D audio.")),
+			ERROR_CODE_DEF(AKTEXT("ErrorCode_CannotInitializeInputCallbacks"), AKTEXT("Could not connect to audio input device. Audio input callback will not be called.")),
+			ERROR_CODE_DEF(AKTEXT("ErrorCode_CannotConnectAVAudioEngineSource"), AKTEXT("Failed to connect System Audio Object to Apple Spatial Audio. Some sounds will not be audible.")),
+			ERROR_CODE_DEF(AKTEXT("ErrorCode_ChannelConfigRequestDenied"), AKTEXT("Audio Device could not honor the channel config requested with AkOutputSettings; default config will be used.")),
+			ERROR_CODE_DEF(AKTEXT("ErrorCode_MediaUpdatedFromWwise"), AKTEXT("Media updated: $m transferred from Wwise Project. Glitches might be heard. Previous media from other sources (bank, prepared, etc) will be ignored.")),
+			ERROR_CODE_DEF(AKTEXT("ErrorCode_MediaErrorFromWwise"), AKTEXT("Media $m could not be updated from Wwise Project. Previous media, if available, will be used.")),
+			ERROR_CODE_DEF(AKTEXT("ErrorCode_OutputAlreadyExists"), AKTEXT("AK::SoundEngine::AddOutput: Output already exists, not added a second time. Shareset: $w Device: %u.")),
+			ERROR_CODE_DEF(AKTEXT("ErrorCode_UnknownStateGroup"), AKTEXT("Unknown State Group ($w) referred by object. The State Group is added (with empty transition table).")),
+			ERROR_CODE_DEF(AKTEXT("ErrorCode_MediaErrorWwiseMRUFull"), AKTEXT("Not enough space to update media $m from Wwise Project. Increase \"Memory for media updates\" in Audio menu.")),
+			ERROR_CODE_DEF(AKTEXT("ErrorCode_AudioOut2ContextCreateError"), AKTEXT("sceAudioOut2ContextCreate failed with error code %i during soundengine initialization. Review documentation for more information (parameters: maxObjectPorts %u, maxPorts %u, numGrains %u, queueDepth %u)")),
+			ERROR_CODE_DEF(AKTEXT("ErrorCode_AudioOut2UserCreateError"), AKTEXT("sceAudioOut2UserCreate failed with error code %i during output device initialization. Review documentation for more information (parameters: userId %u; pluginID: %u)")),
+			ERROR_CODE_DEF(AKTEXT("ErrorCode_FeedbackOnAudioObjectsBus"), AKTEXT("Unsupported feedback connection to Audio Objects bus $w. Some audio data may be lost.")),
+			ERROR_CODE_DEF(AKTEXT("ErrorCode_AssetSwapEnabled"), AKTEXT("Warning: Live Media Transfer enabled (Experimental feature).")),
+			ERROR_CODE_DEF(AKTEXT("ErrorCode_SpatialAudio_SiblingPortal"), AKTEXT("%s: Portals cannot connect rooms that are in the same Reverb Zone hierarchy.")),
 		};
 
 		static_assert((sizeof(s_aszMonitorErrorInfos) / sizeof(s_aszMonitorErrorInfos[0])) == AK::Monitor::Num_ErrorCodes, "ARRAYSIZE(AK::Monitor::s_aszMonitorErrorInfos) is not matching AK::Monitor::Num_ErrorCodes, make sure they are maintained at the same time.");

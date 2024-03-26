@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/WwiseDeferredQueue.h"
@@ -22,7 +22,8 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "Wwise/Stats/AsyncStats.h"
 #include "Wwise/Stats/Concurrency.h"
 
-FWwiseDeferredQueue::FWwiseDeferredQueue()
+FWwiseDeferredQueue::FWwiseDeferredQueue(const TCHAR* InDebugName) :
+	AsyncExecutionQueue(InDebugName)
 {
 }
 
@@ -71,7 +72,7 @@ void FWwiseDeferredQueue::Run(AK::IAkGlobalPluginContext* InContext)
 
 	if (!AsyncOpQueue.IsEmpty())
 	{
-		AsyncExecutionQueue.Async([this]() mutable
+		AsyncExecutionQueue.Async(WWISECONCURRENCY_ASYNC_NAME("FWwiseDeferredQueue::Run"), [this]() mutable
 		{
 			AsyncExec();
 		});
@@ -100,7 +101,7 @@ void FWwiseDeferredQueue::Wait()
 
 	if (!AsyncOpQueue.IsEmpty())
 	{
-		AsyncExecutionQueue.AsyncWait([this]() mutable
+		AsyncExecutionQueue.AsyncWait(WWISECONCURRENCY_ASYNC_NAME("FWwiseDeferredQueue::Wait"), [this]() mutable
 		{
 			AsyncExec();
 		});

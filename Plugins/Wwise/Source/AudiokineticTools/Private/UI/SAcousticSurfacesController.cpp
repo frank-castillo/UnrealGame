@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "SAcousticSurfacesController.h"
@@ -121,7 +121,7 @@ void SAcousticSurfacesLabels::Construct(const FArguments& InArgs, TArray<TWeakOb
 					.WidthOverride(AkAcousticSurfacesUI::LabelWidth)
 					[
 						SNew(STextBlock)
-						.ToolTipText(FText::FromString("The Audiokinetic Texture associated with the selected faces."))
+						.ToolTipText(FText::FromString("The Acoustic Texture associated with the selected surfaces. When set to None, the texture is completely reflective. If the Surface Reflector component is disabled, the geometry is not used for reflections or diffractions. In this case, Acoustic Textures are used exclusively to measure Environment Decay and HFDamping as part of the Reverb Estimation process."))
 						.Text(FText::FromString(FString(TEXT("AkAcousticTexture"))))
 						.Font(IDetailLayoutBuilder::GetDetailFont())
 					]
@@ -143,7 +143,7 @@ void SAcousticSurfacesLabels::Construct(const FArguments& InArgs, TArray<TWeakOb
 						.WidthOverride(AkAcousticSurfacesUI::LabelWidth)
 						[
 							SNew(STextBlock)
-							.ToolTipText(FText::FromString("Indicates how much sound is transmitted through the surface."))
+							.ToolTipText(FText::FromString("Indicates how much sound is transmitted through the selected surfaces. With a Transmission Loss value of 0, all sounds pass through the surface, and the Acoustic Texture has no effect. With a value of 1, 100% Transmission Loss is applied to sounds that pass through the selected surfaces."))
 							.Text(FText::FromString(FString(TEXT("Transmission Loss"))))
 							.Font(IDetailLayoutBuilder::GetDetailFont())
 						]
@@ -163,7 +163,7 @@ void SAcousticSurfacesLabels::Construct(const FArguments& InArgs, TArray<TWeakOb
 					.WidthOverride(AkAcousticSurfacesUI::LabelWidth)
 					[
 						SNew(STextBlock)
-						.ToolTipText(FText::FromString("Indicates whether the selected faces are sent to the Spatial Audio engine."))
+						.ToolTipText(FText::FromString("An enabled surface is associated with the selected Acoustic Texture and Transmission Loss value above. A disabled surface is not associated with an Acoustic Texture, and has a Transmission Loss value of 0 (sound passes through the surface). If Surface Reflector Set is disabled, there is no Transmission Loss property to customize. In this case, enabled surfaces do not let sound pass through (equivalent to a Transmission Loss value of 1) and disabled surfaces let sound pass through (equivalent to a Transmission Loss value of 0)."))
 						.Text(FText::FromString(FString(TEXT("Enable Surface"))))
 						.Font(IDetailLayoutBuilder::GetDetailFont())
 					]
@@ -282,11 +282,6 @@ FAkSurfacePoly& SAcousticSurfacesController::GetAcousticSurfaceChecked(UAkSurfac
 
 void SAcousticSurfacesController::RefreshEditor(bool reinitVisualizers /*= false*/) const
 {
-	if (!LayoutBuilder.IsValid())
-	{
-		return;
-	}
-
 	FEditorSupportDelegates::RedrawAllViewports.Broadcast();
 
 	for (auto elem : ReflectorSetsFacesToEdit)
@@ -304,6 +299,16 @@ void SAcousticSurfacesController::RefreshEditor(bool reinitVisualizers /*= false
 				ReflectorSetComponent->SurfacePropertiesChanged();
 			}
 		}
+	}
+
+	RefreshLayout();
+}
+
+void SAcousticSurfacesController::RefreshLayout() const
+{
+	if (!LayoutBuilder.IsValid())
+	{
+		return;
 	}
 
 	IDetailLayoutBuilder* Layout = nullptr;
@@ -351,10 +356,18 @@ void SAcousticSurfacesController::OnPropertyChanged(UObject* ObjectBeingModified
 		UAkSurfaceReflectorSetComponent* ReflectorSetComponent = elem.Key;
 		if (ObjectBeingModified == ReflectorSetComponent)
 		{
-			const FName memberPropertyName = (PropertyChangedEvent.MemberProperty != nullptr) ? PropertyChangedEvent.MemberProperty->GetFName() : NAME_None;
-			if (memberPropertyName == GET_MEMBER_NAME_CHECKED(UAkSurfaceReflectorSetComponent, AcousticPolys))
+			if (PropertyChangedEvent.MemberProperty == nullptr)
 			{
-				UpdateCurrentValues();
+				// OnPropertyChanged is called with a null MemberProperty when undoing
+				RefreshLayout();
+			}
+			else
+			{
+				const FName memberPropertyName = PropertyChangedEvent.MemberProperty->GetFName();
+				if (memberPropertyName == GET_MEMBER_NAME_CHECKED(UAkSurfaceReflectorSetComponent, AcousticPolys))
+				{
+					UpdateCurrentValues();
+				}
 			}
 			return;
 		}

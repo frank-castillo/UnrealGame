@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "AkEffectShareSet.h"
@@ -59,13 +59,10 @@ void UAkEffectShareSet::LoadEffectShareSet()
 		return;
 	}
 	
-	if (LoadedShareSet)
-	{
-		UnloadEffectShareSet(false);
-	}
+	UnloadEffectShareSet(false);
 
 #if WITH_EDITORONLY_DATA
-	if (IWwiseProjectDatabaseModule::IsInACookingCommandlet())
+	if (!IWwiseProjectDatabaseModule::ShouldInitializeProjectDatabase())
 	{
 		return;
 	}
@@ -85,13 +82,19 @@ void UAkEffectShareSet::LoadEffectShareSet()
 		return;
 	}
 #endif
-
-	LoadedShareSet = ResourceLoader->LoadShareSet(ShareSetCookedData);
+	
+	const auto NewlyLoadedShareSet = ResourceLoader->LoadShareSet(ShareSetCookedData);
+	auto PreviouslyLoadedShareSet = LoadedShareSet.exchange(NewlyLoadedShareSet);
+	if (UNLIKELY(PreviouslyLoadedShareSet))
+	{
+		ResourceLoader->UnloadShareSet(MoveTemp(PreviouslyLoadedShareSet));
+	}
 }
 
 void UAkEffectShareSet::UnloadEffectShareSet(bool bAsync)
 {
-	if (LoadedShareSet)
+	auto PreviouslyLoadedShareSet = LoadedShareSet.exchange(nullptr);
+	if (PreviouslyLoadedShareSet)
 	{
 		auto* ResourceLoader = FWwiseResourceLoader::Get();
 		if (UNLIKELY(!ResourceLoader))
@@ -101,14 +104,13 @@ void UAkEffectShareSet::UnloadEffectShareSet(bool bAsync)
 		if (bAsync)
 		{
 			FWwiseLoadedShareSetPromise Promise;
-			Promise.EmplaceValue(MoveTemp(LoadedShareSet));
+			Promise.EmplaceValue(MoveTemp(PreviouslyLoadedShareSet));
 			ResourceUnload = ResourceLoader->UnloadShareSetAsync(Promise.GetFuture());
 		}
 		else
 		{
-			ResourceLoader->UnloadShareSet(MoveTemp(LoadedShareSet));
+			ResourceLoader->UnloadShareSet(MoveTemp(PreviouslyLoadedShareSet));
 		}
-		LoadedShareSet = nullptr;
 	}
 }
 
@@ -173,7 +175,7 @@ void UAkEffectShareSet::FillInfo()
 	const FWwiseRefPluginShareSet AudioTypeRef = FWwiseDataStructureScopeLock(*ProjectDatabase).GetPluginShareSet(
 		GetValidatedInfo(ShareSetInfo));
 
-	if (AudioTypeRef.PluginShareSetName().IsNone() || !AudioTypeRef.PluginShareSetGuid().IsValid() || AudioTypeRef.PluginShareSetId() == AK_INVALID_UNIQUE_ID)
+	if (AudioTypeRef.PluginShareSetName().ToString().IsEmpty() || !AudioTypeRef.PluginShareSetGuid().IsValid() || AudioTypeRef.PluginShareSetId() == AK_INVALID_UNIQUE_ID)
 	{
 		UE_LOG(LogAkAudio, Warning, TEXT("UAkEffectShareSet::FillInfo: Valid object not found in Project Database"));
 		return;

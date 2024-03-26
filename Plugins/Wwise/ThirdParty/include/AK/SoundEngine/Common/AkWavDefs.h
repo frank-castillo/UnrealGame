@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -40,7 +40,8 @@ the specific language governing permissions and limitations under the License.
 constexpr AkFourcc RIFXChunkId = AkmmioFOURCC('R', 'I', 'F', 'X');
 constexpr AkFourcc RIFFChunkId = AkmmioFOURCC('R', 'I', 'F', 'F');
 constexpr AkFourcc WAVEChunkId = AkmmioFOURCC('W', 'A', 'V', 'E');
-constexpr AkFourcc OGGSChunkId = AkmmioFOURCC('O', 'g', 'g', 'S');
+constexpr AkFourcc PLUGINChunkId = AkmmioFOURCC('P', 'L', 'U', 'G');
+constexpr AkFourcc MIDIChunkId = AkmmioFOURCC('M', 'I', 'D', 'I');
 constexpr AkFourcc fmtChunkId  = AkmmioFOURCC('f', 'm', 't', ' ');
 constexpr AkFourcc dataChunkId = AkmmioFOURCC('d', 'a', 't', 'a');
 constexpr AkFourcc cueChunkId  = AkmmioFOURCC('c', 'u', 'e', ' ');

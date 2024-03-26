@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -191,20 +191,6 @@ namespace AKPLATFORM
 		}
 	}
 #endif	
-
-	// Virtual Memory
-	// ------------------------------------------------------------------
-	AkForceInline void* AllocVM(size_t size, size_t* /*extra*/)
-	{
-		void* ptr = mmap(0, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANON, -1, 0);
-		return ( ( ptr == MAP_FAILED ) || !ptr ) ? NULL : ptr;
-	}
-
-	AkForceInline void FreeVM(void* address, size_t size, size_t /*extra*/, size_t release)
-	{
-		if ( release )
-			munmap( address, release );
-	}
 
 #if defined(AK_SUPPORT_THREADS)
     // Threads
@@ -629,15 +615,15 @@ namespace AKPLATFORM
 
 	// Use with AkOSChar.
 #ifndef AK_PATH_SEPARATOR
-	#define AK_PATH_SEPARATOR	("/")
+	#define AK_PATH_SEPARATOR "/"
 #endif
 
 #ifndef AK_LIBRARY_PREFIX
-	#define AK_LIBRARY_PREFIX	("lib")
+	#define AK_LIBRARY_PREFIX	"lib"
 #endif
 
 #ifndef AK_DYNAMIC_LIBRARY_EXTENSION
-	#define AK_DYNAMIC_LIBRARY_EXTENSION	(".so")
+	#define AK_DYNAMIC_LIBRARY_EXTENSION	".so"
 #endif
 
 	#define AK_FILEHANDLE_TO_UINTPTR(_h) ((AkUIntPtr)_h)

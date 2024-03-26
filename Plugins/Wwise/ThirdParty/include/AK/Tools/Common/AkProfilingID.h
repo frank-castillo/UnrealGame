@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -45,6 +45,8 @@ namespace AK
 			JobMgr_WorkerFunction,
 			SwVoice,
 			HwVoice,
+			BusTask,
+			CheckValidSamples,
 			SpatialAudio_Update,
 			SpatialAudio_Dispatch,
 			SpatialAudio_End,
@@ -60,10 +62,13 @@ namespace AK
 			CAkStochasticReflectionEngine_TraceReflectionRay,
 			CAkStochasticReflectionEngine_ValidateExistingPaths,
 			CAkStochasticReflectionEngine_ValidatePaths,
+			CAkStochasticReflectionEngine_ClearRays,
 			AkAcousticRoom_PropagateSound,
+			AkAcousticRoom_Update,
 			AkSoundGeometry_SetGeometry,
 			AkSoundGeometry_SetGeometryInstance,
 			IODevice_TaskUpdate,
+			IODevice_BatchOpen,
 			IODevice_BatchRead,
 			IODevice_BatchWrite,
 
@@ -90,6 +95,8 @@ namespace AK
 			"AkJobMgr::WorkerFunction",
 			"AK SwVoice",
 			"AK HwVoice",
+			"AK BusTask",
+			"AK CheckValidSamples",
 			"AK::SpatialAudio::Update",
 			"AK::SpatialAudio::Dispatch",
 			"AK::SpatialAudio::End",
@@ -105,10 +112,13 @@ namespace AK
 			"CAkStochasticReflectionEngine::TraceReflectionRay",
 			"CAkStochasticReflectionEngine::ValidateExistingPaths",
 			"CAkStochasticReflectionEngine::ValidatePaths",
+			"CAkStochasticReflectionEngine::ClearRays",
 			"AkAcousticRoom::PropagateSound",
+			"AkAcousticRoom::Update",
 			"AkSoundGeometry::SetGeometry",
 			"AkSoundGeometry::SetGeometryInstance",
 			"AK IODevice TaskUpdate",
+			"AK IODevice BatchOpen",
 			"AK IODevice BatchRead",
 			"AK IODevice BatchWrite",
 		};

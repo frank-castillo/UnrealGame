@@ -9,7 +9,7 @@ may use this file in accordance with the end user license agreement provided
 with the software or, alternatively, in accordance with the terms contained in a
 written agreement between you and Audiokinetic Inc.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 // AkErrorMessageTranslator.h
@@ -24,6 +24,7 @@ written agreement between you and Audiokinetic Inc.
 #include <AK/SoundEngine/Common/AkErrorMessageTranslator.h>
 
 struct SearchInfo;
+class CAkBankReader;
 
 class AkXMLErrorMessageTranslator : public AkErrorMessageTranslator
 {
@@ -34,6 +35,8 @@ public:
 	AkXMLErrorMessageTranslator(const AkOSChar* in_filePath, AkUInt32 in_msTimeout = 10 /*Default timeout, 10ms*/);
 
 	~AkXMLErrorMessageTranslator();
+
+	void Init();
 
 	virtual void Term() override;
 
@@ -109,8 +112,11 @@ private:
 
 	AkOSChar m_fileName[AK_MAX_PATH];
 
-	bool m_bFileOpeningFailed;
-	AkUInt32 m_msTimeout;
+	bool m_bFileOpeningFailed = false;
+	AkUInt32 m_msTimeout = 0xFFFFFFFF;
+
+	CAkLock m_lock;
+	CAkBankReader* m_pReader = nullptr;
 
 	enum class xmlTag
 	{
@@ -129,6 +135,5 @@ private:
 	{
 		"<StreamedFiles>",
 		"<SoundBanks>"
-		// When adding tags, make sure they are all shorter than MAX_XML_SEARCH_LEN.
 	};
 };

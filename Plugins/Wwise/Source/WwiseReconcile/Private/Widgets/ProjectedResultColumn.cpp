@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "ProjectedResultColumn.h"
@@ -21,15 +21,18 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "WaapiPicker/WwiseTreeItem.h"
 #include "Widgets/SWidget.h"
 #include "AkUnrealAssetDataHelper.h"
-#include "AkUnrealHelper.h"
+#include "WwiseUnrealHelper.h"
 #include "ObjectTools.h"
 #include "AssetRegistry/AssetRegistryModule.h"
 #include "Widgets/Images/SImage.h"
 #include "Widgets/Text/STextBlock.h"
+#include "AssetViewUtils.h"
+#include "Misc/EngineBuildSettings.h"
 
 #define LOCTEXT_NAMESPACE "AkAudio"
 
 const FLinearColor WarningColor = FLinearColor(1.f, 0.33f, 0);
+const FLinearColor ErrorColor = FLinearColor(1.f, 0, 0);
 
 FName FProjectedResultColumn::GetColumnId()
 {
@@ -43,8 +46,24 @@ const TSharedRef<SWidget> FProjectedResultColumn::ConstructRowWidget(FWwiseRecon
 	{
 		bool bReferenced = false;
 		bool bReferencedByUndo = false;
+
+		auto Asset = TreeItem.Asset.GetAsset();
+		if (!IsValid(Asset))
+		{
+			return SNew(SHorizontalBox)
+			+ SHorizontalBox::Slot()
+			.AutoWidth()
+			.VAlign(VAlign_Center)
+			[
+				SNew(STextBlock)
+				.Text(FText::Format(LOCTEXT("ReconcileCannotGetAsset", "Asset {0} cannot be found. Please refresh the Browser."), FText::FromString(TreeItem.Asset.AssetName.ToString())))
+				.ColorAndOpacity(ErrorColor)
+			];
+		}
+
 		ObjectTools::GatherObjectReferencersForDeletion(TreeItem.Asset.GetAsset(), bReferenced, bReferencedByUndo);
-		if(bReferenced || bReferencedByUndo)
+
+		if (bReferenced || bReferencedByUndo)
 		{
 			return SNew(SHorizontalBox)
 			+ SHorizontalBox::Slot()
@@ -68,15 +87,11 @@ const TSharedRef<SWidget> FProjectedResultColumn::ConstructRowWidget(FWwiseRecon
 
 	auto WwiseRef = TreeItem.WwiseAnyRef.WwiseAnyRef;
 	FName AssetName = AkUnrealAssetDataHelper::GetAssetDefaultName(WwiseRef);
-	FString AssetPackagePath = AkUnrealAssetDataHelper::GetAssetDefaultPackagePath(WwiseRef);
-	FString StringAssetPath = AssetPackagePath / AssetName.ToString();
-	int MaxPath = 0;
-#if PLATFORM_WINDOWS
-	MaxPath = MAX_PATH;
-#else
-	MaxPath = FPlatformMisc::GetMaxPathLength();
-#endif
-	if (StringAssetPath.Len() > MaxPath || StringAssetPath.Len() >= NAME_SIZE)
+	FString AssetPackagePath = IWwiseReconcile::Get()->GetAssetPackagePath(*WwiseRef);
+	int PackageLength = AssetViewUtils::GetPackageLengthForCooking(AssetPackagePath / AssetName.ToString(), FEngineBuildSettings::IsInternalBuild());
+	int MaxPath = AssetViewUtils::GetMaxCookPathLen();
+
+	if (PackageLength > MaxPath || PackageLength >= NAME_SIZE)
 	{
 		return SNew(SHorizontalBox)
 			+ SHorizontalBox::Slot()

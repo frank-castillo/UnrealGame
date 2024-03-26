@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 /// \file
@@ -34,6 +34,7 @@ the specific language governing permissions and limitations under the License.
 #include <AK/SoundEngine/Common/IAkRTPCSubscriber.h>
 #include <AK/SoundEngine/Common/IAkPluginMemAlloc.h>
 #include <AK/SoundEngine/Common/AkFPUtilities.h>
+#include <AK/SoundEngine/Common/AkAudioMarker.h>
 #include <AK/Tools/Common/AkLock.h>
 #include <AK/Tools/Common/AkPlatformFuncs.h>
 #include <AK/Tools/Common/AkMonitorError.h>
@@ -42,6 +43,7 @@ the specific language governing permissions and limitations under the License.
 #include <AK/SoundEngine/Common/IAkProcessorFeatures.h>
 #include <AK/SoundEngine/Common/IAkPlatformContext.h>
 #include <AK/SoundEngine/Common/AkMidiTypes.h>
+#include <AK/SoundEngine/Common/AkMixerTypes.h>
 #include <AK/SoundEngine/Common/AkCallback.h>
 #include <AK/AkWwiseSDKVersion.h>
 
@@ -396,7 +398,7 @@ namespace AK
 		) = 0;
 
 		/// Access the output objects. This function is helpful when CreateOutputObjects is called from within AK::IAkOutOfPlaceObjectPlugin::Execute.
-		/// You need to allocate the array of pointers. You may prealably obtain the number of objects by calling this function with io_numObjects = 0.
+		/// You need to allocate the array of pointers. You may initially obtain the number of objects that will be returned by calling this function with io_numObjects = 0.
 		/// \aknote You should never store the pointers returned by GetOutputObjects, as the location of pointed objects may change at each frame, or after calls to CreateOutputObjects.\endaknote
 		virtual void GetOutputObjects(
 			AkAudioObjects& io_objects	///< AkAudioObjects::uNumObjects, The number of objects. If 0 is passed, io_objects::numObjects returns with the total number of objects.
@@ -434,7 +436,6 @@ namespace AK
 		/// Retrieve Cookie information for a Source Plugin
 		/// \return the void pointer of the Cookie passed to the PostEvent 
 		virtual void* GetCookie() const = 0;	
-
 	};
 
 	/// Interface to retrieve contextual information for a mixer.
@@ -769,7 +770,7 @@ namespace AK
 			IAkPluginMemAlloc *			in_pAllocator,				///< Interface to memory allocator to be used by the effect
 			IAkEffectPluginContext *	in_pEffectPluginContext,	///< Interface to effect plug-in's context
 			IAkPluginParam *			in_pParams,					///< Interface to plug-in parameters
-			AkAudioFormat &				io_rFormat					///< Audio data format of the input/output signal. Only an out-of-place plugin is allowed to change the channel configuration. Object processors always receive a channel configuration with type "object". They may however change it to any other kind, in which case the host bus will automatically create an output object with the desired channel configuration.
+			AkAudioFormat &				io_rFormat					///< Audio data format of the input/output signal. Only an out-of-place plugin is allowed to change the channel configuration. Object processors may receive a channel configuration with type "object" if attached to a bus configured for Audio Objects processing, but otherwise may receive a config for just 1 source. Out-of-place object processors may change the format type, in which case the host bus will automatically create an output object with the desired channel configuration.
 			) = 0;
 	};
 
@@ -908,164 +909,6 @@ namespace AK
 		) = 0;
 	};
 
-	/// Interface to retrieve information about an input of a mixer.
-	/// DEPRECATED. 
-	class IAkMixerInputContext
-	{
-	protected:
-		/// Virtual destructor on interface to avoid warnings.
-		virtual ~IAkMixerInputContext(){}
-
-	public:
-
-		/// Obtain the parameter blob for the mixer plugin that were attached to this input.
-		/// \return The parameter blob, which can be safely cast into the plugin's implementation.
-		/// If all parameters are default value, NULL is returned. It is up to the plugin's implementation to know
-		/// what the default values are.
-		virtual IAkPluginParam * GetInputParam(
-			AkPluginID in_attachmentPluginID ///< Full plugin ID of the attachment plug-in, including company ID and plug-in type. See AKMAKECLASSID macro. Attachment plug-ins' type is always AkPluginTypeEffect.
-		) = 0;
-
-		/// Obtain the interface to access the voice info of this input.
-		/// \return The interface to voice info. NULL when the input is not a voice but the output of another bus instead.
-		virtual IAkVoicePluginInfo * GetVoiceInfo() = 0;
-
-		/// Obtain the interface to access the game object on which the plugin is instantiated.
-		/// \return The interface to GameObject info.
-		virtual IAkGameObjectPluginInfo* GetGameObjectInfo() = 0;
-
-		/// Query the nature of the connection between this input and the mixer.
-		/// \return The connection type (direct/dry, user-defined auxiliary send, game-defined auxiliary send). Bus inputs are always "direct".
-		virtual AkConnectionType GetConnectionType() = 0;
-
-		/// Use this method to retrieve user data to this context. It is always initialized to NULL until you decide to set it otherwise.
-		/// \return Attached user data.
-		/// \sa SetUserData()
-		virtual void* GetUserData() = 0;
-
-		/// Use this method to attach user data to this context. It is always initialized to NULL until you decide to set it otherwise.
-		/// \sa GetUserData()
-		virtual void SetUserData(void* in_pUserData) = 0;
-
-		/// \name Default positioning information.
-		/// \akwarning
-		/// The methods of this group are deprecated.
-		/// \endakwarning
-		//@{
-
-		/// Retrieve center percentage of this input.
-		/// \return Center percentage, between 0 and 1.
-		virtual AkReal32 GetCenterPerc() = 0;
-
-		/// Retrieve the speaker panning type: type of panning logic when object is not 3D spatialized.
-		/// Note that the returned value is only relevant when the object is not 3D spatialized,
-		/// that is Get3DSpatializationMode returns AK_SpatializationMode_None.
-		/// \sa
-		/// - Get3DSpatializationMode()
-		virtual AkSpeakerPanningType GetSpeakerPanningType() = 0;
-
-		/// Speaker panning:
-		/// Retrieve the panner position (each vector component is between -1 and 1) of this input.
-		/// Note that the returned value is only relevant when the object is not 3D spatialized,
-		/// (Get3DSpatializationMode returns AK_SpatializationMode_None), and if speaker panning is not direct assignment
-		/// (GetSpeakerPanningType does not return AK_DirectSpeakerAssignment).
-		/// \sa
-		/// - GetSpeakerPanningType()
-		/// - Get3DSpatializationMode()
-		virtual void GetPannerPosition(
-			AkVector & out_position			///< Returned sound position.
-			) = 0;
-
-		/// Get the value of this input's Listener Relative Routing option, that is, if the emitter-listener relative 
-		/// association is calculated at this node. Listener Relative Routing needs to be calculated in order for a node
-		/// to be spatialized or attenuated with respect to in-game emitter and listener positions. Otherwise it can only
-		/// be panned.
-		/// \sa
-		/// - Get3DSpatializationMode()
-		/// - Get3DPositionType()
-		/// - GetNum3DPositions()
-		virtual bool HasListenerRelativeRouting() = 0;
-
-		/// Get whether the emitter position is defined by the game alone (AK_3DPositionType_Emitter), or if it is further automated 
-		/// (AK_3DPositionType_EmitterWithAutomation, AK_3DPositionType_ListenerWithAutomation).
-		/// The resulting 3D position(s) may be obtained by Get3DPosition(), and used for 3D spatialization or attenuation.
-		/// \sa
-		/// - Get3DPosition()
-		/// - GetNum3DPositions()
-		/// - HasListenerRelativeRouting()
-		virtual Ak3DPositionType Get3DPositionType() = 0;
-
-		/// 3D spatialization:
-		/// Retrieve the number of emitter-listener pairs (rays) of this input.
-		/// Note that the returned value is always 0 unless the input has listener relative routing (see HasListenerRelativeRouting()).
-		/// Use this function with Get3DPosition().
-		/// \sa
-		/// - Get3DPosition()
-		/// - HasListenerRelativeRouting()
-		virtual AkUInt32 GetNum3DPositions() = 0;
-
-		/// 3D spatialization:
-		/// Retrieve the spherical coordinates of the desired emitter-listener pair (ray) corresponding to this
-		/// input, as automated by the engine. Applicable only when the input has listener relative routing (see HasListenerRelativeRouting()).
-		/// Returned rays are those that result from engine automation, if applicable.
-		/// \return AK_Success if the pair index is valid, AK_Fail otherwise.
-		/// \sa
-		/// - HasListenerRelativeRouting()
-		/// - GetNum3DPositions()
-		virtual AKRESULT Get3DPosition(
-			AkUInt32 in_uIndex,							///< Index of the pair, [0, GetNum3DPositions()[
-			AkEmitterListenerPair & out_soundPosition	///< Returned sound position, in spherical coordinates.
-			) = 0;
-
-		/// 3D spatialization:
-		/// Evaluate spread value at the distance of the desired emitter-listener pair for this input.
-		/// Applicable only when the input has listener relative routing (see HasListenerRelativeRouting()).
-		/// \return The spread value, between 0 and 1. 0 if the pair index is invalid.
-		/// \sa
-		/// - HasListenerRelativeRouting()
-		/// - GetNum3DPositions()
-		/// - Get3DPosition()
-		virtual AkReal32 GetSpread(
-			AkUInt32 in_uIndex								///< Index of the pair, [0, GetNum3DPositions()[
-			) = 0;
-
-		/// 3D spatialization:
-		/// Evaluate focus value at the distance of the desired emitter-listener pair for this input.
-		/// Applicable only when the input has listener relative routing (see HasListenerRelativeRouting()).
-		/// \return The focus value, between 0 and 1. 0 if the pair index is invalid.
-		/// \sa
-		/// - HasListenerRelativeRouting()
-		/// - GetNum3DPositions()
-		/// - Get3DPosition()
-		virtual AkReal32 GetFocus(
-			AkUInt32 in_uIndex								///< Index of the pair, [0, GetNum3DPositions()[
-			) = 0;
-
-		/// Get the max distance as defined in the attenuation editor.
-		/// Applicable only when the input has listener relative routing (see HasListenerRelativeRouting()).
-		/// \return True if this input has attenuation, false otherwise.
-		virtual bool GetMaxAttenuationDistance(
-			AkReal32 & out_fMaxAttenuationDistance	///< Returned max distance.
-			) = 0;
-
-		/// Get next volumes as computed by the sound engine for this input.
-		/// You may use the returned volume matrices with IAkGlobalPluginContext::MixNinNChannels.
-		/// \sa IAkGlobalPluginContext
-		virtual void GetSpatializedVolumes(
-			AK::SpeakerVolumes::MatrixPtr out_mxPrevVolumes,	///< Returned in/out channel volume distribution corresponding to the beginning of the buffer. Must be preallocated (see AK::SpeakerVolumes::Matrix services).
-			AK::SpeakerVolumes::MatrixPtr out_mxNextVolumes		///< Returned in/out channel volume distribution corresponding to the end of the buffer. Must be preallocated (see AK::SpeakerVolumes::Matrix services).
-			) = 0;
-
-		/// Query the 3D spatialization mode used by this input.
-		/// Applicable only when the input has listener relative routing (see HasListenerRelativeRouting()).
-		/// \return The 3D spatialization mode (see Ak3DSpatializationMode). AK_SpatializationMode_None if not set, or if the input is not a node where the game object is evaluated against its listener.
-		/// \sa
-		/// - HasListenerRelativeRouting()
-		virtual Ak3DSpatializationMode Get3DSpatializationMode() = 0;
-
-		//@}
-	};
-
 	/// Interface to retrieve contextual information for a sink plugin.
 	/// \sa
 	/// - AK::IAkSinkPlugin
@@ -1116,6 +959,9 @@ namespace AK
 			AkChannelConfig	    in_outputConfig,            ///< Channel configuration of the output.
 			AK::SpeakerVolumes::MatrixPtr out_mxVolumes     ///< Returned volumes matrix. Must be preallocated using AK::SpeakerVolumes::Matrix::GetRequiredSize() (see AK::SpeakerVolumes::Matrix services).
 		) = 0;
+		
+		/// Returns the panning rule for the output device to which the sink plug-in is attached.
+		virtual AkPanningRule GetPanningRule() const = 0;
 	};
 
 	enum AkSinkPluginType
@@ -1348,6 +1194,8 @@ namespace AK
 		PluginServiceType_RNG = 1,
 		PluginServiceType_AudioObjectAttenuation = 2,
 		PluginServiceType_AudioObjectPriority = 3,
+		PluginServiceType_HashTable = 4,
+		PluginServiceType_Markers = 5,
 		PluginServiceType_MAX,
 	};
 
@@ -1712,6 +1560,62 @@ namespace AK
 			AkRamp in_gain,						///< Ramping gain to apply over duration of buffer
 			bool in_convertToInt16				///< Whether the input data should be converted to int16
 		) const = 0;
+
+		// Applies a biquadfilter to in_uNumSamples # of samples of each channel using the input provided, to the output buffer, 
+		// with one set of coefficients for all channels, and an array of memories (one instance per channel)
+		// (no mixing in the output occurs; the output buffer will be entirely replaced, and can be the same as the input buffer)
+		virtual void ProcessBiquadFilter(
+			AkAudioBuffer* in_pInputBuffer,		///< Input audioBuffer data
+			AkAudioBuffer* io_pOutputBuffer,	///< Output audioBuffer data
+			AK::AkBiquadCoefficients* in_pCoefs,	///< Pointer to coefficients to use for processing
+			AK::AkBiquadMemories* io_pMemories,		///< Array of memories to use for processing (one instance per channel in the inputBuffer)
+			AkUInt32 in_uNumSamples				///< Number of samples to process in each channel
+		) = 0;
+
+		// Applies in_uNumInterpStages sets of biquadfilters to each channel of in_ppInputData (in_uNumInputs # of channels),
+		// processing in_pNumSamplesPerInterpStage number of samples per stage. in_ppCoefs should be in_uNumInputs * in_uNumInterpStages long,
+		// with in_uNumInputs coefficients for each stage of the process, with each coefficient being applied for each channel.
+		// (no mixing in the output occurs; the output buffer will be entirely replaced, and can be the same as the input buffer)
+		virtual void ProcessInterpBiquadFilter(
+			AkReal32** in_ppInputData,			///< Array of input buffers to process
+			AkReal32** io_ppOutputData,			///< Array of output buffers to store results
+			AK::AkBiquadCoefficients** in_ppCoefs,	///< Array of coefficients to use for processing (one instance per channel)
+			AK::AkBiquadMemories** io_ppMemories,	///< Array of memories to use for processing (one instance per channel)
+			AkUInt32* in_pNumSamplesPerInterpStage, ///< Number of samples to process in each channel in each stage of the process
+			AkUInt32 in_uNumInterpStages,		///< Number of stages of the process to run
+			AkUInt32 in_uNumChannels			///< Number of channels to process
+		) = 0;
+
+		// Applies two biquadfilters to in_uNumSamples # of samples of each channel using the input provided, to the output buffer, 
+		// with two sets of coefficients for all channels, and with two arrays of memories (one instance per channel per biquad)
+		// (no mixing in the output occurs; the output buffer will be entirely replaced, and can be the same as the input buffer)
+		// If you have two biquads to run on a given signal, this is slightly faster than calling ProcessBiquadFilter twice
+		virtual void ProcessPairedBiquadFilter(
+			AkAudioBuffer* in_pInputBuffer,		///< Array of input buffers to process
+			AkAudioBuffer* io_pOutputBuffer,	///< Array of output buffers to store results
+			AK::AkBiquadCoefficients* in_pCoefs1,	///< Pointer to coefficients to use for processing the first biquad
+			AK::AkBiquadMemories* io_pMemories1,	///< Array of memories to use for processing the first biquad
+			AK::AkBiquadCoefficients* in_pCoefs2,	///< Pointer to coefficients to use for processing the second biquad
+			AK::AkBiquadMemories* io_pMemories2,	///< Array of memories to use for processing the second biquad
+			AkUInt32 in_uNumSamples				///< Number of samples to process in each channel
+		) = 0;
+
+		// Applies two in_uNumInterpStages sets of biquadfilters to each channel of in_ppInputData (in_uNumInputs # of channels),
+		// processing in_pNumSamplesPerInterpStage number of samples per stage. Each in_ppCoefs should be in_uNumInputs * in_uNumInterpStages long,
+		// with in_uNumInputs coefficients for each stage of the process, with each coefficient being applied for each channel.
+		// (no mixing in the output occurs; the output buffer will be entirely replaced, and can be the same as the input buffer)
+		// If you have two biquads to run on a given signal, this is slightly (~25%) faster than calling ProcessInterpBiquadFilter twice
+		virtual void ProcessPairedInterpBiquadFilter(
+			AkReal32** in_ppInputData,			///< Array of input buffers to process
+			AkReal32** io_ppOutputData,			///< Array of output buffers to store results
+			AK::AkBiquadCoefficients** in_ppCoefs1,	///< Array of coefficients to use for processing the first biquad
+			AK::AkBiquadMemories** io_ppMemories1,	///< Array of memories to use for processing the first biquad
+			AK::AkBiquadCoefficients** in_ppCoefs2,	///< Array of coefficients to use for processing the second biquad
+			AK::AkBiquadMemories** io_ppMemories2,	///< Array of memories to use for processing the second biquad
+			AkUInt32* in_pNumSamplesPerInterpStage, ///< Number of samples to process in each channel in each stage of the process
+			AkUInt32 in_uNumInterpStages,		///< Number of stages of the process to run
+			AkUInt32 in_uNumChannels			///< Number of channels to process
+		) = 0;
 	};
 	
 	/// Interface for the services related to generating pseudorandom numbers
@@ -1809,10 +1713,47 @@ namespace AK
 		) = 0;
 	};
 
+	/// Interface for the markers service.
+	class IAkPluginServiceMarkers : public IAkPluginService
+	{
+	protected:
+		virtual ~IAkPluginServiceMarkers() {}
+	public:
+		class IAkMarkerNotificationService
+		{
+		public:
+			/// Submit markers to trigger notifications for registered callback functions. Register callbacks through. Registering a callback can be achieved through the 
+			/// PostEvent function on AK::SoundEngine. 
+			/// \return 
+			/// - \c AK_NotInitialized if no callback functions have been registered. 
+			/// - \c AK_InvalidParameter if in_pMarkers is null.
+			/// - \c AK_InvalidParameter if in_uOffsetsInBuffer is null.
+			/// - \c AK_InvalidParameter if in_uNumMarkers is 0.
+			/// - \c AK_InvalidParameter if any valus in in_uOffsetsInBuffer is greater or equal to the length of the buffer.
+			/// - \c AK_Success otherwise.
+			/// \sa
+			/// - AK::SoundEngine::PostEvent()
+			virtual AKRESULT SubmitMarkerNotifications(
+				const AkAudioMarker* in_pMarkers,          ///< Array of AkAudioMarker objects
+				const AkUInt32* in_uOffsetsInBuffer,       ///< Array of buffer offsets for each marker contained in <tt>in_pMarkers</tt>. Must provide a value for each marker in <tt>in_pMarkers</tt>.
+				AkUInt32 in_uNumMarkers                    ///< The number of marker objects in <tt> in_pMarkers </tt>
+			) = 0;
+		};
+
+		virtual IAkMarkerNotificationService* CreateMarkerNotificationService(
+			IAkSourcePluginContext* in_pSourcePluginContext ///< Pointer to the source plugin context
+		) = 0;
+
+		virtual void TerminateMarkerNotificationService(
+			IAkMarkerNotificationService* io_pMarkerNotificationService ///< Pointer to the source plugin context
+		) = 0;
+	};
+
 	#define AK_GET_PLUGIN_SERVICE_MIXER(plugin_ctx) static_cast<AK::IAkPluginServiceMixer*>(plugin_ctx->GetPluginService(AK::PluginServiceType_Mixer))
 	#define AK_GET_PLUGIN_SERVICE_RNG(plugin_ctx) static_cast<AK::IAkPluginServiceRNG*>(plugin_ctx->GetPluginService(AK::PluginServiceType_RNG))
 	#define AK_GET_PLUGIN_SERVICE_AUDIO_OBJECT_ATTENUATION(plugin_ctx) static_cast<AK::IAkPluginServiceAudioObjectAttenuation*>(plugin_ctx->GetPluginService(AK::PluginServiceType_AudioObjectAttenuation))
 	#define AK_GET_PLUGIN_SERVICE_AUDIO_OBJECT_PRIORITY(plugin_ctx) static_cast<AK::IAkPluginServiceAudioObjectPriority*>(plugin_ctx->GetPluginService(AK::PluginServiceType_AudioObjectPriority))
+	#define AK_GET_PLUGIN_SERVICE_MARKERS(plugin_ctx) static_cast<AK::IAkPluginServiceMarkers*>(plugin_ctx->GetPluginService(AK::PluginServiceType_Markers))
 
 	/// This class takes care of the registration of plug-ins in the Wwise engine.  Plug-in developers must provide one instance of this class for each plug-in.
 	/// \sa
@@ -1821,8 +1762,8 @@ namespace AK
 	{
 	public:
 		PluginRegistration(
-			AkUInt32 in_ulCompanyID,						///< Plugin company ID.
-			AkUInt32 in_ulPluginID							///< Plugin ID.
+			AkUInt32 /*in_ulCompanyID*/,						///< Plugin company ID.
+			AkUInt32 /*in_ulPluginID*/							///< Plugin ID.
 			)
 		{
 			// Placeholder used for plug-in extensions (plug-ins that modify the behavior of an existing plug-in without registering a new ID)

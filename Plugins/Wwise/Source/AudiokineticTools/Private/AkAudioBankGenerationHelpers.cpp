@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 /*------------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "AkAudioDevice.h"
 #include "AkSettings.h"
 #include "AkSettingsPerUser.h"
-#include "AkUnrealHelper.h"
+#include "WwiseUnrealDefines.h"
 #include "IAudiokineticTools.h"
 #include "AssetManagement/AkAssetDatabase.h"
 
@@ -61,7 +61,7 @@ namespace AkAudioBankGenerationHelper
 #endif
 			if (FPaths::IsRelative(ApplicationToRun))
 			{
-				ApplicationToRun = FPaths::ConvertRelativePathToFull(AkUnrealHelper::GetProjectDirectory(), ApplicationToRun);
+				ApplicationToRun = FPaths::ConvertRelativePathToFull(WwiseUnrealHelper::GetProjectDirectory(), ApplicationToRun);
 			}
 			if (!(ApplicationToRun.EndsWith(TEXT("/")) || ApplicationToRun.EndsWith(TEXT("\\"))))
 			{

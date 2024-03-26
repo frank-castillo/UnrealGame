@@ -12,13 +12,13 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
 
 #include "AkAcousticTexture.h"
-#include "AkUEFeatures.h"
+#include "WwiseUEFeatures.h"
 #include "AssetThumbnail.h"
 #include "Framework/Application/SlateApplication.h"
 #include "Widgets/SCompoundWidget.h"
@@ -78,6 +78,7 @@ private:
 	FAkSurfacePoly& GetAcousticSurfaceChecked(UAkSurfaceReflectorSetComponent* reflectorSet, int faceIndex);
 	/** Refresh the viewport and details panel in the editor. If reinitVisualizers = true, update the edge map and recreate the text visualizers on the selected USurfaceReflectorSetComponents */
 	void RefreshEditor(bool reinitVisualizers = false) const;
+	void RefreshLayout() const;
 	void BeginModify(FText TransactionText);
 	void EndModify();
 

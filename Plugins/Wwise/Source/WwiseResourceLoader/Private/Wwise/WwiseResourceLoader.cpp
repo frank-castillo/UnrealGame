@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/WwiseResourceLoader.h"
@@ -27,13 +27,13 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "Async/Async.h"
 
 #if WITH_EDITORONLY_DATA && PLATFORM_WINDOWS
-static const auto DefaultPlatform = MakeShared<FWwisePlatformId>(FGuid(0x6E0CB257, 0xC6C84C5C, 0x83662740, 0xDFC441EC), TEXT("Windows"), TEXT("Windows"));
+static const auto DefaultPlatform = MakeShared<FWwisePlatformId, ESPMode::ThreadSafe>(FGuid(0x6E0CB257, 0xC6C84C5C, 0x83662740, 0xDFC441EC), TEXT("Windows"), TEXT("Windows"));
 #elif WITH_EDITORONLY_DATA && PLATFORM_MAC
-static const auto DefaultPlatform = MakeShared<FWwisePlatformId>(FGuid(0x02DC7702, 0x6E7B4AE4, 0xBAE464D2, 0xB1057150), TEXT("Mac"), TEXT("Mac"));
+static const auto DefaultPlatform = MakeShared<FWwisePlatformId, ESPMode::ThreadSafe>(FGuid(0x02DC7702, 0x6E7B4AE4, 0xBAE464D2, 0xB1057150), TEXT("Mac"), TEXT("Mac"));
 #elif WITH_EDITORONLY_DATA && PLATFORM_LINUX
-static const auto DefaultPlatform = MakeShared<FWwisePlatformId>(FGuid(0xBD0BDF13, 0x3125454F, 0x8BFD3195, 0x37169F81), TEXT("Linux"), TEXT("Linux"));
+static const auto DefaultPlatform = MakeShared<FWwisePlatformId, ESPMode::ThreadSafe>(FGuid(0xBD0BDF13, 0x3125454F, 0x8BFD3195, 0x37169F81), TEXT("Linux"), TEXT("Linux"));
 #else
-static const auto DefaultPlatform = MakeShared<FWwisePlatformId>(FGuid(0x6E0CB257, 0xC6C84C5C, 0x83662740, 0xDFC441EC), TEXT("Windows"));
+static const auto DefaultPlatform = MakeShared<FWwisePlatformId, ESPMode::ThreadSafe>(FGuid(0x6E0CB257, 0xC6C84C5C, 0x83662740, 0xDFC441EC), TEXT("Windows"));
 #endif
 
 static const FWwiseLanguageCookedData DefaultLanguage(684519430, TEXT("English(US)"), EWwiseLanguageRequirement::IsDefault);
@@ -71,7 +71,7 @@ FWwiseResourceLoader::FWwiseResourceLoader() :
 
 void FWwiseResourceLoader::SetLanguage(FWwiseLanguageCookedData InLanguage, EWwiseReloadLanguage InReloadLanguage)
 {
-	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("SetLanguage"));
+	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("FWwiseResourceLoader::SetLanguage"));
 	SetLanguageAsync(InLanguage, InReloadLanguage).Wait();
 }
 
@@ -182,118 +182,118 @@ const FDirectoryPath& FWwiseResourceLoader::GetUnrealGeneratedSoundBanksPath()
 // User-facing loading and unloading operations
 //
 
-FWwiseLoadedAuxBus FWwiseResourceLoader::LoadAuxBus(const FWwiseLocalizedAuxBusCookedData& InAuxBusCookedData,
+FWwiseLoadedAuxBusPtr FWwiseResourceLoader::LoadAuxBus(const FWwiseLocalizedAuxBusCookedData& InAuxBusCookedData,
 	const FWwiseLanguageCookedData* InLanguageOverride)
 {
-	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("LoadAuxBus"));
+	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("FWwiseResourceLoader::LoadAuxBus"));
 	return LoadAuxBusAsync(InAuxBusCookedData, InLanguageOverride).Get();
 }
 
-void FWwiseResourceLoader::UnloadAuxBus(FWwiseLoadedAuxBus&& InAuxBus)
+void FWwiseResourceLoader::UnloadAuxBus(FWwiseLoadedAuxBusPtr&& InAuxBus)
 {
-	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("UnloadAuxBus"));
+	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("FWwiseResourceLoader::UnloadAuxBus"));
 	FWwiseLoadedAuxBusPromise Promise;
 	Promise.EmplaceValue(MoveTemp(InAuxBus));
 	UnloadAuxBusAsync(Promise.GetFuture()).Wait();
 }
 
-FWwiseLoadedEvent FWwiseResourceLoader::LoadEvent(const FWwiseLocalizedEventCookedData& InEventCookedData,
+FWwiseLoadedEventPtr FWwiseResourceLoader::LoadEvent(const FWwiseLocalizedEventCookedData& InEventCookedData,
 	const FWwiseLanguageCookedData* InLanguageOverride)
 {
-	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("LoadEvent"));
+	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("FWwiseResourceLoader::LoadEvent"));
 	return LoadEventAsync(InEventCookedData, InLanguageOverride).Get();
 }
 
-void FWwiseResourceLoader::UnloadEvent(FWwiseLoadedEvent&& InEvent)
+void FWwiseResourceLoader::UnloadEvent(FWwiseLoadedEventPtr&& InEvent)
 {
-	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("UnloadEvent"));
+	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("FWwiseResourceLoader::UnloadEvent"));
 	FWwiseLoadedEventPromise Promise;
 	Promise.EmplaceValue(MoveTemp(InEvent));
 	UnloadEventAsync(Promise.GetFuture()).Wait();
 }
 
-FWwiseLoadedExternalSource FWwiseResourceLoader::LoadExternalSource(
+FWwiseLoadedExternalSourcePtr FWwiseResourceLoader::LoadExternalSource(
 	const FWwiseExternalSourceCookedData& InExternalSourceCookedData)
 {
-	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("LoadExternalSource"));
+	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("FWwiseResourceLoader::LoadExternalSource"));
 	return LoadExternalSourceAsync(InExternalSourceCookedData).Get();
 }
 
-void FWwiseResourceLoader::UnloadExternalSource(FWwiseLoadedExternalSource&& InExternalSource)
+void FWwiseResourceLoader::UnloadExternalSource(FWwiseLoadedExternalSourcePtr&& InExternalSource)
 {
-	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("UnloadExternalSource"));
+	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("FWwiseResourceLoader::UnloadExternalSource"));
 	FWwiseLoadedExternalSourcePromise Promise;
 	Promise.EmplaceValue(MoveTemp(InExternalSource));
 	UnloadExternalSourceAsync(Promise.GetFuture()).Wait();
 }
 
-FWwiseLoadedGroupValue FWwiseResourceLoader::LoadGroupValue(const FWwiseGroupValueCookedData& InGroupValueCookedData)
+FWwiseLoadedGroupValuePtr FWwiseResourceLoader::LoadGroupValue(const FWwiseGroupValueCookedData& InGroupValueCookedData)
 {
-	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("LoadGroupValue"));
+	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("FWwiseResourceLoader::LoadGroupValue"));
 	return LoadGroupValueAsync(InGroupValueCookedData).Get();
 }
 
-void FWwiseResourceLoader::UnloadGroupValue(FWwiseLoadedGroupValue&& InGroupValue)
+void FWwiseResourceLoader::UnloadGroupValue(FWwiseLoadedGroupValuePtr&& InGroupValue)
 {
-	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("UnloadGroupValue"));
+	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("FWwiseResourceLoader::UnloadGroupValue"));
 	FWwiseLoadedGroupValuePromise Promise;
 	Promise.EmplaceValue(MoveTemp(InGroupValue));
 	UnloadGroupValueAsync(Promise.GetFuture()).Wait();
 }
 
-FWwiseLoadedInitBank FWwiseResourceLoader::LoadInitBank(const FWwiseInitBankCookedData& InInitBankCookedData)
+FWwiseLoadedInitBankPtr FWwiseResourceLoader::LoadInitBank(const FWwiseInitBankCookedData& InInitBankCookedData)
 {
-	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("LoadInitBank"));
+	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("FWwiseResourceLoader::LoadInitBank"));
 	return LoadInitBankAsync(InInitBankCookedData).Get();
 }
 
-void FWwiseResourceLoader::UnloadInitBank(FWwiseLoadedInitBank&& InInitBank)
+void FWwiseResourceLoader::UnloadInitBank(FWwiseLoadedInitBankPtr&& InInitBank)
 {
-	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("UnloadInitBank"));
+	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("FWwiseResourceLoader::UnloadInitBank"));
 	FWwiseLoadedInitBankPromise Promise;
 	Promise.EmplaceValue(MoveTemp(InInitBank));
 	UnloadInitBankAsync(Promise.GetFuture()).Wait();
 }
 
-FWwiseLoadedMedia FWwiseResourceLoader::LoadMedia(const FWwiseMediaCookedData& InMediaCookedData)
+FWwiseLoadedMediaPtr FWwiseResourceLoader::LoadMedia(const FWwiseMediaCookedData& InMediaCookedData)
 {
-	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("LoadMedia"));
+	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("FWwiseResourceLoader::LoadMedia"));
 	return LoadMediaAsync(InMediaCookedData).Get();
 }
 
-void FWwiseResourceLoader::UnloadMedia(FWwiseLoadedMedia&& InMedia)
+void FWwiseResourceLoader::UnloadMedia(FWwiseLoadedMediaPtr&& InMedia)
 {
-	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("UnloadMedia"));
+	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("FWwiseResourceLoader::UnloadMedia"));
 	FWwiseLoadedMediaPromise Promise;
 	Promise.EmplaceValue(MoveTemp(InMedia));
 	UnloadMediaAsync(Promise.GetFuture()).Wait();
 }
 
-FWwiseLoadedShareSet FWwiseResourceLoader::LoadShareSet(const FWwiseLocalizedShareSetCookedData& InShareSetCookedData,
+FWwiseLoadedShareSetPtr FWwiseResourceLoader::LoadShareSet(const FWwiseLocalizedShareSetCookedData& InShareSetCookedData,
 	const FWwiseLanguageCookedData* InLanguageOverride)
 {
-	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("LoadShareSet"));
+	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("FWwiseResourceLoader::LoadShareSet"));
 	return LoadShareSetAsync(InShareSetCookedData, InLanguageOverride).Get();
 }
 
-void FWwiseResourceLoader::UnloadShareSet(FWwiseLoadedShareSet&& InShareSet)
+void FWwiseResourceLoader::UnloadShareSet(FWwiseLoadedShareSetPtr&& InShareSet)
 {
-	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("UnloadShareSet"));
+	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("FWwiseResourceLoader::UnloadShareSet"));
 	FWwiseLoadedShareSetPromise Promise;
 	Promise.EmplaceValue(MoveTemp(InShareSet));
 	UnloadShareSetAsync(Promise.GetFuture()).Wait();
 }
 
-FWwiseLoadedSoundBank FWwiseResourceLoader::LoadSoundBank(
+FWwiseLoadedSoundBankPtr FWwiseResourceLoader::LoadSoundBank(
 	const FWwiseLocalizedSoundBankCookedData& InSoundBankCookedData, const FWwiseLanguageCookedData* InLanguageOverride)
 {
-	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("LoadSoundBank"));
+	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("FWwiseResourceLoader::LoadSoundBank"));
 	return LoadSoundBankAsync(InSoundBankCookedData, InLanguageOverride).Get();
 }
 
-void FWwiseResourceLoader::UnloadSoundBank(FWwiseLoadedSoundBank&& InSoundBank)
+void FWwiseResourceLoader::UnloadSoundBank(FWwiseLoadedSoundBankPtr&& InSoundBank)
 {
-	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("UnloadSoundBank"));
+	SCOPED_WWISERESOURCELOADER_EVENT_4(TEXT("FWwiseResourceLoader::UnloadSoundBank"));
 	FWwiseLoadedSoundBankPromise Promise;
 	Promise.EmplaceValue(MoveTemp(InSoundBank));
 	UnloadSoundBankAsync(Promise.GetFuture()).Wait();

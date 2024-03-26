@@ -12,14 +12,13 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "WwiseBrowser/WwiseBrowserHelpers.h"
 
-#include "AkUEFeatures.h"
+#include "WwiseUEFeatures.h"
 #include "AkAcousticTexture.h"
-#include "AkUEFeatures.h"
 #include "AkAudioEvent.h"
 #include "AkAuxBus.h"
 #include "AkRtpc.h"
@@ -28,9 +27,9 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "AkTrigger.h"
 #include "AkEffectShareSet.h"
 #include "AkInitBank.h"
-#include "AkUnrealHelper.h"
+#include "WwiseUnrealHelper.h"
 #include "AkAssetFactories.h"
-#include "AudiokineticTools/Private/AssetManagement/AkAssetDatabase.h"
+#include "AssetManagement/AkAssetDatabase.h"
 #include "IAudiokineticTools.h"
 
 #include "AssetRegistry/AssetRegistryModule.h"
@@ -145,7 +144,7 @@ void WwiseBrowserHelpers::FindOrCreateAssetsRecursive(const FWwiseTreeItemPtr& W
 	}
 	else if (WwiseTreeItem->IsFolder())
 	{
-		//Add  object to prevent Drag and Drop in the world.
+		//Add object to prevent Drag and Drop in the world.
 		WwiseAssetClass = UAkDragDropBlocker::StaticClass();
 		Name = WwiseTreeItem->DisplayName;
 		for (FWwiseTreeItemPtr Child : WwiseTreeItem->GetChildren())

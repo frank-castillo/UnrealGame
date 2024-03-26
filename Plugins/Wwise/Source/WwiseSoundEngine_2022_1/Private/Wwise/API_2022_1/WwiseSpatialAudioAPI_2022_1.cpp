@@ -12,15 +12,28 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/API_2022_1/WwiseSpatialAudioAPI_2022_1.h"
 #include "Wwise/Stats/SoundEngine_2022_1.h"
 
+#include "CoreTypes.h"
+
+#if defined(PLATFORM_MICROSOFT) && PLATFORM_MICROSOFT
+#pragma pack(push)
+#pragma warning(push)
+#pragma warning(disable: 4103)		// alignment changed after including header, may be due to missing #pragma pack(pop)
+#endif // PLATFORM_MICROSOFT
+
 #include "Wwise/PreSoundEngineInclude.h"
 #include <AK/SpatialAudio/Common/AkReverbEstimation.h>
 #include "Wwise/PostSoundEngineInclude.h"
+
+#if defined(PLATFORM_MICROSOFT) && PLATFORM_MICROSOFT
+#pragma warning(pop)
+#pragma pack(pop)
+#endif // PLATFORM_MICROSOFT
 
 FWwiseSpatialAudioAPI_2022_1::FWwiseSpatialAudioAPI_2022_1() :
 	IWwiseSpatialAudioAPI(new FReverbEstimation)
@@ -173,6 +186,26 @@ AKRESULT FWwiseSpatialAudioAPI_2022_1::RemovePortal(
 	return AK::SpatialAudio::RemovePortal(in_PortalID);
 }
 
+AKRESULT FWwiseSpatialAudioAPI_2022_1::SetReverbZone(
+	AkRoomID in_ReverbZone,
+	AkRoomID in_ParentRoom,
+	AkReal32 in_transitionRegionWidth
+)
+{
+	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
+	UE_LOG(LogWwiseSoundEngine, Error, TEXT("SetReverbZone is not implemented in Spatial Audio version 22.1"));
+	return AK_NotImplemented;
+}
+
+AKRESULT FWwiseSpatialAudioAPI_2022_1::RemoveReverbZone(
+	AkRoomID in_ReverbZone
+)
+{
+	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
+	UE_LOG(LogWwiseSoundEngine, Error, TEXT("RemoveReverbZone is not implemented in Spatial Audio version 22.1"));
+	return AK_NotImplemented;
+}
+
 AKRESULT FWwiseSpatialAudioAPI_2022_1::SetGameObjectInRoom(
 	AkGameObjectID in_gameObjectID,
 	AkRoomID in_CurrentRoomID
@@ -180,6 +213,15 @@ AKRESULT FWwiseSpatialAudioAPI_2022_1::SetGameObjectInRoom(
 {
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
 	return AK::SpatialAudio::SetGameObjectInRoom(in_gameObjectID, in_CurrentRoomID);
+}
+
+AKRESULT FWwiseSpatialAudioAPI_2022_1::UnsetGameObjectInRoom(
+	AkGameObjectID in_gameObjectID
+)
+{
+	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
+	UE_LOG(LogWwiseSoundEngine, Error, TEXT("UnsetGameObjectInRoom is not implemented in Spatial Audio version 22.1"));
+	return AK_NotImplemented;
 }
 
 AKRESULT FWwiseSpatialAudioAPI_2022_1::SetReflectionsOrder(
@@ -199,6 +241,16 @@ AKRESULT FWwiseSpatialAudioAPI_2022_1::SetDiffractionOrder(
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
 	return AK::SpatialAudio::SetDiffractionOrder(in_uDiffractionOrder, in_bUpdatePaths);
 }
+
+AKRESULT FWwiseSpatialAudioAPI_2022_1::SetMaxEmitterRoomAuxSends(
+	AkUInt32 in_uMaxEmitterRoomAuxSends
+)
+{
+	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
+	UE_LOG(LogWwiseSoundEngine, Error, TEXT("SetMaxEmitterRoomAuxSends is not implemented in Spatial Audio version 22.1"));
+	return AK_NotImplemented;
+}
+
 AKRESULT FWwiseSpatialAudioAPI_2022_1::SetNumberOfPrimaryRays(
 	AkUInt32 in_uNbPrimaryRays
 )
@@ -324,13 +376,14 @@ AKRESULT FWwiseSpatialAudioAPI_2022_1::FReverbEstimation::EstimateTimeToFirstRef
 	return AK::SpatialAudio::ReverbEstimation::EstimateTimeToFirstReflection(in_environmentExtentMeters, out_timeToFirstReflectionMs, in_speedOfSound);
 }
 
-AKRESULT FWwiseSpatialAudioAPI_2022_1::FReverbEstimation::EstimateHFDamping(
+AkReal32 FWwiseSpatialAudioAPI_2022_1::FReverbEstimation::EstimateHFDamping(
 	AkAcousticTexture* in_textures,
 	float* in_surfaceAreas,
-	int in_numTextures,
-	AkReal32& out_hfDamping
+	int in_numTextures
 )
 {
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
-	return AK::SpatialAudio::ReverbEstimation::EstimateHFDamping(in_textures, in_surfaceAreas, in_numTextures, out_hfDamping);
+	AkReal32 hfDamping = 0;
+	AK::SpatialAudio::ReverbEstimation::EstimateHFDamping(in_textures, in_surfaceAreas, in_numTextures, hfDamping);
+	return hfDamping;
 }

@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/WwiseResourceCookerImpl.h"
@@ -144,6 +144,11 @@ void FWwiseResourceCookerImpl::CookInitBankToSandbox(const FWwiseInitBankCookedD
 {
 	UE_LOG(LogWwiseResourceCooker, Verbose, TEXT("Cooking Init SoundBank %s %" PRIu32), *InCookedData.DebugName.ToString(), (uint32)InCookedData.SoundBankId);
 	CookSoundBankToSandbox(InCookedData, WriteAdditionalFile);
+
+	for (const auto& SoundBank : InCookedData.SoundBanks)
+	{
+		CookSoundBankToSandbox(SoundBank, WriteAdditionalFile);
+	}
 
 	for (const auto& Media : InCookedData.Media)
 	{
@@ -292,6 +297,10 @@ bool FWwiseResourceCookerImpl::GetAcousticTextureCookedData(FWwiseAcousticTextur
 
 	const auto* AcousticTexture = AcousticTextureRef.GetAcousticTexture();
 
+	OutCookedData.AbsorptionLow = AcousticTexture->AbsorptionLow;
+	OutCookedData.AbsorptionMidLow = AcousticTexture->AbsorptionMidLow;
+	OutCookedData.AbsorptionMidHigh = AcousticTexture->AbsorptionMidHigh;
+	OutCookedData.AbsorptionHigh = AcousticTexture->AbsorptionHigh;
 	OutCookedData.ShortId = AcousticTexture->Id;
 	if (ExportDebugNameRule == EWwiseExportDebugNameRule::Release)
 	{
@@ -1449,7 +1458,6 @@ bool FWwiseResourceCookerImpl::GetInitBankCookedData(FWwiseInitBankCookedData& O
 		return false;
 	}
 
-	TSet<FWwiseSoundBankCookedData> AdditionalSoundBanks;
 	{
 		const auto* SoundBank = SoundBankRef.GetSoundBank();
 		if (UNLIKELY(!SoundBank))
@@ -1466,11 +1474,12 @@ bool FWwiseResourceCookerImpl::GetInitBankCookedData(FWwiseInitBankCookedData& O
 		}
 
 		// Add all Init SoundBank media
+		TSet<FWwiseSoundBankCookedData> SoundBankSet;
 		TSet<FWwiseMediaCookedData> MediaSet;
 		{
 			for (const auto& MediaRef : SoundBankRef.GetSoundBankMedia(PlatformData->MediaFiles))
 			{
-				if (UNLIKELY(!AddRequirementsForMedia(AdditionalSoundBanks, MediaSet, MediaRef.Value, FWwiseSharedLanguageId(), *PlatformData)))
+				if (UNLIKELY(!AddRequirementsForMedia(SoundBankSet, MediaSet, MediaRef.Value, FWwiseSharedLanguageId(), *PlatformData)))
 				{
 					return false;
 				}
@@ -1484,7 +1493,7 @@ bool FWwiseResourceCookerImpl::GetInitBankCookedData(FWwiseInitBankCookedData& O
 				const WwiseMediaIdsMap MediaRefs = Plugin.Value.GetPluginMedia(PlatformData->MediaFiles);
 				for (const auto& MediaRef : MediaRefs)
 				{
-					if (UNLIKELY(!AddRequirementsForMedia(AdditionalSoundBanks, MediaSet, MediaRef.Value, FWwiseSharedLanguageId(), *PlatformData)))
+					if (UNLIKELY(!AddRequirementsForMedia(SoundBankSet, MediaSet, MediaRef.Value, FWwiseSharedLanguageId(), *PlatformData)))
 					{
 						return false;
 					}
@@ -1499,7 +1508,7 @@ bool FWwiseResourceCookerImpl::GetInitBankCookedData(FWwiseInitBankCookedData& O
 				const WwiseMediaIdsMap MediaRefs = ShareSet.Value.GetPluginMedia(PlatformData->MediaFiles);
 				for (const auto& MediaRef : MediaRefs)
 				{
-					if (UNLIKELY(!AddRequirementsForMedia(AdditionalSoundBanks, MediaSet, MediaRef.Value, FWwiseSharedLanguageId(), *PlatformData)))
+					if (UNLIKELY(!AddRequirementsForMedia(SoundBankSet, MediaSet, MediaRef.Value, FWwiseSharedLanguageId(), *PlatformData)))
 					{
 						return false;
 					}
@@ -1514,7 +1523,7 @@ bool FWwiseResourceCookerImpl::GetInitBankCookedData(FWwiseInitBankCookedData& O
 				const WwiseMediaIdsMap MediaRefs = AudioDevice.Value.GetPluginMedia(PlatformData->MediaFiles);
 				for (const auto& MediaRef : MediaRefs)
 				{
-					if (UNLIKELY(!AddRequirementsForMedia(AdditionalSoundBanks, MediaSet, MediaRef.Value, FWwiseSharedLanguageId(), *PlatformData)))
+					if (UNLIKELY(!AddRequirementsForMedia(SoundBankSet, MediaSet, MediaRef.Value, FWwiseSharedLanguageId(), *PlatformData)))
 					{
 						return false;
 					}
@@ -1522,7 +1531,7 @@ bool FWwiseResourceCookerImpl::GetInitBankCookedData(FWwiseInitBankCookedData& O
 			}
 		}
 
-
+		OutCookedData.SoundBanks = SoundBankSet.Array();
 		OutCookedData.Media = MediaSet.Array();
 		const TSet<FWwiseSharedLanguageId>& Languages = DataStructure.GetLanguages();
 		OutCookedData.Language.Empty(Languages.Num());
@@ -2140,7 +2149,17 @@ bool FWwiseResourceCookerImpl::FillMediaBaseInfo(FWwiseMediaCookedData& OutMedia
 	{
 		OutMediaCookedData.MediaPathName = InMedia.Path;
 	}
-	OutMediaCookedData.PrefetchSize = InMedia.PrefetchSize;
+
+	if (InMedia.Location == EWwiseMetadataMediaLocation::Memory)
+	{
+		// In-Memory (User-defined SoundBank) already have the prefetch in the related SoundBank.
+		OutMediaCookedData.PrefetchSize = 0;
+	}
+	else
+	{
+		OutMediaCookedData.PrefetchSize = InMedia.PrefetchSize;
+	}
+	
 	OutMediaCookedData.MemoryAlignment = InMedia.Align == 0 ? InPlatformInfo.DefaultAlign : InMedia.Align;
 	OutMediaCookedData.bDeviceMemory = InMedia.bDeviceMemory;
 	OutMediaCookedData.bStreaming = InMedia.bStreaming;

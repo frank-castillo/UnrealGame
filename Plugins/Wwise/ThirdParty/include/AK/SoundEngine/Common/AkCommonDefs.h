@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 // AkCommonDefs.h
@@ -38,6 +38,7 @@ the specific language governing permissions and limitations under the License.
 #include <AK/SoundEngine/Common/IAkPluginMemAlloc.h>
 #include <AK/Tools/Common/AkArray.h>
 #include <AK/Tools/Common/AkString.h>
+#include <AK/Tools/Common/AkBitFuncs.h>
 
 //-----------------------------------------------------------------------------
 // AUDIO DATA FORMAT
@@ -248,7 +249,7 @@ struct Ak3dData
 	Ak3dData()
 		: spread(1.f)
 		, focus(1.f)
-		, uEmitterChannelMask(0xffff)
+		, uEmitterChannelMask(0xffffffff)
 	{
 		xform.Set(AK_DEFAULT_LISTENER_POSITION_X, AK_DEFAULT_LISTENER_POSITION_Y, AK_DEFAULT_LISTENER_POSITION_Z, AK_DEFAULT_LISTENER_FRONT_X, AK_DEFAULT_LISTENER_FRONT_Y, AK_DEFAULT_LISTENER_FRONT_Z, AK_DEFAULT_TOP_X, AK_DEFAULT_TOP_Y, AK_DEFAULT_TOP_Z);
 	}
@@ -315,17 +316,22 @@ struct AkAudioObject
 		objectName.Term();
 	}
 
-	AkAudioObjectID key;			///< Unique ID, local to a given bus.
+	static const AkUInt64 kObjectKeyNumBits = 56;
+	static const AkUInt64 kObjectKeyMask = (((AkUInt64)1 << kObjectKeyNumBits) - 1);
+
+	AkAudioObjectID key;			///< Unique ID, local to a given bus. Only the lower 56 of 64 bits are used for the object itself. The highest 8 bits are available for channel indexing.
 
 	AkPositioningData positioning;	///< Positioning data for deferred 3D rendering.
 	AkRamp cumulativeGain;			///< Cumulative ramping gain to apply when mixing down to speaker bed or final endpoint
+	AkPipelineID instigatorID;		///< Profiling ID of the node from which the object stems (typically the voice, instance of an actor-mixer).
+	AkPriority priority;			///< Audio object playback priority. Object with a higher priority will be rendered using the hardware's object functionality on platforms that supports it, whereas objects with a lower priority will be downmixed to a lower resolution 3D bed. Audio object priorities should be retrieved, or set through IAkPluginServiceAudioObjectPriority to retain compatibility with future Wwise releases.
 
 	/// Custom object metadata.
 	struct CustomMetadata
 	{
 		AkPluginID pluginID;		///< Full plugin ID, including company ID and plugin type. See AKMAKECLASSID macro.
-		AK::IAkPluginParam* pParam;	///< Custom, pluggable medata.
 		AkUniqueID contextID;		///< (Profiling) ID of the sound or bus from which the custom metadata was fetched.
+		AK::IAkPluginParam* pParam;	///< Custom, pluggable medata.  Note: any custom metadata is expected to exist for only the current sound engine render tick, and persistent references to it should not be stored.
 	};
 
 	/// Array type for carrying custom metadata.
@@ -345,26 +351,35 @@ struct AkAudioObject
 		}
 	};
 
-	ArrayCustomMetadata arCustomMetadata;	///< Array of custom metadata, gathered from visited objects.
-
-	AkPipelineID instigatorID;		///< Profiling ID of the node from which the object stems (typically the voice, instance of an actor-mixer).
+	ArrayCustomMetadata arCustomMetadata;	///< Array of custom metadata, gathered from visited objects. Note: any custom metadata is expected to exist for only the current sound engine render tick, and persistent references to it should not be stored.
 
 	typedef AkString<AkPluginArrayAllocator, char> String;	///< String type for use in 3D audio objects.
 	String objectName;				///< Name string of the object, to appear in the object profiler. This is normally used by out-of-place object processors for naming their output objects. Built-in sound engine structures don't use it.
 
-	AkPriority priority;			///< Audio object playback priority. Object with a higher priority will be rendered using the hardware's object functionality on platforms that supports it, whereas objects with a lower priority will be downmixed to a lower resolution 3D bed. Audio object priorities should be retrieved, or set through IAkPluginServiceAudioObjectPriority to retain compatibility with future Wwise releases.
-
-	/// Copy object metadata (everything but the key) from another object.
+	/// Copies object metadata (everything but the key) from another object.
 	void CopyContents(
 		const AkAudioObject& in_src	///< Object from which metadata is copied.
 	)
 	{
 		positioning = in_src.positioning;
 		cumulativeGain = in_src.cumulativeGain;
-		arCustomMetadata.Copy(in_src.arCustomMetadata);
 		instigatorID = in_src.instigatorID;
-		objectName = in_src.objectName;	// AkString performs a shallow copy when it can, like here.
 		priority = in_src.priority;
+		arCustomMetadata.Copy(in_src.arCustomMetadata);
+		objectName = in_src.objectName;	// AkString performs a shallow copy when it can, like here.
+	}
+	
+	/// Moves object metadata (everything but the key) from another object.
+	void TransferContents(
+		AkAudioObject& in_src	///< Object from which metadata is moved.
+	)
+	{
+		positioning = in_src.positioning;
+		cumulativeGain = in_src.cumulativeGain;
+		instigatorID = in_src.instigatorID;
+		priority = in_src.priority;
+		arCustomMetadata.Transfer(in_src.arCustomMetadata);
+		objectName.Transfer(in_src.objectName);
 	}
 
 	void SetCustomMetadata(CustomMetadata* in_aCustomMetadata, AkUInt32 in_uLength)
@@ -384,12 +399,7 @@ struct AkAudioObject
 	)
 	{
 		key = in_from.key;
-		positioning = in_from.positioning;
-		cumulativeGain = in_from.cumulativeGain;
-		arCustomMetadata.Transfer(in_from.arCustomMetadata);
-		instigatorID = in_from.instigatorID;
-		objectName.Transfer(in_from.objectName);
-		priority = in_from.priority;
+		TransferContents(in_from);
 	}
 
 	/// Object processors may give an explicit name to objects. 
@@ -417,11 +427,11 @@ struct AkAudioObject
 /// We prefer "3D Audio" to "Spatial" to avoid ambiguity with spatial audio, which typically involves sound propagation and environment effects.
 struct Ak3DAudioSinkCapabilities
 {
-	AkChannelConfig channelConfig;                 /// Channel configuration of the main mix.
-	AkUInt32        uMaxSystemAudioObjects;        /// Maximum number of System Audio Objects that can be active concurrently. A value of zero indicates the system does not support this feature.
-	AkUInt32        uAvailableSystemAudioObjects;  /// How many System Audio Objects can currently be sent to the sink. This value can change at runtime depending on what is playing. Can never be higher than uMaxSystemAudioObjects.
-	bool            bPassthrough;                  /// Separate  pass-through mix is supported.
-	bool            bMultiChannelObjects;          /// Can handle multi-channel objects
+	AkChannelConfig channelConfig;                 ///< Channel configuration of the main mix.
+	AkUInt32        uMaxSystemAudioObjects;        ///< Maximum number of System Audio Objects that can be active concurrently. A value of zero indicates the system does not support this feature.
+	AkUInt32        uAvailableSystemAudioObjects;  ///< How many System Audio Objects can currently be sent to the sink. This value can change at runtime depending on what is playing. Can never be higher than uMaxSystemAudioObjects.
+	bool            bPassthrough;                  ///< Separate  pass-through mix is supported.
+	bool            bMultiChannelObjects;          ///< Can handle multi-channel objects
 };
 
 /// Enum of the possible object destinations when reaching a 3D audio-capable sink

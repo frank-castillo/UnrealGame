@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 // AkSimdAvx2.h
@@ -173,6 +173,19 @@ static AkForceInline AKSIMD_V8F32 AKSIMD_COMPLEXMUL_AVX2(const AKSIMD_V8F32 cIn1
 #define AKSIMD_SHIFTLEFT_V8I32( __vec__, __shiftBy__ ) \
 	_mm256_slli_epi32( (__vec__), (__shiftBy__) )
 
+/// Shifts the 8 signed or unsigned 32-bit integers in __vec__ left-wards by
+/// SIXTEEN bits while shifting in zeros (see _mm_shuffle_epi8)
+#define AKSIMD_SHIFTLEFT16_V8I32( __vec__ ) \
+	_mm256_shuffle_epi8( (__vec__), _mm256_set_epi8(  \
+		0xd, 0xc, -1, -1, \
+		0x9, 0x8, -1, -1, \
+		0x5, 0x4, -1, -1, \
+		0x1, 0x0, -1, -1, \
+		0xd, 0xc, -1, -1, \
+		0x9, 0x8, -1, -1, \
+		0x5, 0x4, -1, -1, \
+		0x1, 0x0, -1, -1) )
+
 /// Shifts the 8 signed 32-bit integers in a right by in_shiftBy
 /// bits while shifting in zeroes (see _mm_srli_epi32)
 #define AKSIMD_SHIFTRIGHT_V8I32( __vec__, __shiftBy__ ) \
@@ -205,7 +218,7 @@ inline AKSIMD_V8I32 AKSIMD_GATHER_EPI32(const T* __restrict base_ptr, Function e
 #define _GATHER_SIM_FETCH(_x) \
     {\
         AkInt32 val;\
-        ::memcpy(&val, (base_ptr + expr(_x)), sizeof(val)); \
+        memcpy(&val, (base_ptr + expr(_x)), sizeof(val)); \
         valsTemp[_x/4] = _mm_insert_epi32(valsTemp[_x/4],  val, _x%4);\
     }
 
@@ -230,7 +243,7 @@ inline AKSIMD_V8I32 AKSIMD_GATHER_EPI64(const T* base_ptr, Function expr)
 #define _GATHER_SIM_FETCH(_x) \
     {\
         AkInt64 val; \
-        ::memcpy(&val, (base_ptr + expr(_x)), sizeof(val)); \
+        memcpy(&val, (base_ptr + expr(_x)), sizeof(val)); \
         valsTemp[_x/2] = _mm_insert_epi64(valsTemp[_x/2],  val, _x%2);\
     }
 

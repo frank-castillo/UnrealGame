@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "InitializationSettings/AkInitializationSettings.h"
@@ -36,46 +36,32 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "Wwise/Stats/AkAudioMemory.h"
 #include "Wwise/Stats/AsyncStats.h"
 #include "Wwise/WwiseGlobalCallbacks.h"
+#include "WwiseDefines.h"
 
 namespace AkInitializationSettings_Helpers
 {
 	enum { IsLoggingInitialization = true };
 
-	FAkInitializationStructure::MemoryAllocFunction AllocFunction = nullptr;
-	FAkInitializationStructure::MemoryFreeFunction FreeFunction = nullptr;
+	// expected page size and alignment requirement for all general purpose commits
+	const size_t kAkVmPageSize = 64 * 1024;
+
 
 	void* AkMemAllocVM(size_t size, size_t* /*extra*/)
 	{
 		ASYNC_INC_MEMORY_STAT_BY(STAT_WwiseMemorySoundEngineVM, size);
-		return AllocFunction(size);
+		LLM_SCOPE_BYTAG(Wwise_SoundEngineMalloc);
+		return FMemory::Malloc(size, kAkVmPageSize);
 	}
 
 	void AkMemFreeVM(void* address, size_t /*size*/, size_t /*extra*/, size_t release)
 	{
 		if (release)
 		{
-			FreeFunction(address, release);
+			FMemory::Free(address);
 			ASYNC_DEC_MEMORY_STAT_BY(STAT_WwiseMemorySoundEngineVM, release);
 		}
 	}
 
-#if AK_SUPPORT_DEVICE_MEMORY
-	void* AkMemAllocDevice(size_t size, size_t* extra)
-	{
-		ASYNC_INC_MEMORY_STAT_BY(STAT_WwiseMemorySoundEngineDevice, size);
-		return AKPLATFORM::AllocDevice(size, extra);
-	}
-
-	void AkMemFreeDevice(void* address, size_t size, size_t extra, size_t release)
-	{
-		AKPLATFORM::FreeDevice(address, size, extra, release);
-		if (release)
-		{
-			ASYNC_DEC_MEMORY_STAT_BY(STAT_WwiseMemorySoundEngineDevice, release);
-		}
-	}
-#endif
-	
 	void AkProfilerPushTimer(AkPluginID in_uPluginID, const char* in_pszZoneName)
 	{
 		if (!in_pszZoneName)
@@ -125,11 +111,23 @@ FAkInitializationStructure::FAkInitializationStructure()
 	if (UNLIKELY(!Comm || !MemoryMgr || !MusicEngine || !SoundEngine || !StreamMgr)) return;
 
 	MemoryMgr->GetDefaultSettings(MemSettings);
+	MemSettings.pfAllocVM = AkInitializationSettings_Helpers::AkMemAllocVM;
+	MemSettings.pfFreeVM = AkInitializationSettings_Helpers::AkMemFreeVM;
+	MemSettings.uVMPageSize = AkInitializationSettings_Helpers::kAkVmPageSize;
+
+	// AkSpanCount setting is available in 2022.1.10+, 2023.1.1+, and future versions.
+	// Locking to spanCount_Small greatly reduces the amount of memory reserved by Wwise.
+#if (WWISE_2022_1_OR_LATER && AK_WWISE_SOUNDENGINE_SUBMINOR_VERSION >= 10) || (WWISE_2023_1_OR_LATER && AK_WWISE_SOUNDENGINE_SUBMINOR_VERSION >= 1) || WWISE_2024_1_OR_LATER
+	MemSettings.uVMSpanCount = AkSpanCount_Small;
+	MemSettings.uDeviceSpanCount = AkSpanCount_Small;
+#endif
 
 	StreamMgr->GetDefaultSettings(StreamManagerSettings);
 
 	StreamMgr->GetDefaultDeviceSettings(DeviceSettings);
+#if !WWISE_2023_1_OR_LATER
 	DeviceSettings.uSchedulerTypeFlags = AK_SCHEDULER_DEFERRED_LINED_UP;
+#endif
 	DeviceSettings.uMaxConcurrentIO = AK_UNREAL_MAX_CONCURRENT_IO;
 
 	SoundEngine->GetDefaultInitSettings(InitSettings);
@@ -170,34 +168,6 @@ void FAkInitializationStructure::SetPluginDllPath(const FString& PlatformArchite
 	AKPLATFORM::SafeStrCpy(PluginDllPath, TCHAR_TO_AK(*Path), Length);
 	InitSettings.szPluginDLLPath = PluginDllPath;
 }
-
-void FAkInitializationStructure::SetupLLMAllocFunctions(MemoryAllocFunction alloc, MemoryFreeFunction free, bool UseMemTracker)
-{
-	ensure(alloc == nullptr && free == nullptr || alloc != nullptr && free != nullptr);
-
-	AkInitializationSettings_Helpers::AllocFunction = alloc;
-	AkInitializationSettings_Helpers::FreeFunction = free;
-
-#if ENABLE_LOW_LEVEL_MEM_TRACKER
-	if (UseMemTracker)
-	{
-		int32 OutAlignment = 0;
-		FPlatformMemory::GetLLMAllocFunctions(AkInitializationSettings_Helpers::AllocFunction, AkInitializationSettings_Helpers::FreeFunction, OutAlignment);
-	}
-#endif
-
-	if (!AkInitializationSettings_Helpers::AllocFunction || !AkInitializationSettings_Helpers::FreeFunction)
-		return;
-
-	MemSettings.pfAllocVM = AkInitializationSettings_Helpers::AkMemAllocVM;
-	MemSettings.pfFreeVM = AkInitializationSettings_Helpers::AkMemFreeVM;
-
-#if AK_SUPPORT_DEVICE_MEMORY
-	MemSettings.pfAllocDevice = AkInitializationSettings_Helpers::AkMemAllocDevice;
-	MemSettings.pfFreeDevice = AkInitializationSettings_Helpers::AkMemFreeDevice;
-#endif
-}
-
 
 //////////////////////////////////////////////////////////////////////////
 // FAkMainOutputSettings
@@ -243,6 +213,9 @@ void FAkSpatialAudioSettings::FillInitializationStructure(FAkInitializationStruc
 	SpatialAudioInitSettings.uNumberOfPrimaryRays = NumberOfPrimaryRays;
 	SpatialAudioInitSettings.uMaxReflectionOrder = ReflectionOrder;
 	SpatialAudioInitSettings.uMaxDiffractionOrder = DiffractionOrder;
+#if WWISE_2023_1_OR_LATER
+	SpatialAudioInitSettings.uMaxEmitterRoomAuxSends = MaxEmitterRoomAuxSends;
+#endif
 	SpatialAudioInitSettings.uDiffractionOnReflectionsOrder = DiffractionOnReflectionsOrder;
 	SpatialAudioInitSettings.fMaxPathLength = MaximumPathLength;
 	SpatialAudioInitSettings.fCPULimitPercentage = CPULimitPercentage;
@@ -257,14 +230,14 @@ void FAkSpatialAudioSettings::FillInitializationStructure(FAkInitializationStruc
 
 void FAkCommunicationSettings::FillInitializationStructure(FAkInitializationStructure& InitializationStructure) const
 {
-#ifndef AK_OPTIMIZED
+#if AK_ENABLE_COMMUNICATION
 	auto& CommSettings = InitializationStructure.CommSettings;
 	CommSettings.ports.uDiscoveryBroadcast = DiscoveryBroadcastPort;
 	CommSettings.ports.uCommand = CommandPort;
 
 	const FString GameName = GetCommsNetworkName();
 	FCStringAnsi::Strcpy(CommSettings.szAppNetworkName, AK_COMM_SETTINGS_MAX_STRING_SIZE, TCHAR_TO_ANSI(*GameName));
-#endif // AK_OPTIMIZED
+#endif
 }
 
 FString FAkCommunicationSettings::GetCommsNetworkName() const
@@ -388,9 +361,9 @@ static void UELocalOutputFunc(
 		}
 
 #if !UE_BUILD_SHIPPING
-		else if (FPlatformMisc::IsDebuggerPresent() && AkError == TEXT("Voice Starvation"))
+		else if ((FPlatformMisc::IsDebuggerPresent() || GIsAutomationTesting) && UNLIKELY(AkError.Contains(TEXT("Starvation"))))
 		{
-			UE_LOG(LogWwiseMonitor, Log, TEXT("%s [Debugger])"), *AkError);
+			UE_LOG(LogWwiseMonitor, Log, TEXT("%s [%s])"), *AkError, FPlatformMisc::IsDebuggerPresent() ? TEXT("Debugger") : TEXT("Automation"));
 		}
 #endif
 

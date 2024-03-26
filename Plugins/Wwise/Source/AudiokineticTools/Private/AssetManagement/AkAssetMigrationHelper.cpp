@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "AkAssetMigrationHelper.h"
@@ -27,11 +27,12 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "AkMigrationWidgets.h"
 #include "AkCustomVersion.h"
 #include "AkUnrealEditorHelper.h"
-#include "AkUnrealHelper.h"
+#include "WwiseUnrealHelper.h"
 #include "WwiseDefines.h"
 #include "IAudiokineticTools.h"
 #include "AssetRegistry/AssetRegistryModule.h"
 #include "AssetToolsModule.h"
+#include "WwiseUnrealDefines.h"
 
 #include "GenericPlatform/GenericPlatformFile.h"
 #if UE_5_0_OR_LATER
@@ -208,10 +209,10 @@ namespace AkAssetMigration
 		bool bSuccess = true;
 		bSuccess &= DeleteAssets(InAssetsToDelete);
 		
-		const FString MediaFolderpath = FPaths::Combine(AkUnrealEditorHelper::GetLegacySoundBankDirectory(), AkUnrealHelper::MediaFolderName);
+		const FString MediaFolderPath = FPaths::Combine(AkUnrealEditorHelper::GetLegacySoundBankDirectory(), WwiseUnrealHelper::MediaFolderName);
 		IPlatformFile& PlatformFile = FPlatformFileManager::Get().GetPlatformFile();
 
-		PlatformFile.DeleteDirectoryRecursively(*MediaFolderpath);
+		PlatformFile.DeleteDirectoryRecursively(*MediaFolderPath);
 
 		const FString LocalizedFolderPath = FPaths::Combine(AkUnrealEditorHelper::GetLegacySoundBankDirectory(), AkUnrealEditorHelper::LocalizedFolderName);
 		PlatformFile.DeleteDirectoryRecursively(*LocalizedFolderPath);

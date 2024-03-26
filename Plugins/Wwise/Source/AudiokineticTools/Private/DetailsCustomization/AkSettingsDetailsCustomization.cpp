@@ -12,12 +12,12 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "AkSettingsDetailsCustomization.h"
 #include "AkSettings.h"
-#include "AkUEFeatures.h"
+#include "WwiseUEFeatures.h"
 #include "DetailCategoryBuilder.h"
 #include "DetailLayoutBuilder.h"
 #include "DetailWidgetRow.h"
@@ -221,8 +221,8 @@ TSharedRef<IDetailCustomization> FAkSettingsDetailsCustomization::MakeInstance()
 
 void FAkSettingsDetailsCustomization::CustomizeDetails(IDetailLayoutBuilder& DetailLayout)
 {
-	IDetailCategoryBuilder& CategoryBuilder = DetailLayout.EditCategory("Reverb Assignment Map", FText::GetEmpty(), ECategoryPriority::Uncommon);
-	CategoryBuilder.AddCustomRow(FText::FromString("Clear Map")).WholeRowContent()
+	IDetailCategoryBuilder& GeometryCategoryBuilder = DetailLayout.EditCategory("Geometry Surface Properties", FText::GetEmpty(), ECategoryPriority::Uncommon);
+	GeometryCategoryBuilder.AddCustomRow(FText::FromString("Update Geometry Map")).WholeRowContent()
 	[
 		SNew(SVerticalBox)
 		+ SVerticalBox::Slot().AutoHeight().Padding(2)
@@ -231,100 +231,20 @@ void FAkSettingsDetailsCustomization::CustomizeDetails(IDetailLayoutBuilder& Det
 			+ SHorizontalBox::Slot().AutoWidth()
 			[
 				SNew(SButton)
-				.Text(FText::FromString("Clear Map"))
-				.ToolTipText(FText::FromString("Clear all of the entries in the map"))
-				.OnClicked_Raw(this, &FAkSettingsDetailsCustomization::ClearAkSettingsRoomDecayAuxBusMap)
-			]
-			+ SHorizontalBox::Slot().FillWidth(8)
-		]
-		+ SVerticalBox::Slot().AutoHeight().Padding(2)
-		[
-			SNew(SHorizontalBox)
-			+ SHorizontalBox::Slot().AutoWidth()
-			[
-				SNew(SButton)
-				.Text(FText::FromString("Insert Decay Key"))
-				.OnClicked_Raw(this, &FAkSettingsDetailsCustomization::InsertKeyModal)
+				.Text(FText::FromString("Verify and Update"))
+				.ToolTipText(FText::FromString("Verify each row of the Geometry Surface Properties Table below and remove rows with an invalid Physical Material."))
+				.OnClicked_Raw(this, &FAkSettingsDetailsCustomization::VerifyAndUpdateGeometrySurfacePropertiesTable)
 			]
 			+ SHorizontalBox::Slot().FillWidth(8)
 		]
 	];
-
-	TArray<TSharedRef<IPropertyHandle>> Properties;
-	CategoryBuilder.GetDefaultProperties(Properties);
-
-	for (TSharedRef<IPropertyHandle> Property : Properties)
-	{
-		CategoryBuilder.AddProperty(Property);
-	}
 }
 
-FReply FAkSettingsDetailsCustomization::ClearAkSettingsRoomDecayAuxBusMap()
+FReply FAkSettingsDetailsCustomization::VerifyAndUpdateGeometrySurfacePropertiesTable()
 {
-	// pop up a dialog to input params to the function
-	TSharedRef<SWindow> Window = SNew(SWindow)
-		.Title(FText::FromString("Clear aux bus assignment map?"))
-		.ScreenPosition(FSlateApplication::Get().GetCursorPos())
-		.AutoCenter(EAutoCenter::None)
-		.SizingRule(ESizingRule::Autosized)
-		.SupportsMinimize(false)
-		.SupportsMaximize(false);
-
-	TSharedPtr<SClearWarningDialog> Dialog;
-	Window->SetContent(SAssignNew(Dialog, SClearWarningDialog, Window));
-
-	GEditor->EditorAddModalWindow(Window);
-
-	if (Dialog->bOKPressed)
-	{
-		UAkSettings* AkSettings = GetMutableDefault<UAkSettings>();
-		if (AkSettings != nullptr)
-			AkSettings->ClearAkRoomDecayAuxBusMap();
-	}
-
-	return FReply::Handled();
-}
-
-FReply FAkSettingsDetailsCustomization::InsertKeyModal()
-{
-	// pop up a dialog to input params to the function
-	TSharedRef<SWindow> Window = SNew(SWindow)
-		.Title(FText::FromString("Insert Decay Key"))
-		.ScreenPosition(FSlateApplication::Get().GetCursorPos())
-		.AutoCenter(EAutoCenter::None)
-		.SizingRule(ESizingRule::Autosized)
-		.SupportsMinimize(false)
-		.SupportsMaximize(false);
-
-	float decay = 0.0f;
-	TSharedPtr<SDecayKeyEntryDialog> Dialog;
-	Window->SetContent(SAssignNew(Dialog, SDecayKeyEntryDialog, Window, decay));
-
-	// In order to give focus to the textbox in SDecayKeyEntryDialog when the dialog is created,
-	// we need to wait until the window has been added to the slate application. If we try to focus the 
-	// text box during the construction of the dialog, the window will not be found in the slate application's
-	// list of top level windows, and the text box will not be focused. 
-	// To achieve this, we need to set up a delegate to call after the modal window has been added to the slate application.
-	FModalWindowStackStarted modalWindowCallback;
-	modalWindowCallback.BindLambda([&Dialog]() 
-	{
-		if (Dialog.IsValid())
-			Dialog->FocusNumericEntryBox(); 
-	});
-	FSlateApplication::Get().SetModalWindowStackStartedDelegate(modalWindowCallback);
-
-	// During this call, the ModalWindowStackStartedDelegate will be called.
-	GEditor->EditorAddModalWindow(Window);
-
-	// Clear the ModalWindowStackStartedDelegate.
-	FSlateApplication::Get().SetModalWindowStackStartedDelegate(nullptr);
-
-	if (Dialog->bCommitted)
-	{
-		UAkSettings* AkSettings = GetMutableDefault<UAkSettings>();
-		if (AkSettings != nullptr)
-			AkSettings->InsertDecayKeyValue(decay);
-	}
+	UAkSettings* AkSettings = GetMutableDefault<UAkSettings>();
+	if (AkSettings != nullptr)
+		AkSettings->VerifyAndUpdateGeometrySurfacePropertiesTable();
 
 	return FReply::Handled();
 }

@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 /// \file
@@ -323,6 +323,7 @@ namespace AK
 		/// \akwarning
 		/// The functions in this interface are not thread-safe, unless stated otherwise.
 		/// \endakwarning
+		/// \deprecated This class is deprecated. Use AK::Wwise::Plugin::AudioPlugin instead.
 		/// \sa
 		/// - \ref effectpluginwwise
 		class IAudioPlugin

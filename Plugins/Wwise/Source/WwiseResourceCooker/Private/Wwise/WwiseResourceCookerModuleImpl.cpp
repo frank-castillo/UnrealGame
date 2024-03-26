@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/WwiseResourceCookerModuleImpl.h"
@@ -74,7 +74,7 @@ FWwiseResourceCooker* FWwiseResourceCookerModule::CreateCookerForPlatform(const 
 		if (UNLIKELY(!CookingPlatform))
 		{
 #if UE_5_0_OR_LATER
-			if (IWwiseProjectDatabaseModule::IsInACookingCommandlet() && !FParse::Param(FCommandLine::Get(), TEXT("CookOnTheFly")))		// By The Book cooking needs to predefine the requested platforms. InEditor and OnTheFly should create them all the time.
+			if (!IWwiseProjectDatabaseModule::ShouldInitializeProjectDatabase() && !FParse::Param(FCommandLine::Get(), TEXT("CookOnTheFly")))		// By The Book cooking needs to predefine the requested platforms. InEditor and OnTheFly should create them all the time.
 			{
 				UE_LOG(LogWwiseResourceCooker, Warning, TEXT("CreateCookerForPlatform: Not cooking for platform %s (UE: %s, Wwise: %s)"),
 					TargetPlatform ? *TargetPlatform->PlatformName() : TEXT("[nullptr]"),

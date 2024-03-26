@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Modules/ModuleManager.h"
@@ -22,6 +22,7 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "Misc/CoreDelegates.h"
 #include "Misc/ConfigCacheIni.h"
 #include "WwiseDefines.h"
+#include "WwiseUnrealDefines.h"
 
 #if UE_5_1_OR_LATER
 #include "Wwise/WwiseAudioLinkRuntimeModule.h"
@@ -45,21 +46,22 @@ class FWwiseModule : public IModuleInterface
 public:
 	virtual void StartupModule() override
 	{
+		auto& ModuleManager = FModuleManager::Get();
 		{
 			SCOPED_WWISE_EVENT(TEXT("StartupModule: AkAudio"));
 			UE_LOG(LogWwise, Log, TEXT("WwiseModule: Loading AkAudio"));
-			FModuleManager::Get().LoadModule(TEXT("AkAudio"));
+			ModuleManager.LoadModule(TEXT("AkAudio"));
 			FCoreDelegates::OnPostEngineInit.AddRaw(this, &FWwiseModule::OnPostEngineInit);
 		}
 
-		// Loading optional modules
+		// Loading optional modules - Modules defined by Project Settings
 		bool bAkAudioMixerEnabled = false;
 		GConfig->GetBool(TEXT("/Script/AkAudio.AkSettings"), TEXT("bAkAudioMixerEnabled"), bAkAudioMixerEnabled, GGameIni);
 		if (bAkAudioMixerEnabled)
 		{
 			SCOPED_WWISE_EVENT(TEXT("StartupModule: AkAudioMixer"));
 			UE_LOG(LogWwise, Log, TEXT("WwiseModule: Loading AkAudioMixer"));
-			FModuleManager::Get().LoadModule(TEXT("AkAudioMixer"));
+			ModuleManager.LoadModule(TEXT("AkAudioMixer"));
 		}
 
 		bool bWwiseAudioLinkEnabled = false;

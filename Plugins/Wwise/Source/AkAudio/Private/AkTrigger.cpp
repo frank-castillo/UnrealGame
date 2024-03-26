@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "AkTrigger.h"
@@ -79,7 +79,7 @@ void UAkTrigger::FillInfo()
 	FWwiseRefTrigger TriggerRef = FWwiseDataStructureScopeLock(*ProjectDatabase).GetTrigger(
 		GetValidatedInfo(TriggerInfo));
 
-	if (TriggerRef.TriggerName().IsNone() || !TriggerRef.TriggerGuid().IsValid() || TriggerRef.TriggerId() == AK_INVALID_UNIQUE_ID)
+	if (TriggerRef.TriggerName().ToString().IsEmpty() || !TriggerRef.TriggerGuid().IsValid() || TriggerRef.TriggerId() == AK_INVALID_UNIQUE_ID)
 	{
 		UE_LOG(LogAkAudio, Warning, TEXT("UAkTrigger::FillInfo: Valid object not found in Project Database"));
 		return;
@@ -116,7 +116,7 @@ bool UAkTrigger::ObjectIsInSoundBanks()
 void UAkTrigger::GetTriggerCookedData()
 {
 	SCOPED_AKAUDIO_EVENT_2(TEXT("GetTriggerCookedData"));
-	if (IWwiseProjectDatabaseModule::IsInACookingCommandlet())
+	if (!IWwiseProjectDatabaseModule::ShouldInitializeProjectDatabase())
 	{
 		return;
 	}

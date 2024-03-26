@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 /*=============================================================================
@@ -32,7 +32,8 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "AkSettings.h"
 #include "AkSettingsPerUser.h"
 #include "AkSurfaceReflectorSetComponent.h"
-#include "AkUnrealHelper.h"
+#include "AkReverbZone.h"
+#include "WwiseUnrealDefines.h"
 #include "AssetManagement/AkAssetDatabase.h"
 #include "AssetManagement/AkAssetMigrationManager.h"
 #include "AssetManagement/AkGenerateSoundBanksTask.h"
@@ -46,6 +47,7 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "DetailsCustomization/AkPortalComponentDetailsCustomization.h"
 #include "DetailsCustomization/AkSurfaceReflectorSetDetailsCustomization.h"
 #include "DetailsCustomization/AkSettingsDetailsCustomization.h"
+#include "DetailsCustomization/AkReverbZoneDetailsCustomization.h"
 #include "LevelEditor.h"
 #include "Editor/UnrealEdEngine.h"
 #include "Factories/ActorFactoryAkAmbientSound.h"
@@ -132,19 +134,19 @@ void FAudiokineticToolsModule::OpenOnlineHelp()
 
 void FAudiokineticToolsModule::ToggleVisualizeRoomsAndPortals()
 {
-	UAkSettings* AkSettings = GetMutableDefault<UAkSettings>();
-	if (AkSettings != nullptr)
+	UAkSettingsPerUser* AkSettingsPerUser = GetMutableDefault<UAkSettingsPerUser>();
+	if (AkSettingsPerUser != nullptr)
 	{
-		AkSettings->ToggleVisualizeRoomsAndPortals();
+		AkSettingsPerUser->ToggleVisualizeRoomsAndPortals();
 	}
 }
 
 bool FAudiokineticToolsModule::IsVisualizeRoomsAndPortalsEnabled()
 {
-	const UAkSettings* AkSettings = GetDefault<UAkSettings>();
-	if (AkSettings == nullptr)
+	const UAkSettingsPerUser* AkSettingsPerUser = GetDefault<UAkSettingsPerUser>();
+	if (AkSettingsPerUser == nullptr)
 		return false;
-	return AkSettings->VisualizeRoomsAndPortals;
+	return AkSettingsPerUser->VisualizeRoomsAndPortals;
 }
 
 ECheckBoxState FAudiokineticToolsModule::GetVisualizeRoomsAndPortalsCheckBoxState()
@@ -154,19 +156,19 @@ ECheckBoxState FAudiokineticToolsModule::GetVisualizeRoomsAndPortalsCheckBoxStat
 
 void FAudiokineticToolsModule::ToggleShowReverbInfo()
 {
-	UAkSettings* AkSettings = GetMutableDefault<UAkSettings>();
-	if (AkSettings != nullptr)
+	UAkSettingsPerUser* AkSettingsPerUser = GetMutableDefault<UAkSettingsPerUser>();
+	if (AkSettingsPerUser != nullptr)
 	{
-		AkSettings->ToggleShowReverbInfo();
+		AkSettingsPerUser->ToggleShowReverbInfo();
 	}
 }
 
 bool FAudiokineticToolsModule::IsReverbInfoEnabled()
 {
-	const UAkSettings* AkSettings = GetDefault<UAkSettings>();
-	if (AkSettings == nullptr)
+	const UAkSettingsPerUser* AkSettingsPerUser = GetDefault<UAkSettingsPerUser>();
+	if (AkSettingsPerUser == nullptr)
 		return false;
-	return AkSettings->bShowReverbInfo;
+	return AkSettingsPerUser->bShowReverbInfo;
 }
 
 ECheckBoxState FAudiokineticToolsModule::GetReverbInfoCheckBoxState()
@@ -417,7 +419,7 @@ void FAudiokineticToolsModule::VerifyGeneratedSoundBanksPath(UAkSettings* AkSett
 		// First-time plugin migration: Project might be relative to Engine path. Fix-up the path to make it relative to the game.
 		const auto ProjectDir = FPaths::ProjectContentDir();
 		FString FullGameDir = FPaths::ConvertRelativePathToFull(ProjectDir);
-		FString TempPath = FPaths::ConvertRelativePathToFull(FullGameDir, AkSettings->GeneratedSoundBanksFolder.Path);
+		FString TempPath = FPaths::ConvertRelativePathToFull(FullGameDir, AkSettings->RootOutputPath.Path);
 		if (!FPaths::DirectoryExists(TempPath))
 		{
 			if (!AkSettingsPerUser->SuppressGeneratedSoundBanksPathWarnings && FApp::CanEverRender())
@@ -507,7 +509,7 @@ void FAudiokineticToolsModule::VerifyGeneratedSoundBanksPath(UAkSettings* AkSett
 		else
 		{
 			FPaths::MakePathRelativeTo(TempPath, *ProjectDir);
-			if (AkSettings->GeneratedSoundBanksFolder.Path != TempPath)
+			if (AkSettings->RootOutputPath.Path != TempPath)
 			{
 				AkSettings->WwiseProjectPath.FilePath = TempPath;
 				AkUnrealEditorHelper::SaveConfigFile(AkSettings);
@@ -534,7 +536,8 @@ void FAudiokineticToolsModule::OnAssetRegistryFilesLoaded()
 		GUnrealEd->RegisterComponentVisualizer(UAkPortalComponent::StaticClass()->GetFName(), MakeShareable(new UAkPortalComponentVisualizer));
 	}
 
-	AkSettings->InitAkGeometryMap();
+	AkSettings->InitGeometrySurfacePropertiesTable();
+	AkSettings->InitReverbAssignmentTable();
 	AkSettings->EnsurePluginContentIsInAlwaysCook();
 
 	AkAcousticTextureParamLookup AcousticTextureParamLookup;
@@ -625,8 +628,9 @@ void FAudiokineticToolsModule::StartupModule()
 	PropertyModule.RegisterCustomClassLayout(UAkPortalComponent::StaticClass()->GetFName(), FOnGetDetailCustomizationInstance::CreateStatic(&FAkPortalComponentDetailsCustomization::MakeInstance));
 	PropertyModule.RegisterCustomClassLayout(UAkGeometryComponent::StaticClass()->GetFName(), FOnGetDetailCustomizationInstance::CreateStatic(&FAkGeometryComponentDetailsCustomization::MakeInstance));
 	PropertyModule.RegisterCustomClassLayout(UAkSettings::StaticClass()->GetFName(), FOnGetDetailCustomizationInstance::CreateStatic(&FAkSettingsDetailsCustomization::MakeInstance));
+	PropertyModule.RegisterCustomClassLayout(AAkReverbZone::StaticClass()->GetFName(), FOnGetDetailCustomizationInstance::CreateStatic(&FAkReverbZoneDetailsCustomization::MakeInstance));
 
-	if (IWwiseProjectDatabaseModule::IsInACookingCommandlet())
+	if (!IWwiseProjectDatabaseModule::ShouldInitializeProjectDatabase())
 	{
 		return;
 	}
@@ -643,7 +647,7 @@ void FAudiokineticToolsModule::StartupModule()
 
 	//Project Database initial parse occurs before AudiokineticTools' Initialization. Call it here manually.
 	SetStaticPluginsInformation();
-	FWwiseProjectDatabaseDelegates::Get().GetOnDatabaseUpdateCompletedDelegate().AddLambda(
+	StaticPluginHandle = FWwiseProjectDatabaseDelegates::Get()->GetOnDatabaseUpdateCompletedDelegate().AddLambda(
 		[this]()
 		{
 			SetStaticPluginsInformation();
@@ -660,13 +664,13 @@ void FAudiokineticToolsModule::OnAkAudioInit()
 	if (UAkSettings* Settings = GetMutableDefault<UAkSettings>())
 	{
 		Settings->OnGeneratedSoundBanksPathChanged.AddRaw(this, &FAudiokineticToolsModule::OnSoundBanksFolderChanged);
-		OnDatabaseUpdateTextureHandle = FWwiseProjectDatabaseDelegates::Get().GetOnDatabaseUpdateCompletedDelegate().AddRaw(this, &FAudiokineticToolsModule::RefreshAndUpdateTextureParams);
+		OnDatabaseUpdateTextureHandle = FWwiseProjectDatabaseDelegates::Get()->GetOnDatabaseUpdateCompletedDelegate().AddRaw(this, &FAudiokineticToolsModule::RefreshAndUpdateTextureParams);
 	}
 	if (UAkSettingsPerUser* UserSettings = GetMutableDefault<UAkSettingsPerUser>())
 	{
 		UserSettings->OnGeneratedSoundBanksPathChanged.AddRaw(this, &FAudiokineticToolsModule::OnSoundBanksFolderChanged);
 	}
-	OnDatabaseUpdateCompleteHandle = FWwiseProjectDatabaseDelegates::Get().GetOnDatabaseUpdateCompletedDelegate().AddRaw(this, &FAudiokineticToolsModule::AssetReloadPrompt);
+	OnDatabaseUpdateCompleteHandle = FWwiseProjectDatabaseDelegates::Get()->GetOnDatabaseUpdateCompletedDelegate().AddRaw(this, &FAudiokineticToolsModule::AssetReloadPrompt);
 	
 #if AK_SUPPORT_WAAPI
 	if (!IsRunningCommandlet())
@@ -693,6 +697,12 @@ void FAudiokineticToolsModule::BeginPIE(const bool bIsSimulating)
 	if(Settings && !Settings->GeneratedSoundBanksPathExists() && FAkAudioModule::AkAudioModuleInstance)
 	{
 		DisplayGeneratedSoundBanksWarning();
+	}
+
+	UAkSettingsPerUser* UserSettings = GetMutableDefault<UAkSettingsPerUser>();
+	if(UserSettings && !UserSettings->RootOutputPathOverride.Path.IsEmpty())
+	{
+		UE_LOG(LogAkAudio, Warning, TEXT("Using Root Output Path Override: %s"), *WwiseUnrealHelper::GetSoundBankDirectory());
 	}
 }
 
@@ -766,7 +776,7 @@ void FAudiokineticToolsModule::ShutdownModule()
 		}
 	}
 	LevelViewportToolbarBuildMenuExtenderAkHandle.Reset();
-
+	StaticPluginHandle.Reset();
 	UnregisterSettings();
 
 	if (GUnrealEd != NULL)
@@ -815,14 +825,14 @@ void FAudiokineticToolsModule::ShutdownModule()
 		}
 	}
 
-	if (IWwiseProjectDatabaseModule::IsInACookingCommandlet())
+	if (!IWwiseProjectDatabaseModule::ShouldInitializeProjectDatabase())
 	{
 		return;
 	}
 
 	if (OnDatabaseUpdateTextureHandle.IsValid())
 	{
-		FWwiseProjectDatabaseDelegates::Get().GetOnDatabaseUpdateCompletedDelegate().Remove(OnDatabaseUpdateTextureHandle);
+		FWwiseProjectDatabaseDelegates::Get()->GetOnDatabaseUpdateCompletedDelegate().Remove(OnDatabaseUpdateTextureHandle);
 		OnDatabaseUpdateTextureHandle.Reset();
 	}
 

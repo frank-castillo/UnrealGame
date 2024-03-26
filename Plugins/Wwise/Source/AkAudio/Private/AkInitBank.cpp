@@ -12,11 +12,12 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "AkInitBank.h"
 
+#include "AkSettings.h"
 #include "Platforms/AkPlatformInfo.h"
 #include "Wwise/WwiseResourceLoader.h"
 #include "Wwise/Stats/AkAudio.h"
@@ -40,8 +41,14 @@ void UAkInitBank::CookAdditionalFilesOverride(const TCHAR* PackageFilename, cons
 
 void UAkInitBank::BeginCacheForCookedPlatformData(const ITargetPlatform* TargetPlatform)
 {
-	auto PlatformID = UAkPlatformInfo::GetSharedPlatformInfo(TargetPlatform->IniPlatformName());
-	FWwiseResourceCooker::CreateForPlatform(TargetPlatform, PlatformID, EWwiseExportDebugNameRule::Name);
+	if (auto* AkSettings = GetDefault<UAkSettings>())
+	{
+		if (AkSettings->AreSoundBanksGenerated())
+		{
+			auto PlatformID = UAkPlatformInfo::GetSharedPlatformInfo(TargetPlatform->IniPlatformName());
+			FWwiseResourceCooker::CreateForPlatform(TargetPlatform, PlatformID, EWwiseExportDebugNameRule::Name);
+		}
+	}
 }
 #endif
 
@@ -74,7 +81,8 @@ void UAkInitBank::Serialize(FArchive& Ar)
 
 void UAkInitBank::UnloadInitBank(bool bAsync)
 {
-	if (LoadedInitBank)
+	auto PreviouslyLoadedInitBank = LoadedInitBank.exchange(nullptr);
+	if (PreviouslyLoadedInitBank)
 	{
 		auto* ResourceLoader = FWwiseResourceLoader::Get();
 		if (UNLIKELY(!ResourceLoader))
@@ -85,21 +93,20 @@ void UAkInitBank::UnloadInitBank(bool bAsync)
 		if (bAsync)
 		{
 			FWwiseLoadedInitBankPromise Promise;
-			Promise.EmplaceValue(MoveTemp(LoadedInitBank));
+			Promise.EmplaceValue(MoveTemp(PreviouslyLoadedInitBank));
 			ResourceUnload = ResourceLoader->UnloadInitBankAsync(Promise.GetFuture());
 		}
 		else
 		{
-			ResourceLoader->UnloadInitBank(MoveTemp(LoadedInitBank));
+			ResourceLoader->UnloadInitBank(MoveTemp(PreviouslyLoadedInitBank));
 		}
-		LoadedInitBank = nullptr;
 	}
 }
 
 #if WITH_EDITORONLY_DATA
 void UAkInitBank::PrepareCookedData()
 {
-	if (IWwiseProjectDatabaseModule::IsInACookingCommandlet())
+	if (!IWwiseProjectDatabaseModule::ShouldInitializeProjectDatabase())
 	{
 		return;
 	}
@@ -138,14 +145,18 @@ void UAkInitBank::LoadInitBank()
 	{
 		return;
 	}
-	if (LoadedInitBank)
-	{
-		UnloadInitBank(false);
-	}
+	UnloadInitBank(false);
+
 #if WITH_EDITORONLY_DATA
 	PrepareCookedData();
 #endif
-	LoadedInitBank = ResourceLoader->LoadInitBank(InitBankCookedData);
+	
+	const auto NewlyLoadedInitBank = ResourceLoader->LoadInitBank(InitBankCookedData);
+	auto PreviouslyLoadedInitBank = LoadedInitBank.exchange(NewlyLoadedInitBank);
+	if (UNLIKELY(PreviouslyLoadedInitBank))
+	{
+		ResourceLoader->UnloadInitBank(MoveTemp(PreviouslyLoadedInitBank));
+	}
 }
 
 

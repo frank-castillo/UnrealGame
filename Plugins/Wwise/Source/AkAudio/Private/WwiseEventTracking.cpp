@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "WwiseEventTracking.h"
@@ -149,19 +149,11 @@ namespace WwiseEventTriggering
 
 		if (AudioDevice)
 		{
-			AkPlayingID PlayingID;
+			AkPlayingID PlayingID = AK_INVALID_PLAYING_ID;
 			if (EventTracker.Event)
 			{
 				PlayingID = EventTracker.Event->PostAmbient(nullptr, &FWwiseEventTracker::PostEventCallbackHandler, &EventTracker,
 					(AkCallbackType)(AK_EndOfEvent | AK_Duration), nullptr);
-			}
-			else
-			{
-				AActor* DummyActor = nullptr;
-				const AkUInt32 ShortID = AudioDevice->GetShortID(EventTracker.Event, EventTracker.EventName);
-				PlayingID = AudioDevice->PostEventOnActor(ShortID, DummyActor, 
-					AkCallbackType::AK_EndOfEvent | AkCallbackType::AK_Duration,
-					&FWwiseEventTracker::PostEventCallbackHandler, &EventTracker, false, {});
 			}
 			if (LIKELY(PlayingID != AK_INVALID_PLAYING_ID))
 			{
@@ -199,17 +191,10 @@ namespace WwiseEventTriggering
 
 			if (IsValid(AkComponent))
 			{
-				AkPlayingID PlayingID;
+				AkPlayingID PlayingID = AK_INVALID_PLAYING_ID;
 				if (EventTracker.Event)
 				{
 					PlayingID = EventTracker.Event->PostOnComponent(AkComponent, nullptr, &FWwiseEventTracker::PostEventCallbackHandler, &EventTracker, (AkCallbackType)(AK_EndOfEvent | AK_Duration), nullptr, AkComponent->StopWhenOwnerDestroyed);
-				}
-				else
-				{
-					const AkUInt32 ShortID = AudioDevice->GetShortID(nullptr, EventTracker.EventName);
-					PlayingID = AudioDevice->PostEventOnAkComponent(ShortID, AkComponent,
-						AkCallbackType::AK_EndOfEvent | AkCallbackType::AK_Duration,
-						&FWwiseEventTracker::PostEventCallbackHandler, &EventTracker);
 				}
 				EventTracker.TryAddPlayingID(PlayingID);
 				if (EventTracker.IsDirty)
@@ -258,19 +243,11 @@ namespace WwiseEventTriggering
 
 		if (AudioDevice)
 		{
-			AkPlayingID PlayingID;
+			AkPlayingID PlayingID = AK_INVALID_PLAYING_ID;
 			if (EventTracker.Event)
 			{
 				PlayingID = EventTracker.Event->PostAmbient(nullptr, &FWwiseEventTracker::PostEventCallbackHandler, &EventTracker,
 					(AkCallbackType)(AK_EndOfEvent | AK_Duration), nullptr);
-			}
-			else
-			{
-				AActor* DummyActor = nullptr;
-				const AkUInt32 ShortID = AudioDevice->GetShortID(EventTracker.Event, EventTracker.EventName);
-				PlayingID = AudioDevice->PostEventOnActor(ShortID, DummyActor, 
-					AkCallbackType::AK_EndOfEvent | AkCallbackType::AK_Duration,
-					&FWwiseEventTracker::PostEventCallbackHandler, &EventTracker, false, {});
 			}
 			if (LIKELY(PlayingID != AK_INVALID_PLAYING_ID))
 			{
@@ -306,18 +283,11 @@ namespace WwiseEventTriggering
 
 			if (IsValid(AkComponent))
 			{
-				AkPlayingID PlayingID;
+				AkPlayingID PlayingID = AK_INVALID_PLAYING_ID;
 				if (EventTracker.Event)
 				{
 					PlayingID = EventTracker.Event->PostOnComponent(AkComponent, nullptr, &FWwiseEventTracker::PostEventCallbackHandler, &EventTracker,
 						(AkCallbackType)(AK_EndOfEvent | AK_Duration), nullptr, AkComponent->StopWhenOwnerDestroyed);
-				}
-				else
-				{
-					const AkUInt32 ShortID = AudioDevice->GetShortID(EventTracker.Event, EventTracker.EventName);
-					PlayingID = AudioDevice->PostEventOnAkComponent(ShortID, AkComponent, 
-						AkCallbackType::AK_EndOfEvent | AkCallbackType::AK_Duration, 
-						&FWwiseEventTracker::PostEventCallbackHandler, &EventTracker);
 				}
 				if (LIKELY(PlayingID != AK_INVALID_PLAYING_ID))
 				{

@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -61,7 +61,6 @@ namespace AK
 			AkVariantType_bool,
 
 			AkVariantType_string,
-			AkVariantType_wstring,
 			AkVariantType_guid
 		};
 
@@ -92,7 +91,7 @@ namespace AK
 				CopyFrom(other);
 			}
 
-			inline AkVariantBase(AkVariantBase&& other)
+			inline AkVariantBase(AkVariantBase&& other) noexcept
 			{
 				Nullify();
 				CopyFrom(other);
@@ -128,17 +127,6 @@ namespace AK
 				m_eType = AkVariantType_guid;
 			}
 #endif
-
-			inline AkVariantBase(const wchar_t* in_val)
-			{
-				m_data = new std::wstring(in_val);
-				m_eType = AkVariantType_wstring;
-			}
-
-			inline AkVariantBase(const std::wstring& in_val)
-				: AkVariantBase(in_val.c_str())
-			{
-			}
 
 			inline AkVariantBase(const char* in_val)
 			{
@@ -185,22 +173,6 @@ namespace AK
 				return *this;
 			}
 
-			inline AkVariantBase& operator=(const wchar_t* in_val)
-			{
-				Clear();
-				m_data = new std::wstring(in_val);
-				m_eType = AkVariantType_wstring;
-				return *this;
-			}
-
-			inline AkVariantBase& operator=(const std::wstring& in_val)
-			{
-				Clear();
-				m_data = new std::wstring(in_val);
-				m_eType = AkVariantType_wstring;
-				return *this;
-			}
-
 			inline AkVariantBase& operator=(const char* in_val)
 			{
 				Clear();
@@ -229,17 +201,6 @@ namespace AK
 				return (m_eType == AkVariantType_guid);
 			}
 
-			inline bool IsWString() const
-			{
-				return (m_eType == AkVariantType_wstring);
-			}
-
-			inline const std::wstring& GetWString() const
-			{
-				AKASSERT(m_eType == AkVariantType_wstring && "AkVariant: illegal typecast");
-				return *static_cast<const std::wstring*>(m_data);
-			}
-			
 			const std::string& GetString() const
 			{
 				if (m_eType == AkVariantType_guid)
@@ -338,15 +299,17 @@ namespace AK
 				case AkVariantType_bool: return m_boolean == rhs.m_boolean;
 
 				case AkVariantType_string: return GetString().compare(rhs.GetString()) == 0;
-				case AkVariantType_wstring: return GetWString().compare(rhs.GetWString()) == 0;
-
 				case AkVariantType_guid: return GetGuid() == rhs.GetGuid();
-				default:
-					AKASSERT(false && "Trying to convert an AkVariant that doesn't contain a basic type");
+				case AkVariantType_none: return true; // Both variants are empty
+				default: return false; // Unknown type
 				}
 				return false;
 			}
 
+			inline bool operator!=(const AkVariantBase& rhs) const
+			{
+				return !(*this == rhs);
+			}
 
 			// Typecast ----------------------------------------------------------------------------
 
@@ -473,15 +436,6 @@ namespace AK
 
 				AKASSERT(false && "AkVariantBase: illegal typecast");
 				return AkGuid();
-			}
-
-			inline operator std::wstring() const
-			{
-				if(m_eType == AkVariantType_wstring )
-					return *static_cast<const std::wstring*>(m_data);
-
-				AKASSERT(false && "AkVariantBase: illegal typecast");
-				return std::wstring();
 			}
 
 			inline operator std::string() const
@@ -709,9 +663,6 @@ namespace AK
 				case AkVariantType_string:
 					delete static_cast<std::string*>(m_data);
 					break;
-				case AkVariantType_wstring:
-					delete static_cast<std::wstring*>(m_data);
-					break;
 				case AkVariantType_guid:
 					delete static_cast<AkGuid*>(m_data);
 					break;
@@ -759,9 +710,6 @@ namespace AK
 					break;
 				case AkVariantType_string:
 					m_data = new std::string(*static_cast<const std::string*>(in_var.m_data));
-					break;
-				case AkVariantType_wstring:
-					m_data = new std::wstring(*static_cast<const std::wstring*>(in_var.m_data));
 					break;
 				case AkVariantType_guid:
 					m_data = new AkGuid();
@@ -848,7 +796,7 @@ namespace AK
 			// Implicit interface supporting conversion to rapidjson. Does not require rapidjson dependencies
 			// if the function is not called.
 			template<typename RapidJsonValueType, typename RapidJsonAllocator, typename RapidJsonSizeType>
-			bool toRapidJsonValue(RapidJsonValueType out_rapidJson, RapidJsonAllocator in_allocator) const
+			bool toRapidJsonValue(RapidJsonValueType& out_rapidJson, RapidJsonAllocator& in_allocator) const
 			{
 				switch (m_eType)
 				{

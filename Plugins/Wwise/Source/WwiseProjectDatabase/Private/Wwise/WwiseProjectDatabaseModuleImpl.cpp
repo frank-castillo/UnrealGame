@@ -12,30 +12,21 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/WwiseProjectDatabaseModuleImpl.h"
+
+#include "Wwise/WwiseProjectDatabaseDelegates.h"
 #include "Wwise/WwiseProjectDatabaseImpl.h"
 #include "Wwise/Stats/ProjectDatabase.h"
+#include "WwiseUnrealHelper.h"
 
 IMPLEMENT_MODULE(FWwiseProjectDatabaseModule, WwiseProjectDatabase)
 
 FWwiseProjectDatabase* FWwiseProjectDatabaseModule::GetProjectDatabase()
 {
-	if(IsRunningCommandlet())
-	{
-		TArray<FString> Switches;
-		TArray<FString> Tokens;
-		FCommandLine::Parse(FCommandLine::Get(), Tokens, Switches);
-		for(auto& Token : Tokens)
-		{
-			if(Token.Contains(TEXT("-run=GenerateSoundBanks"), ESearchCase::IgnoreCase))
-			{
-				return nullptr;
-			}
-		}
-	}
+	SCOPED_WWISEPROJECTDATABASE_EVENT(TEXT("GetProjectDatabase"));
 	Lock.ReadLock();
 	if (LIKELY(ProjectDatabase))
 	{
@@ -61,6 +52,34 @@ FWwiseProjectDatabase* FWwiseProjectDatabaseModule::InstantiateProjectDatabase()
 	return new FWwiseProjectDatabaseImpl;
 }
 
+bool FWwiseProjectDatabaseModule::CanHaveDefaultInstance()
+{
+	if (IsRunningCommandlet())
+	{
+		if (WwiseUnrealHelper::GetSoundBankDirectory().IsEmpty())
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+FWwiseProjectDatabaseDelegates* FWwiseProjectDatabaseModule::GetProjectDatabaseDelegates()
+{
+	if (!ProjectDatabaseDelegates)
+	{
+		ProjectDatabaseDelegates = InstantiateProjectDatabaseDelegates();
+	}
+
+	return ProjectDatabaseDelegates;
+}
+
+FWwiseProjectDatabaseDelegates* FWwiseProjectDatabaseModule::InstantiateProjectDatabaseDelegates()
+{
+	SCOPED_WWISEPROJECTDATABASE_EVENT(TEXT("InstantiateProjectDatabaseDelegates"));
+	return new FWwiseProjectDatabaseDelegates;
+}
+
 void FWwiseProjectDatabaseModule::ShutdownModule()
 {
 	SCOPED_WWISEPROJECTDATABASE_EVENT(TEXT("ShutdownModule"));
@@ -71,5 +90,11 @@ void FWwiseProjectDatabaseModule::ShutdownModule()
 		ProjectDatabase.Reset();
 	}
 	Lock.WriteUnlock();
+
+	if (ProjectDatabaseDelegates)
+	{
+		delete ProjectDatabaseDelegates;
+	}
+
 	IWwiseProjectDatabaseModule::ShutdownModule();
 }

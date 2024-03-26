@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 // AkTypes.h
@@ -39,7 +39,9 @@ the specific language governing permissions and limitations under the License.
 	#include <wchar.h> // wchar_t not a built-in type in C
 #endif
 
-#define AK_WIN										///< Compiling for Windows
+#if !defined(AK_WIN )
+	#define AK_WIN										///< Compiling for Windows
+#endif
 
 #if defined _M_IX86
 	#define AK_CPU_X86								///< Compiling for 32-bit x86 CPU
@@ -56,14 +58,7 @@ the specific language governing permissions and limitations under the License.
 #ifdef WINAPI_FAMILY
 	#include <winapifamily.h>
 	#if !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
-		#define AK_USE_UWP_API
-		#define AK_USE_METRO_API // deprecated
-		#ifdef __cplusplus_winrt
-			#define AK_UWP_CPP_CX // To test for UWP code which uses Microsoft's C++/CX extended language (not all projects do)
-		#endif
-		#if WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_PC_APP)
-			#define AK_WIN_UNIVERSAL_APP
-		#endif
+#error "The current WINAPI_FAMILY_PARTITION is not supported."
 	#endif
 #endif
 
@@ -94,11 +89,7 @@ the specific language governing permissions and limitations under the License.
 #define AK_BUFFER_ALIGNMENT AK_SIMD_ALIGNMENT
 #define AK_XAUDIO2_FLAGS 0
 
-#ifdef AK_USE_UWP_API
-#define AK_WINRT_DEVICENOTIFICATION
-#else
 #define AK_DEVICE_CACHE_SUPPORT					///< Supports output device notifications & cache
-#endif
 
 #if defined AK_CPU_X86 || defined AK_CPU_X86_64 || defined AK_CPU_ARM_NEON
 #define AKSIMD_V4F32_SUPPORTED

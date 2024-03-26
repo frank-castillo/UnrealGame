@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -38,8 +38,10 @@ the specific language governing permissions and limitations under the License.
 #include <libkern/OSAtomic.h>
 #include <mach/task.h>
 #include <mach/mach_init.h>
-#include <mach/mach_time.h>
+#include <time.h>
 #include <wchar.h>
+
+#define AK_SEC_TO_NANOSEC 1000000000ULL
 
 namespace AKPLATFORM
 {
@@ -134,22 +136,17 @@ namespace AKPLATFORM
 	/// Platform Independent Helper
     inline void PerformanceCounter( AkInt64 * out_piLastTime )
 	{
-		*out_piLastTime = mach_absolute_time();
+		struct timespec clockNow;
+		clock_gettime(CLOCK_MONOTONIC, &clockNow);
+		//This give the wallclock time in NS
+		*out_piLastTime = clockNow.tv_sec*AK_SEC_TO_NANOSEC + clockNow.tv_nsec;
 	}
 
 	/// Platform Independent Helper
 	inline void PerformanceFrequency( AkInt64 * out_piFreq )
 	{
-		static mach_timebase_info_data_t    sTimebaseInfo;
-		mach_timebase_info(&sTimebaseInfo);
-		if ( sTimebaseInfo.numer !=0 )
-		{
-			*out_piFreq = AkInt64((1E9 * sTimebaseInfo.denom) / sTimebaseInfo.numer );
-		}
-		else
-		{
-			*out_piFreq = 0;
-		}
+		//Since Wall Clock is used, 1 NS is the frequency independent of the clock resolution
+		*out_piFreq = AK_SEC_TO_NANOSEC;
 	}
 
 

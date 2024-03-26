@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 // AkTypes.h
@@ -35,10 +35,21 @@ the specific language governing permissions and limitations under the License.
 
 #include <TargetConditionals.h>
 
-#define AK_APPLE								///< Compiling for an Apple platform
+#if !defined(AK_APPLE)
+	#define AK_APPLE								///< Compiling for an Apple platform
+#endif
 
-#if TARGET_OS_IPHONE || TARGET_OS_TV
-	#define AK_IOS								///< Compiling for iOS or tvOS (iPhone, iPad, iPod, Apple TV...)
+#if TARGET_OS_IPHONE || TARGET_OS_TV || (defined(TARGET_OS_VISION) && TARGET_OS_VISION)
+	#if !defined(AK_IOS)
+		#define AK_IOS								///< Compiling for iOS family (iPhone, iPad, iPod, Apple TV, Apple Vision...)
+	#endif
+	#if TARGET_OS_TV
+		#if !defined(AK_TVOS)
+			#define AK_TVOS
+		#endif
+	#elif (defined(TARGET_OS_VISION) && TARGET_OS_VISION)
+		#define AK_VISIONOS
+	#endif
 #elif !TARGET_OS_EMBEDDED
 	#define AK_MAC_OS_X							///< Compiling for Mac OS X
 #endif

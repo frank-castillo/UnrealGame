@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 /*=============================================================================
@@ -25,12 +25,17 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "AkLateReverbComponent.h"
 #include "AkRoomComponent.h"
 #include "AkSurfaceReflectorSetComponent.h"
+#include "AkAcousticPortal.h"
+#include "AkSettings.h"
+
+#include "WwiseUnrealDefines.h"
+#include "WwiseUnrealEngineHelper.h"
+#include "WwiseUnrealObjectHelper.h"
+
 #include "Components/BrushComponent.h"
 #include "Model.h"
 #include "Engine/BrushBuilder.h"
 
-#include "AkAcousticPortal.h"
-#include "AkSettings.h"
 
 // Geometric Tools
 #if WITH_EDITOR
@@ -124,7 +129,7 @@ ECollisionChannel AAkSpatialAudioVolume::GetCollisionChannel()
 
 void AAkSpatialAudioVolume::FitRaycast()
 {
-	UWorld* World = GEngine->GetWorldFromContextObjectChecked(this);
+	UWorld* World = GetWorld();
 	if (!World)
 		return;
 
@@ -159,7 +164,7 @@ void AAkSpatialAudioVolume::FitRaycast()
 
 		for (auto& res : OutHits)
 		{
-			AActor* HitActor = AkSpatialAudioHelper::GetActorFromHitResult(res);
+			AActor* HitActor = WwiseUnrealHelper::GetActorFromHitResult(res);
 			if (HitActor != nullptr)
 			{
 				UAkPortalComponent* PortalComponent = (UAkPortalComponent*)HitActor->FindComponentByClass(UAkPortalComponent::StaticClass());
@@ -233,7 +238,7 @@ void AAkSpatialAudioVolume::PostRebuildBrush()
 
 	if (SurfaceReflectorSet != nullptr)
 	{
-		SurfaceReflectorSet->UpdatePolys(true);
+		SurfaceReflectorSet->UpdatePolys();
 		SurfaceReflectorSet->UpdateSurfaceReflectorSet();
 	}
 
@@ -849,6 +854,14 @@ void AAkSpatialAudioVolume::PostEditChangeProperty(FPropertyChangedEvent& Proper
 			}
 
 			FitBox();
+		}
+
+		if (PropertyChangedEvent.Property->GetFName() == "ActorLabel")
+		{
+			if (Room != nullptr)
+			{
+				Room->OnParentNameChanged();
+			}
 		}
 	}
 }

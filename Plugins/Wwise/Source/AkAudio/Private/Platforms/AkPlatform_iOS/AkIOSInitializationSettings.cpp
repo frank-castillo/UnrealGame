@@ -12,12 +12,28 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Platforms/AkPlatform_iOS/AkIOSInitializationSettings.h"
 #include "AkAudioDevice.h"
+#include "WwiseDefines.h"
 #include "InitializationSettings/AkAudioSession.h"
+
+///////////////////////////////////////////////////////////////////////////
+// UAkIOSInitializationSettings
+
+void FAkIOSAdvancedInitializationSettings::FillInitializationStructure(FAkInitializationStructure& InitializationStructure) const
+{
+	Super::FillInitializationStructure(InitializationStructure);
+	
+#if PLATFORM_IOS && !PLATFORM_TVOS
+#if WWISE_2023_1_OR_LATER
+	InitializationStructure.PlatformInitSettings.uNumSpatialAudioPointSources = uNumSpatialAudioPointSources;
+	InitializationStructure.PlatformInitSettings.bVerboseSystemOutput = bVerboseSystemOutput;
+#endif
+#endif
+}
 
 //////////////////////////////////////////////////////////////////////////
 // UAkIOSInitializationSettings
@@ -32,8 +48,6 @@ UAkIOSInitializationSettings::UAkIOSInitializationSettings(const FObjectInitiali
 
 void UAkIOSInitializationSettings::FillInitializationStructure(FAkInitializationStructure& InitializationStructure) const
 {
-	InitializationStructure.SetupLLMAllocFunctions();
-
 	CommonSettings.FillInitializationStructure(InitializationStructure);
 	AudioSession.FillInitializationStructure(InitializationStructure);
 	CommunicationSettings.FillInitializationStructure(InitializationStructure);

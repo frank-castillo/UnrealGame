@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "AkAcousticTexture.h"
@@ -94,7 +94,7 @@ void UAkAcousticTexture::FillInfo()
 	const FWwiseRefAcousticTexture AcousticTextureRef = FWwiseDataStructureScopeLock(*ProjectDatabase).GetAcousticTexture(
 		GetValidatedInfo(AcousticTextureInfo));
 
-	if (AcousticTextureRef.AcousticTextureName().IsNone() || !AcousticTextureRef.AcousticTextureGuid().IsValid() || AcousticTextureRef.AcousticTextureId() == AK_INVALID_UNIQUE_ID)
+	if (AcousticTextureRef.AcousticTextureName().ToString().IsEmpty() || !AcousticTextureRef.AcousticTextureGuid().IsValid() || AcousticTextureRef.AcousticTextureId() == AK_INVALID_UNIQUE_ID)
 	{
 		UE_LOG(LogAkAudio, Warning, TEXT("UAkAcousticTexture::FillInfo: Valid object not found in Project Database"));
 		return;
@@ -108,7 +108,7 @@ void UAkAcousticTexture::FillInfo()
 void UAkAcousticTexture::GetAcousticTextureCookedData()
 {
 	SCOPED_AKAUDIO_EVENT_2(TEXT("GetAcousticTextureCookedData"));
-	if (IWwiseProjectDatabaseModule::IsInACookingCommandlet())
+	if (!IWwiseProjectDatabaseModule::ShouldInitializeProjectDatabase())
 	{
 		return;
 	}

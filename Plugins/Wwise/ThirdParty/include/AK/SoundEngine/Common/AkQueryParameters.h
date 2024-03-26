@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 // AkQueryParameters.h
@@ -126,7 +126,7 @@ namespace AK
 			/// \sa 
 			/// - \ref soundengine_listeners_settingpos
 			AK_EXTERNAPIFUNC( AKRESULT, GetListenerPosition )( 
-				AkGameObjectID in_uIndex, 						///< Listener index (0: first listener, 7: 8th listener)
+				AkGameObjectID in_uListenerID, 					///< Listener game object ID. 
 				AkListenerPosition& out_rPosition			///< Position set
 				);
 
@@ -136,7 +136,7 @@ namespace AK
 			/// - AK::SoundEngine::SetListenerSpatialization().
 			/// - \ref soundengine_listeners_spatial
 			AK_EXTERNAPIFUNC( AKRESULT, GetListenerSpatialization )(
-				AkUInt32 in_uIndex,							///< Listener index (0: first listener, 7: 8th listener)
+				AkGameObjectID in_uListenerID,				///< Listener game object ID. 
 				bool& out_rbSpatialized,					///< Spatialization enabled
 				AK::SpeakerVolumes::VectorPtr & out_pVolumeOffsets,	///< Per-speaker vector of volume offsets, in decibels. Use the functions of AK::SpeakerVolumes::Vector to interpret it.
 				AkChannelConfig &out_channelConfig			///< Channel configuration associated with out_rpVolumeOffsets. 
@@ -233,65 +233,71 @@ namespace AK
 				RTPCValue_type&	io_rValueType		///< In/Out value, the user must specify the requested type. The function will return in this variable the type of the returned value.				);
 				);
 
-			/// Get the state of a switch group (by IDs).
-			/// \return AK_Success if succeeded, or AK_IDNotFound if the game object was not registered
+			/// Get the current Switch value of the specified Switch Group, for a game object 
+			/// \return AK_Success if succeeded, or AK_IDNotFound if the game object was not registered or the Switch Group name cannot be found
 			/// \sa 
 			/// - \ref soundengine_switch
+			/// - \ref AK::SoundEngine::SetSwitch
 			AK_EXTERNAPIFUNC( AKRESULT, GetSwitch )( 
-				AkSwitchGroupID in_switchGroup, 			///< ID of the switch group
+				AkSwitchGroupID in_switchGroup, 			///< ID of the Switch Group
 				AkGameObjectID  in_gameObjectID,			///< Associated game object ID
-				AkSwitchStateID& out_rSwitchState 			///< ID of the switch
+				AkSwitchStateID& out_rSwitchState 			///< ID of the Switch
 				);
 
 #ifdef AK_SUPPORT_WCHAR
-			/// Get the state of a switch group.
-			/// \return AK_Success if succeeded, or AK_IDNotFound if the game object was not registered or the switch group name can not be found
+			/// Get the current Switch value of the specified Switch Group, for a game object 
+			/// \return AK_Success if succeeded, or AK_IDNotFound if the game object was not registered or the Switch Group name cannot be found
 			/// \sa 
 			/// - \ref soundengine_switch
+			/// - \ref AK::SoundEngine::SetSwitch
 			AK_EXTERNAPIFUNC( AKRESULT, GetSwitch )( 
-				const wchar_t* in_pstrSwitchGroupName,			///< String name of the switch group
+				const wchar_t* in_pstrSwitchGroupName,		///< String name of the Switch Group
 				AkGameObjectID in_GameObj,					///< Associated game object ID
-				AkSwitchStateID& out_rSwitchState			///< ID of the switch
+				AkSwitchStateID& out_rSwitchState			///< ID of the Switch
 				);
 #endif //AK_SUPPORT_WCHAR
 
-			/// Get the state of a switch group.
-			/// \return AK_Success if succeeded, or AK_IDNotFound if the game object was not registered or the switch group name can not be found
+			/// Get the current Switch value of the specified Switch Group, for a game object 
+			/// \return AK_Success if succeeded, or AK_IDNotFound if the game object was not registered or the Switch Group name cannot be found
 			/// \sa 
 			/// - \ref soundengine_switch
+			/// - \ref AK::SoundEngine::SetSwitch
 			AK_EXTERNAPIFUNC( AKRESULT, GetSwitch )( 
-				const char* in_pstrSwitchGroupName,			///< String name of the switch group
+				const char* in_pstrSwitchGroupName,			///< String name of the Switch Group
 				AkGameObjectID in_GameObj,					///< Associated game object ID
-				AkSwitchStateID& out_rSwitchState			///< ID of the switch
+				AkSwitchStateID& out_rSwitchState			///< ID of the Switch
 				);
 
-			/// Get the state of a state group (by IDs).
+			/// Get the current State value active in the specified State Group.
 			/// \return AK_Success if succeeded
 			/// \sa 
 			/// - \ref soundengine_states
+			/// - \ref AK::SoundEngine::SetState
 			AK_EXTERNAPIFUNC( AKRESULT, GetState )( 
-				AkStateGroupID in_stateGroup, 				///< ID of the state group
+				AkStateGroupID in_stateGroup, 				///< ID of the State Group
 				AkStateID& out_rState 						///< ID of the state
 				);
 
 #ifdef AK_SUPPORT_WCHAR
-			/// Get the state of a state group.
-			/// \return AK_Success if succeeded, or AK_IDNotFound if the state group name can not be found
+			/// Get the current State value active in the specified State Group.
+			/// \return AK_Success if succeeded
 			/// \sa 
 			/// - \ref soundengine_states
+			/// - \ref AK::SoundEngine::SetState
 			AK_EXTERNAPIFUNC( AKRESULT, GetState )( 
-				const wchar_t* in_pstrStateGroupName,			///< String name of the state group
-				AkStateID& out_rState						///< ID of the state
+				const wchar_t* in_pstrStateGroupName,		///< String name of the State Group
+				AkStateID& out_rState						///< ID of the State
 				);
 #endif //AK_SUPPORT_WCHAR
 
-			/// Get the state of a state group.
-			/// \return AK_Success if succeeded, or AK_IDNotFound if the state group name can not be found
+			/// Get the current State value active in the specified State Group.
+			/// \return AK_Success if succeeded
 			/// \sa 
 			/// - \ref soundengine_states
+			/// - \ref AK::SoundEngine::SetState
 			AK_EXTERNAPIFUNC( AKRESULT, GetState )( 
-				const char* in_pstrStateGroupName,			    ///< String name of the state group
-				AkStateID& out_rState						///< ID of the state
+				const char* in_pstrStateGroupName,			///< String name of the State Group
+				AkStateID& out_rState						///< ID of the State
 				);
 
 			//@}
@@ -301,13 +307,11 @@ namespace AK
 			//@{
 
 			/// Get the environmental ratios used by the specified game object.
-			/// To clear the game object's environments, in_uNumEnvValues must be 0.
 			/// \sa 
 			/// - \ref soundengine_environments
 			/// - \ref soundengine_environments_dynamic_aux_bus_routing
 			/// - \ref soundengine_environments_id_vs_string
-			/// \return AK_Success if succeeded, or AK_InvalidParameter if io_ruNumEnvValues is 0 or out_paEnvironmentValues is NULL, or AK_PartialSuccess if more environments exist than io_ruNumEnvValues
-			/// AK_InvalidParameter
+			/// \return AK_Success if succeeded, or AK_InvalidParameter if io_ruNumSendValues is 0 or out_paEnvironmentValues is NULL, or AK_PartialSuccess if more environments exist than io_ruNumSendValues
 			AK_EXTERNAPIFUNC( AKRESULT, GetGameObjectAuxSendValues )( 
 				AkGameObjectID		in_gameObjectID,		///< Associated game object ID
 				AkAuxSendValue*		out_paAuxSendValues,	///< Variable-size array of AkAuxSendValue structures

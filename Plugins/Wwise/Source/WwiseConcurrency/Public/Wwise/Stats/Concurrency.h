@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -41,3 +41,5 @@ WWISECONCURRENCY_API DECLARE_LOG_CATEGORY_EXTERN(LogWwiseConcurrency, Log, All);
 #define SCOPED_WWISECONCURRENCY_EVENT_4(Text) SCOPED_WWISE_NAMED_EVENT_4(TEXT("WwiseConcurrency"), Text)
 #define SCOPED_WWISECONCURRENCY_EVENT_F(Format, ...) SCOPED_WWISE_NAMED_EVENT_F(TEXT("WwiseConcurrency"), Format, __VA_ARGS__)
 #define SCOPED_WWISECONCURRENCY_EVENT_F_4(Format, ...) SCOPED_WWISE_NAMED_EVENT_F_4(TEXT("WwiseConcurrency"), Format, __VA_ARGS__)
+
+#define WWISECONCURRENCY_ASYNC_NAME(Text) TEXT("WwiseConcurrency ") TEXT(Text)

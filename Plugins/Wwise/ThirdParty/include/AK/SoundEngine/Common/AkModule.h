@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 /// \file
@@ -135,6 +135,20 @@ typedef void ( *AkMemFreeVM ) (
 	size_t release
 	);
 
+enum AkSpanCount
+{
+	// Span count attempts to be as low as possible. Offers lowest memory usage, but reduces CPU performance due to increased calls to pfAllocVM and other memory allocation hooks.
+	AkSpanCount_Small = 0,
+
+	// Span count attempts to match 512KiB mappings. Offers moderate balance between memory and CPU usage.
+	AkSpanCount_Medium,
+
+	// Span count attempts to match 2MiB, or AK_VM_HUGE_PAGE_SIZE, mappings. Offers best overall CPU performance due to use of 2MiB page mappings, but increased memory usage.
+	AkSpanCount_Huge,
+
+	AkSpanCount_END,
+};
+
 /// Initialization settings for the default implementation of the Memory Manager. For more details, see \ref memorymanager_init.
 /// \sa AK::MemoryMgr
 struct AkMemSettings
@@ -143,7 +157,7 @@ struct AkMemSettings
 	//@{
 	AkMemInitForThread				pfInitForThread;				///< (Optional) Thread-specific allocator initialization hook.
 	AkMemTermForThread				pfTermForThread;				///< (Optional) Thread-specific allocator termination hook.
-	//AkMemTrimForThread				pfTrimForThread;			///< (Optional) Thread-specific allocator "trimming" hook. Used to relinquish memory resources when threads enter a period of inactivity.
+	AkMemTrimForThread				pfTrimForThread;				///< (Optional) Thread-specific allocator "trimming" hook. Used to relinquish memory resources when threads enter a period of inactivity.
 	AkMemMalloc						pfMalloc;						///< (Optional) Memory allocation hook.
 	AkMemMalign						pfMalign;						///< (Optional) Memory allocation hook.
 	AkMemRealloc					pfRealloc;						///< (Optional) Memory allocation hook.
@@ -156,7 +170,8 @@ struct AkMemSettings
 	/// @name Configuration.
 	//@{
 	AkUInt64						uMemAllocationSizeLimit;		///< When non-zero, limits the total amount of virtual and device memory allocated by AK::MemoryMgr.
-	bool							bUseDeviceMemAlways;			///< Use device memory for all allocations (on applicable platforms).
+	bool							bEnableSeparateDeviceHeap;		///< Enable use of device memory heap for all allocations (on applicable platforms).
+	AK::TempAlloc::InitSettings		tempAllocSettings[AK::TempAlloc::Type_NUM]; ///< Configuration of behavior for the temporary-memory pools. For more information, see \ref goingfurther_optimizingmempools_tempallocs.
 	//@}
 
 	/// @name Page allocation hooks, used by rpmalloc. Default to AKPLATFORM::AllocVM et al.
@@ -167,6 +182,9 @@ struct AkMemSettings
 	AkMemFreeVM						pfFreeDevice;					///< Device page allocation hook.
 	AkUInt32						uVMPageSize;					///< Virtual memory page size. Defaults to 0 which means auto-detect.
 	AkUInt32						uDevicePageSize;				///< Device memory page size. Defaults to 0 which means auto-detect.
+	//AkSpanCount					uVMSpanCount;					///< Virtual memory span count for each map operation in rpmalloc. Defaults to AkSpanCount_Huge. For more information, refer to \ref goingfurther_optimizingmempools_spancount.
+	//AkSpanCount					uDeviceSpanCount;				///< Device memory span count for each map operation in rpmalloc. Defaults to AkSpanCount_Huge. For more information, refer to \ref goingfurther_optimizingmempools_spancount.
+	AkUInt32						uMaxThreadLocalHeapAllocSize;	///< All memory allocations of sizes larger than this value will go to a global heap shared across all threads. Defaults to 0 which means all allocations go to a global heap. 
 	//@}
 
 	/// @name Memory allocation debugging.
@@ -179,8 +197,10 @@ struct AkMemSettings
 	AkUInt32						uMemoryDebugLevel;				///< Default 0 disabled. 1 debug enabled. 2 stomp allocator enabled. 3 stomp allocator and debug enabled. User implementations may use multiple non-zero values to offer different features.
 	//@}
 
-	// Moved to end-of-struct to maintain stability across 2022.1 modules.
-	AkMemTrimForThread				pfTrimForThread;				///< (Optional) Thread-specific allocator "trimming" hook.
+	// Moved to end-of-struct to maintain stability across 2023.1 modules.
+	AkSpanCount						uVMSpanCount;					///< Virtual memory span count for each map operation in rpmalloc. Defaults to AkSpanCount_Huge. For more information, refer to \ref goingfurther_optimizingmempools_spancount.
+	AkSpanCount						uDeviceSpanCount;				///< Device memory span count for each map operation in rpmalloc. Defaults to AkSpanCount_Huge. For more information, refer to \ref goingfurther_optimizingmempools_spancount.
+
 };
 //@}
 

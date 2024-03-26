@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -42,6 +42,15 @@ the specific language governing permissions and limitations under the License.
 namespace AKPLATFORM
 {
 	/// Platform Independent Helper
+	inline void PerformanceCounter( AkInt64 * out_piLastTime )
+	{
+		struct timespec clockNow;
+		clock_gettime(CLOCK_MONOTONIC, &clockNow);
+		//This give the wallclock time in NS
+		*out_piLastTime = clockNow.tv_sec*AK_SEC_TO_NANOSEC + clockNow.tv_nsec;
+	}
+	
+	/// Platform Independent Helper
 	inline void PerformanceFrequency( AkInt64 * out_piFreq )
 	{
 		//Since Wall Clock is used, 1 NS is the frequency independent of the clock resolution
@@ -50,10 +59,6 @@ namespace AKPLATFORM
 }
 
 #include <AK/Tools/POSIX/AkPlatformFuncs.h>
-
-#if (defined AK_LUMIN) && !(defined AK_OPTIMIZED)
-#include <ml_logging.h>
-#endif
 
 /// Stack allocations.
 #define AkAlloca( _size_ ) __builtin_alloca( _size_ )
@@ -67,55 +72,6 @@ namespace AKPLATFORM
 
 	template <int MaxSize = 0> // Unused
 	inline void OutputDebugMsgV( const char* in_pszFmt, ... ) {}
-#elif defined(AK_LUMIN)
-	inline void OutputDebugMsg( const char* in_pszMsg )
-	{
-		// To see output of this (mldb on lumin)
-		// mldb logcat ActivityManager:I YourApplication:D AKDEBUG:D *:S
-		ML_LOG_TAG(Info, "AKDEBUG", "%s", in_pszMsg);
-	}
-
-	/// Output a debug message on the console (variadic function).
-	template <int MaxSize = 256>
-	inline void OutputDebugMsgV( const char* in_pszFmt, ... )
-	{
-		// magic leap doesn't have a log that takes a va_list
-
-		int size = 0;
-		{
-			// Try with a reasonable guess first
-			char msg[MaxSize];
-			msg[MaxSize - 1] = '\0';
-
-			va_list args;
-			va_start(args, in_pszFmt);
-			size = vsnprintf(msg, MaxSize, in_pszFmt, args);
-			va_end(args);
-
-			// If it was enough, print to debug log
-			if (0 <= size && size <= MaxSize)
-			{
-				ML_LOG_TAG(Info, "AKDEBUG", in_pszFmt, args);
-				return;
-			}
-		}
-
-		// Else, we need more memory to prevent truncation
-		{
-			// size + 1 more char for the last '\0'
-			size++;
-
-			char* msg = (char*)AkAlloca((size) * sizeof(char));
-			msg[size - 1] = '\0';
-
-			va_list args;
-			va_start(args, in_pszFmt);
-			vsnprintf(msg, size, in_pszFmt, args);
-			va_end(args);
-
-			ML_LOG_TAG(Info, "AKDEBUG", in_pszFmt, args);
-		}
-	}
 #else // AK_ANDROID
 	inline void OutputDebugMsg( const char* in_pszMsg )
 	{
@@ -134,19 +90,6 @@ namespace AKPLATFORM
 		va_end(args);
 	}
 #endif
-
-	// Time functions
-	// ------------------------------------------------------------------
-
-	/// Platform Independent Helper
-	inline void PerformanceCounter( AkInt64 * out_piLastTime )
-	{
-		struct timespec clockNow;
-		clock_gettime(CLOCK_MONOTONIC, &clockNow);
-		//This give the wallclock time in NS
-		*out_piLastTime = clockNow.tv_sec*AK_SEC_TO_NANOSEC + clockNow.tv_nsec;
-	}
-	
 
 	template<class destType, class srcType>
 	inline size_t AkSimpleConvertString( destType* in_pdDest, const srcType* in_pSrc, size_t in_MaxSize, size_t destStrLen(const destType *),  size_t srcStrLen(const srcType *) )

@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 using UnrealBuildTool;
@@ -47,6 +47,7 @@ public struct WwiseSoundEngine_2022_1
 #if UE_5_3_OR_LATER
 		ILogger Logger = Target.Logger;
 #endif
+		var TargetAkLibs = new List<string>(AkLibs);
 		var VersionNumber = "2022_1";
 		var ModuleName = "WwiseSoundEngine_" + VersionNumber;
 		var ModuleDirectory = Path.Combine(SE.ModuleDirectory, "../" + ModuleName);
@@ -55,15 +56,6 @@ public struct WwiseSoundEngine_2022_1
 		{
 			// We are skipping this version since this Wwise Sound Engine is for a particular version only.
 			return;
-		}
-
-		if (!Latest)
-		{
-#if UE_5_3_OR_LATER
-			Logger.LogInformation("Using Wwise SoundEngine {VersionNumber} interface", VersionNumber);
-#else
-			Log.TraceInformation("Using Wwise SoundEngine {0} interface", VersionNumber);
-#endif
 		}
 
 		SE.PublicDefinitions.AddRange(WwiseSoundEngineVersion.GetVersionDefinesFromClassName(ModuleName));
@@ -78,6 +70,15 @@ public struct WwiseSoundEngine_2022_1
 		SE.PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		SE.bAllowConfidentialPlatformDefines = true;
 
+		if (!Latest)
+		{
+#if UE_5_3_OR_LATER
+			Logger.LogInformation("Using Wwise SoundEngine {VersionNumber} [{ConfigurationDir}]", VersionNumber, WwiseUEPlatformInstance.WwiseConfigurationDir);
+#else
+			Log.TraceInformation("Using Wwise SoundEngine {0} [{1}]", VersionNumber, WwiseUEPlatformInstance.WwiseConfigurationDir);
+#endif
+		}
+		
 		var IsWwiseTargetSupported = WwiseUEPlatformInstance.IsWwiseTargetSupported();
 		SE.AddSoundEngineDirectory("WwiseSoundEngine_" + VersionNumber, IsWwiseTargetSupported);
 		SE.AddVersionHeaders("WwiseSoundEngine_" + VersionNumber, IsWwiseTargetSupported);
@@ -99,7 +100,7 @@ public struct WwiseSoundEngine_2022_1
 
 		SE.PublicDefinitions.Add("AK_UNREAL_MAX_CONCURRENT_IO=32");
 		SE.PublicDefinitions.Add("AK_UNREAL_IO_GRANULARITY=32768");
-		if (Target.Configuration == UnrealTargetConfiguration.Shipping)
+		if (Target.Configuration == UnrealTargetConfiguration.Shipping || Target.Configuration == UnrealTargetConfiguration.Test || !IsWwiseTargetSupported)
 		{
 			SE.PublicDefinitions.Add("AK_OPTIMIZED");
 		}
@@ -108,9 +109,9 @@ public struct WwiseSoundEngine_2022_1
 			SE.PublicDefinitions.Add("AK_ENABLE_ASSERTS");
 		}
 
-		if (Target.Configuration != UnrealTargetConfiguration.Shipping && WwiseUEPlatformInstance.SupportsCommunication)
+		if (Target.Configuration != UnrealTargetConfiguration.Shipping && Target.Configuration != UnrealTargetConfiguration.Test && WwiseUEPlatformInstance.SupportsCommunication)
 		{
-			AkLibs.Add("CommunicationCentral");
+			TargetAkLibs.Add("CommunicationCentral");
 			SE.PublicDefinitions.Add("AK_ENABLE_COMMUNICATION=1");
 		}
 		else
@@ -120,17 +121,17 @@ public struct WwiseSoundEngine_2022_1
 
 		if (WwiseUEPlatformInstance.SupportsAkAutobahn)
 		{
-			AkLibs.Add("AkAutobahn");
+			TargetAkLibs.Add("AkAutobahn");
 			SE.PublicDefinitions.Add("AK_SUPPORT_WAAPI=1");
 		}
 		else
 		{
 			SE.PublicDefinitions.Add("AK_SUPPORT_WAAPI=0");
 		}
-
+		
 		if (WwiseUEPlatformInstance.SupportsOpus)
 		{
-			AkLibs.Add("AkOpusDecoder");
+			TargetAkLibs.Add("AkOpusDecoder");
 			SE.PublicDefinitions.Add("AK_SUPPORT_OPUS=1");
 		}
 		else
@@ -149,12 +150,13 @@ public struct WwiseSoundEngine_2022_1
 
 		// Platform-specific dependencies
 		SE.PublicDefinitions.AddRange(WwiseUEPlatformInstance.GetPublicDefinitions());
-		SE.PublicDefinitions.Add(string.Format("AK_CONFIGURATION=\"{0}\"", WwiseUEPlatformInstance.AkConfigurationDir));
+		SE.PublicDefinitions.Add(string.Format("WWISE_CONFIGURATION_DIR=\"{0}\"", WwiseUEPlatformInstance.WwiseConfigurationDir));
+		SE.PublicDefinitions.Add(string.Format("WWISE_DSP_DIR=\"{0}\"", WwiseUEPlatformInstance.WwiseDspDir));
 
         if (IsWwiseTargetSupported)
         {
             SE.PublicSystemLibraries.AddRange(WwiseUEPlatformInstance.GetPublicSystemLibraries());
-            AkLibs.AddRange(WwiseUEPlatformInstance.GetAdditionalWwiseLibs());
+            TargetAkLibs.AddRange(WwiseUEPlatformInstance.GetAdditionalWwiseLibs());
             var AdditionalProperty = WwiseUEPlatformInstance.GetAdditionalPropertyForReceipt(ModuleDirectory);
             if (AdditionalProperty != null)
             {
@@ -169,7 +171,7 @@ public struct WwiseSoundEngine_2022_1
                 SE.RuntimeDependencies.Add(RuntimeDependency);
             }
 
-            SE.PublicAdditionalLibraries.AddRange(WwiseUEPlatformInstance.GetSanitizedAkLibList(AkLibs));
+            SE.PublicAdditionalLibraries.AddRange(WwiseUEPlatformInstance.GetSanitizedAkLibList(TargetAkLibs));
         }
     }
 

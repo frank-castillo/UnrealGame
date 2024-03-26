@@ -1,5 +1,5 @@
 {
-	"BuildId": "23058290",
+	"BuildId": "27405482",
 	"Modules": 
 	{
 		"AkAudio": "UnrealEditor-AkAudio.dylib",
@@ -7,12 +7,17 @@
 		"AudiokineticTools": "UnrealEditor-AudiokineticTools.dylib",
 		"Wwise": "UnrealEditor-Wwise.dylib",
 		"WwiseConcurrency": "UnrealEditor-WwiseConcurrency.dylib",
+		"WwiseEngineUtils": "UnrealEditor-WwiseEngineUtils.dylib",
 		"WwiseFileHandler": "UnrealEditor-WwiseFileHandler.dylib",
+		"WwiseObjectUtils": "UnrealEditor-WwiseObjectUtils.dylib",
+		"WwiseObstructionOcclusion": "UnrealEditor-WwiseObstructionOcclusion.dylib",
+		"WwiseProcessing": "UnrealEditor-WwiseProcessing.dylib",
 		"WwiseProjectDatabase": "UnrealEditor-WwiseProjectDatabase.dylib",
 		"WwiseReconcile": "UnrealEditor-WwiseReconcile.dylib",
 		"WwiseResourceCooker": "UnrealEditor-WwiseResourceCooker.dylib",
 		"WwiseResourceLoader": "UnrealEditor-WwiseResourceLoader.dylib",
 		"WwiseSimpleExternalSource": "UnrealEditor-WwiseSimpleExternalSource.dylib",
-		"WwiseSoundEngine": "UnrealEditor-WwiseSoundEngine.dylib"
+		"WwiseSoundEngine": "UnrealEditor-WwiseSoundEngine.dylib",
+		"WwiseUtils": "UnrealEditor-WwiseUtils.dylib"
 	}
 }

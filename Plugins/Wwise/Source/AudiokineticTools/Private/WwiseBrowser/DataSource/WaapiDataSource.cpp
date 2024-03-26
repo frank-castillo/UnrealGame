@@ -12,10 +12,12 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "WaapiDataSource.h"
+
+#include <Wwise/Stats/AudiokineticTools.h>
 
 #include "AkSettings.h"
 #include "AkSettingsPerUser.h"
@@ -88,6 +90,8 @@ bool FWaapiDataSource::TearDown()
 
 void FWaapiDataSource::ConstructTree(bool bShouldRefresh)
 {
+	SCOPED_AUDIOKINETICTOOLS_EVENT_2(TEXT("FWaapiDataSource::ConstructTree"))
+
 	if (IsProjectLoaded() != EWwiseConnectionStatus::Connected)
 	{
 		UE_LOG(LogAudiokineticTools, Log, TEXT("Failed to construct Waapi Tree. The Wwise project is not connected."));
@@ -421,12 +425,14 @@ FString FWaapiDataSource::GetItemWorkUnitPath(FWwiseTreeItemPtr InItem)
 		UE_LOG(LogAudiokineticTools, Log, TEXT("Call Failed to get %s's Work Unit Path"), *InItem->DisplayName);
 		return {};
 	}
-#endif
 
 	FString Path = outJsonResult->GetArrayField(WwiseWaapiHelper::RETURN)[0]->AsObject()->GetStringField(
 		WwiseWaapiHelper::FILEPATH);
 
 	return Path;
+#else
+	return {};
+#endif
 }
 
 FWwiseTreeItemPtr FWaapiDataSource::GetRootItem(EWwiseItemType::Type RootType)
@@ -582,6 +588,7 @@ void FWaapiDataSource::Tick(const double InCurrentTime, const float InDeltaTime)
 
 int32 FWaapiDataSource::LoadChildren(const FGuid& InParentId, const FString& InParentPath, TArray<FWwiseTreeItemPtr>& OutChildren)
 {
+
 	UE_LOG(LogAudiokineticTools, VeryVerbose, TEXT("Loading Children for Waapi item %s, id: %s"), *InParentPath, *InParentId.ToString())
 
 	FString InFromField;
@@ -603,7 +610,7 @@ int32 FWaapiDataSource::LoadChildren(const FGuid& InParentId, const FString& InP
 
 	TSharedPtr<FJsonObject> Result;
 
-	// Request data from Wwise UI using WAAPI and use them to create a Wwise tree item, getting the informations from a specific "ID".
+	// Request data from Wwise UI using WAAPI and use them to create a Wwise tree item, getting the information from a specific "ID".
 	if (!LoadWaapiInfo(WwiseWaapiHelper::PATH, InParentPath, Result,
 		{
 			{ WwiseWaapiHelper::SELECT , { WwiseWaapiHelper::DESCENDANTS }, {} },
@@ -649,6 +656,8 @@ int32 FWaapiDataSource::LoadChildren(const FGuid& InParentId, const FString& InP
 
 int32 FWaapiDataSource::LoadChildren(FWwiseTreeItemPtr ParentTreeItem)
 {
+	SCOPED_AUDIOKINETICTOOLS_EVENT_2(TEXT("FWaapiDataSource::LoadChildren"))
+
 	if (!ParentTreeItem)
 	{
 		return 0;
@@ -708,9 +717,8 @@ FString FWaapiDataSource::LoadProjectName()
 			return {};
 		}
 	}
-
-	return {};
 #endif
+	return {};
 }
 
 void FWaapiDataSource::HandleFindWwiseItemInProjectExplorerCommandExecute(
@@ -817,6 +825,32 @@ void FWaapiDataSource::OnWaapiRenamed(uint64_t Id, TSharedPtr<FJsonObject> Respo
 	FString OldPath(ObjectPath);
 	OldPath.RemoveFromEnd(WwiseWaapiHelper::BACK_SLASH + NewName);
 	auto TreeItem = FindItemFromPath(OldPath);
+
+	FString ItemIdString;
+	if(ObjectJsonPtr->Get()->TryGetStringField(WwiseWaapiHelper::ID, ItemIdString))
+	{
+		FGuid ItemId = FGuid::NewGuid();
+		FGuid::ParseExact(ItemIdString, EGuidFormats::DigitsWithHyphensInBraces, ItemId);
+		if(ItemsToCreate.Contains(ItemId))
+		{
+			ItemsToCreate.Remove(ItemId);
+			if (TreeItem)
+			{
+				auto ChildItem = ConstructWwiseTreeItem(*ObjectJsonPtr);
+				if (ChildItem)
+				{
+					TreeItem->AddChild(ChildItem);
+					if(ChildItem->IsFolder())
+					{
+						NodesByPath.Add(ChildItem->FolderPath, ChildItem);
+					}
+				}
+				WaapiDataSourceRefreshed.ExecuteIfBound();
+				return;
+			}
+		}
+	}
+
 	OldPath += WwiseWaapiHelper::BACK_SLASH + OldName;
 	NodesByPath.Remove(OldPath);
 	if(TreeItem)
@@ -868,6 +902,23 @@ void FWaapiDataSource::OnWaapiChildAdded(uint64_t Id, TSharedPtr<FJsonObject> Re
 
 	if (!ParentJsonPtr->Get()->TryGetStringField(WwiseWaapiHelper::PATH, TreeItemParentPath))
 	{
+		return;
+	}
+
+	FString TreeItemParentName;
+
+	if (!ParentJsonPtr->Get()->TryGetStringField(WwiseWaapiHelper::NAME, TreeItemParentName))
+	{
+		return;
+	}
+
+	//The Item was copy pasted. Add it to the list to be created with the rename callback
+	if(TreeItemParentPath == TreeItemParentName)
+	{
+		FString ItemIdString = ChildJsonPtr->Get()->GetStringField(WwiseWaapiHelper::ID);
+		FGuid ItemId = FGuid::NewGuid();
+		FGuid::ParseExact(ItemIdString, EGuidFormats::DigitsWithHyphensInBraces, ItemId);
+		ItemsToCreate.Add(ItemId);
 		return;
 	}
 
@@ -1054,7 +1105,7 @@ void FWaapiDataSource::SelectInProjectExplorer(TArray<FWwiseTreeItemPtr>& InTree
 	TSharedRef<FJsonObject> Args = MakeShared<FJsonObject>();
 	Args->SetStringField(WwiseWaapiHelper::COMMAND, WwiseWaapiHelper::FIND_IN_PROJECT_EXPLORER);
 	TArray<TSharedPtr<FJsonValue>> SelectedObjects;
-	for (const auto TreeItem : InTreeItems)
+	for (const auto& TreeItem : InTreeItems)
 	{
 		SelectedObjects.Add(MakeShared<FJsonValueString>(TreeItem->ItemId.ToString(EGuidFormats::DigitsWithHyphensInBraces)));
 	}
@@ -1073,6 +1124,8 @@ void FWaapiDataSource::SelectInProjectExplorer(TArray<FWwiseTreeItemPtr>& InTree
 
 bool FWaapiDataSource::CallWaapiGetInfoFrom(const FString& inFromField, const FString& inFromString, TSharedPtr<FJsonObject>& outJsonResult, const TArray<TransformStringField>& TransformFields)
 {
+	SCOPED_AUDIOKINETICTOOLS_EVENT_3(TEXT("FWaapiDataSource::CallWaapiGetInfoFrom"))
+	
 	auto waapiClient = FAkWaapiClient::Get();
 	if (!waapiClient)
 	{

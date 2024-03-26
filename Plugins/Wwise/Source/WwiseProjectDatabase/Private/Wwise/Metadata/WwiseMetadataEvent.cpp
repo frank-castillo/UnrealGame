@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/Metadata/WwiseMetadataEvent.h"
@@ -22,7 +22,7 @@ Copyright (c) 2023 Audiokinetic Inc.
 
 FWwiseMetadataEventReference::FWwiseMetadataEventReference(FWwiseMetadataLoader& Loader) :
 	FWwiseMetadataBasicReference(Loader),
-	MaxAttenuation(Loader.GetUint32(this, TEXT("MaxAttenuation"), EWwiseRequiredMetadata::Optional)),
+	MaxAttenuation(Loader.GetFloat(this, TEXT("MaxAttenuation"), EWwiseRequiredMetadata::Optional)),
 	DurationType(DurationTypeFromString(Loader.GetString(this, TEXT("DurationType")))),
 	DurationMin(Loader.GetFloat(this, TEXT("DurationMin"), EWwiseRequiredMetadata::Optional)),
 	DurationMax(Loader.GetFloat(this, TEXT("DurationMax"), EWwiseRequiredMetadata::Optional))
@@ -62,7 +62,8 @@ FWwiseMetadataEvent::FWwiseMetadataEvent(FWwiseMetadataLoader& Loader) :
 	ActionPostEvent(Loader.GetArray<FWwiseMetadataActionPostEventEntry>(this, TEXT("ActionPostEvent"))),
 	ActionSetState(Loader.GetArray<FWwiseMetadataActionSetStateEntry>(this, TEXT("ActionSetState"))),
 	ActionSetSwitch(Loader.GetArray<FWwiseMetadataActionSetSwitchEntry>(this, TEXT("ActionSetSwitch"))),
-	ActionTrigger(Loader.GetArray<FWwiseMetadataActionTriggerEntry>(this, TEXT("ActionTrigger")))
+	ActionTrigger(Loader.GetArray<FWwiseMetadataActionTriggerEntry>(this, TEXT("ActionTrigger"))),
+	ActionSetFX(Loader.GetArray<FWwiseMetadataActionSetFXEntry>(this, TEXT("ActionSetFX")))
 {
 	Loader.LogParsed(TEXT("Event"), Id, Name);
 }
@@ -74,6 +75,7 @@ bool FWwiseMetadataEvent::IsMandatory() const
 		|| (ActionSetState.Num() > 0)
 		|| (ActionSetSwitch.Num() > 0)
 		|| (ActionTrigger.Num() > 0)
+		|| (ActionSetFX.Num() > 0)
 		|| (AuxBusRefs.Num() > 0)
 		|| (ExternalSourceRefs.Num() > 0)
 		|| (MediaRefs.Num() > 0)

@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #ifndef _AKMONITORERROR_H
@@ -355,6 +355,28 @@ namespace AK
 			ErrorCode_IODeviceInitFailed,
 			ErrorCode_SwitchListEmpty,
 			ErrorCode_NoSwitchSelected,
+			ErrorCode_FilePermissionError,
+
+			ErrorCode_SetEffectOnRendered,
+			ErrorCode_GeometryNotWatertight,
+			
+			ErrorCode_CannotInitialize3DAudio,
+			ErrorCode_CannotInitializeInputCallbacks,
+			ErrorCode_CannotConnectAVAudioEngineSource,
+			
+			ErrorCode_ChannelConfigRequestDenied,
+			ErrorCode_MediaUpdatedFromWwise,
+			ErrorCode_MediaErrorFromWwise,
+			ErrorCode_OutputAlreadyExists,
+			ErrorCode_UnknownStateGroup,
+			ErrorCode_MediaErrorWwiseMRUFull,
+			ErrorCode_AudioOut2ContextCreateError,
+			ErrorCode_AudioOut2UserCreateError,
+
+			ErrorCode_FeedbackOnAudioObjectsBus,
+			ErrorCode_AssetSwapEnabled,
+			
+			ErrorCode_SpatialAudio_SiblingPortal,
 
 			// ALWAYS ADD NEW CODES AT THE END !!!!!!!
 			// Otherwise it may break comm compatibility in a patch
@@ -362,7 +384,7 @@ namespace AK
 			Num_ErrorCodes // THIS STAYS AT END OF ENUM
 		};
 
-		static_assert(Num_ErrorCodes == 211,
+		static_assert(Num_ErrorCodes == 228,
 			"Please document your new ErrorCode "
 			"in 'Documentation/Help/source_en/reference/common_errors_capture_log.xml', "
 			"then you can increment this value."

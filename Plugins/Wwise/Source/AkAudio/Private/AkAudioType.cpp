@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "AkAudioType.h"
@@ -73,12 +73,25 @@ void UAkAudioType::BeginDestroy()
 	{
 		return Super::BeginDestroy();
 	}
-	
-	SCOPED_AKAUDIO_EVENT_F_2(TEXT("UAkAudioType::BeginDestroy %s"), *GetClass()->GetName());
-	UE_LOG(LogAkAudio, Verbose, TEXT("UAkAudioType::BeginDestroy %s %s"), *GetClass()->GetName(), *GetName());
 
-	UnloadData(true);
+	{
+		SCOPED_AKAUDIO_EVENT_F_2(TEXT("UAkAudioType::BeginDestroy %s"), *GetClass()->GetName());
+		UE_LOG(LogAkAudio, Verbose, TEXT("UAkAudioType::BeginDestroy[%p] %s %s"), this, *GetClass()->GetName(), *GetName());
+
+		UnloadData(true);
+	}
 	Super::BeginDestroy();
+}
+
+void UAkAudioType::FinishDestroy()
+{
+	{
+		SCOPED_AKAUDIO_EVENT_2(TEXT("UAkAudioType::FinishDestroy"));
+		UE_LOG(LogAkAudio, VeryVerbose, TEXT("UAkAudioType::FinishDestroy[%p]"), this);
+
+		ResourceUnload.Wait();
+	}
+	Super::FinishDestroy();
 }
 
 void UAkAudioType::LogSerializationState(const FArchive& Ar)
@@ -223,24 +236,28 @@ void UAkAudioType::GetAssetRegistryTags(TArray<FAssetRegistryTag>& OutTags) cons
 	UObject::GetAssetRegistryTags(OutTags);
 
 	auto WwiseInfo = GetInfo();
-	if (WwiseInfo.WwiseGuid.IsValid())
-	{
-		//This seems to be more reliable than putting the AssetRegistrySearchable tag on FWwiseObjectInfo::WwiseGuid
-		OutTags.Add(FAssetRegistryTag(GET_MEMBER_NAME_CHECKED(FWwiseObjectInfo, WwiseGuid), WwiseInfo.WwiseGuid.ToString(), FAssetRegistryTag::ETagType::TT_Hidden));
-	}
+	//This seems to be more reliable than putting the AssetRegistrySearchable tag on FWwiseObjectInfo::WwiseGuid
+	OutTags.Add(FAssetRegistryTag(GET_MEMBER_NAME_CHECKED(FWwiseObjectInfo, WwiseGuid), WwiseInfo.WwiseGuid.ToString(), FAssetRegistryTag::ETagType::TT_Hidden));
 	OutTags.Add(FAssetRegistryTag(GET_MEMBER_NAME_CHECKED(FWwiseObjectInfo, WwiseShortId), FString::FromInt(WwiseInfo.WwiseShortId), FAssetRegistryTag::ETagType::TT_Hidden));
+	OutTags.Add(FAssetRegistryTag(GET_MEMBER_NAME_CHECKED(FWwiseObjectInfo, WwiseName), WwiseInfo.WwiseName.ToString(), FAssetRegistryTag::ETagType::TT_Hidden));
 }
 #endif
 
 void UAkAudioType::BeginCacheForCookedPlatformData(const ITargetPlatform* TargetPlatform)
 {
-	UObject::BeginCacheForCookedPlatformData(TargetPlatform);
-	if (HasAnyFlags(RF_ClassDefaultObject))
+	if (auto* AkSettings = GetDefault<UAkSettings>())
 	{
-		return;
+		if (AkSettings->AreSoundBanksGenerated())
+		{
+			UObject::BeginCacheForCookedPlatformData(TargetPlatform);
+			if (HasAnyFlags(RF_ClassDefaultObject))
+			{
+				return;
+			}
+			auto PlatformID = UAkPlatformInfo::GetSharedPlatformInfo(TargetPlatform->IniPlatformName());
+			FWwiseResourceCooker::CreateForPlatform(TargetPlatform, PlatformID, EWwiseExportDebugNameRule::Name);
+		}
 	}
-	auto PlatformID = UAkPlatformInfo::GetSharedPlatformInfo(TargetPlatform->IniPlatformName());
-	FWwiseResourceCooker::CreateForPlatform(TargetPlatform, PlatformID, EWwiseExportDebugNameRule::Name);
 }
 
 bool UAkAudioType::IsAssetOutOfDate(const FWwiseAnyRef& CurrentWwiseRef)
@@ -295,7 +312,7 @@ FName UAkAudioType::GetAssetDefaultPackagePath()
 
 	FName GroupName = GetWwiseGroupName();
 
-	if (GroupName.IsNone())
+	if (GroupName.ToString().IsEmpty())
 	{
 		return FName(AkSettings->DefaultAssetCreationPath);
 	}

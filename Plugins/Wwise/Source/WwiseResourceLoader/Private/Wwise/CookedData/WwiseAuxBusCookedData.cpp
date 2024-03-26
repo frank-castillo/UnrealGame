@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/CookedData/WwiseAuxBusCookedData.h"
@@ -46,7 +46,7 @@ void FWwiseAuxBusCookedData::Serialize(FArchive& Ar)
 FString FWwiseAuxBusCookedData::GetDebugString() const
 {
 	bool bFirst = true;
-	auto Result = FString::Printf(TEXT("Event %s (%" PRIu32 ")"), *DebugName.ToString(), AuxBusId);
+	auto Result = FString::Printf(TEXT("AuxBus %s (%" PRIu32 ")"), *DebugName.ToString(), AuxBusId);
 	if (SoundBanks.Num() > 0)
 	{
 		if (bFirst)

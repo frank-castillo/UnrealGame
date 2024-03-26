@@ -12,22 +12,26 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
 
 #include "Components/TextRenderComponent.h"
 #include "GameFramework/Volume.h"
-#include "ObstructionAndOcclusionService/AkPortalObstructionAndOcclusionService.h"
 #include "AkGameplayTypes.h"
+
+#include "Wwise/AkPortalObstructionAndOcclusionService.h"
+
 #if WITH_EDITOR
 #include "AkSettings.h"
 #endif
+
 #include "AkAcousticPortal.generated.h"
 
 class UAkRoomComponent;
 class UAkLateReverbComponent;
+class FAkEnvironmentIndex;
 
 UCLASS(ClassGroup = Audiokinetic, hidecategories = (Advanced, Attachment, Volume), BlueprintType, meta = (BlueprintSpawnableComponent))
 class AKAUDIO_API UAkPortalComponent : public USceneComponent
@@ -37,50 +41,106 @@ class AKAUDIO_API UAkPortalComponent : public USceneComponent
 public:
 	UAkPortalComponent(const class FObjectInitializer& ObjectInitializer);
 
+	/**
+	 * Enables the portal. Emitters positioned in the AkRoomComponent in front of and behind the portal emit through it.
+	 */
 	UFUNCTION(BlueprintCallable, Category = "Audiokinetic|AkPortalComponent")
-	void OpenPortal();
+	void EnablePortal();
 
+	/**
+	 * Disables the portal. Emitters positioned in the AkRoomComponent in front of and behind the portal do not emit through it.
+	 */
 	UFUNCTION(BlueprintCallable, Category = "Audiokinetic|AkPortalComponent")
-	void ClosePortal();
+	void DisablePortal();
 
+	/**
+	 * Returns an AkAcousticPortalState, which represents current the state of the portal: Enabled or Disabled.
+	 */
 	UFUNCTION(BlueprintCallable, Category = "Audiokinetic|AkPortalComponent")
 	AkAcousticPortalState GetCurrentState() const;
 
+	/**
+	 * Returns a floating point number between 0 and 1 that represents the occlusion value applied to the portal. A value of 0 indicates that the portal is not occluded and a value of 1 indicates that it is completely occluded.
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Audiokinetic|AkPortalComponent")
+	float GetPortalOcclusion() const;
+
+	/**
+	 * Sets a new portal occlusion value. A value of 0 indicates that the portal is not occluded and a value of 1 indicates that it is completely occluded.
+	 * The occlusion value is applied to the portal with AK::SpatialAudio::SetPortalObstructionAndOcclusion.
+	 * Portal occlusion can be used to modulate sound in response to a door opening or closing.
+	 *
+	 * @param InPortalOcclusion	The new portal occlusion value.
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Audiokinetic|AkPortalComponent")
+	void SetPortalOcclusion(float InPortalOcclusion);
+
+	/**
+	 * Returns the UPrimitiveComponent to which this Ak Portal Component is attached.
+	 */
 	UFUNCTION(BlueprintCallable, Category = "Audiokinetic|AkPortalComponent")
 	UPrimitiveComponent* GetPrimitiveParent() const;
 
+	/**
+	 * Returns true if the portal position and orientation are valid.
+	 * Portals have a front and a back room. They must have at least one connected room,
+	 * the front room must be different than the back room
+	 * and both Rooms cannot be part of the same Reverb Zone hierarchy.
+	 */
 	UFUNCTION(BlueprintCallable, Category = "Audiokinetic|AkPortalComponent")
-	bool PortalPlacementValid() const { return GetFrontRoom() != GetBackRoom(); }
+	bool PortalPlacementValid() const;
 
-	/** If true, the room connections for this portal can change during runtime when this portal moves. For worlds containing many rooms, this can be expensive. Note that this portal's room connections may still change, even when bDynamic = false, when dynamic rooms are moved (i.e. when rooms move who have bDynamic = true). */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AkPortalComponent", meta = (DisplayName = "Is Dynamic"))
+	/**
+	* If true, the room connections for this portal can change during runtime when this portal moves.
+	* For worlds containing many rooms, this can be expensive.
+	* Note that this portal's room connections may still change, even when bDynamic = false,
+	* when dynamic rooms are moved (i.e. when rooms move who have bDynamic = true),
+	* or rooms are enabled or disabled.
+	*/
+	UPROPERTY(EditAnywhere, BlueprintSetter = SetDynamic, Category = "AkPortalComponent", meta = (DisplayName = "Is Dynamic"))
 	bool bDynamic = false;
 
+	UFUNCTION(BlueprintSetter, Category = "AkPortalComponent")
+	void SetDynamic(bool bInDynamic);
+
+	/**
+	 * Initially enables or disables the portal. When the portal is enabled, emitters positioned in the AkRoomComponent in front of and behind the portal emit through it.
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AkPortalComponent")
 	AkAcousticPortalState InitialState = AkAcousticPortalState::Open;
 
-	/** Time interval between obstruction checks (direct line of sight between listener and portal opening). Set to 0 to disable obstruction checks. We recommend disabling it if you want to use full Spatial Audio diffraction. */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AkPortalComponent|Obstruction")
+	/**
+	* The initial occlusion value applied to the portal. When the occlusion value is set to 0, the portal is not occluded, and when it is set to 1, the portal is completely occluded.
+	* The occlusion value is directly applied to the portal with AK::SpatialAudio::SetPortalObstructionAndOcclusion.
+	* Portal occlusion can be used to modulate sound in response to a door opening or closing.
+	*/
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AkPortalComponent|Obstruction Occlusion", meta = (ClampMin = 0.0f, ClampMax = 1.0f))
+	float InitialOcclusion = 0.f;
+
+	/** Time interval between obstruction checks; a direct line of sight between the current portal and an emitter, a listener, or another portal. Set to 0 to disable obstruction checks. Valid range [0, [.*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AkPortalComponent|Obstruction Occlusion", meta = (ClampMin = 0.f))
 	float ObstructionRefreshInterval = .0f;
 
-	/** Collision channel for obstruction checks (between listener and portal opening). */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AkPortalComponent|Obstruction")
+	/** Collision channel for obstruction checks; a direct line of sight between the current portal and an emitter, a listener, or another portal. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AkPortalComponent|Obstruction Occlusion")
 	TEnumAsByte<ECollisionChannel> ObstructionCollisionChannel = ECollisionChannel::ECC_Visibility;
 
 	void ResetPortalState();
+	void ResetPortalOcclusion();
 
 	FVector GetExtent() const;
-	AkRoomID GetFrontRoom() const;
-	AkRoomID GetBackRoom() const;
+	AkRoomID GetFrontRoomID() const;
+	AkRoomID GetBackRoomID() const;
 	AkPortalID GetPortalID() const { return AkPortalID(this); }
 
 	/** Update the room connections for the portal, given the portals current transform. 
 		Return true if the room connections have changed.
 	*/
-	bool UpdateConnectedRooms();
+	bool UpdateConnectedRooms(bool in_bForceUpdate = false);
+	void RemovePortalConnections();
 
-	const UAkRoomComponent* GetFrontRoomComponent() const { return FrontRoom; }
-	const UAkRoomComponent* GetBackRoomComponent() const { return BackRoom; }
+	const TWeakObjectPtr<UAkRoomComponent> GetFrontRoomComponent() const { return FrontRoom; }
+	const TWeakObjectPtr<UAkRoomComponent> GetBackRoomComponent() const { return BackRoom; }
 
 	virtual void BeginPlay() override;
 #if WITH_EDITOR
@@ -90,6 +150,7 @@ public:
 	virtual void PostLoad() override;
 	virtual void OnComponentDestroyed(bool bDestroyingHierarchy) override;
 	void UpdateTextRotations() const;
+	void UpdateRoomNames();
 #endif // WITH_EDITOR
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction) override;
 	virtual void OnRegister() override;
@@ -103,20 +164,19 @@ public:
 		EMoveComponentFlags MoveFlags,
 		ETeleportType Teleport) override;
 
+	FString GetPortalName();
+
 private:
-	class UPrimitiveComponent* Parent;
+	TWeakObjectPtr<class UPrimitiveComponent> Parent;
 
 	void InitializeParent();
 	void SetSpatialAudioPortal();
 
-	template <typename tComponent>
-	void FindConnectedComponents(FAkEnvironmentIndex& RoomQuery, tComponent*& out_pFront, tComponent*& out_pBack);
+	void FindConnectedComponents(FAkEnvironmentIndex& RoomQuery, TWeakObjectPtr<UAkRoomComponent>& out_pFront, TWeakObjectPtr<UAkRoomComponent>& out_pBack);
 
-	AkAcousticPortalState PortalState;
+	AkAcousticPortalState PortalState = AkAcousticPortalState::Open;
+	float PortalOcclusion = 0.f;
 
-#if WITH_EDITOR
-	static const float RoomsRefreshIntervalEditor;
-#endif
 	static const float RoomsRefreshIntervalGame;
 	static const float RoomsRefreshDistanceThreshold;
 	static const float RoomsRefreshMinRotationThreshold_Degrees;
@@ -125,13 +185,17 @@ private:
 	FVector PreviousLocation;
 	FRotator PreviousRotation;
 
-	bool PortalNeedUpdated = false;
-	UAkRoomComponent* FrontRoom;
-	UAkRoomComponent* BackRoom;
+	bool PortalNeedsUpdate = false;
+	bool PortalOcclusionChanged = false;
+	bool PortalRoomsNeedUpdate = false;
+	TWeakObjectPtr<UAkRoomComponent> FrontRoom;
+	TWeakObjectPtr<UAkRoomComponent> BackRoom;
 
-	AkPortalObstructionAndOcclusionService ObstructionService;
+	AkPortalObstructionAndOcclusionService ObstructionServiceFrontRoom;
+	AkPortalObstructionAndOcclusionService ObstructionServiceBackRoom;
 
 #if WITH_EDITOR
+	static const float RoomsRefreshIntervalEditor;
 	void HandleObjectsReplaced(const TMap<UObject*, UObject*>& ReplacementMap);
 	class UDrawPortalComponent* DrawPortalComponent = nullptr;
 	void RegisterVisEnabledCallback();
@@ -142,7 +206,6 @@ private:
 	bool AreTextVisualizersInitialized() const;
 	void InitTextVisualizers();
 	void DestroyTextVisualizers();
-	void UpdateRoomNames();
 	void UpdateTextVisibility();
 	// Updates the location, rotation and visibility of the text visualizers
 	void UpdateTextLocRotVis();
@@ -167,18 +230,15 @@ public:
 	AAkAcousticPortal(const class FObjectInitializer& ObjectInitializer);
 
 	UFUNCTION(BlueprintCallable, Category = "Audiokinetic|AkAcousticPortal")
-	void OpenPortal();
+	void EnablePortal();
 
 	UFUNCTION(BlueprintCallable, Category = "Audiokinetic|AkAcousticPortal")
-	void ClosePortal();
+	void DisablePortal();
 
 	UFUNCTION(BlueprintCallable, Category = "Audiokinetic|AkAcousticPortal")
 	AkAcousticPortalState GetCurrentState() const;
 
-	AkRoomID GetFrontRoom() const;
-	AkRoomID GetBackRoom() const;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Portal", meta = (ShowOnlyInnerProperties))
+	UPROPERTY(VisibleAnywhere, Category = "AcousticPortal", BlueprintReadOnly, meta = (ShowOnlyInnerProperties))
 	UAkPortalComponent* Portal = nullptr;
 
 	virtual void PostRegisterAllComponents() override;

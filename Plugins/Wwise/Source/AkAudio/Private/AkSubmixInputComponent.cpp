@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 /*=============================================================================
@@ -31,7 +31,6 @@ UAkSubmixInputComponent::UAkSubmixInputComponent(const class FObjectInitializer&
 
 Audio::FMixerDevice* UAkSubmixInputComponent::GetAudioMixerDevice()
 {
-#if !UE_5_3_OR_LATER
 	UWorld* ThisWorld = GetWorld();
 	if (!ThisWorld || !ThisWorld->bAllowAudioPlayback || ThisWorld->GetNetMode() == NM_DedicatedServer)
 	{
@@ -40,7 +39,7 @@ Audio::FMixerDevice* UAkSubmixInputComponent::GetAudioMixerDevice()
 
 	if (FAudioDevice* AudioDevice = ThisWorld->GetAudioDevice().GetAudioDevice())
 	{
-		if (!AudioDevice->IsAudioMixerEnabled())
+		if (!AudioDevice->bAudioMixerModuleLoaded)
 		{
 			return nullptr;
 		}
@@ -49,7 +48,6 @@ Audio::FMixerDevice* UAkSubmixInputComponent::GetAudioMixerDevice()
 			return static_cast<Audio::FMixerDevice*>(AudioDevice);
 		}
 	}
-#endif
 	return nullptr;
 }
 

@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 /*=============================================================================
@@ -24,9 +24,10 @@ Copyright (c) 2023 Audiokinetic Inc.
 
 #if WITH_EDITOR
 #include "DynamicMeshBuilder.h"
+#include "Engine/World.h"
 #include "AkRoomComponent.h"
 #include "AkSpatialAudioDrawUtils.h"
-#include "AkSettings.h"
+#include "AkSettingsPerUser.h"
 #endif // WITH_EDITOR
 
 UDrawPortalComponent::UDrawPortalComponent(const FObjectInitializer& ObjectInitializer)
@@ -99,7 +100,7 @@ void UDrawPortalComponent::DrawPortalOutline(const FSceneView* View, FPrimitiveD
 
 		FVector FrontPoint = FVector(BoxExtent.X, 0.0f, 0.0f);
 		FVector BackPoint = FVector(-BoxExtent.X, 0.0f, 0.0f);
-		if (PortalComponent->GetFrontRoomComponent() != nullptr && PortalComponent->GetFrontRoomComponent()->GetPrimitiveParent() != nullptr)
+		if (PortalComponent->GetFrontRoomComponent().IsValid() && PortalComponent->GetFrontRoomComponent()->GetPrimitiveParent() != nullptr)
 		{
 			// Setup front facing vector to test if line from portal to room points 'backwards' (i.e. if it goes back through the portal). In this case, we extend the 'From' point slightly.
 			FVector Front = PrimitiveParent->GetComponentTransform().TransformVector(FVector(1.0f, 0.0f, 0.0f));
@@ -111,7 +112,7 @@ void UDrawPortalComponent::DrawPortalOutline(const FSceneView* View, FPrimitiveD
 			PDI->DrawLine(From, To, OutlineColor, SDPG_MAX, Thickness);
 		}
 		Thickness = AkDrawConstants::PortalRoomConnectionThickness;
-		if (PortalComponent->GetBackRoomComponent() != nullptr && PortalComponent->GetBackRoomComponent()->GetPrimitiveParent() != nullptr)
+		if (PortalComponent->GetBackRoomComponent().IsValid() && PortalComponent->GetBackRoomComponent()->GetPrimitiveParent() != nullptr)
 		{
 			// Setup back facing vector to test if line from portal to room points 'backwards' (i.e. if it goes back through the portal). In this case, we extend the 'From' point slightly
 			FVector Back = PrimitiveParent->GetComponentTransform().TransformVector(FVector(-1.0f, 0.0f, 0.0f));
@@ -151,7 +152,7 @@ public:
 
 	virtual void GetDynamicMeshElements(const TArray<const FSceneView*>& Views, const FSceneViewFamily& ViewFamily, uint32 VisibilityMap, FMeshElementCollector& Collector) const override
 	{
-		if (GetDefault<UAkSettings>()->VisualizeRoomsAndPortals)
+		if (GetDefault<UAkSettingsPerUser>()->VisualizeRoomsAndPortals)
 		{
 			if (PortalDrawer != nullptr)
 			{

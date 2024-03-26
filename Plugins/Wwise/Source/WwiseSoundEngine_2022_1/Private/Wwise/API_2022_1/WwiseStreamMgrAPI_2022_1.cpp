@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/API_2022_1/WwiseStreamMgrAPI_2022_1.h"
@@ -55,13 +55,19 @@ void FWwiseStreamMgrAPI_2022_1::SetFileLocationResolver(
 	AK::StreamMgr::SetFileLocationResolver(in_pFileLocationResolver);
 }
 
-AkDeviceID FWwiseStreamMgrAPI_2022_1::CreateDevice(
-	const AkDeviceSettings& in_settings,
-	AK::StreamMgr::IAkLowLevelIOHook* in_pLowLevelHook
+AKRESULT FWwiseStreamMgrAPI_2022_1::CreateDevice(
+	const AkDeviceSettings& in_settings,		///< Device settings.
+	AK::StreamMgr::IAkLowLevelIOHook* in_pLowLevelHook,	///< Associated low-level I/O hook. Pass either a IAkLowLevelIOHook interface, consistent with the type of the scheduler.
+	AkDeviceID& out_idDevice		///< Assigned unique device id to use in all other functions of this interface.
 )
 {
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
-	return AK::StreamMgr::CreateDevice(in_settings, in_pLowLevelHook);
+	out_idDevice = AK::StreamMgr::CreateDevice(in_settings, in_pLowLevelHook);
+	if (UNLIKELY(out_idDevice == AK_INVALID_DEVICE_ID))
+	{
+		return AK_Fail;
+	}
+	return AK_Success;
 }
 
 AKRESULT FWwiseStreamMgrAPI_2022_1::DestroyDevice(

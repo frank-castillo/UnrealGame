@@ -21,7 +21,7 @@ under the Apache License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
 OR CONDITIONS OF ANY KIND, either express or implied. See the Apache License for
 the specific language governing permissions and limitations under the License.
 
-  Copyright (c) 2023 Audiokinetic Inc.
+  Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 // AkSoundEngine.h
@@ -54,14 +54,6 @@ the specific language governing permissions and limitations under the License.
 #include <AK/SoundEngine/Platforms/XboxGC/AkXboxGCSoundEngine.h>
 #include <AK/SoundEngine/Platforms/XboxGC/AkPlatformContext.h>
 
-#elif defined (AK_XBOXONE)
-#include <AK/SoundEngine/Platforms/XboxOne/AkXboxOneSoundEngine.h>
-#include <AK/SoundEngine/Platforms/XboxOne/AkPlatformContext.h>
-
-#elif defined( AK_LUMIN )
-#include <AK/SoundEngine/Platforms/Lumin/AkLuminSoundEngine.h>
-#include <AK/SoundEngine/Platforms/Lumin/AkPlatformContext.h>
-
 #elif defined( AK_ANDROID )
 #include <AK/SoundEngine/Platforms/Android/AkAndroidSoundEngine.h>
 #include <AK/SoundEngine/Platforms/Android/AkPlatformContext.h>
@@ -73,10 +65,6 @@ the specific language governing permissions and limitations under the License.
 #elif defined (AK_PS5)
 #include <AK/SoundEngine/Platforms/PS5/AkPS5SoundEngine.h>
 #include <AK/SoundEngine/Platforms/PS5/AkPlatformContext.h>
-
-#elif defined( AK_GGP )
-#include <AK/SoundEngine/Platforms/GGP/AkGGPSoundEngine.h>
-#include <AK/SoundEngine/Platforms/GGP/AkPlatformContext.h>
 
 #elif defined( AK_LINUX_DESKTOP )
 #include <AK/SoundEngine/Platforms/Linux/AkLinuxSoundEngine.h>
@@ -248,7 +236,7 @@ struct AkInitSettings
 
 	AkBackgroundMusicChangeCallbackFunc BGMCallback; ///< Application-defined audio source change event callback function.
 	void*				BGMCallbackCookie;			///< Application-defined user data for the audio source change event callback function.
-	AkOSChar *			szPluginDLLPath;			///< When using DLLs for plugins, specify their path. Leave NULL if DLLs are in the same folder as the game executable.
+	const AkOSChar *	szPluginDLLPath;			///< When using DLLs for plugins, specify their path. Leave NULL if DLLs are in the same folder as the game executable.
 
 	AkFloorPlane		eFloorPlane;				///< Define the orientation of the the floor plane with respect to the X,Y,Z axes, and which axes represent the side, front and up vectors as a basis for rotations in Wwise.
 													///< AkFloorPlane is used in to orient the Game Object 3D Viewer in Wwise, and in the transformation of geometry instances in Wwise Spatial Audio.
@@ -478,7 +466,7 @@ namespace AK
 		/// \aknote 
 		///	On most platforms, the angle set on the plane consists of 3 angles, to account for 7.1. 
 		/// - When panning to stereo (speaker mode, see <tt>AK::SoundEngine::SetPanningRule()</tt>), only angle[0] is used, and 3D sounds in the back of the listener are mirrored to the front. 
-		/// - When panning to 5.1, the front speakers use angle[0], and the surround speakers use (angle[2] - angle[1]) / 2.
+		/// - When panning to 5.1, the front speakers use angle[0], and the surround speakers use (angle[2] + angle[1]) / 2.
 		/// \endaknote
 		/// \warning Call this function only after the sound engine has been properly initialized.
 		/// \return AK_Success if device exists.
@@ -492,11 +480,13 @@ namespace AK
 		
 		/// Sets speaker angles of the specified device. Speaker angles are used for 3D positioning of sounds over standard configurations.
 		/// Note that the current version of Wwise only supports positioning on the plane.
-		/// The speaker angles are expressed as an array of loudspeaker pairs, in degrees, relative to azimuth ]0,180].
+		/// The speaker angles are expressed as an array of loudspeaker pairs, in degrees, relative to azimuth ]0,180], for a 7.1 speaker configuration.
 		/// Supported loudspeaker setups are always symmetric; the center speaker is always in the middle and thus not specified by angles.
 		/// Angles must be set in ascending order. 
 		/// Note:
-		/// - This function requires that the minimum speaker angle is at least 5 degrees; as well as the subsequent speaker pairs are at least 5 degrees apart.
+		/// - This function requires the minimum speaker angle between any pair of speakers to be at least 5 degrees.
+		/// - When setting angles for a 5.1 speaker layout, we recommend that you select an angle for the SL and SR channels, then subtract 15 degrees for in_pfSpeakerAngles[1] and add 15 degrees for in_pfSpeakerAngles[2] to set the arc appropriately.
+		///
 		/// Typical usage: 
 		/// - Initialize the sound engine and/or add secondary output(s).
 		/// - Get number of speaker angles and their value into an array using GetSpeakerAngles().
@@ -618,6 +608,14 @@ namespace AK
 			const AkOSChar* in_DllPath = NULL			///< Optional path to the DLL. Will override szPLuginDLLPath that was set in AkInitSettings.
 			);
 		
+		/// Query whether plug-in is registered with the sound engine.
+		/// \return true when plug-in is registered, false otherwise.
+		AK_EXTERNAPIFUNC( bool, IsPluginRegistered )(
+			AkPluginType in_eType,								///< Plug-in type (for example, source or effect)
+			AkUInt32 in_ulCompanyID,							///< Company identifier (as declared in the plug-in description XML file)
+			AkUInt32 in_ulPluginID								///< Plug-in identifier (as declared in the plug-in description XML file)
+			);
+
 		/// Registers a codec type with the sound engine and set the callback functions to create the 
 		/// codec's file source and bank source nodes.
 		/// \aknote 
@@ -966,7 +964,7 @@ namespace AK
 		/// available bandwidth. The files will remain cached until UnpinEventInStreamCache is called, or a higher priority pinned file needs the space and the limit set by 
 		/// uMaxCachePinnedBytes is exceeded.  
 		/// \remarks The amount of data from the start of the file that will be pinned to cache is determined by the prefetch size. The prefetch size is set via the authoring tool and stored in the sound banks.  
-		/// \remarks It is possible to override the prefetch size stored in the sound bank via the low level IO. For more information see <tt>AK::StreamMgr::IAkFileLocationResolver::Open()</tt> and AkFileSystemFlags.
+		/// \remarks It is possible to override the prefetch size stored in the sound bank via the low level IO. For more information see <tt>AK::StreamMgr::IAkLowLevelIOHook::BatchOpen()</tt> and AkFileSystemFlags.
 		/// \remarks If this function is called additional times with the same event, then the priority of the caching streams are updated. Note however that priority is passed down to the stream manager 
 		///	on a file-by-file basis, and if another event is pinned to cache that references the same file but with a different priority, then the first priority will be updated with the most recent value.
 		/// \remarks If the event references files that are chosen based on a State Group (via a switch container), all files in all states will be cached. Those in the current active state
@@ -979,7 +977,7 @@ namespace AK
 		/// \sa
 		/// - <tt>AK::SoundEngine::GetBufferStatusForPinnedEvent</tt>
 		/// - <tt>AK::SoundEngine::UnpinEventInStreamCache</tt>
-		/// - <tt>AK::StreamMgr::IAkFileLocationResolver::Open</tt>
+		/// - <tt>AK::StreamMgr::IAkLowLevelIOHook::BatchOpen</tt>
 		/// - AkFileSystemFlags
 		AK_EXTERNAPIFUNC( AKRESULT, PinEventInStreamCache )(
 			AkUniqueID in_eventID,											///< Unique ID of the event
@@ -992,7 +990,7 @@ namespace AK
 		/// available bandwidth. The files will remain cached until UnpinEventInStreamCache is called, or a higher priority pinned file needs the space and the limit set by 
 		/// uMaxCachePinnedBytes is exceeded.  
 		/// \remarks The amount of data from the start of the file that will be pinned to cache is determined by the prefetch size. The prefetch size is set via the authoring tool and stored in the sound banks.  
-		/// \remarks It is possible to override the prefetch size stored in the sound bank via the low level IO. For more information see <tt>AK::StreamMgr::IAkFileLocationResolver::Open()</tt> and AkFileSystemFlags.
+		/// \remarks It is possible to override the prefetch size stored in the sound bank via the low level IO. For more information see <tt>AK::StreamMgr::IAkLowLevelIOHook::BatchOpen()</tt> and AkFileSystemFlags.
 		/// \remarks If this function is called additional times with the same event, then the priority of the caching streams are updated. Note however that priority is passed down to the stream manager 
 		///	on a file-by-file basis, and if another event is pinned to cache that references the same file but with a different priority, then the first priority will be updated with the most recent value.
 		/// \remarks If the event references files that are chosen based on a State Group (via a Switch Container), all files in all states will be cached. Those in the current active state
@@ -1005,7 +1003,7 @@ namespace AK
 		/// \sa
 		/// - <tt>AK::SoundEngine::GetBufferStatusForPinnedEvent</tt>
 		/// - <tt>AK::SoundEngine::UnpinEventInStreamCache</tt>
-		/// - <tt>AK::StreamMgr::IAkFileLocationResolver::Open</tt>
+		/// - <tt>AK::StreamMgr::IAkLowLevelIOHook::BatchOpen</tt>
 		/// - AkFileSystemFlags
 		AK_EXTERNAPIFUNC( AKRESULT, PinEventInStreamCache )(
 			const wchar_t* in_pszEventName,									///< Name of the event
@@ -1018,7 +1016,7 @@ namespace AK
 		/// available bandwidth. The files will remain cached until UnpinEventInStreamCache is called, or a higher priority pinned file needs the space and the limit set by 
 		/// uMaxCachePinnedBytes is exceeded.  
 		/// \remarks The amount of data from the start of the file that will be pinned to cache is determined by the prefetch size. The prefetch size is set via the authoring tool and stored in the sound banks.  
-		/// \remarks It is possible to override the prefetch size stored in the sound bank via the low level IO. For more information see <tt>AK::StreamMgr::IAkFileLocationResolver::Open()</tt> and AkFileSystemFlags.
+		/// \remarks It is possible to override the prefetch size stored in the sound bank via the low level IO. For more information see <tt>AK::StreamMgr::IAkLowLevelIOHook::BatchOpen()</tt> and AkFileSystemFlags.
 		/// \remarks If this function is called additional times with the same event, then the priority of the caching streams are updated. Note however that priority is passed down to the stream manager 
 		/// on a file-by-file basis, and if another event is pinned to cache that references the same file but with a different priority, then the first priority will be updated with the most recent value.
 		/// \remarks If the event references files that are chosen based on a State Group (via a switch container), all files in all states will be cached. Those in the current active state
@@ -1031,7 +1029,7 @@ namespace AK
 		/// \sa
 		/// - <tt>AK::SoundEngine::GetBufferStatusForPinnedEvent</tt>
 		/// - <tt>AK::SoundEngine::UnpinEventInStreamCache</tt>
-		/// - <tt>AK::StreamMgr::IAkFileLocationResolver::Open</tt>
+		/// - <tt>AK::StreamMgr::IAkLowLevelIOHook::BatchOpen</tt>
 		/// - AkFileSystemFlags
 		AK_EXTERNAPIFUNC( AKRESULT, PinEventInStreamCache )(
 			const char* in_pszEventName,									///< Name of the event
@@ -1615,8 +1613,8 @@ namespace AK
 		/// Data will be copied and stored into a separate list.
 		/// Previous entry is deleted when a new one is sent.
 		/// Sets the data pointer to NULL to clear item from the list.
-		/// \aknote The plug-in type and ID is passed and matched with plugins set on the desired bus. 
-		/// This means that you cannot send different data to various instances of the plug-in on a same bus.\endaknote
+		/// \aknote The plug-in type and ID are passed and matched with plugins set on the desired bus. 
+		/// This means that you cannot send different data to various instances of a plug-in on the same bus.\endaknote
 		/// \return AK_Success if data was sent successfully.
 		AK_EXTERNAPIFUNC( AKRESULT, SendPluginCustomGameData ) (
 			AkUniqueID in_busID,			///< Bus ID
@@ -1636,7 +1634,7 @@ namespace AK
         /// Registers a game object.
 		/// \return
 		/// - \c AK_Success if successful
-		/// - \c AK_InvalidParameter if the specified AkGameObjectID is invalid (0 and -1 are invalid)
+		/// - \c AK_InvalidParameter if the specified AkGameObjectID is invalid. Range 0xFFFFFFFFFFFFFFE0 (-32) to 0xFFFFFFFFFFFFFFFF (-1) are invalid inclusively.
 		/// \remark Registering a game object twice does nothing. Unregistering it once unregisters it no 
 		///			matter how many times it has been registered.
 		/// \sa 
@@ -1644,13 +1642,13 @@ namespace AK
 		/// - <tt>AK::SoundEngine::UnregisterAllGameObj()</tt>
 		/// - \ref concept_gameobjects
 		AK_EXTERNAPIFUNC(AKRESULT, RegisterGameObj)(
-			AkGameObjectID in_gameObjectID								///< ID of the game object to be registered			
+			AkGameObjectID in_gameObjectID								///< ID of the game object to be registered. Valid range is [0 to 0xFFFFFFFFFFFFFFDF].
 	        );
 
 		/// Registers a game object.
 		/// \return
 		/// - \c AK_Success if successful
-		/// - \c AK_InvalidParameter if the specified AkGameObjectID is invalid (0 and -1 are invalid)
+		/// - \c AK_InvalidParameter if the specified AkGameObjectID is invalid. Range 0xFFFFFFFFFFFFFFE0 (-32) to 0xFFFFFFFFFFFFFFFF (-1) are invalid inclusively.
 		/// \remark Registering a game object twice does nothing. Unregistering it once unregisters it no 
 		///			matter how many times it has been registered.
 		/// \sa 
@@ -1658,14 +1656,14 @@ namespace AK
 		/// - <tt>AK::SoundEngine::UnregisterAllGameObj()</tt>
 		/// - \ref concept_gameobjects
         AK_EXTERNAPIFUNC( AKRESULT, RegisterGameObj )(
-	        AkGameObjectID in_gameObjectID,							///< ID of the game object to be registered
+	        AkGameObjectID in_gameObjectID,							///< ID of the game object to be registered. Valid range is [0 to 0xFFFFFFFFFFFFFFDF].
 			const char * in_pszObjName								///< Name of the game object (for monitoring purpose)
 	        );
 
         /// Unregisters a game object.
 		/// \return 
 		/// - \c AK_Success if successful
-		/// - \c AK_InvalidParameter if the specified AkGameObjectID is invalid (0 is an invalid ID)
+		/// - \c AK_InvalidParameter if the specified AkGameObjectID is invalid. Range 0xFFFFFFFFFFFFFFE0 (-32) to 0xFFFFFFFFFFFFFFFF (-1) are invalid inclusively.
 		/// \remark Registering a game object twice does nothing. Unregistering it once unregisters it no 
 		///			matter how many times it has been registered. Unregistering a game object while it is 
 		///			in use is allowed, but the control over the parameters of this game object is lost.
@@ -1676,7 +1674,7 @@ namespace AK
 		/// - <tt>AK::SoundEngine::UnregisterAllGameObj()</tt>
 		/// - \ref concept_gameobjects
         AK_EXTERNAPIFUNC( AKRESULT, UnregisterGameObj )(
-	        AkGameObjectID in_gameObjectID				///< ID of the game object to be unregistered. Use 
+	        AkGameObjectID in_gameObjectID				///< ID of the game object to be unregistered. Valid range is [0 to 0xFFFFFFFFFFFFFFDF]. Use 
 	        											/// AK_INVALID_GAME_OBJECT to unregister all game objects.
 	        );
 
@@ -1716,7 +1714,10 @@ namespace AK
 		/// Sets multiple positions to a single game object.
 		/// Setting multiple positions on a single game object is a way to simulate multiple emission sources while using the resources of only one voice.
 		/// This can be used to simulate wall openings, area sounds, or multiple objects emitting the same sound in the same area.
-		/// \aknote Calling <tt>AK::SoundEngine::SetMultiplePositions()</tt> with only one position is the same as calling <tt>AK::SoundEngine::SetPosition()</tt> \endaknote
+		/// \aknote
+		/// - Calling <tt>AK::SoundEngine::SetMultiplePositions()</tt> with only one position is the same as calling <tt>AK::SoundEngine::SetPosition()</tt> 
+		/// - If a sound has diffraction enabled, it is treated as <tt>MultiPositionType_MultiDirections</tt>. <tt>MultiPositionType_MultiSources</tt> is not supported in this case.
+		/// \endaknote
 		/// \return 
 		/// - \c AK_Success when successful
 		/// - \c AK_CommandTooLarge if the number of positions is too large for the command queue. Reduce the number of positions.
@@ -2201,8 +2202,8 @@ namespace AK
 		/// Therefore, in_pszString should be the real name of the SoundBank (with or without the BNK extension - it is trimmed internally),
 		/// not the name of the file (if you changed it), nor the full path of the file. The path should be resolved in 
 		/// your implementation of the Stream Manager (<tt>AK::IAkStreamMgr::CreateStd()</tt>), or in the Low-Level I/O module 
-		/// (<tt>AK::StreamMgr::IAkFileLocationResolver::Open()</tt>) if you use the default Stream Manager's implementation.
-		/// - The cookie (in_pCookie) is passed to the Low-Level I/O module for your convenience, in <tt>AK::StreamMgr::IAkFileLocationResolver::Open()</tt> 
+		/// (<tt>AK::StreamMgr::IAkLowLevelIOHook::BatchOpen()</tt>) if you use the default Stream Manager's implementation.
+		/// - The cookie (in_pCookie) is passed to the Low-Level I/O module for your convenience, in <tt>AK::StreamMgr::IAkLowLevelIOHook::BatchOpen()</tt> 
 		// as AkFileSystemFlags::pCustomParam.
 		/// \sa 
 		/// - <tt>AK::SoundEngine::UnloadBank()</tt>
@@ -2216,7 +2217,7 @@ namespace AK
 		AK_EXTERNAPIFUNC( AKRESULT, LoadBank )(
 	        const wchar_t*      in_pszString,					///< Name/path of the bank to load
 			AkBankCallbackFunc  in_pfnBankCallback,				///< Callback function
-			void *              in_pCookie,						///< Callback cookie (reserved to user, passed to the callback function, and also to  <tt>AK::StreamMgr::IAkFileLocationResolver::Open()</tt> as AkFileSystemFlags::pCustomParam)
+			void *              in_pCookie,						///< Callback cookie (reserved to user, passed to the callback function, and also to  <tt>AK::StreamMgr::IAkLowLevelIOHook::BatchOpen()</tt> as AkFileSystemFlags::pCustomParam)
 			AkBankID &          out_bankID,						///< Returned bank ID
 			AkBankType			in_bankType = AkBankType_User	///< Type of the bank to load
 	        );
@@ -2248,8 +2249,8 @@ namespace AK
 		/// Therefore, \c in_pszString should be the real name of the SoundBank (with or without the BNK extension - it is trimmed internally),
 		/// not the name of the file (if you changed it), nor the full path of the file. The path should be resolved in 
 		/// your implementation of the Stream Manager (<tt>AK::IAkStreamMgr::CreateStd()</tt>), or in the Low-Level I/O module 
-		/// (<tt>AK::StreamMgr::IAkFileLocationResolver::Open()</tt>) if you use the default Stream Manager's implementation.
-		/// - The cookie (in_pCookie) is passed to the Low-Level I/O module for your convenience, in <tt>AK::StreamMgr::IAkFileLocationResolver::Open()</tt> 
+		/// (<tt>AK::StreamMgr::IAkLowLevelIOHook::BatchOpen()</tt>) if you use the default Stream Manager's implementation.
+		/// - The cookie (in_pCookie) is passed to the Low-Level I/O module for your convenience, in <tt>AK::StreamMgr::IAkLowLevelIOHook::BatchOpen()</tt> 
 		// as <tt>AkFileSystemFlags::pCustomParam</tt>.
 		/// \sa 
 		/// - <tt>AK::SoundEngine::UnloadBank()</tt>
@@ -2263,7 +2264,7 @@ namespace AK
 		AK_EXTERNAPIFUNC( AKRESULT, LoadBank )(
 	        const char*         in_pszString,					///< Name/path of the bank to load
 			AkBankCallbackFunc  in_pfnBankCallback,				///< Callback function
-			void *              in_pCookie,						///< Callback cookie (reserved to user, passed to the callback function, and also to  <tt>AK::StreamMgr::IAkFileLocationResolver::Open()</tt> as AkFileSystemFlags::pCustomParam)
+			void *              in_pCookie,						///< Callback cookie (reserved to user, passed to the callback function, and also to  <tt>AK::StreamMgr::IAkLowLevelIOHook::BatchOpen()</tt> as AkFileSystemFlags::pCustomParam)
 			AkBankID &          out_bankID,						///< Returned bank ID
 			AkBankType			in_bankType = AkBankType_User	///< Type of the bank to load
 	        );
@@ -2292,8 +2293,8 @@ namespace AK
 		/// will result in audio playback without applying the said effect. If an unregistered source plug-in is used by an event's audio objects, 
 		/// posting the event will fail.
 		/// - The file path should be resolved in your implementation of the Stream Manager, or in the Low-Level I/O module if 
-		/// you use the default Stream Manager's implementation. The ID overload of <tt>AK::IAkStreamMgr::CreateStd()</tt> and <tt>AK::StreamMgr::IAkFileLocationResolver::Open()</tt> are called.
-		/// - The cookie (in_pCookie) is passed to the Low-Level I/O module for your convenience, in <tt>AK::StreamMgr::IAkFileLocationResolver::Open()</tt> 
+		/// you use the default Stream Manager's implementation. The ID overload of <tt>AK::IAkStreamMgr::CreateStd()</tt> and <tt>AK::StreamMgr::IAkLowLevelIOHook::BatchOpen()</tt> are called.
+		/// - The cookie (in_pCookie) is passed to the Low-Level I/O module for your convenience, in <tt>AK::StreamMgr::IAkLowLevelIOHook::BatchOpen()</tt> 
 		// as AkFileSystemFlags::pCustomParam.
 		/// \sa 
 		/// - <tt>AK::SoundEngine::UnloadBank()</tt>
@@ -2305,7 +2306,7 @@ namespace AK
 		AK_EXTERNAPIFUNC( AKRESULT, LoadBank )(
 	        AkBankID			in_bankID,						///< Bank ID of the bank to load
 			AkBankCallbackFunc  in_pfnBankCallback,				///< Callback function
-			void *              in_pCookie,						///< Callback cookie (reserved to user, passed to the callback function, and also to  <tt>AK::StreamMgr::IAkFileLocationResolver::Open()</tt> as AkFileSystemFlags::pCustomParam)
+			void *              in_pCookie,						///< Callback cookie (reserved to user, passed to the callback function, and also to  <tt>AK::StreamMgr::IAkLowLevelIOHook::BatchOpen()</tt> as AkFileSystemFlags::pCustomParam)
 			AkBankType			in_bankType = AkBankType_User	///< Type of the bank to load
  	        );
 
@@ -2441,12 +2442,11 @@ namespace AK
 		/// - \ref integrating_elements_plugins
 		/// - \ref sdk_bank_training
 		AK_EXTERNAPIFUNC(AKRESULT, LoadBankMemoryCopy)(
-			const void* in_pInMemoryBankPtr,	///< Pointer to the in-memory bank to load (pointer is not stored in sound engine, memory can be released after callback)
+			const void*			in_pInMemoryBankPtr,	///< Pointer to the in-memory bank to load (pointer is not stored in sound engine, memory can be released after callback)
 			AkUInt32			in_uInMemoryBankSize,	///< Size of the in-memory bank to load
 			AkBankCallbackFunc  in_pfnBankCallback,	    ///< Callback function
-			void* in_pCookie,				///< Callback cookie
-			AkBankID& out_bankID,				///< Returned bank ID
-			AkBankType& out_bankType			///< Returned bank type
+			void*				in_pCookie,				///< Callback cookie
+			AkBankID&			out_bankID				///< Returned bank ID
 			);
 
 		/// Loads a bank asynchronously (from in-memory data, out-of-place, any bank type).\n
@@ -4043,6 +4043,7 @@ namespace AK
 			);
 
 		/// Sets a game object's obstruction and occlusion levels. If SetMultiplePositions were used, values are set for all positions.
+		/// To assign a unique obstruction and occlusion value to each sound position, instead use AK::SoundEngine::SetMultipleObstructionAndOcclusion.
 		/// This function is used to affect how an object should be heard by a specific listener.
 		/// \sa 
 		/// - \ref soundengine_obsocc
@@ -4055,8 +4056,8 @@ namespace AK
 			AkReal32 in_fOcclusionLevel			///< OcclusionLevel: [0.0f..1.0f]
 			);
 
-		/// Sets a game object's obstruction and occlusion level for each positions defined by SetMultiplePositions.
-		/// This function differs from SetObjectObstructionAndOcclusion as a list of obstruction/occlusion pair is provided
+		/// Sets a game object's obstruction and occlusion value for each position defined by AK::SoundEngine::SetMultiplePositions.
+		/// This function differs from AK::SoundEngine::SetObjectObstructionAndOcclusion as a list of obstruction/occlusion pair is provided
 		/// and each obstruction/occlusion pair will affect the corresponding position defined at the same index.
 		/// \aknote In the case the number of obstruction/occlusion pairs is smaller than the number of positions, remaining positions' 
 		/// obstrucion/occlusion values are set to 0.0. \endaknote
@@ -4126,7 +4127,7 @@ namespace AK
 		/// \remark
 		///		- The sound engine opens a stream for writing using <tt>AK::IAkStreamMgr::CreateStd()</tt>. If you are using the
 		///			default implementation of the Stream Manager, file opening is executed in your implementation of 
-		///			the Low-Level IO interface <tt>AK::StreamMgr::IAkFileLocationResolver::Open()</tt>. The following 
+		///			the Low-Level IO interface <tt>AK::StreamMgr::IAkLowLevelIOHook::BatchOpen()</tt>. The following 
 		///			AkFileSystemFlags are passed: uCompanyID = AKCOMPANYID_AUDIOKINETIC and uCodecID = AKCODECID_PCM,
 		///			and the AkOpenMode is AK_OpenModeWriteOvrwr. Refer to \ref streamingmanager_lowlevel_location for
 		///			more details on managing the deployment of your Wwise generated data.
@@ -4150,17 +4151,29 @@ namespace AK
 		/// - <tt>AK::SoundEngine::StartOutputCapture()</tt>
 		AK_EXTERNAPIFUNC( AKRESULT, StopOutputCapture )();
 
-		/// Adds text marker in audio output file. 
-		/// \return 
+		/// Adds text marker in audio output file.
+		/// \return
 		/// - \c AK_Success when successful
 		/// - \c AK_InvalidParameter if in_MarkerText is null.
 		/// - \c AK_InsufficientMemory if not enough memory is available.
-		/// \sa 
+		/// \sa
 		/// - <tt>AK::SoundEngine::StartOutputCapture()</tt>
 		AK_EXTERNAPIFUNC( AKRESULT, AddOutputCaptureMarker )(
-			const char* in_MarkerText					///< Text of the marker
+			const char* in_MarkerText							///< Text of the marker
 			);
-			
+
+		/// Adds binary data to a marker in audio output file.
+		/// \return
+		/// - \c AK_Success when successful
+		/// - \c AK_InvalidParameter if in_pMarkerData is null or in_uMarkerDataSize is zero.
+		/// - \c AK_InsufficientMemory if not enough memory is available.
+		/// \sa
+		/// - <tt>AK::SoundEngine::StartOutputCapture()</tt>
+		AK_EXTERNAPIFUNC(AKRESULT, AddOutputCaptureBinaryMarker)(
+			void* in_pMarkerData,								///< Marker data
+			AkUInt32 in_uMarkerDataSize							///< Size of the marker data
+			);
+
 		/// Gets the system sample rate.
 		/// \return The sample rate.
 		AK_EXTERNAPIFUNC(AkUInt32, GetSampleRate)();
@@ -4200,7 +4213,7 @@ namespace AK
 
 		/// Starts recording the sound engine profiling information into a file. This file can be read
 		/// by Wwise Authoring. The file is created at the base path. If you have integrated Wwise I/O,
-		/// you can use <tt>CAkDefaultIOHookBlocking::SetBasePath()</tt> (or <tt>CAkDefaultIOHookBlocking::AddBasePath()</tt>)
+		/// you can use <tt>CAkDefaultIOHookDeferred::SetBasePath()</tt> (or <tt>CAkDefaultIOHookDeferred::AddBasePath()</tt>)
 		/// to change the location where the file is saved. The profiling session records all data types possible.
 		/// Note that this call captures peak metering for all the busses loaded and mixing
 		/// while this call is invoked.

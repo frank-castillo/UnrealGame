@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/WwiseExternalSourceManagerImpl.h"
@@ -46,7 +46,11 @@ bool FWwiseExternalSourceState::DecrementLoadCount()
 {
 	const auto NewLoadCount = LoadCount.DecrementExchange() - 1;
 	const bool bResult = (NewLoadCount == 0);
-	if (bResult)
+	if (UNLIKELY(NewLoadCount < 0))
+	{
+		UE_LOG(LogWwiseFileHandler, Error, TEXT("ExternalSource State %" PRIu32 " (%s): --LoadCount=%d!"), Cookie, *DebugName.ToString(), NewLoadCount);
+	}
+	else if (bResult)
 	{
 		UE_LOG(LogWwiseFileHandler, VeryVerbose, TEXT("ExternalSource State %" PRIu32 " (%s): --LoadCount=%d. Deleting."), Cookie, *DebugName.ToString(), NewLoadCount);
 	}
@@ -71,7 +75,8 @@ void FWwiseExternalSourceManagerImpl::LoadExternalSource(
 	const FWwiseExternalSourceCookedData& InExternalSourceCookedData, const FName& InRootPath,
 	const FWwiseLanguageCookedData& InLanguage, FLoadExternalSourceCallback&& InCallback)
 {
-	FileHandlerExecutionQueue.Async([this, InExternalSourceCookedData, InRootPath, InLanguage, InCallback = MoveTemp(InCallback)]() mutable
+	SCOPED_WWISEFILEHANDLER_EVENT_4(TEXT("FWwiseExternalSourceManagerImpl::LoadExternalSource"));
+	FileHandlerExecutionQueue.Async(WWISEFILEHANDLER_ASYNC_NAME("FWwiseExternalSourceManagerImpl::LoadExternalSource"), [this, InExternalSourceCookedData, InRootPath, InLanguage, InCallback = MoveTemp(InCallback)]() mutable
 	{
 		LoadExternalSourceImpl(InExternalSourceCookedData, InRootPath, InLanguage, MoveTemp(InCallback));
 	});
@@ -81,7 +86,8 @@ void FWwiseExternalSourceManagerImpl::UnloadExternalSource(
 	const FWwiseExternalSourceCookedData& InExternalSourceCookedData, const FName& InRootPath,
 	const FWwiseLanguageCookedData& InLanguage, FUnloadExternalSourceCallback&& InCallback)
 {
-	FileHandlerExecutionQueue.Async([this, InExternalSourceCookedData, InRootPath, InLanguage, InCallback = MoveTemp(InCallback)]() mutable
+	SCOPED_WWISEFILEHANDLER_EVENT_4(TEXT("FWwiseExternalSourceManagerImpl::UnloadExternalSource"));
+	FileHandlerExecutionQueue.Async(WWISEFILEHANDLER_ASYNC_NAME("FWwiseExternalSourceManagerImpl::UnloadExternalSource"), [this, InExternalSourceCookedData, InRootPath, InLanguage, InCallback = MoveTemp(InCallback)]() mutable
 	{
 		UnloadExternalSourceImpl(InExternalSourceCookedData, InRootPath, InLanguage, MoveTemp(InCallback));
 	});
@@ -89,6 +95,7 @@ void FWwiseExternalSourceManagerImpl::UnloadExternalSource(
 
 void FWwiseExternalSourceManagerImpl::SetGranularity(AkUInt32 InStreamingGranularity)
 {
+	SCOPED_WWISEFILEHANDLER_EVENT_4(TEXT("FWwiseExternalSourceManagerImpl::SetGranularity"));
 	StreamingGranularity = InStreamingGranularity;
 }
 
@@ -97,7 +104,7 @@ TArray<uint32> FWwiseExternalSourceManagerImpl::PrepareExternalSourceInfos(TArra
                                                                            &&
                                                                            InCookedData)
 {
-	SCOPED_WWISEFILEHANDLER_EVENT_2(TEXT("FWwiseExternalSourceManagerImpl::PrepareExternalSourceInfos"));
+	SCOPED_WWISEFILEHANDLER_EVENT(TEXT("FWwiseExternalSourceManagerImpl::PrepareExternalSourceInfos"));
 	if (InCookedData.Num() == 0)
 	{
 		UE_LOG(LogWwiseFileHandler, VeryVerbose, TEXT("PrepareExternalSourceInfos: No External Sources to process"));
@@ -262,7 +269,7 @@ void FWwiseExternalSourceManagerImpl::BindPlayingIdToExternalSources(const uint3
 		return;
 	}
 
-	SCOPED_WWISEFILEHANDLER_EVENT_2(TEXT("FWwiseExternalSourceManagerImpl::BindPlayingIdToExternalSources"));
+	SCOPED_WWISEFILEHANDLER_EVENT(TEXT("FWwiseExternalSourceManagerImpl::BindPlayingIdToExternalSources"));
 	if (UNLIKELY(InPlayingId == AK_INVALID_PLAYING_ID))
 	{
 		UE_LOG(LogWwiseFileHandler, VeryVerbose, TEXT("BindPlayingIdToExternalSources: Failed PostEvent. Unpreparing %d Media."), InMediaIds.Num());
@@ -288,7 +295,7 @@ void FWwiseExternalSourceManagerImpl::BindPlayingIdToExternalSources(const uint3
 				continue;
 			}
 
-			FileHandlerExecutionQueue.Async([this, MediaId, ExternalSourceFileState]() mutable
+			FileHandlerExecutionQueue.Async(WWISEFILEHANDLER_ASYNC_NAME("FWwiseExternalSourceManagerImpl::BindPlayingIdToExternalSources decrement"), [this, MediaId, ExternalSourceFileState]() mutable
 			{
 				// This type is safe as long as we don't decrement its usage
 				if (ExternalSourceFileState->DecrementPlayCount() && ExternalSourceFileState->CanDelete())
@@ -301,24 +308,31 @@ void FWwiseExternalSourceManagerImpl::BindPlayingIdToExternalSources(const uint3
 	else
 	{
 		UE_LOG(LogWwiseFileHandler, VeryVerbose, TEXT("BindPlayingIdToExternalSources: Binding %d ExtSrc Media to Playing ID %" PRIu32 "."), InMediaIds.Num(), InPlayingId);
-		for (const auto MediaId : InMediaIds)
+		if (InMediaIds.Num())
 		{
-			PlayingIdToMediaIds.AddUnique(InPlayingId, MediaId);
+			FScopeLock Lock(&PlayingIdToMediaIdsLock);
+			for (const auto MediaId : InMediaIds)
+			{
+				PlayingIdToMediaIds.AddUnique(InPlayingId, MediaId);
+			}
+			
 		}
 	}
 }
 
 void FWwiseExternalSourceManagerImpl::OnEndOfEvent(const uint32 InPlayingId)
 {
-	if (!PlayingIdToMediaIds.Contains(InPlayingId))
-	{
-		return;
-	}
-
-	SCOPED_WWISEFILEHANDLER_EVENT_2(TEXT("FWwiseExternalSourceManagerImpl::OnEndOfEvent"));
+	SCOPED_WWISEFILEHANDLER_EVENT(TEXT("FWwiseExternalSourceManagerImpl::OnEndOfEvent"));
 	TArray<uint32> MediaIds;
-	PlayingIdToMediaIds.MultiFind(InPlayingId, MediaIds);
-	PlayingIdToMediaIds.Remove(InPlayingId);
+	{
+		FScopeLock Lock(&PlayingIdToMediaIdsLock);
+		if (!PlayingIdToMediaIds.Contains(InPlayingId))
+		{
+			return;
+		}
+		PlayingIdToMediaIds.MultiFind(InPlayingId, MediaIds);
+		PlayingIdToMediaIds.Remove(InPlayingId);
+	}
 	UE_LOG(LogWwiseFileHandler, VeryVerbose, TEXT("OnEndOfEvent: Unbinding %d ExtSrc Media from Playing ID %" PRIu32 "."), MediaIds.Num(), InPlayingId);
 
 	FRWScopeLock Lock(CookieToMediaLock, FRWScopeLockType::SLT_ReadOnly);
@@ -342,7 +356,7 @@ void FWwiseExternalSourceManagerImpl::OnEndOfEvent(const uint32 InPlayingId)
 			UE_LOG(LogWwiseFileHandler, Error, TEXT("OnEndOfEvent: Getting external source media %" PRIu32 ": Could not cast to ExternalSourceState"), MediaId);
 			continue;
 		}
-		FileHandlerExecutionQueue.Async([this, MediaId, ExternalSourceFileState]() mutable
+		FileHandlerExecutionQueue.Async(WWISEFILEHANDLER_ASYNC_NAME("FWwiseExternalSourceManagerImpl::OnEndOfEvent decrement"), [this, MediaId, ExternalSourceFileState]() mutable
 		{
 			// This type is safe as long as we don't decrement its usage
 			if (ExternalSourceFileState->DecrementPlayCount() && ExternalSourceFileState->CanDelete())

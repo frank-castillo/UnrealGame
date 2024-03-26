@@ -12,11 +12,19 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/API_2022_1/WwiseSoundEngineAPI_2022_1.h"
 #include "Wwise/Stats/SoundEngine_2022_1.h"
+
+#include "CoreTypes.h"
+
+#if defined(PLATFORM_MICROSOFT) && PLATFORM_MICROSOFT
+#pragma pack(push)
+#pragma warning(push)
+#pragma warning(disable: 4103)		// alignment changed after including header, may be due to missing #pragma pack(pop)
+#endif // PLATFORM_MICROSOFT
 
 #include "Wwise/PreSoundEngineInclude.h"
 
@@ -43,6 +51,11 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "Generated/AkTVOSPlugins.h"
 #endif
 #include "Wwise/PostSoundEngineInclude.h"
+
+#if defined(PLATFORM_MICROSOFT) && PLATFORM_MICROSOFT
+#pragma warning(pop)
+#pragma pack(pop)
+#endif // PLATFORM_MICROSOFT
 
 FWwiseSoundEngineAPI_2022_1::FWwiseSoundEngineAPI_2022_1():
 	IWwiseSoundEngineAPI(new FQuery, new FAudioInputPlugin)
@@ -169,6 +182,19 @@ AKRESULT FWwiseSoundEngineAPI_2022_1::SetMaxNumVoicesLimit(
 	return AK::SoundEngine::SetMaxNumVoicesLimit(in_maxNumberVoices);
 }
 
+AKRESULT FWwiseSoundEngineAPI_2022_1::SetJobMgrMaxActiveWorkers( 
+	AkJobType in_jobType,
+	AkUInt32 in_uNewMaxActiveWorkers
+	)
+{
+	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
+#if AK_WWISESDK_VERSION_MAJOR == 2022 && AK_WWISESDK_VERSION_MINOR == 1 && AK_WWISESDK_VERSION_SUBMINOR >= 4
+	return AK::SoundEngine::SetJobMgrMaxActiveWorkers(in_jobType, in_uNewMaxActiveWorkers);
+#else
+	return AK_NotImplemented;
+#endif
+}
+
 AKRESULT FWwiseSoundEngineAPI_2022_1::RenderAudio(
 	bool in_bAllowSyncRender
 )
@@ -203,6 +229,16 @@ AKRESULT FWwiseSoundEngineAPI_2022_1::RegisterPluginDLL(
 {
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
 	return AK::SoundEngine::RegisterPluginDLL(in_DllName, in_DllPath);
+}
+
+bool FWwiseSoundEngineAPI_2022_1::IsPluginRegistered(
+	AkPluginType in_eType,
+	AkUInt32 in_ulCompanyID,
+	AkUInt32 in_ulPluginID
+	)
+{
+	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
+	return false;
 }
 
 AKRESULT FWwiseSoundEngineAPI_2022_1::RegisterCodec(
@@ -909,12 +945,41 @@ AKRESULT FWwiseSoundEngineAPI_2022_1::LoadBankMemoryView(
 	AkUInt32			in_uInMemoryBankSize,
 	AkBankCallbackFunc  in_pfnBankCallback,
 	void* in_pCookie,
+	AkBankID& out_bankID
+)
+{
+	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
+	return AK::SoundEngine::LoadBankMemoryView(in_pInMemoryBankPtr, in_uInMemoryBankSize, in_pfnBankCallback, in_pCookie, out_bankID);
+}
+
+AKRESULT FWwiseSoundEngineAPI_2022_1::LoadBankMemoryView(
+	const void* in_pInMemoryBankPtr,
+	AkUInt32			in_uInMemoryBankSize,
+	AkBankCallbackFunc  in_pfnBankCallback,
+	void* in_pCookie,
 	AkBankID& out_bankID,
 	AkBankType& out_bankType
 )
 {
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
 	return AK::SoundEngine::LoadBankMemoryView(in_pInMemoryBankPtr, in_uInMemoryBankSize, in_pfnBankCallback, in_pCookie, out_bankID, out_bankType);
+}
+
+AKRESULT FWwiseSoundEngineAPI_2022_1::LoadBankMemoryCopy(
+	const void* in_pInMemoryBankPtr,
+	AkUInt32			in_uInMemoryBankSize,
+	AkBankCallbackFunc  in_pfnBankCallback,
+	void* in_pCookie,
+	AkBankID& out_bankID
+)
+{
+	AkBankType bankType;
+	
+	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
+	auto Result = AK::SoundEngine::LoadBankMemoryCopy(in_pInMemoryBankPtr, in_uInMemoryBankSize, in_pfnBankCallback, in_pCookie, out_bankID, bankType);
+
+	return LIKELY(Result == AK_Success && bankType == AkBankType_User) ? AK_Success :
+		LIKELY(Result != AK_Success) ? Result : AK_InvalidBankType;
 }
 
 AKRESULT FWwiseSoundEngineAPI_2022_1::LoadBankMemoryCopy(
@@ -1728,12 +1793,12 @@ AKRESULT FWwiseSoundEngineAPI_2022_1::SetObjectObstructionAndOcclusion(
 AKRESULT FWwiseSoundEngineAPI_2022_1::SetMultipleObstructionAndOcclusion(
 	AkGameObjectID in_EmitterID,
 	AkGameObjectID in_uListenerID,
-	AkObstructionOcclusionValues* in_fObstructionAndOcclusionValues,
-	AkUInt32 in_uNumObstructionAndOcclusion
+	AkObstructionOcclusionValues* in_fObstructionOcclusionValues,
+	AkUInt32 in_uNumOcclusionObstruction
 )
 {
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
-	return AK::SoundEngine::SetMultipleObstructionAndOcclusion(in_EmitterID, in_uListenerID, in_fObstructionAndOcclusionValues, in_uNumObstructionAndOcclusion);
+	return AK::SoundEngine::SetMultipleObstructionAndOcclusion(in_EmitterID, in_uListenerID, in_fObstructionOcclusionValues, in_uNumOcclusionObstruction);
 }
 
 AKRESULT FWwiseSoundEngineAPI_2022_1::GetContainerHistory(
@@ -1772,6 +1837,15 @@ AKRESULT FWwiseSoundEngineAPI_2022_1::AddOutputCaptureMarker(
 {
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
 	return AK::SoundEngine::AddOutputCaptureMarker(in_MarkerText);
+}
+
+AKRESULT FWwiseSoundEngineAPI_2022_1::AddOutputCaptureBinaryMarker(
+	void* in_pMarkerData,
+	AkUInt32 in_uMarkerDataSize
+	)
+{
+	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
+	return AK_NotImplemented;
 }
 
 AkUInt32 FWwiseSoundEngineAPI_2022_1::GetSampleRate()
@@ -2003,23 +2077,28 @@ AKRESULT FWwiseSoundEngineAPI_2022_1::FQuery::GetListeners(
 }
 
 AKRESULT FWwiseSoundEngineAPI_2022_1::FQuery::GetListenerPosition(
-	AkGameObjectID in_uIndex,
+	AkGameObjectID in_uListenerID,
 	AkListenerPosition& out_rPosition
 )
 {
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
-	return AK::SoundEngine::Query::GetListenerPosition(in_uIndex, out_rPosition);
+	return AK::SoundEngine::Query::GetListenerPosition(in_uListenerID, out_rPosition);
 }
 
 AKRESULT FWwiseSoundEngineAPI_2022_1::FQuery::GetListenerSpatialization(
-	AkUInt32 in_uIndex,
+	AkGameObjectID in_uListenerID,				///< Listener game object ID. 
 	bool& out_rbSpatialized,
 	AK::SpeakerVolumes::VectorPtr& out_pVolumeOffsets,
 	AkChannelConfig& out_channelConfig
 )
 {
 	SCOPE_CYCLE_COUNTER(STAT_WwiseSoundEngineAPI_2022_1);
-	return AK::SoundEngine::Query::GetListenerSpatialization(in_uIndex, out_rbSpatialized, out_pVolumeOffsets, out_channelConfig);
+#if AK_WWISESDK_VERSION_MAJOR == 2022 && AK_WWISESDK_VERSION_MINOR == 1 && AK_WWISESDK_VERSION_SUBMINOR <= 7
+	const auto uIndex = static_cast<uint32_t>(in_uListenerID);
+	return AK::SoundEngine::Query::GetListenerSpatialization(uIndex, out_rbSpatialized, out_pVolumeOffsets, out_channelConfig);
+#else
+	return AK::SoundEngine::Query::GetListenerSpatialization(in_uListenerID, out_rbSpatialized, out_pVolumeOffsets, out_channelConfig);
+#endif
 }
 
 AKRESULT FWwiseSoundEngineAPI_2022_1::FQuery::GetRTPCValue(

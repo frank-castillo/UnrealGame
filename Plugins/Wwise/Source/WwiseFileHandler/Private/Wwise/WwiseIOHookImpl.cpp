@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #include "Wwise/WwiseIOHookImpl.h"
@@ -27,7 +27,7 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include "Wwise/Stats/AsyncStats.h"
 
 #include "WwiseDefines.h"
-#include "AkUnrealHelper.h"
+#include "WwiseUnrealDefines.h"
 
 #include "Async/Async.h"
 #if UE_5_0_OR_LATER
@@ -39,7 +39,7 @@ Copyright (c) 2023 Audiokinetic Inc.
 #include <inttypes.h>
 
 FWwiseIOHookImpl::FWwiseIOHookImpl() :
-	BatchExecutionQueue(TEXT("Wwise IO Hook Batch"), TPri_AboveNormal)		// AboveNormal is equivalent to GIOThreadPool.
+	BatchExecutionQueue(TEXT("Wwise IO Hook Batch"), EWwiseTaskPriority::High)
 #ifndef AK_OPTIMIZED
 	,
 	CurrentDeviceData(0),
@@ -50,6 +50,7 @@ FWwiseIOHookImpl::FWwiseIOHookImpl() :
 
 bool FWwiseIOHookImpl::Init(const AkDeviceSettings& InDeviceSettings)
 {
+	SCOPED_WWISEFILEHANDLER_EVENT_2(TEXT("FWwiseIOHookImpl::Init"));
 	auto* ExternalSourceManager = IWwiseExternalSourceManager::Get();
 	if (LIKELY(ExternalSourceManager))
 	{
@@ -207,9 +208,12 @@ AKRESULT FWwiseIOHookImpl::Read(
 			{
 				UE_LOG(LogWwiseFileHandler, Verbose, TEXT("FWwiseIOHookImpl::Read [%p]: No callback reading data"), AK_FILEHANDLE_TO_UINTPTR(hFile));
 			}
-			SCOPED_WWISEFILEHANDLER_EVENT_3(TEXT("FWwiseIOHookImpl::Read SoundEngine Callback"));
-			FWwiseAsyncCycleCounter CallbackCycleCounter(GET_STATID(STAT_WwiseFileHandlerSoundEngineCallbackLatency));
-			InTransferInfo->pCallback(InTransferInfo, InResult);
+			else
+			{
+				SCOPED_WWISEFILEHANDLER_EVENT_3(TEXT("FWwiseIOHookImpl::Read SoundEngine Callback"));
+				FWwiseAsyncCycleCounter CallbackCycleCounter(GET_STATID(STAT_WwiseFileHandlerSoundEngineCallbackLatency));
+				InTransferInfo->pCallback(InTransferInfo, InResult);
+			}
 		});
 	return Result;
 }
@@ -223,9 +227,8 @@ void FWwiseIOHookImpl::BatchRead(
 	FWwiseAsyncCycleCounter OpCycleCounter(GET_STATID(STAT_WwiseFileHandlerIORequestLatency));
 	ASYNC_INC_DWORD_STAT(STAT_WwiseFileHandlerBatchedRequests);
 
-	BatchExecutionQueue.Async([this, TransferItems = TArray<BatchIoTransferItem>(in_pTransferItems, in_uNumTransfers)]() mutable
+	BatchExecutionQueue.Async(WWISEFILEHANDLER_ASYNC_NAME("FWwiseIOHookImpl::BatchRead Async"), [this, TransferItems = TArray<BatchIoTransferItem>(in_pTransferItems, in_uNumTransfers)]() mutable
 	{
-		SCOPED_WWISEFILEHANDLER_EVENT_3(TEXT("FWwiseIOHookImpl::BatchRead Async"));
 		for (auto& TransferItem : TransferItems)
 		{
 			auto& FileDesc = *TransferItem.pFileDesc;
@@ -294,9 +297,13 @@ AKRESULT FWwiseIOHookImpl::Write(
 			{
 				UE_LOG(LogWwiseFileHandler, Verbose, TEXT("FWwiseIOHookImpl::Write [%p]: No callback reading data"), AK_FILEHANDLE_TO_UINTPTR(hFile));
 			}
-			SCOPED_WWISEFILEHANDLER_EVENT_3(TEXT("FWwiseIOHookImpl::Write SoundEngine Callback"));
-			FWwiseAsyncCycleCounter CallbackCycleCounter(GET_STATID(STAT_WwiseFileHandlerSoundEngineCallbackLatency));
-			InTransferInfo->pCallback(InTransferInfo, InResult);
+			else
+			{
+				SCOPED_WWISEFILEHANDLER_EVENT_3(TEXT("FWwiseIOHookImpl::Write SoundEngine Callback"));
+				FWwiseAsyncCycleCounter CallbackCycleCounter(GET_STATID(STAT_WwiseFileHandlerSoundEngineCallbackLatency));
+				InTransferInfo->pCallback(InTransferInfo, InResult);
+			}
+
 		});
 	return Result;
 }
@@ -310,9 +317,8 @@ void FWwiseIOHookImpl::BatchWrite(
 	FWwiseAsyncCycleCounter OpCycleCounter(GET_STATID(STAT_WwiseFileHandlerIORequestLatency));
 	ASYNC_INC_DWORD_STAT(STAT_WwiseFileHandlerBatchedRequests);
 
-	BatchExecutionQueue.Async([this, TransferItems = TArray<BatchIoTransferItem>(in_pTransferItems, in_uNumTransfers)]() mutable
+	BatchExecutionQueue.Async(WWISEFILEHANDLER_ASYNC_NAME("FWwiseIOHookImpl::BatchWrite Async"), [this, TransferItems = TArray<BatchIoTransferItem>(in_pTransferItems, in_uNumTransfers)]() mutable
 	{
-		SCOPED_WWISEFILEHANDLER_EVENT_3(TEXT("FWwiseIOHookImpl::BatchWrite Async"));
 		for (auto& TransferItem : TransferItems)
 		{
 			auto& FileDesc = *TransferItem.pFileDesc;
@@ -433,6 +439,7 @@ IWwiseStreamingManagerHooks* FWwiseIOHookImpl::GetStreamingHooks(const AkFileSys
 
 AKRESULT FWwiseIOHookImpl::OpenFileForWrite(AkAsyncFileOpenData* io_pOpenData)
 {
+	SCOPED_WWISEFILEHANDLER_EVENT_3(TEXT("FWwiseIOHookImpl::OpenFileForWrite"));
 	const auto TargetDirectory = FPaths::ProjectSavedDir() / TEXT("Wwise");
 	static bool TargetDirectoryExists = false;
 	if (!TargetDirectoryExists && !FPaths::DirectoryExists(TargetDirectory))

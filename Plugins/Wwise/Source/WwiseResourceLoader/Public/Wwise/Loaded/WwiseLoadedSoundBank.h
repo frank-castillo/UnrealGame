@@ -12,7 +12,7 @@ Licensees holding valid licenses to the AUDIOKINETIC Wwise Technology may use
 this file in accordance with the end user license agreement provided with the
 software or, alternatively, in accordance with the terms contained
 in a written agreement between you and Audiokinetic Inc.
-Copyright (c) 2023 Audiokinetic Inc.
+Copyright (c) 2024 Audiokinetic Inc.
 *******************************************************************************/
 
 #pragma once
@@ -36,6 +36,7 @@ struct WWISERESOURCELOADER_API FWwiseLoadedSoundBankInfo
 		FLoadedData& operator=(const FLoadedData&) = delete;
 
 		bool bLoaded = false;
+		int IsProcessing{0};
 
 		bool IsLoaded() const;
 	} LoadedData;
@@ -49,6 +50,7 @@ private:
 
 using FWwiseLoadedSoundBankList = TDoubleLinkedList<FWwiseLoadedSoundBankInfo>;
 using FWwiseLoadedSoundBankListNode = FWwiseLoadedSoundBankList::TDoubleLinkedListNode;
-using FWwiseLoadedSoundBank = FWwiseLoadedSoundBankListNode*;
-using FWwiseLoadedSoundBankPromise = TWwisePromise<FWwiseLoadedSoundBank>;
-using FWwiseLoadedSoundBankFuture = TWwiseFuture<FWwiseLoadedSoundBank>;
+using FWwiseLoadedSoundBankPtr = FWwiseLoadedSoundBankListNode*;
+using FWwiseLoadedSoundBankPtrAtomic = std::atomic<FWwiseLoadedSoundBankPtr>;
+using FWwiseLoadedSoundBankPromise = TWwisePromise<FWwiseLoadedSoundBankPtr>;
+using FWwiseLoadedSoundBankFuture = TWwiseFuture<FWwiseLoadedSoundBankPtr>;
