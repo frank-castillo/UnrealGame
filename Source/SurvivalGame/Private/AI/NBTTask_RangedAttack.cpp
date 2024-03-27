@@ -25,8 +25,6 @@ EBTNodeResult::Type UNBTTask_RangedAttack::ExecuteTask(UBehaviorTreeComponent& O
             return EBTNodeResult::Failed;
         }
 
-        FVector MuzzleLocation = MyPawn->GetMesh()->GetSocketLocation("Muzzle_Front_XForward");
-
         AActor* TargetActor = Cast<AActor>(OwnerComp.GetBlackboardComponent()->GetValueAsObject("TargetActor"));
 
         if (TargetActor == nullptr)
@@ -34,11 +32,12 @@ EBTNodeResult::Type UNBTTask_RangedAttack::ExecuteTask(UBehaviorTreeComponent& O
             return EBTNodeResult::Failed;
         }
 
-        if (UNPlayerAttributesComponent::IsActorAlive(TargetActor))
+        if (!UNPlayerAttributesComponent::IsActorAlive(TargetActor))
         {
             return EBTNodeResult::Failed;
         }
 
+        FVector MuzzleLocation = MyPawn->GetMesh()->GetSocketLocation("Muzzle_Front_XForward");
         FVector Direction = TargetActor->GetActorLocation() - MuzzleLocation; // Direction Vector pointing to target actor target - origin
         FRotator MuzzleRotation = Direction.Rotation();
 

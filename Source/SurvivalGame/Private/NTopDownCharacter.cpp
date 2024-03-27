@@ -79,7 +79,19 @@ void ANTopDownCharacter::OnHealthChanged(AActor* InstigatorActor, UNPlayerAttrib
     if (NewHealth <= 0.0f && Delta < 0.0f)
     {
         APlayerController* PC = Cast<APlayerController>(this->GetController());
+        PC->bBlockInput = true;
         DisableInput(PC);
+
+        ANPlayerController* NPC = Cast<ANPlayerController>(GetController());
+        NPC->bBlockInput = true;
+        DisableInput(NPC);
+
+        PC->SetIgnoreMoveInput(true);
+        PC->SetIgnoreLookInput(true);
+
+        NPC->SetIgnoreMoveInput(true);
+        NPC->SetIgnoreLookInput(true);
+
         SetLifeSpan(5.0f);
     }
 }
