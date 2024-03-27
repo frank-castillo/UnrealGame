@@ -42,6 +42,9 @@ protected:
 
     void LocalRotation(FRotator NewRotation);
 
+    UFUNCTION()
+    void OnHealthChanged(AActor* InstigatorActor, UNPlayerAttributesComponent* OwningComp, float NewHealth, float Delta);
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

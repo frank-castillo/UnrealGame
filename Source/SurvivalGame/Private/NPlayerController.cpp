@@ -9,6 +9,7 @@
 #include <UMG/Public/Components/Widget.h>
 #include "UMG/Public/Blueprint/UserWidget.h"
 #include "NTopDownCharacter.h"
+#include "../../Engine/Classes/Kismet/KismetMathLibrary.h"
 
 ANPlayerController::ANPlayerController()
 {
@@ -127,4 +128,14 @@ void ANPlayerController::Evade(const FInputActionValue& Value)
 void ANPlayerController::Shoot(const FInputActionValue& Value)
 {
 
+}
+
+void ANPlayerController::Tick(float DeltaTime)
+{
+    FHitResult MouseHit;
+    GetHitResultUnderCursor(ECC_Visibility, false, MouseHit);
+    FVector ImpactPoint = MouseHit.ImpactPoint;
+    FRotator NewRotation = FRotator(0, UKismetMathLibrary::FindLookAtRotation(GetPawn()->GetActorLocation(), ImpactPoint).Yaw, 0);
+    APawn* MyPawn = GetPawn();
+    MyPawn->SetActorRotation(NewRotation);
 }

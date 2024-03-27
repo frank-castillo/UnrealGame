@@ -88,4 +88,6 @@ protected:
     void Evade(const FInputActionValue& Value);
 
     void Shoot(const FInputActionValue& Value);
+
+    virtual void Tick(float DeltaTime) override;
 };

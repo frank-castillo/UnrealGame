@@ -49,13 +49,13 @@ ANTopDownCharacter::ANTopDownCharacter()
 void ANTopDownCharacter::BeginPlay()
 {
     Super::BeginPlay();
-
-    Controller = GetController<ANPlayerController>();
 }
 
 void ANTopDownCharacter::PostInitializeComponents()
 {
     Super::PostInitializeComponents();
+
+    AttributeComp->OnHealthChanged.AddDynamic(this, &ANTopDownCharacter::OnHealthChanged);
 }
 
 void ANTopDownCharacter::ServerSetActorRotation_Implementation(FRotator NewRotation)
@@ -69,17 +69,32 @@ void ANTopDownCharacter::LocalRotation(FRotator NewRotation)
     SetActorRotation(NewRotation);
 }
 
+void ANTopDownCharacter::OnHealthChanged(AActor* InstigatorActor, UNPlayerAttributesComponent* OwningComp, float NewHealth, float Delta)
+{
+    if (Delta < 0.0f)
+    {
+        // Logic for getting damaged
+    }
+
+    if (NewHealth <= 0.0f && Delta < 0.0f)
+    {
+        APlayerController* PC = Cast<APlayerController>(this->GetController());
+        DisableInput(PC);
+        SetLifeSpan(5.0f);
+    }
+}
+
 // Called every frame
 void ANTopDownCharacter::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
-    if (Controller)
+    /*if (Controller)
     {
         FHitResult MouseHit;
         Controller->GetHitResultUnderCursor(ECC_Visibility, false, MouseHit);
         FVector ImpactPoint = MouseHit.ImpactPoint;
         FRotator NewRotation = FRotator(0, UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), ImpactPoint).Yaw, 0);
         LocalRotation(NewRotation);
-    }
+    }*/
 }

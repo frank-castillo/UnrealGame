@@ -23,7 +23,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Attributes", meta = (DisplayName = "IsAlive"))
     static bool IsActorAlive(AActor* Actor);
 
-protected:
+public:
 
 	// EditAnywhere - edit in BP editor and per-instance in level
 	// VisibleAnywhere - "read-only" in editor and level. (Use for components)
@@ -59,6 +59,8 @@ protected:
 
     UPROPERTY(BlueprintAssignable, Category = "Attributes")
     FOnAttributeChanged OnHealthChanged;
+
+protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Replicated, Category = "Attributes")
 	float Health;
