@@ -16,6 +16,7 @@ ANAICharacter::ANAICharacter()
     AttributeComp = CreateDefaultSubobject<UNPlayerAttributesComponent>(TEXT("AttributeComp"));
     PawnSensingComp = CreateDefaultSubobject<UPawnSensingComponent>(TEXT("PawnSensingComp"));
     AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
+    DestructionTime = 2.0f;
 }
 
 void ANAICharacter::PostInitializeComponents()
@@ -51,7 +52,7 @@ void ANAICharacter::OnHealthChanged(AActor* InstigatorActor, UNPlayerAttributesC
             GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
             GetCharacterMovement()->DisableMovement();
 
-            SetLifeSpan(5.0f);
+            SetLifeSpan(DestructionTime);
         }
     }
 }

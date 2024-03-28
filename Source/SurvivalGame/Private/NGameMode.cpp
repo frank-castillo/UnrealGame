@@ -47,13 +47,16 @@ void ANGameMode::OnActorKilled(AActor* VictimActor, AActor* Killer)
 
     if (Player)
     {
+        AController* MyPlayerController = Player->GetController();
+        MyPlayerController->UnPossess();
+
         // We do not store the character because if we reuse the handle, then we will never respawn the player that died as it would get overwritten
         // Using a local variable solves this as it will get instantiated in memory and live independent per character we have
         FTimerHandle TimerHandle_RespawnDelay;
 
         // Pass who we respawn
         FTimerDelegate Delegate;
-        Delegate.BindUFunction(this, "RespawnPlayerElapsed", Player->GetController());
+        Delegate.BindUFunction(this, "RespawnPlayerElapsed", MyPlayerController);
 
         GetWorldTimerManager().SetTimer(TimerHandle_RespawnDelay, Delegate, RespawnDelay, false);
 
@@ -71,7 +74,7 @@ void ANGameMode::RespawnPlayerElapsed(AController* Controller)
     if (ensure(Controller))
     {
         // Remove control and detach from us -> this ensures a proper clean copy of the character
-        Controller->UnPossess();
+        //Controller->UnPossess();
         RestartPlayer(Controller);
     }
 }
@@ -100,7 +103,7 @@ void ANGameMode::SpawnBotTimerElapsed()
     if (NumberOfAliveBots >= MaxBotCount)
     {
         UE_LOG(LogTemp, Warning, TEXT("At Max bot capacity! Skipping spawn."))
-        return;
+            return;
     }
 
     UEnvQueryInstanceBlueprintWrapper* QueryInstance = UEnvQueryManager::RunEQSQuery(this, SpawnBotQuery, this, EEnvQueryRunMode::RandomBest5Pct, nullptr);
@@ -115,7 +118,7 @@ void ANGameMode::OnQueryCompleted(UEnvQueryInstanceBlueprintWrapper* QueryInstan
 {
     if (QueryStatus != EEnvQueryStatus::Success)
     {
-        UE_LOG(LogTemp, Fatal, TEXT("Spawn bot EQS Query failed"));
+        UE_LOG(LogTemp, Warning, TEXT("Spawn bot EQS Query failed"));
         return;
     }
 

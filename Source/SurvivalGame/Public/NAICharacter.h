@@ -36,4 +36,7 @@ protected:
 
     UPROPERTY(VisibleAnywhere, Category = "Components")
     UPawnSensingComponent* PawnSensingComp;
+
+    UPROPERTY(EditDefaultsOnly, Category = "Destruction")
+    float DestructionTime;
 };
