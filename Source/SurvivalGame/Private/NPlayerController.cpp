@@ -10,11 +10,16 @@
 #include "UMG/Public/Blueprint/UserWidget.h"
 #include "NTopDownCharacter.h"
 #include "../../Engine/Classes/Kismet/KismetMathLibrary.h"
+#include "../../Engine/Classes/Components/SkeletalMeshComponent.h"
+#include <Kismet/GameplayStatics.h>
+#include <GameFramework/Character.h>
+#include "../../CoreUObject/Public/UObject/NoExportTypes.h"
 
 ANPlayerController::ANPlayerController()
 {
     bShowMouseCursor = true;
     DefaultMouseCursor = EMouseCursor::Default;
+    MuzzleSocket = TEXT("MuzzleStationary");
 }
 
 void ANPlayerController::TogglePauseMenu()
@@ -56,7 +61,7 @@ void ANPlayerController::BeginPlayingState()
 void ANPlayerController::OnRep_PlayerState()
 {
     Super::OnRep_PlayerState();
-    
+
     OnPlayerStateReceived.Broadcast(PlayerState);
 }
 
@@ -78,6 +83,8 @@ void ANPlayerController::SetupInputComponent()
 
         // In-Game Menu
         EnhancedInputComponent->BindAction(OpenInGameMenuAction, ETriggerEvent::Triggered, this, &ANPlayerController::TogglePauseMenu);
+
+        EnhancedInputComponent->BindAction(MouseAction, ETriggerEvent::Triggered, this, &ANPlayerController::MouseLookAround);
     }
 }
 
@@ -127,15 +134,39 @@ void ANPlayerController::Evade(const FInputActionValue& Value)
 
 void ANPlayerController::Shoot(const FInputActionValue& Value)
 {
+    APawn* MyPawn = GetPawn();
 
+    if (MyPawn)
+    {
+        FVector ActorIsFacing = MyPawn->GetActorForwardVector();
+
+        USkeletalMeshComponent* PawnMesh = MyPawn->GetComponentByClass<USkeletalMeshComponent>();
+
+        FTransform MuzzleLocation = PawnMesh->GetSocketTransform(MuzzleSocket);
+
+        FActorSpawnParameters Params;
+        Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+        Params.Instigator = MyPawn;
+
+        AActor* NewProj = GetWorld()->SpawnActor<AActor>(ProjectileClass, MuzzleLocation, Params);
+    }
 }
 
-void ANPlayerController::Tick(float DeltaTime)
+void ANPlayerController::MouseLookAround(const FInputActionValue& Value)
 {
+    FVector2D MousePosition;
+    GetMousePosition(MousePosition.X, MousePosition.Y);
+
     FHitResult MouseHit;
-    GetHitResultUnderCursor(ECC_Visibility, false, MouseHit);
+    GetHitResultAtScreenPosition(MousePosition, ECC_Visibility, false, MouseHit);
+    //GetHitResultUnderCursor(ECC_Visibility, false, MouseHit);
     FVector ImpactPoint = MouseHit.ImpactPoint;
-    FRotator NewRotation = FRotator(0, UKismetMathLibrary::FindLookAtRotation(GetPawn()->GetActorLocation(), ImpactPoint).Yaw, 0);
     APawn* MyPawn = GetPawn();
-    MyPawn->SetActorRotation(NewRotation);
+
+    if (MyPawn)
+    {
+        FRotator NewRotation = UKismetMathLibrary::FindLookAtRotation(GetPawn()->GetActorLocation(), ImpactPoint);
+        //FRotator CurrentRotation = MyPawn->GetActorRotation();
+        MyPawn->SetActorRotation(NewRotation);
+    }
 }

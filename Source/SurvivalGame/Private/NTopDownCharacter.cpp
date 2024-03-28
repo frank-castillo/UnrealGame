@@ -78,11 +78,11 @@ void ANTopDownCharacter::OnHealthChanged(AActor* InstigatorActor, UNPlayerAttrib
 
     if (NewHealth <= 0.0f && Delta < 0.0f)
     {
-        APlayerController* PC = Cast<APlayerController>(this->GetController());
+        /*APlayerController* PC = Cast<APlayerController>(this->GetController());
         PC->bBlockInput = true;
         DisableInput(PC);
 
-        ANPlayerController* NPC = Cast<ANPlayerController>(GetController());
+        
         NPC->bBlockInput = true;
         DisableInput(NPC);
 
@@ -90,7 +90,11 @@ void ANTopDownCharacter::OnHealthChanged(AActor* InstigatorActor, UNPlayerAttrib
         PC->SetIgnoreLookInput(true);
 
         NPC->SetIgnoreMoveInput(true);
-        NPC->SetIgnoreLookInput(true);
+        NPC->SetIgnoreLookInput(true);*/
+
+        ANPlayerController* NPC = Cast<ANPlayerController>(GetController());
+        bBlockInput = true;
+        //UnPossessed();
 
         SetLifeSpan(5.0f);
     }
@@ -105,7 +109,8 @@ void ANTopDownCharacter::Tick(float DeltaTime)
     {
         FHitResult MouseHit;
         Controller->GetHitResultUnderCursor(ECC_Visibility, false, MouseHit);
-        FVector ImpactPoint = MouseHit.ImpactPoint;
+        FVector ImpactPoint = 
+        Hit.ImpactPoint;
         FRotator NewRotation = FRotator(0, UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), ImpactPoint).Yaw, 0);
         LocalRotation(NewRotation);
     }*/

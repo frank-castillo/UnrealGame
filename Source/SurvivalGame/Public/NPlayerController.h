@@ -48,8 +48,17 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
     class UInputAction* OpenInGameMenuAction;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+    UInputAction* MouseAction;
+
     UPROPERTY(EditDefaultsOnly, Category ="UI")
     TSubclassOf<UUserWidget> PauseMenuClass;
+
+    UPROPERTY(EditDefaultsOnly, Category = "Projectile")
+    TSubclassOf<AActor> ProjectileClass;
+
+    UPROPERTY(VisibleAnywhere, Category = "Projectile")
+    FName MuzzleSocket;
 
     UPROPERTY()
     UUserWidget* PauseMenuInstance;
@@ -89,5 +98,5 @@ protected:
 
     void Shoot(const FInputActionValue& Value);
 
-    virtual void Tick(float DeltaTime) override;
+    void MouseLookAround(const FInputActionValue& Value);
 };
